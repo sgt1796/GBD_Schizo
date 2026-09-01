@@ -1,6 +1,6 @@
 source_role,gbd_release,file,retrieval_date,dimensions,status
-burden estimates,GBD 2023,C:\Users\sgt17\OneDrive\Desktop\schizo_GBD\prepared_inputs\cause_all.csv,not recorded in source archive,China; United States; 1990-2023; Female; Male; incidence; prevalence; YLD; DALY; counts and rates,included
-population denominators,UNVERIFIED - PROVISIONAL ONLY,derived from burden count/rate pairs,2026-07-07,China; United States; 1990-2023; Female; Male; ages 15-19 through 70+,derived_proxy_NOT_OFFICIAL
-GBD percent metric,GBD 2023,C:\Users\sgt17\OneDrive\Desktop\schizo_GBD\prepared_inputs\cause_all.csv,not applicable,mixed measure-specific denominators,excluded
+burden estimates,GBD 2023,C:\Users\tracy\Desktop\GBD_Schizo\prepared_inputs\cause_all.csv,not recorded in source archive,China; United States; 1990-2023; Female; Male; incidence; prevalence; YLD; DALY; counts and rates,included
+population denominators,UNVERIFIED - PROVISIONAL ONLY,derived from burden count/rate pairs,2026-09-01,China; United States; 1990-2023; Female; Male; ages 15-19 through 70+,derived_proxy_NOT_OFFICIAL
+GBD percent metric,GBD 2023,C:\Users\tracy\Desktop\GBD_Schizo\prepared_inputs\cause_all.csv,not applicable,mixed measure-specific denominators,excluded
 probability of death,GBD 2023,prepared_inputs/GBD_1990_2023_ProbabilityOfDeath_ChinaUS_Schizophrenia.csv,not applicable,not a schizophrenia-specific causal outcome,excluded
 risk factor extract,GBD 2023,schizo/IHME-GBD_2023_DATA-5ef7a575-1.zip,not applicable,single sexual-violence risk branch,excluded

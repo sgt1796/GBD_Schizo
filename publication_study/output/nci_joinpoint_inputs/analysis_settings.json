@@ -1,5 +1,7 @@
 {
-  "software": "NCI Joinpoint 6.0.1",
+  "software": "NCI Joinpoint Regression Program",
+  "software_version": "record exact installed version at execution",
+  "role": "optional validation of descriptive curve shape; not the primary inferential analysis",
   "log_transformation": true,
   "min_joinpoints": 0,
   "max_joinpoints": 2,
@@ -8,5 +10,6 @@
   "alpha": 0.05,
   "primary_error_model": "homoscedastic",
   "sensitivity_error_model": "log SE approximated from native GBD UI",
-  "status": "requires user registration and execution in official NCI software"
+  "inference_note": "Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.",
+  "status": "optional; requires user registration and execution in official NCI software"
 }

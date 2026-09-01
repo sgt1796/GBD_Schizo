@@ -7,28 +7,29 @@ Preparation method: combine only full-period GBD 2023 downloads; no historical/n
 Sex strata: Female, Male
 Upper age bin in source data: 70+ years
 
-Cause of death or injury sources:
-- IHME-GBD_2023_DATA-8a231d74-1.zip: 11,832 rows
-- IHME-GBD_2023_DATA-d3e13215-1.zip: 11,968 rows
+Burden estimate sources:
+- IHME-GBD_2023_DATA-8a231d74-1.zip: 11,832 rows; SHA-256 03f1a593638c89f1cff9c8e13514b5e9f4375d6f182457dd872c79f4a290ddb2
+- IHME-GBD_2023_DATA-d3e13215-1.zip: 11,968 rows; SHA-256 529cdd8a722ede466dfaff2461272d546511c5cd38e8a8402095a4999fabbe17
 - combined: 23,800 rows; no duplicate dimensional keys; years 1990-2023
 - measures: DALYs (Disability-Adjusted Life Years), Incidence, Prevalence, YLDs (Years Lived with Disability)
 - ages: 0-14 years, 15-19 years, 20-24 years, 25-29 years, 30-34 years, 35-39 years, 40-44 years, 45-49 years, 50-54 years, 55-59 years, 60-64 years, 65-69 years, 70+ years, Age-standardized, All ages
 
 Probability of death sources:
-- IHME-GBD_2023_DATA-8d0bd0df-1.zip: 1,904 rows
+- IHME-GBD_2023_DATA-8d0bd0df-1.zip: 1,904 rows; SHA-256 646fd6634401f235c06a81f426cbd047c7936da21fed681c4a76ebfb07b1e075
 - combined: 1,904 rows; no duplicate dimensional keys; years 1990-2023
 - ages: 0-14 years, 15-19 years, 20-24 years, 25-29 years, 30-34 years, 35-39 years, 40-44 years, 45-49 years, 50-54 years, 55-59 years, 60-64 years, 65-69 years, 70+ years, All ages
 
 Risk-factor sources intentionally omitted:
-- IHME-GBD_2023_DATA-5ef7a575-1.zip: 16,728 rows; rei labels in source: Behavioral risks, Sexual violence against children, Sexual violence against children and bullying; not written because these labels represent a single sexual-violence risk branch rather than a multi-risk analytic table.
+- IHME-GBD_2023_DATA-5ef7a575-1.zip: 16,728 rows; SHA-256 e28f9a03992079314e752dd725f4199ebe4d36e46884f801ae451723f812826e; rei labels in source: Behavioral risks, Sexual violence against children, Sexual violence against children and bullying; not written because these labels represent a single sexual-violence risk branch rather than a multi-risk analytic table.
 
 Prepared tables:
-- cause_all.csv: 23,800 rows
-- GBD_1990_2023_ProbabilityOfDeath_ChinaUS_Schizophrenia.csv: 1,904 rows
+- cause_all.csv: 23,800 rows; SHA-256 4a6755cd38e14021805d723bbe9b8849e9aa4e0f3cca1201b506420b044096d5
+- GBD_1990_2023_ProbabilityOfDeath_ChinaUS_Schizophrenia.csv: 1,904 rows; SHA-256 32ebf2c6e807dd11dab1a160a020155db127c6d4375d9fe9bbe3f408513cca81
 
-Consumer compatibility:
-- Output CSV columns match the corresponding breast cancer prepared input schemas.
-- The schizophrenia cause table keeps both Female and Male strata.
+Preparation notes:
+- Source archives contain the IHME GBD 2023 citation text.
+- Retrieval date is not encoded in the archives and must be confirmed before submission.
+- Prepared tables preserve the source columns and both Female and Male strata.
 - No schizophrenia risk-factor table was generated.
 
 Validation warnings: none

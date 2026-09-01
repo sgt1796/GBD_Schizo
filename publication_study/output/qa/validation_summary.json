@@ -9,5 +9,7 @@
   "primary_outputs_exclude_percent_metric": true,
   "population_is_official_gbd_2023": false,
   "official_nci_results_imported": false,
+  "internal_validation_passed": true,
+  "formal_trend_inference_performed": false,
   "submission_ready": false
 }

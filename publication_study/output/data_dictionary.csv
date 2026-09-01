@@ -68,15 +68,28 @@ sex_contrasts,derived_uncertainty_note,object,Derived uncertainty note,none/not 
 segmented_summary,location_name,object,Location name,none/not applicable
 segmented_summary,sex_name,object,Sex name,none/not applicable
 segmented_summary,measure_name,object,Measure name,none/not applicable
+segmented_summary,start_year,int64,Start year,none/not applicable
+segmented_summary,end_year,int64,End year,none/not applicable
 segmented_summary,joinpoint_count,int64,Joinpoint count,none/not applicable
 segmented_summary,joinpoint_years,object,Joinpoint years,none/not applicable
+segmented_summary,selection_method,object,Selection method,none/not applicable
+segmented_summary,selected_bic,float64,Selected bic,none/not applicable
+segmented_summary,candidate_bic_0_joinpoints,float64,Candidate bic 0 joinpoints,none/not applicable
+segmented_summary,candidate_bic_1_joinpoint,float64,Candidate bic 1 joinpoint,none/not applicable
+segmented_summary,candidate_bic_2_joinpoints,float64,Candidate bic 2 joinpoints,none/not applicable
+segmented_summary,aapc,float64,Average annual percentage change,none/not applicable
+segmented_summary,observed_endpoint_aapc,float64,Observed endpoint aapc,none/not applicable
 segmented_summary,permutation_p_0_vs_1,float64,Permutation p 0 vs 1,none/not applicable
 segmented_summary,permutation_p_1_vs_2,float64,Permutation p 1 vs 2,none/not applicable
-segmented_summary,aapc,float64,Average annual percentage change,none/not applicable
-segmented_summary,aapc_lower_model_ci,float64,Aapc lower model ci,model-based
-segmented_summary,aapc_upper_model_ci,float64,Aapc upper model ci,model-based
+segmented_summary,aapc_lower_model_ci,float64,Aapc lower model ci,not estimated
+segmented_summary,aapc_upper_model_ci,float64,Aapc upper model ci,not estimated
+segmented_summary,formal_inference_performed,bool,Whether hypothesis tests or confidence intervals were treated as valid for GBD estimates,none/not applicable
 segmented_summary,model_label,object,Model label,none/not applicable
+segmented_summary,inference_note,object,Inference note,none/not applicable
 segmented_summary,permutations,int64,Permutations,none/not applicable
+segmented_summary,lag1_residual_autocorrelation,float64,Descriptive lag-one correlation of fitted log-rate residuals,none/not applicable
+segmented_summary,durbin_watson,float64,Descriptive Durbin-Watson residual statistic; not used for inference,none/not applicable
+segmented_summary,material_residual_autocorrelation,bool,Material residual autocorrelation,none/not applicable
 segmented_segments,location_name,object,Location name,none/not applicable
 segmented_segments,sex_name,object,Sex name,none/not applicable
 segmented_segments,measure_name,object,Measure name,none/not applicable
@@ -84,8 +97,10 @@ segmented_segments,segment_index,int64,Segment index,none/not applicable
 segmented_segments,start_year,int64,Start year,none/not applicable
 segmented_segments,end_year,int64,End year,none/not applicable
 segmented_segments,apc,float64,Apc,none/not applicable
-segmented_segments,apc_lower_model_ci,float64,Apc lower model ci,model-based
-segmented_segments,apc_upper_model_ci,float64,Apc upper model ci,model-based
+segmented_segments,apc_lower_model_ci,float64,Apc lower model ci,not estimated
+segmented_segments,apc_upper_model_ci,float64,Apc upper model ci,not estimated
+segmented_segments,formal_inference_performed,bool,Whether hypothesis tests or confidence intervals were treated as valid for GBD estimates,none/not applicable
+segmented_segments,inference_note,object,Inference note,none/not applicable
 segmented_fitted,location_name,object,Location name,none/not applicable
 segmented_fitted,sex_name,object,Sex name,none/not applicable
 segmented_fitted,measure_name,object,Measure name,none/not applicable
@@ -95,19 +110,27 @@ segmented_fitted,lower,float64,Lower native 95% GBD uncertainty bound,native GBD
 segmented_fitted,upper,float64,Upper native 95% GBD uncertainty bound,native GBD UI
 segmented_fitted,fitted,float64,Fitted,none/not applicable
 segmented_fitted,joinpoint_years,object,Joinpoint years,none/not applicable
-pairwise_parallelism,comparison_family,object,Comparison family,none/not applicable
-pairwise_parallelism,stratum,object,Stratum,none/not applicable
-pairwise_parallelism,measure_name,object,Measure name,none/not applicable
-pairwise_parallelism,group_a,object,Group a,none/not applicable
-pairwise_parallelism,group_b,object,Group b,none/not applicable
-pairwise_parallelism,common_knot_union,object,Common knot union,none/not applicable
-pairwise_parallelism,f_statistic,float64,F statistic,none/not applicable
-pairwise_parallelism,df1,int64,Df1,none/not applicable
-pairwise_parallelism,df2,int64,Df2,none/not applicable
-pairwise_parallelism,p_value,float64,Unadjusted model comparison P value,none/not applicable
-pairwise_parallelism,q_value_bh_within_family,float64,Benjamini-Hochberg adjusted P value,none/not applicable
-pairwise_parallelism,parallel_trends_at_q_0_05,bool,Parallel trends at q 0 05,none/not applicable
-pairwise_parallelism,method_note,object,Method note,none/not applicable
+trajectory_contrasts,comparison_family,object,Comparison family,none/not applicable
+trajectory_contrasts,stratum,object,Stratum,none/not applicable
+trajectory_contrasts,measure_name,object,Measure name,none/not applicable
+trajectory_contrasts,group_a,object,Group a,none/not applicable
+trajectory_contrasts,group_b,object,Group b,none/not applicable
+trajectory_contrasts,common_knot_union,object,Common knot union,none/not applicable
+trajectory_contrasts,group_a_endpoint_aapc,float64,Group a endpoint aapc,none/not applicable
+trajectory_contrasts,group_b_endpoint_aapc,float64,Group b endpoint aapc,none/not applicable
+trajectory_contrasts,endpoint_aapc_difference_b_minus_a,float64,Endpoint aapc difference b minus a,none/not applicable
+trajectory_contrasts,rms_annual_log_change_difference,float64,Rms annual log change difference,none/not applicable
+trajectory_contrasts,annual_log_change_correlation,float64,Annual log change correlation,none/not applicable
+trajectory_contrasts,same_endpoint_direction,bool,Same endpoint direction,none/not applicable
+trajectory_contrasts,f_statistic,float64,F statistic,none/not applicable
+trajectory_contrasts,df1,float64,Df1,none/not applicable
+trajectory_contrasts,df2,float64,Df2,none/not applicable
+trajectory_contrasts,p_value,float64,Not estimated; empty legacy column retained for schema compatibility,none/not applicable
+trajectory_contrasts,q_value_bh_within_family,float64,Not estimated; empty legacy column retained for schema compatibility,none/not applicable
+trajectory_contrasts,parallel_trends_at_q_0_05,object,Parallel trends at q 0 05,none/not applicable
+trajectory_contrasts,formal_inference_performed,bool,Whether hypothesis tests or confidence intervals were treated as valid for GBD estimates,none/not applicable
+trajectory_contrasts,parallelism_conclusion,object,Parallelism conclusion,none/not applicable
+trajectory_contrasts,method_note,object,Method note,none/not applicable
 ui_weighted_sensitivity,location_name,object,Location name,none/not applicable
 ui_weighted_sensitivity,sex_name,object,Sex name,none/not applicable
 ui_weighted_sensitivity,measure_name,object,Measure name,none/not applicable
@@ -115,18 +138,31 @@ ui_weighted_sensitivity,primary_aapc,float64,Primary aapc,none/not applicable
 ui_weighted_sensitivity,ui_weighted_fixed_knot_aapc,float64,Ui weighted fixed knot aapc,none/not applicable
 ui_weighted_sensitivity,difference,float64,Difference,none/not applicable
 ui_weighted_sensitivity,interpretation,object,Interpretation,none/not applicable
-prepandemic_trend_sensitivity,location_name,object,Location name,none/not applicable
-prepandemic_trend_sensitivity,sex_name,object,Sex name,none/not applicable
-prepandemic_trend_sensitivity,measure_name,object,Measure name,none/not applicable
-prepandemic_trend_sensitivity,joinpoint_count,int64,Joinpoint count,none/not applicable
-prepandemic_trend_sensitivity,joinpoint_years,object,Joinpoint years,none/not applicable
-prepandemic_trend_sensitivity,permutation_p_0_vs_1,float64,Permutation p 0 vs 1,none/not applicable
-prepandemic_trend_sensitivity,permutation_p_1_vs_2,float64,Permutation p 1 vs 2,none/not applicable
-prepandemic_trend_sensitivity,aapc,float64,Average annual percentage change,none/not applicable
-prepandemic_trend_sensitivity,aapc_lower_model_ci,float64,Aapc lower model ci,model-based
-prepandemic_trend_sensitivity,aapc_upper_model_ci,float64,Aapc upper model ci,model-based
-prepandemic_trend_sensitivity,model_label,object,Model label,none/not applicable
-prepandemic_trend_sensitivity,permutations,int64,Permutations,none/not applicable
+trend_excluding_2020_2023,location_name,object,Location name,none/not applicable
+trend_excluding_2020_2023,sex_name,object,Sex name,none/not applicable
+trend_excluding_2020_2023,measure_name,object,Measure name,none/not applicable
+trend_excluding_2020_2023,start_year,int64,Start year,none/not applicable
+trend_excluding_2020_2023,end_year,int64,End year,none/not applicable
+trend_excluding_2020_2023,joinpoint_count,int64,Joinpoint count,none/not applicable
+trend_excluding_2020_2023,joinpoint_years,object,Joinpoint years,none/not applicable
+trend_excluding_2020_2023,selection_method,object,Selection method,none/not applicable
+trend_excluding_2020_2023,selected_bic,float64,Selected bic,none/not applicable
+trend_excluding_2020_2023,candidate_bic_0_joinpoints,float64,Candidate bic 0 joinpoints,none/not applicable
+trend_excluding_2020_2023,candidate_bic_1_joinpoint,float64,Candidate bic 1 joinpoint,none/not applicable
+trend_excluding_2020_2023,candidate_bic_2_joinpoints,float64,Candidate bic 2 joinpoints,none/not applicable
+trend_excluding_2020_2023,aapc,float64,Average annual percentage change,none/not applicable
+trend_excluding_2020_2023,observed_endpoint_aapc,float64,Observed endpoint aapc,none/not applicable
+trend_excluding_2020_2023,permutation_p_0_vs_1,float64,Permutation p 0 vs 1,none/not applicable
+trend_excluding_2020_2023,permutation_p_1_vs_2,float64,Permutation p 1 vs 2,none/not applicable
+trend_excluding_2020_2023,aapc_lower_model_ci,float64,Aapc lower model ci,not estimated
+trend_excluding_2020_2023,aapc_upper_model_ci,float64,Aapc upper model ci,not estimated
+trend_excluding_2020_2023,formal_inference_performed,bool,Whether hypothesis tests or confidence intervals were treated as valid for GBD estimates,none/not applicable
+trend_excluding_2020_2023,model_label,object,Model label,none/not applicable
+trend_excluding_2020_2023,inference_note,object,Inference note,none/not applicable
+trend_excluding_2020_2023,permutations,int64,Permutations,none/not applicable
+trend_excluding_2020_2023,lag1_residual_autocorrelation,float64,Descriptive lag-one correlation of fitted log-rate residuals,none/not applicable
+trend_excluding_2020_2023,durbin_watson,float64,Descriptive Durbin-Watson residual statistic; not used for inference,none/not applicable
+trend_excluding_2020_2023,material_residual_autocorrelation,bool,Material residual autocorrelation,none/not applicable
 decomposition,location_name,object,Location name,none/not applicable
 decomposition,sex_name,object,Sex name,none/not applicable
 decomposition,measure_name,object,Measure name,none/not applicable
@@ -194,16 +230,19 @@ apc_summary,measure_name,object,Measure name,none/not applicable
 apc_summary,start_year,int64,Start year,none/not applicable
 apc_summary,end_year,int64,End year,none/not applicable
 apc_summary,net_drift,float64,Net drift,none/not applicable
-apc_summary,net_drift_lower_model_ci,float64,Net drift lower model ci,model-based
-apc_summary,net_drift_upper_model_ci,float64,Net drift upper model ci,model-based
+apc_summary,net_drift_lower_model_ci,float64,Net drift lower model ci,not estimated
+apc_summary,net_drift_upper_model_ci,float64,Net drift upper model ci,not estimated
+apc_summary,formal_inference_performed,bool,Whether hypothesis tests or confidence intervals were treated as valid for GBD estimates,none/not applicable
 apc_summary,interpretation,object,Interpretation,none/not applicable
 apc_local_drift,location_name,object,Location name,none/not applicable
 apc_local_drift,sex_name,object,Sex name,none/not applicable
 apc_local_drift,age_name,object,Age name,none/not applicable
 apc_local_drift,age_midpoint,float64,Age midpoint,none/not applicable
 apc_local_drift,local_drift,float64,Local drift,none/not applicable
-apc_local_drift,local_drift_lower_model_ci,float64,Local drift lower model ci,model-based
-apc_local_drift,local_drift_upper_model_ci,float64,Local drift upper model ci,model-based
+apc_local_drift,local_drift_lower_model_ci,float64,Local drift lower model ci,not estimated
+apc_local_drift,local_drift_upper_model_ci,float64,Local drift upper model ci,not estimated
+apc_local_drift,formal_inference_performed,bool,Whether hypothesis tests or confidence intervals were treated as valid for GBD estimates,none/not applicable
+apc_local_drift,inference_note,object,Inference note,none/not applicable
 apc_age_curve,location_name,object,Location name,none/not applicable
 apc_age_curve,sex_name,object,Sex name,none/not applicable
 apc_age_curve,age_name,object,Age name,none/not applicable
@@ -227,15 +266,30 @@ apc_cells,cohort_midpoint,float64,Cohort midpoint,none/not applicable
 apc_cells,events,float64,Events,none/not applicable
 apc_cells,population,float64,Population,none/not applicable
 apc_cells,rate,float64,Rate,none/not applicable
-apc_excluding_2020_2023,location_name,object,Location name,none/not applicable
-apc_excluding_2020_2023,sex_name,object,Sex name,none/not applicable
-apc_excluding_2020_2023,measure_name,object,Measure name,none/not applicable
-apc_excluding_2020_2023,start_year,int64,Start year,none/not applicable
-apc_excluding_2020_2023,end_year,int64,End year,none/not applicable
-apc_excluding_2020_2023,net_drift,float64,Net drift,none/not applicable
-apc_excluding_2020_2023,net_drift_lower_model_ci,float64,Net drift lower model ci,model-based
-apc_excluding_2020_2023,net_drift_upper_model_ci,float64,Net drift upper model ci,model-based
-apc_excluding_2020_2023,interpretation,object,Interpretation,none/not applicable
+apc_excluding_2019_2023,location_name,object,Location name,none/not applicable
+apc_excluding_2019_2023,sex_name,object,Sex name,none/not applicable
+apc_excluding_2019_2023,measure_name,object,Measure name,none/not applicable
+apc_excluding_2019_2023,start_year,int64,Start year,none/not applicable
+apc_excluding_2019_2023,end_year,int64,End year,none/not applicable
+apc_excluding_2019_2023,net_drift,float64,Net drift,none/not applicable
+apc_excluding_2019_2023,net_drift_lower_model_ci,float64,Net drift lower model ci,not estimated
+apc_excluding_2019_2023,net_drift_upper_model_ci,float64,Net drift upper model ci,not estimated
+apc_excluding_2019_2023,formal_inference_performed,bool,Whether hypothesis tests or confidence intervals were treated as valid for GBD estimates,none/not applicable
+apc_excluding_2019_2023,interpretation,object,Interpretation,none/not applicable
+apc_primary_direction_agreement,location_name,object,Location name,none/not applicable
+apc_primary_direction_agreement,sex_name,object,Sex name,none/not applicable
+apc_primary_direction_agreement,measure_name,object,Measure name,none/not applicable
+apc_primary_direction_agreement,primary_segmented_aapc,float64,Primary segmented aapc,none/not applicable
+apc_primary_direction_agreement,primary_observed_endpoint_aapc,float64,Primary observed endpoint aapc,none/not applicable
+apc_primary_direction_agreement,apc_net_drift,float64,Apc net drift,none/not applicable
+apc_primary_direction_agreement,primary_segmented_direction,object,Primary segmented direction,none/not applicable
+apc_primary_direction_agreement,primary_endpoint_direction,object,Primary endpoint direction,none/not applicable
+apc_primary_direction_agreement,apc_net_drift_direction,object,Apc net drift direction,none/not applicable
+apc_primary_direction_agreement,apc_vs_segmented_direction_agreement,bool,Apc vs segmented direction agreement,none/not applicable
+apc_primary_direction_agreement,apc_vs_endpoint_direction_agreement,bool,Apc vs endpoint direction agreement,none/not applicable
+apc_primary_direction_agreement,apc_minus_segmented_percentage_points,float64,Apc minus segmented percentage points,none/not applicable
+apc_primary_direction_agreement,apc_minus_endpoint_percentage_points,float64,Apc minus endpoint percentage points,none/not applicable
+apc_primary_direction_agreement,comparison_note,object,Comparison note,none/not applicable
 provenance,source_role,object,Source role,none/not applicable
 provenance,gbd_release,object,Gbd release,none/not applicable
 provenance,file,object,File,none/not applicable

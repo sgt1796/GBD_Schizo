@@ -1,14 +1,14 @@
 from __future__ import annotations
 
 import csv
+import hashlib
 from collections import Counter, defaultdict
 from pathlib import Path
 from zipfile import ZipFile
 
 
 BASE_DIR = Path(__file__).resolve().parent
-PROJECT_DIR = BASE_DIR.parent
-SOURCE_DIR = PROJECT_DIR / "schizo"
+SOURCE_DIR = BASE_DIR / "schizo"
 OUTPUT_DIR = BASE_DIR / "prepared_inputs"
 
 CAUSE_OUTPUT = OUTPUT_DIR / "cause_all.csv"
@@ -66,6 +66,14 @@ def numeric(value: str) -> int:
         return int(value)
     except ValueError:
         return 10**9
+
+
+def sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for block in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
 
 
 def row_sort_key(row: dict[str, str]) -> tuple[int, ...]:
@@ -191,7 +199,7 @@ def write_report(
     pod_rows: list[dict[str, str]],
     cause_counts: dict[str, int],
     pod_counts: dict[str, int],
-    excluded_risk: dict[str, object],
+    excluded_risk: dict[str, object] | None,
     cause_duplicates: int,
     pod_duplicates: int,
 ) -> None:
@@ -226,11 +234,13 @@ def write_report(
         "Sex strata: Female, Male",
         "Upper age bin in source data: 70+ years",
         "",
-        "Cause of death or injury sources:",
+        "Burden estimate sources:",
     ]
 
     for name, count in cause_counts.items():
-        lines.append(f"- {name}: {count:,} rows")
+        lines.append(
+            f"- {name}: {count:,} rows; SHA-256 {sha256(SOURCE_DIR / name)}"
+        )
     lines.extend(
         [
             f"- combined: {len(cause_rows):,} rows; "
@@ -244,7 +254,9 @@ def write_report(
     )
 
     for name, count in pod_counts.items():
-        lines.append(f"- {name}: {count:,} rows")
+        lines.append(
+            f"- {name}: {count:,} rows; SHA-256 {sha256(SOURCE_DIR / name)}"
+        )
     lines.extend(
         [
             f"- combined: {len(pod_rows):,} rows; "
@@ -257,23 +269,32 @@ def write_report(
     )
 
     for zip_name in EXCLUDED_RISK_SOURCES:
-        lines.append(
-            f"- {zip_name}: {excluded_risk['rows']:,} rows; "
-            f"rei labels in source: {format_list(excluded_risk['risks'])}; "
-            "not written because these labels represent a single sexual-violence risk branch "
-            "rather than a multi-risk analytic table."
-        )
+        risk_path = SOURCE_DIR / zip_name
+        if excluded_risk is None:
+            lines.append(
+                f"- {zip_name}: not present and not required; risk-factor data are outside "
+                "the research question."
+            )
+        else:
+            lines.append(
+                f"- {zip_name}: {excluded_risk['rows']:,} rows; "
+                f"SHA-256 {sha256(risk_path)}; "
+                f"rei labels in source: {format_list(excluded_risk['risks'])}; "
+                "not written because these labels represent a single sexual-violence risk branch "
+                "rather than a multi-risk analytic table."
+            )
 
     lines.extend(
         [
             "",
             "Prepared tables:",
-            f"- {CAUSE_OUTPUT.name}: {len(cause_rows):,} rows",
-            f"- {POD_OUTPUT.name}: {len(pod_rows):,} rows",
+            f"- {CAUSE_OUTPUT.name}: {len(cause_rows):,} rows; SHA-256 {sha256(CAUSE_OUTPUT)}",
+            f"- {POD_OUTPUT.name}: {len(pod_rows):,} rows; SHA-256 {sha256(POD_OUTPUT)}",
             "",
-            "Consumer compatibility:",
-            "- Output CSV columns match the corresponding breast cancer prepared input schemas.",
-            "- The schizophrenia cause table keeps both Female and Male strata.",
+            "Preparation notes:",
+            "- Source archives contain the IHME GBD 2023 citation text.",
+            "- Retrieval date is not encoded in the archives and must be confirmed before submission.",
+            "- Prepared tables preserve the source columns and both Female and Male strata.",
             "- No schizophrenia risk-factor table was generated.",
             "",
             "Validation warnings: " + ("; ".join(warnings) if warnings else "none"),
@@ -286,7 +307,12 @@ def write_report(
 def main() -> None:
     cause_rows, cause_counts = collect_sources(CAUSE_SOURCES, CAUSE_COLUMNS)
     pod_rows, pod_counts = collect_sources(POD_SOURCES, CAUSE_COLUMNS)
-    excluded_risk = summarize_excluded_risk(EXCLUDED_RISK_SOURCES[0])
+    risk_path = SOURCE_DIR / EXCLUDED_RISK_SOURCES[0]
+    excluded_risk = (
+        summarize_excluded_risk(EXCLUDED_RISK_SOURCES[0])
+        if risk_path.exists()
+        else None
+    )
 
     cause_duplicates = duplicate_count(cause_rows, DIMENSION_COLUMNS)
     pod_duplicates = duplicate_count(pod_rows, DIMENSION_COLUMNS)

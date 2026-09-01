@@ -1,45 +1,45 @@
-location_name,sex_name,age_name,age_midpoint,local_drift,local_drift_lower_model_ci,local_drift_upper_model_ci
-China,Female,15-19 years,17.0,-0.1593372751279909,-0.20126514258582695,-0.11739179275677136
-China,Female,20-24 years,22.0,-0.016799118102606148,-0.036906916347045904,0.0033127248701081413
-China,Female,25-29 years,27.0,0.08626230913297839,0.051198502300775495,0.12133840437917875
-China,Female,30-34 years,32.0,0.05870896086017652,0.02015437011422261,0.09727841317554997
-China,Female,35-39 years,37.0,0.039850821639997314,0.02416655100800913,0.05553755164109386
-China,Female,40-44 years,42.0,0.013261791091623287,-0.007904360832344803,0.034432423429642256
-China,Female,45-49 years,47.0,-0.0013069687741840141,-0.019418905335133463,0.016808248846356122
-China,Female,50-54 years,52.0,0.004007433240915681,-0.018835647886916718,0.02685573341532077
-China,Female,55-59 years,57.0,0.009213296760401946,-0.02824722236162147,0.046687852752391734
-China,Female,60-64 years,62.0,-0.00363233255951112,-0.044065675822713146,0.03681736646343747
-China,Female,65-69 years,67.0,0.005799641997317195,-0.038259389930284105,0.049878093337585305
-China,Male,15-19 years,17.0,-0.05631856863348439,-0.08663048416576169,-0.02599745701235001
-China,Male,20-24 years,22.0,-0.034581377181708284,-0.05665357677621108,-0.012504303005622663
-China,Male,25-29 years,27.0,-0.007992383234978195,-0.03488573505934234,0.018908203637124643
-China,Male,30-34 years,32.0,0.07407835639103855,0.046739589106858936,0.10142459426545347
-China,Male,35-39 years,37.0,0.08011753308618808,0.04731587784350122,0.11292994272618095
-China,Male,40-44 years,42.0,0.06237017678742962,0.02863530136734127,0.09611642936782072
-China,Male,45-49 years,47.0,0.0153725146784911,-0.0017995077510657431,0.032547485944656174
-China,Male,50-54 years,52.0,-0.0178496000336259,-0.03839429685811302,0.0026993192577151603
-China,Male,55-59 years,57.0,-0.04556321229184368,-0.08551611194760333,-0.005594336632119834
-China,Male,60-64 years,62.0,-0.08034341569674863,-0.12270062796181369,-0.03796824005620758
-China,Male,65-69 years,67.0,-0.07506572560190827,-0.12398763927339296,-0.026119848682593094
-United States of America,Female,15-19 years,17.0,-0.5595994077043143,-0.6796607989382863,-0.4393928826761817
-United States of America,Female,20-24 years,22.0,-0.556497930377553,-0.6838290184976392,-0.4290035938575243
-United States of America,Female,25-29 years,27.0,-0.274948984987311,-0.343694350857604,-0.2061561968761727
-United States of America,Female,30-34 years,32.0,-0.011813877020772079,-0.05361092105967691,0.03000064631786259
-United States of America,Female,35-39 years,37.0,0.06513689151121937,0.010731997918078662,0.11957138085263441
-United States of America,Female,40-44 years,42.0,0.12246505410538067,0.046823828126130174,0.1981634692571621
-United States of America,Female,45-49 years,47.0,0.11017482992052852,0.048388354653727816,0.17199946240893382
-United States of America,Female,50-54 years,52.0,0.09686783307605307,0.04830459398399434,0.14545464466342306
-United States of America,Female,55-59 years,57.0,0.08134803330805962,0.03613297691091866,0.12658352633407866
-United States of America,Female,60-64 years,62.0,0.07097947375567237,0.021850077023599646,0.12013300219115841
-United States of America,Female,65-69 years,67.0,0.0658053927552027,0.018528404892248496,0.11310472761341117
-United States of America,Male,15-19 years,17.0,-0.3517823480162052,-0.44114487044829565,-0.26233961513566495
-United States of America,Male,20-24 years,22.0,-0.348026380904376,-0.43875903409431594,-0.2572110407744632
-United States of America,Male,25-29 years,27.0,-0.08714777735309154,-0.13279905567324946,-0.041475630928167195
-United States of America,Male,30-34 years,32.0,0.12073632373961196,0.0695845184576882,0.17191427589919872
-United States of America,Male,35-39 years,37.0,0.2137227374851225,0.15132718999126826,0.2761571581967104
-United States of America,Male,40-44 years,42.0,0.2701393453166112,0.1735468186224276,0.3668250115322458
-United States of America,Male,45-49 years,47.0,0.21741756940039103,0.13743527316882886,0.29746374951009624
-United States of America,Male,50-54 years,52.0,0.14809842782856908,0.08603952269365944,0.21019581293255651
-United States of America,Male,55-59 years,57.0,0.06542086246106305,0.01503292989246674,0.1158341806509533
-United States of America,Male,60-64 years,62.0,0.015878115151690686,-0.0368356016857363,0.06861962958797374
-United States of America,Male,65-69 years,67.0,0.013705047947776272,-0.037060744593364614,0.06449662170056047
+location_name,sex_name,age_name,age_midpoint,local_drift,local_drift_lower_model_ci,local_drift_upper_model_ci,formal_inference_performed,inference_note
+China,Female,15-19 years,17.0,-0.1593372751279909,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+China,Female,20-24 years,22.0,-0.016799118102606148,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+China,Female,25-29 years,27.0,0.08626230913297839,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+China,Female,30-34 years,32.0,0.05870896086017652,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+China,Female,35-39 years,37.0,0.039850821639997314,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+China,Female,40-44 years,42.0,0.013261791091623287,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+China,Female,45-49 years,47.0,-0.0013069687741840141,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+China,Female,50-54 years,52.0,0.004007433240915681,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+China,Female,55-59 years,57.0,0.009213296760401946,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+China,Female,60-64 years,62.0,-0.00363233255951112,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+China,Female,65-69 years,67.0,0.005799641997317195,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+China,Male,15-19 years,17.0,-0.05631856863348439,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+China,Male,20-24 years,22.0,-0.034581377181708284,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+China,Male,25-29 years,27.0,-0.007992383234978195,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+China,Male,30-34 years,32.0,0.07407835639103855,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+China,Male,35-39 years,37.0,0.08011753308618808,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+China,Male,40-44 years,42.0,0.06237017678742962,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+China,Male,45-49 years,47.0,0.0153725146784911,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+China,Male,50-54 years,52.0,-0.0178496000336259,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+China,Male,55-59 years,57.0,-0.04556321229184368,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+China,Male,60-64 years,62.0,-0.08034341569674863,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+China,Male,65-69 years,67.0,-0.07506572560190827,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+United States of America,Female,15-19 years,17.0,-0.5595994077043143,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+United States of America,Female,20-24 years,22.0,-0.556497930377553,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+United States of America,Female,25-29 years,27.0,-0.274948984987311,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+United States of America,Female,30-34 years,32.0,-0.011813877020772079,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+United States of America,Female,35-39 years,37.0,0.06513689151121937,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+United States of America,Female,40-44 years,42.0,0.12246505410538067,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+United States of America,Female,45-49 years,47.0,0.11017482992052852,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+United States of America,Female,50-54 years,52.0,0.09686783307605307,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+United States of America,Female,55-59 years,57.0,0.08134803330805962,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+United States of America,Female,60-64 years,62.0,0.07097947375567237,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+United States of America,Female,65-69 years,67.0,0.0658053927552027,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+United States of America,Male,15-19 years,17.0,-0.3517823480162052,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+United States of America,Male,20-24 years,22.0,-0.348026380904376,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+United States of America,Male,25-29 years,27.0,-0.08714777735309154,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+United States of America,Male,30-34 years,32.0,0.12073632373961196,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+United States of America,Male,35-39 years,37.0,0.2137227374851225,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+United States of America,Male,40-44 years,42.0,0.2701393453166112,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+United States of America,Male,45-49 years,47.0,0.21741756940039103,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+United States of America,Male,50-54 years,52.0,0.14809842782856908,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+United States of America,Male,55-59 years,57.0,0.06542086246106305,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+United States of America,Male,60-64 years,62.0,0.015878115151690686,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
+United States of America,Male,65-69 years,67.0,0.013705047947776272,,,False,Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.
