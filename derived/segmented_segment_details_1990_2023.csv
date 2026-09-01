@@ -1,0 +1,47 @@
+location_name,sex_name,measure_name,segment_index,segment_start,segment_end,segment_apc
+China,Female,DALYs,1,1990,1998,0.11087178298707645
+China,Female,DALYs,2,1998,2023,0.02764222233482272
+United States of America,Female,DALYs,1,1990,2010,0.011761739523552528
+United States of America,Female,DALYs,2,2010,2015,-1.3435994389435657
+United States of America,Female,DALYs,3,2015,2023,-0.21254886909830573
+China,Female,Incidence,1,1990,2004,0.05654788165792013
+China,Female,Incidence,2,2004,2015,-0.05721479693907572
+China,Female,Incidence,3,2015,2023,0.031291077952833035
+United States of America,Female,Incidence,1,1990,2010,-0.03612437852292816
+United States of America,Female,Incidence,2,2010,2015,-1.1090261712331628
+United States of America,Female,Incidence,3,2015,2023,-0.0783778855099837
+China,Female,Prevalence,1,1990,2007,0.02736618483809572
+China,Female,Prevalence,2,2007,2018,0.0379376398618847
+China,Female,Prevalence,3,2018,2023,-0.02467913923649423
+United States of America,Female,Prevalence,1,1990,2010,-0.025816784797083603
+United States of America,Female,Prevalence,2,2010,2015,-1.297146669133209
+United States of America,Female,Prevalence,3,2015,2023,-0.0697008109584063
+China,Female,YLDs,1,1990,1998,0.11087178298687661
+China,Female,YLDs,2,1998,2023,0.027642222334867128
+United States of America,Female,YLDs,1,1990,2010,0.011761739523574732
+United States of America,Female,YLDs,2,2010,2015,-1.343599438943377
+United States of America,Female,YLDs,3,2015,2023,-0.21254886909842785
+China,Male,DALYs,1,1990,1995,0.17111563422984588
+China,Male,DALYs,2,1995,2000,-0.04450691146740127
+China,Male,DALYs,3,2000,2023,0.024244806860695967
+United States of America,Male,DALYs,1,1990,2009,0.026330038737287786
+United States of America,Male,DALYs,2,2009,2017,-0.4328627971629473
+United States of America,Male,DALYs,3,2017,2023,-0.10521972262771406
+China,Male,Incidence,1,1990,2008,0.028342603422037982
+China,Male,Incidence,2,2008,2014,-0.06452676024283344
+China,Male,Incidence,3,2014,2023,-0.011362778947154872
+United States of America,Male,Incidence,1,1990,2010,0.011915824712738221
+United States of America,Male,Incidence,2,2010,2017,-0.3421953109770892
+United States of America,Male,Incidence,3,2017,2023,-0.055832370938424525
+China,Male,Prevalence,1,1990,2003,0.01643342004979953
+China,Male,Prevalence,2,2003,2017,0.04712195909308825
+China,Male,Prevalence,3,2017,2023,-0.062225415882288804
+United States of America,Male,Prevalence,1,1990,2009,0.014689243082921521
+United States of America,Male,Prevalence,2,2009,2018,-0.368837995707072
+United States of America,Male,Prevalence,3,2018,2023,0.0861306214174018
+China,Male,YLDs,1,1990,1995,0.171115634230401
+China,Male,YLDs,2,1995,2000,-0.04450691146743457
+China,Male,YLDs,3,2000,2023,0.024244806860673762
+United States of America,Male,YLDs,1,1990,2009,0.026330038737287786
+United States of America,Male,YLDs,2,2009,2017,-0.4328627971629473
+United States of America,Male,YLDs,3,2017,2023,-0.10521972262778068

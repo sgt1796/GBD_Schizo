@@ -1,0 +1,5 @@
+location_name,sex_name,measure_name,start_year,end_year,net_drift,net_drift_lower_model_ci,net_drift_upper_model_ci,interpretation
+China,Female,Incidence,1994,2023,0.007451209203135356,-0.004013452411433249,0.018917185255107327,Estimable net drift; model CI does not propagate GBD posterior uncertainty.
+China,Male,Incidence,1994,2023,0.0024356338791164944,-0.008481528419079787,0.013353988122721816,Estimable net drift; model CI does not propagate GBD posterior uncertainty.
+United States of America,Female,Incidence,1994,2023,-0.0811524945663944,-0.11691064871867107,-0.045381538992006476,Estimable net drift; model CI does not propagate GBD posterior uncertainty.
+United States of America,Male,Incidence,1994,2023,0.023490089630717748,-0.007887971786302295,0.05487799765182544,Estimable net drift; model CI does not propagate GBD posterior uncertainty.

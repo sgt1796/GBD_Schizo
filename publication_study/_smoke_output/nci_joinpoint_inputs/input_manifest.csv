@@ -1,0 +1,13 @@
+file,location,sex,outcome
+china_female_dalys.csv,China,Female,DALYs
+china_female_incidence.csv,China,Female,Incidence
+china_female_prevalence.csv,China,Female,Prevalence
+china_male_dalys.csv,China,Male,DALYs
+china_male_incidence.csv,China,Male,Incidence
+china_male_prevalence.csv,China,Male,Prevalence
+united_states_of_america_female_dalys.csv,United States of America,Female,DALYs
+united_states_of_america_female_incidence.csv,United States of America,Female,Incidence
+united_states_of_america_female_prevalence.csv,United States of America,Female,Prevalence
+united_states_of_america_male_dalys.csv,United States of America,Male,DALYs
+united_states_of_america_male_incidence.csv,United States of America,Male,Incidence
+united_states_of_america_male_prevalence.csv,United States of America,Male,Prevalence

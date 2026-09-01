@@ -1,0 +1,244 @@
+table,column,dtype,description,uncertainty_class
+data_audit,location_name,object,Location name,none/not applicable
+data_audit,sex_name,object,Sex name,none/not applicable
+data_audit,measure_name,object,Measure name,none/not applicable
+data_audit,all_age_count_years,int64,All age count years,none/not applicable
+data_audit,asr_years,int64,Asr years,none/not applicable
+data_audit,adult_age_groups,int64,Adult age groups,none/not applicable
+data_audit,adult_age_year_cells,int64,Adult age year cells,none/not applicable
+data_audit,missing_values,int64,Missing values,none/not applicable
+data_audit,invalid_ui_rows,int64,Invalid ui rows,none/not applicable
+data_audit,nonpositive_rows,int64,Nonpositive rows,none/not applicable
+duplicate_audit,rows,int64,Rows,none/not applicable
+duplicate_audit,duplicate_dimensional_keys,int64,Duplicate dimensional keys,none/not applicable
+duplicate_audit,population_rows,int64,Population rows,none/not applicable
+duplicate_audit,population_source,object,Provenance status of population denominator,none/not applicable
+population_reconstruction,location_name,object,Location name,none/not applicable
+population_reconstruction,sex_name,object,Sex name,none/not applicable
+population_reconstruction,age_name,object,Age name,none/not applicable
+population_reconstruction,measure_name,object,Measure name,none/not applicable
+population_reconstruction,year,int64,Year,none/not applicable
+population_reconstruction,rate,float64,Rate,none/not applicable
+population_reconstruction,population,float64,Population,none/not applicable
+population_reconstruction,population_source,object,Provenance status of population denominator,none/not applicable
+population_reconstruction,reported_count,float64,Reported count,none/not applicable
+population_reconstruction,reconstructed_count,float64,Reconstructed count,none/not applicable
+population_reconstruction,absolute_error,float64,Absolute error,none/not applicable
+population_reconstruction,relative_error_pct,float64,Relative error pct,none/not applicable
+yld_daly_identity,matched_cells,int64,Matched cells,none/not applicable
+yld_daly_identity,max_abs_difference_val,float64,Max abs difference val,none/not applicable
+yld_daly_identity,max_relative_difference_val,float64,Max relative difference val,none/not applicable
+yld_daly_identity,max_abs_difference_lower,float64,Max abs difference lower,none/not applicable
+yld_daly_identity,max_relative_difference_lower,float64,Max relative difference lower,none/not applicable
+yld_daly_identity,max_abs_difference_upper,float64,Max abs difference upper,none/not applicable
+yld_daly_identity,max_relative_difference_upper,float64,Max relative difference upper,none/not applicable
+yld_daly_identity,numerically_identical,bool,Numerically identical,none/not applicable
+endpoint_summary,location_name,object,Location name,none/not applicable
+endpoint_summary,sex_name,object,Sex name,none/not applicable
+endpoint_summary,measure_name,object,Measure name,none/not applicable
+endpoint_summary,metric_name,object,Metric name,none/not applicable
+endpoint_summary,value_1990,float64,Value 1990,none/not applicable
+endpoint_summary,lower_1990,float64,Lower 1990,none/not applicable
+endpoint_summary,upper_1990,float64,Upper 1990,none/not applicable
+endpoint_summary,value_2023,float64,Value 2023,none/not applicable
+endpoint_summary,lower_2023,float64,Lower 2023,none/not applicable
+endpoint_summary,upper_2023,float64,Upper 2023,none/not applicable
+endpoint_summary,absolute_change,float64,Absolute change,none/not applicable
+endpoint_summary,percent_change_point_estimate,float64,Percent change point estimate,none/not applicable
+endpoint_summary,interval_dominance_change,object,Interval dominance change,none/not applicable
+endpoint_summary,uncertainty_note,object,Uncertainty note,none/not applicable
+country_contrasts,year,int64,Year,none/not applicable
+country_contrasts,sex_name,object,Sex name,none/not applicable
+country_contrasts,measure_name,object,Measure name,none/not applicable
+country_contrasts,china_asr,float64,China asr,none/not applicable
+country_contrasts,us_asr,float64,Us asr,none/not applicable
+country_contrasts,china_us_rate_ratio,float64,China us rate ratio,none/not applicable
+country_contrasts,absolute_rate_difference,float64,Absolute rate difference,none/not applicable
+country_contrasts,interval_dominance,object,Interval dominance,none/not applicable
+country_contrasts,derived_uncertainty_note,object,Derived uncertainty note,none/not applicable
+sex_contrasts,year,int64,Year,none/not applicable
+sex_contrasts,location_name,object,Location name,none/not applicable
+sex_contrasts,measure_name,object,Measure name,none/not applicable
+sex_contrasts,male_asr,float64,Male asr,none/not applicable
+sex_contrasts,female_asr,float64,Female asr,none/not applicable
+sex_contrasts,male_female_rate_ratio,float64,Male female rate ratio,none/not applicable
+sex_contrasts,absolute_rate_difference,float64,Absolute rate difference,none/not applicable
+sex_contrasts,interval_dominance,object,Interval dominance,none/not applicable
+sex_contrasts,derived_uncertainty_note,object,Derived uncertainty note,none/not applicable
+segmented_summary,location_name,object,Location name,none/not applicable
+segmented_summary,sex_name,object,Sex name,none/not applicable
+segmented_summary,measure_name,object,Measure name,none/not applicable
+segmented_summary,joinpoint_count,int64,Joinpoint count,none/not applicable
+segmented_summary,joinpoint_years,object,Joinpoint years,none/not applicable
+segmented_summary,permutation_p_0_vs_1,float64,Permutation p 0 vs 1,none/not applicable
+segmented_summary,permutation_p_1_vs_2,float64,Permutation p 1 vs 2,none/not applicable
+segmented_summary,aapc,float64,Average annual percentage change,none/not applicable
+segmented_summary,aapc_lower_model_ci,float64,Aapc lower model ci,model-based
+segmented_summary,aapc_upper_model_ci,float64,Aapc upper model ci,model-based
+segmented_summary,model_label,object,Model label,none/not applicable
+segmented_summary,permutations,int64,Permutations,none/not applicable
+segmented_segments,location_name,object,Location name,none/not applicable
+segmented_segments,sex_name,object,Sex name,none/not applicable
+segmented_segments,measure_name,object,Measure name,none/not applicable
+segmented_segments,segment_index,int64,Segment index,none/not applicable
+segmented_segments,start_year,int64,Start year,none/not applicable
+segmented_segments,end_year,int64,End year,none/not applicable
+segmented_segments,apc,float64,Apc,none/not applicable
+segmented_segments,apc_lower_model_ci,float64,Apc lower model ci,model-based
+segmented_segments,apc_upper_model_ci,float64,Apc upper model ci,model-based
+segmented_fitted,location_name,object,Location name,none/not applicable
+segmented_fitted,sex_name,object,Sex name,none/not applicable
+segmented_fitted,measure_name,object,Measure name,none/not applicable
+segmented_fitted,year,int64,Year,none/not applicable
+segmented_fitted,val,float64,GBD posterior mean point estimate,none/not applicable
+segmented_fitted,lower,float64,Lower native 95% GBD uncertainty bound,native GBD UI
+segmented_fitted,upper,float64,Upper native 95% GBD uncertainty bound,native GBD UI
+segmented_fitted,fitted,float64,Fitted,none/not applicable
+segmented_fitted,joinpoint_years,object,Joinpoint years,none/not applicable
+pairwise_parallelism,comparison_family,object,Comparison family,none/not applicable
+pairwise_parallelism,stratum,object,Stratum,none/not applicable
+pairwise_parallelism,measure_name,object,Measure name,none/not applicable
+pairwise_parallelism,group_a,object,Group a,none/not applicable
+pairwise_parallelism,group_b,object,Group b,none/not applicable
+pairwise_parallelism,common_knot_union,object,Common knot union,none/not applicable
+pairwise_parallelism,f_statistic,float64,F statistic,none/not applicable
+pairwise_parallelism,df1,int64,Df1,none/not applicable
+pairwise_parallelism,df2,int64,Df2,none/not applicable
+pairwise_parallelism,p_value,float64,Unadjusted model comparison P value,none/not applicable
+pairwise_parallelism,q_value_bh_within_family,float64,Benjamini-Hochberg adjusted P value,none/not applicable
+pairwise_parallelism,parallel_trends_at_q_0_05,bool,Parallel trends at q 0 05,none/not applicable
+pairwise_parallelism,method_note,object,Method note,none/not applicable
+ui_weighted_sensitivity,location_name,object,Location name,none/not applicable
+ui_weighted_sensitivity,sex_name,object,Sex name,none/not applicable
+ui_weighted_sensitivity,measure_name,object,Measure name,none/not applicable
+ui_weighted_sensitivity,primary_aapc,float64,Primary aapc,none/not applicable
+ui_weighted_sensitivity,ui_weighted_fixed_knot_aapc,float64,Ui weighted fixed knot aapc,none/not applicable
+ui_weighted_sensitivity,difference,float64,Difference,none/not applicable
+ui_weighted_sensitivity,interpretation,object,Interpretation,none/not applicable
+prepandemic_trend_sensitivity,location_name,object,Location name,none/not applicable
+prepandemic_trend_sensitivity,sex_name,object,Sex name,none/not applicable
+prepandemic_trend_sensitivity,measure_name,object,Measure name,none/not applicable
+prepandemic_trend_sensitivity,joinpoint_count,int64,Joinpoint count,none/not applicable
+prepandemic_trend_sensitivity,joinpoint_years,object,Joinpoint years,none/not applicable
+prepandemic_trend_sensitivity,permutation_p_0_vs_1,float64,Permutation p 0 vs 1,none/not applicable
+prepandemic_trend_sensitivity,permutation_p_1_vs_2,float64,Permutation p 1 vs 2,none/not applicable
+prepandemic_trend_sensitivity,aapc,float64,Average annual percentage change,none/not applicable
+prepandemic_trend_sensitivity,aapc_lower_model_ci,float64,Aapc lower model ci,model-based
+prepandemic_trend_sensitivity,aapc_upper_model_ci,float64,Aapc upper model ci,model-based
+prepandemic_trend_sensitivity,model_label,object,Model label,none/not applicable
+prepandemic_trend_sensitivity,permutations,int64,Permutations,none/not applicable
+decomposition,location_name,object,Location name,none/not applicable
+decomposition,sex_name,object,Sex name,none/not applicable
+decomposition,measure_name,object,Measure name,none/not applicable
+decomposition,start_year,int64,Start year,none/not applicable
+decomposition,end_year,int64,End year,none/not applicable
+decomposition,adult_count_start_reconstructed,float64,Adult count start reconstructed,none/not applicable
+decomposition,adult_count_end_reconstructed,float64,Adult count end reconstructed,none/not applicable
+decomposition,population_source,object,Provenance status of population denominator,none/not applicable
+decomposition,population_growth,float64,Population growth,none/not applicable
+decomposition,population_aging,float64,Population aging,none/not applicable
+decomposition,rate_change,float64,Rate change,none/not applicable
+decomposition,total_change,float64,Total change,none/not applicable
+decomposition,component_sum,float64,Component sum,none/not applicable
+decomposition,closure_error,float64,Component sum minus total reconstructed change,none/not applicable
+decomposition,population_growth_pct_of_total,float64,Population growth pct of total,none/not applicable
+decomposition,population_aging_pct_of_total,float64,Population aging pct of total,none/not applicable
+decomposition,rate_change_pct_of_total,float64,Rate change pct of total,none/not applicable
+annual_chained_decomposition,location_name,object,Location name,none/not applicable
+annual_chained_decomposition,sex_name,object,Sex name,none/not applicable
+annual_chained_decomposition,measure_name,object,Measure name,none/not applicable
+annual_chained_decomposition,start_year,int64,Start year,none/not applicable
+annual_chained_decomposition,end_year,int64,End year,none/not applicable
+annual_chained_decomposition,adult_count_start_reconstructed,float64,Adult count start reconstructed,none/not applicable
+annual_chained_decomposition,adult_count_end_reconstructed,float64,Adult count end reconstructed,none/not applicable
+annual_chained_decomposition,population_source,object,Provenance status of population denominator,none/not applicable
+annual_chained_decomposition,population_growth,float64,Population growth,none/not applicable
+annual_chained_decomposition,population_aging,float64,Population aging,none/not applicable
+annual_chained_decomposition,rate_change,float64,Rate change,none/not applicable
+annual_chained_decomposition,total_change,float64,Total change,none/not applicable
+annual_chained_decomposition,component_sum,float64,Component sum,none/not applicable
+annual_chained_decomposition,closure_error,float64,Component sum minus total reconstructed change,none/not applicable
+annual_chained_decomposition,population_growth_pct_of_total,float64,Population growth pct of total,none/not applicable
+annual_chained_decomposition,population_aging_pct_of_total,float64,Population aging pct of total,none/not applicable
+annual_chained_decomposition,rate_change_pct_of_total,float64,Rate change pct of total,none/not applicable
+annual_chained_decomposition,cumulative_population_growth,float64,Cumulative population growth,none/not applicable
+annual_chained_decomposition,cumulative_population_aging,float64,Cumulative population aging,none/not applicable
+annual_chained_decomposition,cumulative_rate_change,float64,Cumulative rate change,none/not applicable
+annual_chained_decomposition,cumulative_total_change,float64,Cumulative total change,none/not applicable
+annual_chained_decomposition,chain_step_years,int64,Chain step years,none/not applicable
+fiveyear_chained_decomposition,location_name,object,Location name,none/not applicable
+fiveyear_chained_decomposition,sex_name,object,Sex name,none/not applicable
+fiveyear_chained_decomposition,measure_name,object,Measure name,none/not applicable
+fiveyear_chained_decomposition,start_year,int64,Start year,none/not applicable
+fiveyear_chained_decomposition,end_year,int64,End year,none/not applicable
+fiveyear_chained_decomposition,adult_count_start_reconstructed,float64,Adult count start reconstructed,none/not applicable
+fiveyear_chained_decomposition,adult_count_end_reconstructed,float64,Adult count end reconstructed,none/not applicable
+fiveyear_chained_decomposition,population_source,object,Provenance status of population denominator,none/not applicable
+fiveyear_chained_decomposition,population_growth,float64,Population growth,none/not applicable
+fiveyear_chained_decomposition,population_aging,float64,Population aging,none/not applicable
+fiveyear_chained_decomposition,rate_change,float64,Rate change,none/not applicable
+fiveyear_chained_decomposition,total_change,float64,Total change,none/not applicable
+fiveyear_chained_decomposition,component_sum,float64,Component sum,none/not applicable
+fiveyear_chained_decomposition,closure_error,float64,Component sum minus total reconstructed change,none/not applicable
+fiveyear_chained_decomposition,population_growth_pct_of_total,float64,Population growth pct of total,none/not applicable
+fiveyear_chained_decomposition,population_aging_pct_of_total,float64,Population aging pct of total,none/not applicable
+fiveyear_chained_decomposition,rate_change_pct_of_total,float64,Rate change pct of total,none/not applicable
+fiveyear_chained_decomposition,cumulative_population_growth,float64,Cumulative population growth,none/not applicable
+fiveyear_chained_decomposition,cumulative_population_aging,float64,Cumulative population aging,none/not applicable
+fiveyear_chained_decomposition,cumulative_rate_change,float64,Cumulative rate change,none/not applicable
+fiveyear_chained_decomposition,cumulative_total_change,float64,Cumulative total change,none/not applicable
+fiveyear_chained_decomposition,chain_step_years,int64,Chain step years,none/not applicable
+apc_summary,location_name,object,Location name,none/not applicable
+apc_summary,sex_name,object,Sex name,none/not applicable
+apc_summary,measure_name,object,Measure name,none/not applicable
+apc_summary,start_year,int64,Start year,none/not applicable
+apc_summary,end_year,int64,End year,none/not applicable
+apc_summary,net_drift,float64,Net drift,none/not applicable
+apc_summary,net_drift_lower_model_ci,float64,Net drift lower model ci,model-based
+apc_summary,net_drift_upper_model_ci,float64,Net drift upper model ci,model-based
+apc_summary,interpretation,object,Interpretation,none/not applicable
+apc_local_drift,location_name,object,Location name,none/not applicable
+apc_local_drift,sex_name,object,Sex name,none/not applicable
+apc_local_drift,age_name,object,Age name,none/not applicable
+apc_local_drift,age_midpoint,float64,Age midpoint,none/not applicable
+apc_local_drift,local_drift,float64,Local drift,none/not applicable
+apc_local_drift,local_drift_lower_model_ci,float64,Local drift lower model ci,model-based
+apc_local_drift,local_drift_upper_model_ci,float64,Local drift upper model ci,model-based
+apc_age_curve,location_name,object,Location name,none/not applicable
+apc_age_curve,sex_name,object,Sex name,none/not applicable
+apc_age_curve,age_name,object,Age name,none/not applicable
+apc_age_curve,age_midpoint,float64,Age midpoint,none/not applicable
+apc_age_curve,age_rr_curvature,float64,Age rr curvature,none/not applicable
+apc_period_curvature,location_name,object,Location name,none/not applicable
+apc_period_curvature,sex_name,object,Sex name,none/not applicable
+apc_period_curvature,period,object,Period,none/not applicable
+apc_period_curvature,period_midpoint,float64,Period midpoint,none/not applicable
+apc_period_curvature,period_rr_curvature,float64,Period rr curvature,none/not applicable
+apc_cohort_curvature,location_name,object,Location name,none/not applicable
+apc_cohort_curvature,sex_name,object,Sex name,none/not applicable
+apc_cohort_curvature,cohort_midpoint,float64,Cohort midpoint,none/not applicable
+apc_cohort_curvature,cohort_rr_curvature,float64,Cohort rr curvature,none/not applicable
+apc_cells,location_name,object,Location name,none/not applicable
+apc_cells,sex_name,object,Sex name,none/not applicable
+apc_cells,age_name,object,Age name,none/not applicable
+apc_cells,age_midpoint,float64,Age midpoint,none/not applicable
+apc_cells,period,object,Period,none/not applicable
+apc_cells,cohort_midpoint,float64,Cohort midpoint,none/not applicable
+apc_cells,events,float64,Events,none/not applicable
+apc_cells,population,float64,Population,none/not applicable
+apc_cells,rate,float64,Rate,none/not applicable
+apc_excluding_2020_2023,location_name,object,Location name,none/not applicable
+apc_excluding_2020_2023,sex_name,object,Sex name,none/not applicable
+apc_excluding_2020_2023,measure_name,object,Measure name,none/not applicable
+apc_excluding_2020_2023,start_year,int64,Start year,none/not applicable
+apc_excluding_2020_2023,end_year,int64,End year,none/not applicable
+apc_excluding_2020_2023,net_drift,float64,Net drift,none/not applicable
+apc_excluding_2020_2023,net_drift_lower_model_ci,float64,Net drift lower model ci,model-based
+apc_excluding_2020_2023,net_drift_upper_model_ci,float64,Net drift upper model ci,model-based
+apc_excluding_2020_2023,interpretation,object,Interpretation,none/not applicable
+provenance,source_role,object,Source role,none/not applicable
+provenance,gbd_release,object,Gbd release,none/not applicable
+provenance,file,object,File,none/not applicable
+provenance,retrieval_date,object,Retrieval date,none/not applicable
+provenance,dimensions,object,Dimensions,none/not applicable
+provenance,status,object,Status,none/not applicable

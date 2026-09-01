@@ -1,0 +1,12 @@
+{
+  "counts": "All-age numbers by location, sex, measure, and year.",
+  "percent": "Preferred GBD percent-metric series, using age-standardized percent rows when present and all-age percent rows otherwise.",
+  "asr": "Age-standardized rates per 100,000 by location, sex, measure, and year.",
+  "segmented": "Observed and fitted segmented log-linear age-standardized rate trends selected by BIC.",
+  "decomposition": "Das Gupta style average replacement decomposition of adult count changes into population growth, aging, and rate-change components.",
+  "annual_chain": "Adjacent-year decomposition components accumulated from 1990; component allocations can differ from endpoint decomposition because the factor replacement is path-dependent.",
+  "interval_chain": "Coarse chained interval decomposition, using the same factors as the endpoint decomposition.",
+  "apc": "Ridge-regularized APC contrasts for recent-aligned age-period cells.",
+  "apc_marginal": "APC marginal plots for fitted age curves, local drift, period RR, and cohort RR.",
+  "apc_cohort": "Cohort relative-risk patterns from the ridge-regularized APC contrasts."
+}

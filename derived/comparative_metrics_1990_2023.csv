@@ -1,0 +1,49 @@
+comparison_type,location_name,sex_name,measure_name,metric_name,numerator,denominator,ratio_1990,ratio_2023,difference_1990,difference_2023,ratio_change_pct
+China vs United States,China vs United States,Female,Incidence,All-age number,China,United States of America,3.6296064875783802,3.673869507658999,83821.33781151884,96449.10794706203,1.2194991449376191
+China vs United States,China vs United States,Female,Incidence,Age-standardized rate,China,United States of America,0.747115510246929,0.7997169032963196,-6.2095570768399995,-4.613680010149999,7.040597113558156
+China vs United States,China vs United States,Female,Incidence,Measure-specific GBD percent,China,United States of America,1.2135988302924527,1.3145675492198294,9.284223748400004e-06,1.12166140934e-05,8.319777211967594
+China vs United States,China vs United States,Female,Prevalence,All-age number,China,United States of America,2.467837950053871,3.2166418851046754,918625.8048907623,1701587.9927934634,30.34250830912373
+China vs United States,China vs United States,Female,Prevalence,Age-standardized rate,China,United States of America,0.6362773488309887,0.691488951432795,-158.2877476995301,-124.41434098933996,8.677285574167403
+China vs United States,China vs United States,Female,Prevalence,Measure-specific GBD percent,China,United States of America,0.6052770826524867,0.675904671793425,-0.0018371650923829997,-0.0013960382237611004,11.668637581887165
+China vs United States,China vs United States,Female,YLDs,All-age number,China,United States of America,2.5502218962284617,3.3337906289864665,598863.6754121622,1086365.3088065935,30.725511921798997
+China vs United States,China vs United States,Female,YLDs,Age-standardized rate,China,United States of America,0.6504117277408352,0.7165762786817208,-94.20729987975005,-70.24987232715,10.172718005978165
+China vs United States,China vs United States,Female,YLDs,Measure-specific GBD percent,China,United States of America,0.8040343498261642,1.0251481261063369,-0.0038969456389903005,0.0004270984671883027,27.500538543904064
+China vs United States,China vs United States,Female,DALYs,All-age number,China,United States of America,2.550221896228463,3.33379062898646,598863.6754121627,1086365.308806591,30.725511921798688
+China vs United States,China vs United States,Female,DALYs,Age-standardized rate,China,United States of America,0.6504117277408256,0.716576278681736,-94.2072974303658,-70.24987050064962,10.17271800598214
+China vs United States,China vs United States,Female,DALYs,Measure-specific GBD percent,China,United States of America,0.5373530741059309,1.1332665815739562,-0.0043109887977726994,0.0010488037429422,110.89794330469394
+China vs United States,China vs United States,Male,Incidence,All-age number,China,United States of America,4.261861407393168,4.115178779377346,117091.62115597242,132165.36218229233,-3.4417503056614507
+China vs United States,China vs United States,Male,Incidence,Age-standardized rate,China,United States of America,0.8352601055335791,0.8619859490104297,-4.493516704989997,-3.6464168683300002,3.1997030984471264
+China vs United States,China vs United States,Male,Incidence,Measure-specific GBD percent,China,United States of America,1.1758272640046805,1.3041192827932373,9.451634171499997e-06,1.37074366035e-05,10.910787895121143
+China vs United States,China vs United States,Male,Prevalence,All-age number,China,United States of America,3.1680255837649622,3.65490771125706,1318389.5672198616,2125186.348468617,15.368629912182552
+China vs United States,China vs United States,Male,Prevalence,Age-standardized rate,China,United States of America,0.7276579747299762,0.7565339665982322,-120.67775253278,-104.39749772015011,3.968346788059529
+China vs United States,China vs United States,Male,Prevalence,Measure-specific GBD percent,China,United States of America,0.6800340099771431,0.7358629007005757,-0.0015519000560559005,-0.0012437006918394,8.20972038226575
+China vs United States,China vs United States,Male,YLDs,All-age number,China,United States of America,3.234463211356202,3.7418248907175857,862860.4866766534,1368409.79364311,15.686116867245126
+China vs United States,China vs United States,Male,YLDs,Age-standardized rate,China,United States of America,0.7370219638887301,0.7741387722756892,-73.94915211726999,-61.018660356470036,5.036051868945757
+China vs United States,China vs United States,Male,YLDs,Measure-specific GBD percent,China,United States of America,0.8718981491265044,1.0570766715637678,-0.0030885020422927977,0.0012090578108768998,21.238549780473924
+China vs United States,China vs United States,Male,DALYs,All-age number,China,United States of America,3.2344632113562,3.741824890717588,862860.4866766526,1368409.7936431111,15.686116867245282
+China vs United States,China vs United States,Male,DALYs,Age-standardized rate,China,United States of America,0.7370219638887536,0.7741387722757082,-73.94915019458654,-61.01865876998099,5.03605186894498
+China vs United States,China vs United States,Male,DALYs,Measure-specific GBD percent,China,United States of America,0.5667117257840562,1.1058408459318136,-0.0037060492278355997,0.0008255693673191004,95.13286837357431
+Male vs Female,China,Male vs Female,Incidence,All-age number,Male,Female,1.322319094204263,1.3174727734611043,37291.46129850688,42071.5215712229,-0.3665016080006911
+Male vs Female,China,Male vs Female,Incidence,Age-standardized rate,Male,Female,1.2418900094977967,1.2362427340268582,4.437558731620001,4.352090401889999,-0.45473233762642895
+Male vs Female,China,Male vs Female,Incidence,Measure-specific GBD percent,Male,Female,1.1982359189677265,1.254003758138742,1.0456930603299996e-05,1.1906137920000003e-05,4.654161863137873
+Male vs Female,China,Male vs Female,Prevalence,All-age number,Male,Female,1.2473572842968452,1.184847383936234,382033.8733058772,456430.75310720457,-5.011386965671916
+Male vs Female,China,Male vs Female,Prevalence,Age-standardized rate,Male,Female,1.1644381607935346,1.163309229368329,45.532974804310015,45.54027999520997,-0.09695074098535761
+Male vs Female,China,Male vs Female,Prevalence,Measure-specific GBD percent,Male,Female,1.170794004819406,1.19007242626998,0.00048115244355069996,0.0005533871948127001,1.64661087870428
+Male vs Female,China,Male vs Female,YLDs,All-age number,Male,Female,1.2678197529082742,1.2033933302375759,263848.5305855513,315637.8131609557,-5.081670523188286
+Male vs Female,China,Male vs Female,YLDs,Age-standardized rate,Male,Female,1.1824372052114411,1.1775192965570014,31.976393210900028,31.529518529249998,-0.41591288169593454
+Male vs Female,China,Male vs Female,YLDs,Measure-specific GBD percent,Male,Female,1.3147380923737932,1.2861330867120295,0.005032320653773802,0.004981694434526698,-2.1757189380674835
+Male vs Female,China,Male vs Female,DALYs,All-age number,Male,Female,1.2678197529082729,1.2033933302375786,263848.5305855501,315637.8131609594,-5.0816705231879755
+Male vs Female,China,Male vs Female,DALYs,Age-standardized rate,Male,Female,1.1824372052114769,1.1775192965570282,31.976392379520604,31.529517709487976,-0.4159128816966673
+Male vs Female,China,Male vs Female,DALYs,Measure-specific GBD percent,Male,Female,0.9680760926373615,0.9671366514831634,-0.0001598464491244997,-0.00029310070671620045,-0.09704207771918938
+Male vs Female,United States of America,Male vs Female,Incidence,All-age number,Male,Female,1.1261506426855508,1.1761877937954475,4021.1779540533134,6355.26733599259,4.443202286913617
+Male vs Female,United States of America,Male vs Female,Incidence,Age-standardized rate,Male,Female,1.110833956954992,1.1469377338615672,2.7215183597699983,3.3848272600700007,3.250150635072635
+Male vs Female,United States of America,Male vs Female,Incidence,Measure-specific GBD percent,Male,Female,1.2367273273805008,1.2640505119425185,1.0289520180200003e-05,9.415315409900004e-06,2.2093135614533965
+Male vs Female,United States of America,Male vs Female,Prevalence,All-age number,Male,Female,0.9716700708602198,1.0427704401091884,-17729.88902322203,32832.397432050784,7.317336550875075
+Male vs Female,United States of America,Male vs Female,Prevalence,Age-standardized rate,Male,Female,1.0182058763284807,1.0632906316487893,7.9229796375599335,25.523436726020122,4.4278624164769464
+Male vs Female,United States of America,Male vs Female,Prevalence,Measure-specific GBD percent,Male,Female,1.0420872621472719,1.0931051312990678,0.00019588740722360082,0.0004010496628909996,4.895738678032702
+Male vs Female,United States of America,Male vs Female,YLDs,All-age number,Male,Female,0.9996161597960971,1.0721670640662917,-148.28067893988919,33593.32832443935,7.257876291735177
+Male vs Female,United States of America,Male vs Female,YLDs,Age-standardized rate,Male,Female,1.0434845408524709,1.089962711882157,11.718245448419964,22.298306558570033,4.454131250637983
+Male vs Female,United States of America,Male vs Female,YLDs,Measure-specific GBD percent,Male,Female,1.2124060457663381,1.2472859909165626,0.004223877057076299,0.0041997350908381005,2.8769194340479753
+Male vs Female,United States of America,Male vs Female,DALYs,All-age number,Male,Female,0.9996161597960973,1.0721670640662913,-148.28067893983098,33593.32832443918,7.25787629173511
+Male vs Female,United States of America,Male vs Female,DALYs,Age-standardized rate,Male,Female,1.0434845408524538,1.0899627118821782,11.718245143741342,22.298305978819343,4.454131250641713
+Male vs Female,United States of America,Male vs Female,DALYs,Measure-specific GBD percent,Male,Female,0.9179246531866614,0.991122412391691,-0.0007647860190615995,-6.986633109310088e-05,7.974266618825054

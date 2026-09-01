@@ -1,0 +1,13 @@
+{
+  "all_primary_panels_complete_34_years": true,
+  "duplicate_dimensional_keys": 0,
+  "invalid_ui_rows": 0,
+  "nonpositive_rows": 0,
+  "yld_daly_numerically_identical": true,
+  "population_reconstruction_p99_absolute_relative_error_pct": 7.059132820746014e-11,
+  "maximum_absolute_decomposition_closure_error": 1.1641532182693481e-10,
+  "primary_outputs_exclude_percent_metric": true,
+  "population_is_official_gbd_2023": false,
+  "official_nci_results_imported": false,
+  "submission_ready": false
+}

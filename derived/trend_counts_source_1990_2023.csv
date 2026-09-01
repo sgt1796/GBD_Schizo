@@ -1,0 +1,545 @@
+population_group_id,population_group_name,measure_id,measure_name,location_id,location_name,sex_id,sex_name,age_id,age_name,cause_id,cause_name,metric_id,metric_name,year,val,upper,lower
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,1990,985172.0335053742,1242487.1003107172,724061.8199204785
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,1991,1011436.1272784362,1266525.3527745234,742653.8404849282
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,1992,1036332.3431222596,1303220.3841529484,759392.7226235648
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,1993,1059790.351579751,1340647.9102757834,772267.687373684
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,1994,1083146.591338219,1366320.9233838802,795245.0245639972
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,1995,1103897.208247424,1402373.320494269,800480.1914534504
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,1996,1123219.5494364696,1421372.080934906,816430.0475707091
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,1997,1144375.078948638,1454375.810868644,835499.5408910832
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,1998,1164481.0154456424,1467862.106224509,855109.6889579082
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,1999,1185195.480185652,1495235.971713607,873460.0618003544
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2000,1204475.90380352,1518268.100500359,881688.5398412847
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2001,1225400.5721338952,1536385.4831328443,902711.2156783196
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2002,1244409.3758125375,1555722.0584068547,915905.8662105922
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2003,1266129.1731282822,1593141.6098386652,938008.9194173455
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2004,1287991.455718933,1622646.7760895027,941627.06062796
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2005,1311737.268882961,1662622.1774674996,961166.73372931
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2006,1334164.8359178214,1664195.677898133,979904.3125940256
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2007,1358681.0816270467,1707039.1090304572,991473.3225678044
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2008,1381623.7287097676,1728797.970867654,1015220.3514158694
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2009,1406244.3674522634,1770445.0144981858,1028231.5995219612
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2010,1428677.9829726971,1783801.9009386846,1049881.838794365
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2011,1449529.659640975,1812739.115283216,1062135.420350202
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2012,1468213.103196773,1838296.324412851,1069412.379740094
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2013,1483927.2979055662,1865313.7187063687,1084088.803474512
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2014,1498667.4006656972,1875267.2715814367,1095700.0087495772
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2015,1512083.0670208824,1892432.1945697227,1090709.7291329172
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2016,1522852.7045655577,1895785.597649696,1106493.274296963
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2017,1531508.409683915,1928660.791830102,1110469.9131552898
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2018,1540562.3853142485,1912368.3718389927,1120085.821584589
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2019,1545928.7148753044,1938445.7067239175,1133606.9729537112
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2020,1549848.827500563,1944726.444228968,1126011.6642661048
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2021,1553296.1157667043,1943000.1481091208,1131829.4228078914
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2022,1554954.1634446485,1941132.3026088688,1126202.5612285598
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2023,1551859.2118643762,1948122.882467781,1120101.8617092932
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,1990,1249020.5640909243,1575895.407432924,905406.3052012458
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,1991,1284845.222317421,1617794.5888275534,934721.0884744504
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,1992,1319026.6885905836,1666394.3941318423,953759.945881439
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,1993,1351058.2767116902,1706262.514523272,982016.4048933022
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,1994,1378508.1822804406,1742087.374551117,999627.5669022067
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,1995,1404256.487699408,1769940.0166713311,1020941.0153501448
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,1996,1426207.9778103686,1799074.9584171795,1042534.8470168508
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,1997,1444210.7411834598,1825979.230214959,1054626.943426134
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,1998,1460299.3867068684,1830734.371728976,1064269.780953127
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,1999,1479102.9954381222,1861032.9311311825,1087232.154920909
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2000,1498072.0569437756,1892302.0103357024,1097448.298516673
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2001,1518112.6051374185,1903210.9698704309,1106187.480328354
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2002,1539684.4136777548,1944740.3239670943,1124166.4372137354
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2003,1561660.2337917602,1972833.750615737,1145869.2262000288
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2004,1586354.2806807563,1993233.189132681,1163297.1201913245
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2005,1610300.1468089444,2030409.6079442825,1172920.793907056
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2006,1634232.3352895677,2056789.4137709783,1197247.5710105945
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2007,1657810.6582012246,2079048.1200886983,1219569.5734520147
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2008,1682943.068123141,2114271.974531363,1242657.3380657204
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2009,1706186.9700934773,2134640.4220059933,1243305.6179639588
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2010,1728844.392730448,2175092.8756425874,1270930.4702517951
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2011,1748355.9741309143,2189358.2419494465,1283505.9889810844
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2012,1767957.5338313105,2217381.485636852,1291241.105531836
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2013,1785143.0405734612,2230411.7033274043,1293706.8545283738
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2014,1800241.2078121486,2239205.012096592,1315206.815783712
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2015,1814144.533410441,2252204.5972659914,1323120.5202469137
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2016,1827389.065611879,2291301.1595083084,1333265.2989532873
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2017,1839091.842040127,2295495.4425256127,1335243.2015444078
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2018,1849335.193401653,2306918.90609842,1353068.364749332
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2019,1858924.1773466829,2316413.0822283607,1366271.9186803035
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2020,1865959.1333842769,2308335.86601693,1355430.0383242934
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2021,1867954.9206546347,2325663.556045383,1350637.2261766389
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2022,1868996.9057142823,2336600.625885504,1356668.693634727
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2023,1867497.0250253356,2322508.4111157884,1364870.6322523328
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,1990,386308.3580932116,478016.2035399573,272674.0469760214
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,1991,389766.13244783296,479779.573068119,276540.73070277326
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,1992,393715.22426616267,484228.1670267821,280846.8753696283
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,1993,397024.4704552267,490688.1912596411,283763.74308546446
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,1994,400290.0474348205,495620.72061404405,284076.1227600512
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,1995,403319.6293571216,495404.8950800047,287366.98082967114
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,1996,406941.8693641463,502459.54948566185,290146.6179708244
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,1997,410376.2563749416,504249.7450902709,294335.50142938085
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,1998,413525.5910798247,509228.1773371886,296239.11725706124
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,1999,416864.8659080625,515530.2148040177,297176.9118055197
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2000,420223.4959767615,517194.17000174685,299744.76458157995
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2001,424958.3211948545,522012.67479944666,303936.31193166063
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2002,430623.464547008,531810.3811485552,306918.6497491017
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2003,435070.3186837309,538884.7406535803,311444.4900792019
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2004,440523.957076143,545533.3373851815,312416.79705597553
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2005,445083.8698901592,548089.6325521815,316931.5304532987
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2006,449741.5791692176,554579.7945270756,318921.1274142858
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2007,453440.79855253664,556702.6631304789,322734.76436402753
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2008,456913.1888114185,562279.9398278192,324957.5921973753
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2009,460035.79979119945,563213.2407952552,328383.61706747126
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2010,462897.521943273,566403.2293299309,328666.8426154209
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2011,463918.3500665524,569721.3017804038,328878.2689820403
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2012,461776.29403708,566617.8312891837,329476.0908316671
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2013,458575.24962576095,563202.32234683,328329.963370282
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2014,456196.1654428888,557791.4742751173,323760.56575203105
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2015,456399.8515765738,561319.9748654447,325079.45614367607
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2016,458364.2397726444,562397.5886081783,327754.9755192451
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2017,460088.7276186639,564073.8134211772,327567.5980389934
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2018,461557.0338328709,567169.4999805598,331503.8237576811
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2019,462622.9279184236,563274.6070809829,333627.594354937
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2020,462058.674700965,562650.3399065428,331263.433340535
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2021,461712.6815720217,562610.8818176397,329228.186793371
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2022,462938.2405896977,562627.3641901945,333508.21784040495
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2023,465493.9030577853,564153.8126365279,334682.063958439
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,1990,386160.0774142718,478711.7788188408,278482.69899175625
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,1991,391278.89945176215,486772.4000043313,281625.30987315293
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,1992,396005.8665673182,492746.51859240746,285936.1440478179
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,1993,400204.9244980885,494698.1385947471,287873.7012608293
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,1994,404849.9868029487,501962.1671810904,290155.00419822795
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,1995,409512.149383745,509146.4577845104,295114.21892444027
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,1996,414230.9284522961,517312.98299914633,298374.2823100697
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,1997,418521.3988160477,519450.712606706,301472.9944623305
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,1998,422351.20447561535,522921.88394116703,303697.5535573275
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,1999,426733.6664765473,531132.5374151999,308004.37871265004
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2000,430838.14848968136,534046.7829014997,307849.8291351926
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2001,436177.56730538927,540330.4359248969,314314.27835553593
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2002,441114.0309669558,544620.7319100301,320890.18419163267
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2003,445312.64941278886,552686.4145482151,320700.75468472665
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2004,450289.4006238835,559868.60646048,326517.9626859695
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2005,454782.2216918952,563831.5068573935,326885.2061273146
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2006,459294.0437840053,569594.2839470744,329555.0285191185
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2007,463113.1143926597,572851.4387259879,333613.0455390588
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2008,467106.0335914888,579569.3654300633,335004.3787842065
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2009,470811.2447053378,580139.03324938,338528.115764164
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2010,474160.9263641349,583982.4742686525,339131.3029326834
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2011,477166.8252580545,587198.6226066299,341820.0993459078
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2012,478982.60448428505,590158.4339758089,344272.7957918337
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2013,480440.8589547605,591723.2539799694,344988.29125675093
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2014,482396.6266957207,591181.7186201251,348852.8886570836
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2015,484994.6846811577,598969.1118096722,348300.12014960987
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2016,488042.9258562716,598362.1116290814,350278.567565894
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2017,490262.2644389337,598566.9272086212,353213.4490814189
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2018,491782.18861173553,604940.332229301,353607.16835763754
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2019,493548.0588638352,600249.0624009636,357484.9280866431
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2020,493819.6891318739,602757.6008113157,359377.0860659351
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2021,496707.3240767981,606672.2196036751,359373.3040112272
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2022,500995.6936702032,616781.6334446882,362337.1444360275
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2023,499087.2313822245,610405.881902028,362580.2286313593
+1,All Population,6,Incidence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,1990,115697.33834904048,138931.39420657957,97975.38808770616
+1,All Population,6,Incidence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,1991,117232.9384230991,141562.42969810398,98668.61853754202
+1,All Population,6,Incidence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,1992,118388.51311737872,142782.418508976,99255.46130035896
+1,All Population,6,Incidence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,1993,119325.59388222347,144026.1594157064,99991.31465716811
+1,All Population,6,Incidence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,1994,120150.09249754724,144862.57205784606,100896.60742336442
+1,All Population,6,Incidence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,1995,120846.48524513698,145075.12132037152,101656.25769291214
+1,All Population,6,Incidence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,1996,121423.24579658188,144743.53178248982,101963.7241338386
+1,All Population,6,Incidence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,1997,121970.76789376,145105.22187887583,102293.74168448785
+1,All Population,6,Incidence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,1998,122653.8403636978,145563.47204974206,102844.58160555328
+1,All Population,6,Incidence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,1999,123607.97653458743,146409.22772868446,103643.23493960065
+1,All Population,6,Incidence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2000,124815.24149677862,147663.53157410212,104781.50791880047
+1,All Population,6,Incidence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2001,126231.9655837115,148978.181992239,106304.16025696875
+1,All Population,6,Incidence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2002,127782.6214773517,150874.97283040683,107663.614697849
+1,All Population,6,Incidence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2003,129485.3211265164,153053.97047159358,109172.4276770256
+1,All Population,6,Incidence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2004,131350.2509214853,155430.2056560708,110945.46615634012
+1,All Population,6,Incidence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2005,133272.64407440025,157923.11817612912,112845.49786174322
+1,All Population,6,Incidence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2006,135140.028141404,160006.77758907792,114629.32305222856
+1,All Population,6,Incidence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2007,136866.74621426334,161790.95594494863,116337.32149289176
+1,All Population,6,Incidence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2008,138411.03315072856,163335.54459099006,117377.7825644462
+1,All Population,6,Incidence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2009,139661.7519455023,164622.25572723962,117923.7184067391
+1,All Population,6,Incidence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2010,140601.27793474955,165575.12171187776,118446.11941656156
+1,All Population,6,Incidence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2011,141055.317554268,165557.41850836508,118845.98087618544
+1,All Population,6,Incidence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2012,141031.0162683489,166301.21376811553,118800.52114546012
+1,All Population,6,Incidence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2013,140617.58008546295,165325.20164944886,118824.37909584348
+1,All Population,6,Incidence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2014,139823.44148872135,164823.91636739258,117640.72964810068
+1,All Population,6,Incidence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2015,138939.94452790712,164109.32760075538,116369.6125583009
+1,All Population,6,Incidence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2016,138025.91533706128,163092.08064631483,115831.35426882825
+1,All Population,6,Incidence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2017,137149.27838892792,161802.58245807517,115135.47146029572
+1,All Population,6,Incidence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2018,136314.16875936036,161028.33997889172,114760.38122831532
+1,All Population,6,Incidence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2019,135412.89618644345,159399.72262157776,114168.5388376695
+1,All Population,6,Incidence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2020,134565.11183622564,157904.92345182472,113504.9088544156
+1,All Population,6,Incidence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2021,133622.29833423416,156210.9780922082,112938.54057010768
+1,All Population,6,Incidence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2022,132840.55660759084,154498.17926648783,112049.04590327492
+1,All Population,6,Incidence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2023,132520.0933376334,155088.57310082295,111394.64425027698
+1,All Population,6,Incidence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,1990,152988.79964754736,182807.85243800184,129743.0844827002
+1,All Population,6,Incidence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,1991,155604.5190128936,186341.47667871,131543.3361503053
+1,All Population,6,Incidence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,1992,157577.20365027856,188638.27795587605,133192.59224883773
+1,All Population,6,Incidence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,1993,159029.9881464026,189988.4825564725,133897.11291866837
+1,All Population,6,Incidence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,1994,160073.0555247229,191376.56958341,134278.7013348491
+1,All Population,6,Incidence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,1995,160686.02754340548,191551.87274480445,134271.15409695706
+1,All Population,6,Incidence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,1996,160945.78919039227,191617.0762280945,134393.22023855383
+1,All Population,6,Incidence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,1997,161015.81643980576,191411.83712988376,134521.45855152482
+1,All Population,6,Incidence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,1998,161216.214340075,191221.8739644973,134795.65838361907
+1,All Population,6,Incidence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,1999,161782.8577216961,191400.50327333988,135439.047832689
+1,All Population,6,Incidence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2000,162711.8286832899,192364.47009243543,136582.55531864846
+1,All Population,6,Incidence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2001,163983.15209233956,194000.7445128758,138356.35249207303
+1,All Population,6,Incidence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2002,165469.66770268703,195555.47117343472,140038.60055013973
+1,All Population,6,Incidence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2003,167203.59773411645,197258.49997746293,141485.12057525784
+1,All Population,6,Incidence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2004,169219.12481098875,200304.18102190737,143089.6405045606
+1,All Population,6,Incidence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2005,171356.42328542084,202116.7049969323,145058.70731088013
+1,All Population,6,Incidence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2006,173482.47430582985,203829.9846060176,146750.10346674762
+1,All Population,6,Incidence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2007,175513.31899990822,206278.53464023743,149056.66275819542
+1,All Population,6,Incidence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2008,177388.07559061213,207724.1728630213,150959.86568020837
+1,All Population,6,Incidence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2009,178969.62643298766,209409.8383909059,152359.8700027892
+1,All Population,6,Incidence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2010,180219.72786112336,211086.82870946737,153221.4591770933
+1,All Population,6,Incidence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2011,180888.0809327568,212173.49575729764,153271.66661669803
+1,All Population,6,Incidence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2012,181020.99031622885,212413.2044219267,152679.40768549708
+1,All Population,6,Incidence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2013,180751.123178054,212582.0402517618,152653.9878494841
+1,All Population,6,Incidence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2014,180108.46925533298,212260.29328024588,152563.26074514425
+1,All Population,6,Incidence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2015,179478.90592093233,211013.2305159008,152471.84958021386
+1,All Population,6,Incidence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2016,178857.64026137016,210514.7438109164,152511.0212682861
+1,All Population,6,Incidence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2017,178248.4332455475,209999.90118552744,152211.35548479343
+1,All Population,6,Incidence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2018,177666.16964423755,209482.60589396293,151874.43526332278
+1,All Population,6,Incidence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2019,177012.89913270195,208926.1843893916,151011.02403249952
+1,All Population,6,Incidence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2020,176458.55218989603,208179.7187274458,149993.68883618058
+1,All Population,6,Incidence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2021,175780.80730622163,206776.6572640864,149132.02307456982
+1,All Population,6,Incidence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2022,175196.04213324396,205280.2860844509,148199.9320782662
+1,All Population,6,Incidence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2023,174591.6149088563,202989.0999873824,147864.0219678068
+1,All Population,6,Incidence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,1990,31876.00053752164,38496.19931692621,26747.83908744369
+1,All Population,6,Incidence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,1991,31923.329573525087,38476.03055009001,26778.863474245623
+1,All Population,6,Incidence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,1992,31972.51765458579,38480.41846331394,26841.180675094496
+1,All Population,6,Incidence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,1993,32014.62893890286,38331.47271870769,26921.060357858627
+1,All Population,6,Incidence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,1994,32045.030713225453,38187.04095542863,26994.397407486213
+1,All Population,6,Incidence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,1995,32071.38875631992,38062.49003621891,27041.63494945058
+1,All Population,6,Incidence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,1996,32106.69404765806,38103.38350191731,27088.743678450384
+1,All Population,6,Incidence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,1997,32180.141349197995,38175.21635719451,27240.59071777973
+1,All Population,6,Incidence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,1998,32304.651562188406,38366.35684637107,27409.99006577595
+1,All Population,6,Incidence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,1999,32475.708543396304,38608.53299939037,27571.05641309637
+1,All Population,6,Incidence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2000,32698.34574615284,38899.11860875602,27724.759664447807
+1,All Population,6,Incidence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2001,33133.23142040086,39477.75935580285,28169.731818521417
+1,All Population,6,Incidence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2002,33594.32349885473,40001.94117992481,28649.37386858684
+1,All Population,6,Incidence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2003,34036.50676900302,40484.378323388366,29110.04154067778
+1,All Population,6,Incidence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2004,34503.76477945296,41008.61630545591,29565.59543531119
+1,All Population,6,Incidence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2005,34900.798481334525,41450.207225948965,29949.773541183
+1,All Population,6,Incidence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2006,35266.29350627869,41966.28422913287,30266.87124952949
+1,All Population,6,Incidence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2007,35561.16529540873,42378.479253014295,30532.05250357546
+1,All Population,6,Incidence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2008,35814.95144181412,42583.92695768016,30769.783856764618
+1,All Population,6,Incidence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2009,36051.56401882846,42747.081811171854,30984.87468416757
+1,All Population,6,Incidence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2010,36249.96212324095,42845.41239232416,31095.381594216207
+1,All Population,6,Incidence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2011,36321.732607942686,42783.69332434324,31137.10514884152
+1,All Population,6,Incidence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2012,36194.47229905513,42496.86647955925,30986.18525377438
+1,All Population,6,Incidence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2013,35958.6201067673,42226.897870859786,30756.13043561696
+1,All Population,6,Incidence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2014,35767.06620746428,42015.362097148114,30587.231458100105
+1,All Population,6,Incidence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2015,35703.087094556715,41799.067443414286,30461.64823707697
+1,All Population,6,Incidence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2016,35748.2083804323,41755.01400421802,30469.7998740225
+1,All Population,6,Incidence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2017,35764.080862251605,41738.00468929028,30516.11782985247
+1,All Population,6,Incidence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2018,35753.54784462045,41710.49338001133,30538.503418965043
+1,All Population,6,Incidence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2019,35737.88665795939,41671.93053213306,30521.583938624084
+1,All Population,6,Incidence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2020,35698.504630944415,41599.94634933358,30454.74351232541
+1,All Population,6,Incidence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2021,35625.49815189751,41484.34613224223,30456.46360919056
+1,All Population,6,Incidence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2022,35677.3049656697,41551.482935122105,30415.60335875648
+1,All Population,6,Incidence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2023,36070.985390571375,42094.20188525653,30645.386176275875
+1,All Population,6,Incidence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,1990,35897.17849157495,42985.147915875554,30748.09599253233
+1,All Population,6,Incidence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,1991,35977.17407940252,42929.86148118568,30804.16626633679
+1,All Population,6,Incidence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,1992,36059.90907321501,42871.036211242026,30839.38847860809
+1,All Population,6,Incidence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,1993,36141.51283536252,42855.29675518784,30862.619419154595
+1,All Population,6,Incidence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,1994,36233.30219589324,42938.38178139378,30943.393575554765
+1,All Population,6,Incidence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,1995,36338.36552739726,43059.50264125732,31078.72954900049
+1,All Population,6,Incidence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,1996,36504.40782691987,43126.643664984345,31204.97124605067
+1,All Population,6,Incidence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,1997,36746.20831447749,43325.744378507006,31487.08838772568
+1,All Population,6,Incidence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,1998,37037.839224186384,43599.59444443795,31774.31916945756
+1,All Population,6,Incidence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,1999,37338.91780680408,43923.1939035004,32049.39112855742
+1,All Population,6,Incidence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2000,37612.79834276235,44204.48814075564,32278.24815095673
+1,All Population,6,Incidence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2001,38109.27553938914,44708.65887545805,32678.004936131063
+1,All Population,6,Incidence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2002,38562.09927364472,45183.45586357251,33068.63095716242
+1,All Population,6,Incidence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2003,38943.75963621388,45583.90969646982,33415.74817803062
+1,All Population,6,Incidence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2004,39366.18440402305,46081.74592157885,33798.645928472804
+1,All Population,6,Incidence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2005,39741.878807679714,46661.2043198279,34117.39176324689
+1,All Population,6,Incidence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2006,40162.56067928062,46993.06452130707,34442.5116302933
+1,All Population,6,Incidence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2007,40552.09186743079,47293.0774854283,34736.20052536616
+1,All Population,6,Incidence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2008,40923.18844063545,47677.561037896376,35018.195834572085
+1,All Population,6,Incidence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2009,41258.49318879018,48044.22348202477,35260.11924155934
+1,All Population,6,Incidence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2010,41512.01998303494,48299.412033394925,35442.476714721764
+1,All Population,6,Incidence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2011,41707.02108517692,48444.2850208823,35694.24684854423
+1,All Population,6,Incidence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2012,41836.10395758656,48557.59513492776,35891.74716805948
+1,All Population,6,Incidence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2013,41913.66975687205,48614.90151667534,36027.39728918745
+1,All Population,6,Incidence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2014,42022.35415630107,48717.29310093956,36173.643465520014
+1,All Population,6,Incidence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2015,42155.59260145701,48846.30627485589,36303.274070079
+1,All Population,6,Incidence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2016,42292.71925238858,49026.94836200994,36431.67054217313
+1,All Population,6,Incidence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2017,42353.755760217806,49132.34230253033,36497.257540102495
+1,All Population,6,Incidence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2018,42350.35761215046,49178.62250502338,36503.46413078178
+1,All Population,6,Incidence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2019,42336.08663739357,49202.56679873951,36491.45033772258
+1,All Population,6,Incidence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2020,42302.51188907696,49177.85294488952,36424.13624350901
+1,All Population,6,Incidence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2021,42351.49413318962,49248.46390313506,36555.92396445376
+1,All Population,6,Incidence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2022,42569.20709761086,49542.30129139328,36822.04589458284
+1,All Population,6,Incidence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2023,42426.252726563966,49242.15928338784,36456.4740053096
+1,All Population,5,Prevalence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,1990,1544461.786892078,1844258.356006604,1278400.1736376148
+1,All Population,5,Prevalence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,1991,1584088.1987934548,1888903.8978785127,1312980.2827341373
+1,All Population,5,Prevalence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,1992,1621607.6126714146,1931045.3760738308,1346170.8570183795
+1,All Population,5,Prevalence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,1993,1657551.8976533946,1971706.3558584296,1377249.167390725
+1,All Population,5,Prevalence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,1994,1691855.381531801,2011716.8960249235,1407396.128517717
+1,All Population,5,Prevalence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,1995,1724187.0315281523,2054638.687811136,1435704.0279784775
+1,All Population,5,Prevalence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,1996,1755577.8576156958,2090121.1601363868,1464789.602293118
+1,All Population,5,Prevalence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,1997,1787128.748848715,2127536.904330864,1489492.0487848667
+1,All Population,5,Prevalence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,1998,1819284.942244416,2168670.33484579,1514736.477427798
+1,All Population,5,Prevalence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,1999,1851727.4209071973,2210433.61277591,1540904.5401092195
+1,All Population,5,Prevalence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2000,1883669.7358182983,2252248.477626507,1569189.8056209432
+1,All Population,5,Prevalence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2001,1915012.421949681,2286817.06005088,1597666.7605933603
+1,All Population,5,Prevalence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2002,1946702.5577661523,2326744.9817656856,1628920.915764094
+1,All Population,5,Prevalence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2003,1980028.185147772,2363777.0098565067,1661918.6793829205
+1,All Population,5,Prevalence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2004,2015339.912735884,2403761.728324064,1696076.017357759
+1,All Population,5,Prevalence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2005,2052254.5877217925,2448256.7791608577,1729556.403646627
+1,All Population,5,Prevalence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2006,2090077.6676480176,2488381.146252812,1761772.740676397
+1,All Population,5,Prevalence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2007,2128448.248025364,2526818.342516453,1794586.2209337049
+1,All Population,5,Prevalence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2008,2167379.331665789,2566823.182690114,1826953.8980823096
+1,All Population,5,Prevalence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2009,2206091.9315704294,2613835.65355161,1858356.93285624
+1,All Population,5,Prevalence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2010,2243287.907829293,2654615.8366362294,1887599.4932207712
+1,All Population,5,Prevalence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2011,2277540.896472196,2691476.692680053,1913207.004461354
+1,All Population,5,Prevalence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2012,2309127.222904888,2729035.947534808,1933770.492625536
+1,All Population,5,Prevalence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2013,2338397.391296904,2766870.0962050804,1956205.8943848195
+1,All Population,5,Prevalence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2014,2364402.307371334,2798276.977449816,1977312.8908396508
+1,All Population,5,Prevalence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2015,2387152.762734269,2822623.7690289626,1994288.3963855363
+1,All Population,5,Prevalence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2016,2405527.419922061,2843796.03096834,2007812.1300819835
+1,All Population,5,Prevalence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2017,2420511.720674352,2859449.6349322554,2018873.4784397543
+1,All Population,5,Prevalence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2018,2433487.20652914,2870246.4691068204,2035106.6110250144
+1,All Population,5,Prevalence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2019,2444345.5119563355,2876252.169885299,2047032.0991176297
+1,All Population,5,Prevalence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2020,2454441.2822899646,2885342.87989513,2061223.476543288
+1,All Population,5,Prevalence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2021,2461987.508628393,2874307.948343068,2072787.5374510344
+1,All Population,5,Prevalence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2022,2467357.7415572447,2873629.950772404,2076834.4611637348
+1,All Population,5,Prevalence,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2023,2469230.2557263006,2895939.495493994,2074473.28187423
+1,All Population,5,Prevalence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,1990,1926495.660197955,2282654.1326284623,1592841.4464992003
+1,All Population,5,Prevalence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,1991,1981431.26711112,2344890.625702519,1635877.966147833
+1,All Population,5,Prevalence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,1992,2032456.0762844405,2403087.4467141097,1679751.4794171122
+1,All Population,5,Prevalence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,1993,2079637.6665027912,2457764.3145867456,1724860.2269732938
+1,All Population,5,Prevalence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,1994,2122333.884842381,2509671.903148316,1766826.845653586
+1,All Population,5,Prevalence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,1995,2160331.847977845,2557228.5091774524,1803642.879324045
+1,All Population,5,Prevalence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,1996,2193614.179687463,2600733.7446495723,1831543.972403248
+1,All Population,5,Prevalence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,1997,2223505.0205270364,2640082.807029546,1856484.1567035413
+1,All Population,5,Prevalence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,1998,2252272.264515297,2678007.2528565624,1878839.256760688
+1,All Population,5,Prevalence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,1999,2281189.8095096136,2717342.4742003693,1903263.551016915
+1,All Population,5,Prevalence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2000,2311360.6567536783,2751228.396338567,1928777.359759037
+1,All Population,5,Prevalence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2001,2343397.975150238,2788550.4442400443,1962076.271828496
+1,All Population,5,Prevalence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2002,2376993.624242876,2828723.231207089,1985400.741246019
+1,All Population,5,Prevalence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2003,2412723.211974076,2872481.344728249,2011162.5578386444
+1,All Population,5,Prevalence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2004,2450227.932714448,2918740.4899893026,2046762.8636146584
+1,All Population,5,Prevalence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2005,2488668.6031593755,2966975.3784778104,2082678.261458096
+1,All Population,5,Prevalence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2006,2527488.381413698,3006836.60040223,2117717.1957238186
+1,All Population,5,Prevalence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2007,2566872.2938776407,3042174.877397457,2152233.0835046265
+1,All Population,5,Prevalence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2008,2606974.9426670736,3084347.620156977,2186837.270522241
+1,All Population,5,Prevalence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2009,2646937.4696626808,3126886.449014224,2221848.133582908
+1,All Population,5,Prevalence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2010,2685317.6865626983,3168804.4933198085,2255110.4707459803
+1,All Population,5,Prevalence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2011,2720336.878598017,3210509.7535044304,2283505.3828604124
+1,All Population,5,Prevalence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2012,2752686.816281916,3251320.753974392,2309583.487180623
+1,All Population,5,Prevalence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2013,2783095.121206645,3287351.48047955,2332884.0528632784
+1,All Population,5,Prevalence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2014,2810752.0878575644,3312977.816591866,2351190.4665768533
+1,All Population,5,Prevalence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2015,2835893.9939453187,3338331.2502106107,2366153.7034170483
+1,All Population,5,Prevalence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2016,2856528.29052672,3358483.2387359445,2378655.2419217844
+1,All Population,5,Prevalence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2017,2873328.8826712044,3380032.4985419684,2388218.2807156374
+1,All Population,5,Prevalence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2018,2888065.261606763,3403632.6684638374,2399734.490986201
+1,All Population,5,Prevalence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2019,2900956.1617851416,3429526.809197774,2413091.5701149814
+1,All Population,5,Prevalence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2020,2913669.047501896,3444650.7049775,2426639.154395278
+1,All Population,5,Prevalence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2021,2921515.600206292,3443952.7401160635,2432274.39577732
+1,All Population,5,Prevalence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2022,2925835.695224072,3443043.5701292767,2435780.865742537
+1,All Population,5,Prevalence,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2023,2925661.008833505,3441425.912991318,2451024.632797577
+1,All Population,5,Prevalence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,1990,625835.9820013156,742574.1695332523,518779.0947102598
+1,All Population,5,Prevalence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,1991,632391.2828289827,750530.3601009073,525083.5926655938
+1,All Population,5,Prevalence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,1992,638173.0036682378,757782.3250803833,530816.2358232755
+1,All Population,5,Prevalence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,1993,643461.3601324977,764532.8003259057,536176.3104128905
+1,All Population,5,Prevalence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,1994,648893.1491612373,771299.3339798367,541374.4348846932
+1,All Population,5,Prevalence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,1995,654625.8901091513,776588.571782344,546768.2692338753
+1,All Population,5,Prevalence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,1996,660212.2724505927,783885.8765003775,551456.1254945082
+1,All Population,5,Prevalence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,1997,665083.7605682787,790401.6125857634,555318.1923328354
+1,All Population,5,Prevalence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,1998,669667.5634984081,796585.0976745348,559056.7832591403
+1,All Population,5,Prevalence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,1999,674735.7171341251,802269.6606279446,563210.9815356799
+1,All Population,5,Prevalence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2000,680569.642856278,807974.2780250909,567979.8497437614
+1,All Population,5,Prevalence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2001,688408.8771760024,817600.3921324145,574934.4018174866
+1,All Population,5,Prevalence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2002,696625.8504299651,827717.5563276907,582088.4127576756
+1,All Population,5,Prevalence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2003,704571.363004886,837048.5463068465,588510.9691262196
+1,All Population,5,Prevalence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2004,712817.1508225455,846846.7042754759,595032.9083790178
+1,All Population,5,Prevalence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2005,720510.7520504018,855914.5282047541,601121.6873362936
+1,All Population,5,Prevalence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2006,727695.3072651052,863465.7247611373,607416.1485308799
+1,All Population,5,Prevalence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2007,733851.7917411285,871109.935724007,612795.2383012329
+1,All Population,5,Prevalence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2008,739440.1162582851,875136.4745628419,617680.0968216074
+1,All Population,5,Prevalence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2009,744609.6205394759,878813.401134947,622225.6187854486
+1,All Population,5,Prevalence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2010,749564.1664284342,882454.2222474148,626361.0192505869
+1,All Population,5,Prevalence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2011,751630.392171526,883500.514096145,630170.0985778826
+1,All Population,5,Prevalence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2012,749108.4864905773,879068.2135952809,629912.3631112871
+1,All Population,5,Prevalence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2013,744712.8901352716,872458.0950217718,628054.960880655
+1,All Population,5,Prevalence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2014,741740.9014188988,867585.195088239,626698.3941717704
+1,All Population,5,Prevalence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2015,742698.3748927914,867352.0978659994,627092.2723091221
+1,All Population,5,Prevalence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2016,746648.85203377,871357.6078986711,630325.8260561655
+1,All Population,5,Prevalence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2017,750126.4530200559,875417.7785273902,633186.7614233656
+1,All Population,5,Prevalence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2018,753093.5562447172,879108.5808754837,635162.53769997
+1,All Population,5,Prevalence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2019,756068.1912901247,882865.2042104466,637102.6859969071
+1,All Population,5,Prevalence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2020,758461.0258689399,885960.4297396921,639238.2009355436
+1,All Population,5,Prevalence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2021,759987.4287954834,888071.0541617571,640933.6849302186
+1,All Population,5,Prevalence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2022,762473.0912795708,891573.3322665533,645011.29298782
+1,All Population,5,Prevalence,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2023,767642.2629328372,896626.818810405,646810.7935539956
+1,All Population,5,Prevalence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,1990,608106.0929780935,721030.0233944319,507601.901577999
+1,All Population,5,Prevalence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,1991,616165.5409511497,730785.4209887467,514184.0400024605
+1,All Population,5,Prevalence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,1992,623546.8672243357,740091.1396347946,520127.8529665639
+1,All Population,5,Prevalence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,1993,630426.485722185,748683.1636021662,525560.4422463055
+1,All Population,5,Prevalence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,1994,637467.211547633,757482.8016820423,531047.8856551502
+1,All Population,5,Prevalence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,1995,644787.3986891558,766545.1690806726,536877.4843659976
+1,All Population,5,Prevalence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,1996,652062.7253982365,774017.7547586577,543810.749351722
+1,All Population,5,Prevalence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,1997,658869.9943812753,780790.5037642501,550288.2139254181
+1,All Population,5,Prevalence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,1998,665359.7915908104,787203.7671557753,556550.6712944438
+1,All Population,5,Prevalence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,1999,671997.7981648443,794737.7053578775,562833.7338698287
+1,All Population,5,Prevalence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2000,678749.5609301049,802599.8199110964,569255.8010435816
+1,All Population,5,Prevalence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2001,687418.5251034026,813259.527868492,577183.5227895875
+1,All Population,5,Prevalence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2002,695499.267398115,822677.7116062625,584851.1423602138
+1,All Population,5,Prevalence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2003,702668.3830790081,830751.9875269781,591820.5079892607
+1,All Population,5,Prevalence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2004,710307.8084056256,839432.8803974657,599009.6124256649
+1,All Population,5,Prevalence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2005,717679.1013969494,847916.1320230843,605997.5698853915
+1,All Population,5,Prevalence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2006,725175.515709673,855027.2934023,612463.7218695257
+1,All Population,5,Prevalence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2007,731919.5110974826,862588.3440222169,618205.350551598
+1,All Population,5,Prevalence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2008,738400.3314837854,870249.4364353984,623664.9450960561
+1,All Population,5,Prevalence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2009,744629.3934285472,878209.1676278082,628878.8116957329
+1,All Population,5,Prevalence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2010,750566.0921671374,884991.2595077264,633802.0063763971
+1,All Population,5,Prevalence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2011,755764.8913321154,890208.1570806849,638223.265286067
+1,All Population,5,Prevalence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2012,759422.9662049506,892202.3210447123,641208.4065217477
+1,All Population,5,Prevalence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2013,762376.4835133587,893228.8966017026,643457.5254382703
+1,All Population,5,Prevalence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2014,766088.0077485328,896380.0600185293,645815.9173161124
+1,All Population,5,Prevalence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2015,771002.6361685137,902058.146667842,649189.6930291555
+1,All Population,5,Prevalence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2016,776418.2494423747,908411.1116590126,654128.7403949721
+1,All Population,5,Prevalence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2017,780465.3083501796,913117.3538788848,657847.0837943915
+1,All Population,5,Prevalence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2018,783601.1631483887,917011.6307699988,660717.5912714305
+1,All Population,5,Prevalence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2019,786819.434374014,920937.6700419708,663594.5241141289
+1,All Population,5,Prevalence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2020,789742.4397672681,924441.9386482936,666212.183147643
+1,All Population,5,Prevalence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2021,796068.1919737069,933719.9787889872,671275.4064244757
+1,All Population,5,Prevalence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2022,803796.0457214885,944435.8800670936,677745.2479729508
+1,All Population,5,Prevalence,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2023,800474.660364888,934021.1488159228,674408.9775918858
+1,All Population,3,YLDs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,1990,985172.033505374,1242487.1003107172,724061.8199204786
+1,All Population,3,YLDs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,1991,1011436.1272784356,1266525.3527745237,742653.8404849282
+1,All Population,3,YLDs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,1992,1036332.3431222604,1303220.3841529484,759392.7226235648
+1,All Population,3,YLDs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,1993,1059790.351579751,1340647.910275783,772267.687373684
+1,All Population,3,YLDs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,1994,1083146.5913382184,1366320.9233838802,795245.0245639972
+1,All Population,3,YLDs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,1995,1103897.208247424,1402373.3204942688,800480.1914534504
+1,All Population,3,YLDs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,1996,1123219.5494364698,1421372.080934906,816430.0475707091
+1,All Population,3,YLDs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,1997,1144375.0789486386,1454375.810868644,835499.5408910832
+1,All Population,3,YLDs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,1998,1164481.0154456429,1467862.106224509,855109.6889579082
+1,All Population,3,YLDs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,1999,1185195.4801856508,1495235.971713607,873460.0618003544
+1,All Population,3,YLDs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2000,1204475.9038035206,1518268.100500359,881688.5398412847
+1,All Population,3,YLDs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2001,1225400.5721338957,1536385.4831328446,902711.2156783196
+1,All Population,3,YLDs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2002,1244409.3758125382,1555722.0584068547,915905.8662105922
+1,All Population,3,YLDs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2003,1266129.1731282831,1593141.6098386652,938008.9194173455
+1,All Population,3,YLDs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2004,1287991.4557189338,1622646.7760895025,941627.06062796
+1,All Population,3,YLDs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2005,1311737.268882961,1662622.1774674996,961166.73372931
+1,All Population,3,YLDs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2006,1334164.835917821,1664195.677898133,979904.3125940256
+1,All Population,3,YLDs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2007,1358681.0816270465,1707039.1090304572,991473.3225678044
+1,All Population,3,YLDs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2008,1381623.728709767,1728797.970867654,1015220.3514158694
+1,All Population,3,YLDs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2009,1406244.3674522648,1770445.0144981858,1028231.5995219612
+1,All Population,3,YLDs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2010,1428677.9829726943,1783801.9009386846,1049881.838794365
+1,All Population,3,YLDs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2011,1449529.659640978,1812739.115283216,1062135.420350202
+1,All Population,3,YLDs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2012,1468213.1031967727,1838296.324412851,1069412.379740094
+1,All Population,3,YLDs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2013,1483927.2979055664,1865313.718706369,1084088.803474512
+1,All Population,3,YLDs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2014,1498667.400665698,1875267.2715814367,1095700.008749577
+1,All Population,3,YLDs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2015,1512083.0670208822,1892432.194569723,1090709.729132917
+1,All Population,3,YLDs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2016,1522852.7045655567,1895785.597649696,1106493.274296963
+1,All Population,3,YLDs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2017,1531508.4096839144,1928660.7918301024,1110469.9131552898
+1,All Population,3,YLDs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2018,1540562.385314249,1912368.3718389927,1120085.8215845893
+1,All Population,3,YLDs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2019,1545928.7148753055,1938445.706723918,1133606.9729537112
+1,All Population,3,YLDs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2020,1549848.8275005629,1944726.444228968,1126011.6642661048
+1,All Population,3,YLDs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2021,1553296.1157667043,1943000.148109121,1131829.4228078912
+1,All Population,3,YLDs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2022,1554954.1634446485,1941132.3026088688,1126202.5612285598
+1,All Population,3,YLDs,6,China,2,Female,22,All ages,559,Schizophrenia,1,Number,2023,1551859.2118643788,1948122.882467781,1120101.8617092932
+1,All Population,3,YLDs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,1990,1249020.5640909253,1575895.407432924,905406.3052012458
+1,All Population,3,YLDs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,1991,1284845.2223174204,1617794.5888275534,934721.0884744504
+1,All Population,3,YLDs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,1992,1319026.6885905846,1666394.3941318423,953759.945881439
+1,All Population,3,YLDs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,1993,1351058.2767116898,1706262.514523272,982016.4048933022
+1,All Population,3,YLDs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,1994,1378508.1822804397,1742087.374551117,999627.5669022067
+1,All Population,3,YLDs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,1995,1404256.4876994072,1769940.0166713311,1020941.0153501448
+1,All Population,3,YLDs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,1996,1426207.977810369,1799074.9584171798,1042534.8470168508
+1,All Population,3,YLDs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,1997,1444210.7411834602,1825979.230214959,1054626.943426134
+1,All Population,3,YLDs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,1998,1460299.3867068694,1830734.3717289765,1064269.780953127
+1,All Population,3,YLDs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,1999,1479102.9954381213,1861032.9311311825,1087232.154920909
+1,All Population,3,YLDs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2000,1498072.0569437756,1892302.0103357024,1097448.2985166733
+1,All Population,3,YLDs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2001,1518112.6051374187,1903210.9698704309,1106187.480328354
+1,All Population,3,YLDs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2002,1539684.4136777555,1944740.3239670943,1124166.4372137354
+1,All Population,3,YLDs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2003,1561660.2337917588,1972833.7506157367,1145869.2262000288
+1,All Population,3,YLDs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2004,1586354.2806807563,1993233.189132681,1163297.1201913245
+1,All Population,3,YLDs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2005,1610300.146808945,2030409.6079442825,1172920.793907056
+1,All Population,3,YLDs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2006,1634232.335289565,2056789.4137709783,1197247.5710105945
+1,All Population,3,YLDs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2007,1657810.6582012258,2079048.1200886983,1219569.5734520147
+1,All Population,3,YLDs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2008,1682943.068123142,2114271.974531363,1242657.3380657202
+1,All Population,3,YLDs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2009,1706186.9700934784,2134640.4220059933,1243305.6179639588
+1,All Population,3,YLDs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2010,1728844.3927304477,2175092.8756425874,1270930.4702517951
+1,All Population,3,YLDs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2011,1748355.9741309131,2189358.2419494465,1283505.988981085
+1,All Population,3,YLDs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2012,1767957.5338313116,2217381.485636852,1291241.105531836
+1,All Population,3,YLDs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2013,1785143.040573462,2230411.7033274043,1293706.8545283738
+1,All Population,3,YLDs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2014,1800241.2078121488,2239205.012096592,1315206.815783712
+1,All Population,3,YLDs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2015,1814144.5334104423,2252204.597265991,1323120.5202469137
+1,All Population,3,YLDs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2016,1827389.06561188,2291301.1595083084,1333265.2989532873
+1,All Population,3,YLDs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2017,1839091.8420401283,2295495.442525612,1335243.2015444078
+1,All Population,3,YLDs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2018,1849335.193401652,2306918.90609842,1353068.364749332
+1,All Population,3,YLDs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2019,1858924.1773466824,2316413.0822283607,1366271.9186803035
+1,All Population,3,YLDs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2020,1865959.133384276,2308335.86601693,1355430.0383242932
+1,All Population,3,YLDs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2021,1867954.920654634,2325663.556045383,1350637.2261766386
+1,All Population,3,YLDs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2022,1868996.905714282,2336600.625885504,1356668.693634727
+1,All Population,3,YLDs,6,China,1,Male,22,All ages,559,Schizophrenia,1,Number,2023,1867497.0250253344,2322508.4111157884,1364870.6322523328
+1,All Population,3,YLDs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,1990,386308.3580932117,478016.20353995735,272674.0469760214
+1,All Population,3,YLDs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,1991,389766.132447833,479779.573068119,276540.73070277326
+1,All Population,3,YLDs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,1992,393715.22426616313,484228.1670267821,280846.8753696283
+1,All Population,3,YLDs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,1993,397024.4704552262,490688.19125964114,283763.74308546446
+1,All Population,3,YLDs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,1994,400290.0474348205,495620.72061404405,284076.1227600512
+1,All Population,3,YLDs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,1995,403319.6293571216,495404.8950800047,287366.98082967114
+1,All Population,3,YLDs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,1996,406941.8693641463,502459.54948566185,290146.6179708244
+1,All Population,3,YLDs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,1997,410376.2563749416,504249.7450902709,294335.5014293809
+1,All Population,3,YLDs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,1998,413525.5910798246,509228.1773371886,296239.11725706124
+1,All Population,3,YLDs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,1999,416864.8659080629,515530.2148040177,297176.9118055197
+1,All Population,3,YLDs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2000,420223.4959767616,517194.1700017469,299744.76458157995
+1,All Population,3,YLDs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2001,424958.3211948543,522012.6747994466,303936.3119316607
+1,All Population,3,YLDs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2002,430623.4645470083,531810.3811485551,306918.6497491017
+1,All Population,3,YLDs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2003,435070.3186837308,538884.7406535803,311444.49007920193
+1,All Population,3,YLDs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2004,440523.9570761431,545533.3373851815,312416.79705597553
+1,All Population,3,YLDs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2005,445083.8698901597,548089.6325521815,316931.5304532987
+1,All Population,3,YLDs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2006,449741.5791692176,554579.7945270756,318921.1274142858
+1,All Population,3,YLDs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2007,453440.7985525368,556702.6631304789,322734.76436402753
+1,All Population,3,YLDs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2008,456913.1888114183,562279.9398278192,324957.5921973753
+1,All Population,3,YLDs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2009,460035.7997911999,563213.2407952552,328383.61706747126
+1,All Population,3,YLDs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2010,462897.5219432735,566403.2293299309,328666.8426154208
+1,All Population,3,YLDs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2011,463918.3500665528,569721.3017804038,328878.2689820403
+1,All Population,3,YLDs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2012,461776.2940370805,566617.8312891837,329476.0908316671
+1,All Population,3,YLDs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2013,458575.2496257607,563202.3223468299,328329.963370282
+1,All Population,3,YLDs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2014,456196.165442889,557791.4742751173,323760.56575203105
+1,All Population,3,YLDs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2015,456399.8515765738,561319.9748654447,325079.45614367607
+1,All Population,3,YLDs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2016,458364.2397726445,562397.5886081783,327754.9755192451
+1,All Population,3,YLDs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2017,460088.7276186637,564073.8134211772,327567.5980389934
+1,All Population,3,YLDs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2018,461557.0338328711,567169.4999805598,331503.8237576811
+1,All Population,3,YLDs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2019,462622.9279184235,563274.6070809829,333627.594354937
+1,All Population,3,YLDs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2020,462058.6747009648,562650.3399065428,331263.433340535
+1,All Population,3,YLDs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2021,461712.6815720216,562610.8818176397,329228.1867933711
+1,All Population,3,YLDs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2022,462938.2405896979,562627.3641901945,333508.21784040495
+1,All Population,3,YLDs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,1,Number,2023,465493.9030577851,564153.812636528,334682.0639584389
+1,All Population,3,YLDs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,1990,386160.07741427183,478711.7788188408,278482.69899175625
+1,All Population,3,YLDs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,1991,391278.8994517623,486772.4000043313,281625.30987315293
+1,All Population,3,YLDs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,1992,396005.8665673178,492746.51859240746,285936.144047818
+1,All Population,3,YLDs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,1993,400204.9244980884,494698.1385947471,287873.70126082934
+1,All Population,3,YLDs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,1994,404849.9868029492,501962.1671810904,290155.00419822795
+1,All Population,3,YLDs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,1995,409512.1493837448,509146.4577845104,295114.2189244403
+1,All Population,3,YLDs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,1996,414230.92845229607,517312.9829991464,298374.2823100698
+1,All Population,3,YLDs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,1997,418521.3988160475,519450.7126067061,301472.9944623305
+1,All Population,3,YLDs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,1998,422351.204475615,522921.88394116703,303697.5535573275
+1,All Population,3,YLDs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,1999,426733.6664765476,531132.5374151999,308004.37871265004
+1,All Population,3,YLDs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2000,430838.1484896811,534046.7829014997,307849.8291351926
+1,All Population,3,YLDs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2001,436177.5673053887,540330.4359248969,314314.27835553593
+1,All Population,3,YLDs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2002,441114.0309669559,544620.7319100301,320890.18419163267
+1,All Population,3,YLDs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2003,445312.6494127891,552686.4145482151,320700.75468472665
+1,All Population,3,YLDs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2004,450289.400623884,559868.60646048,326517.9626859695
+1,All Population,3,YLDs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2005,454782.2216918954,563831.5068573935,326885.2061273146
+1,All Population,3,YLDs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2006,459294.0437840053,569594.2839470747,329555.0285191185
+1,All Population,3,YLDs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2007,463113.1143926601,572851.4387259879,333613.04553905886
+1,All Population,3,YLDs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2008,467106.03359148913,579569.3654300633,335004.3787842066
+1,All Population,3,YLDs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2009,470811.2447053376,580139.03324938,338528.1157641639
+1,All Population,3,YLDs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2010,474160.9263641351,583982.4742686525,339131.3029326834
+1,All Population,3,YLDs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2011,477166.8252580541,587198.6226066299,341820.0993459078
+1,All Population,3,YLDs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2012,478982.6044842855,590158.4339758089,344272.7957918337
+1,All Population,3,YLDs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2013,480440.8589547606,591723.2539799694,344988.29125675093
+1,All Population,3,YLDs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2014,482396.6266957206,591181.7186201251,348852.8886570836
+1,All Population,3,YLDs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2015,484994.68468115776,598969.1118096722,348300.12014960987
+1,All Population,3,YLDs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2016,488042.9258562719,598362.1116290814,350278.567565894
+1,All Population,3,YLDs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2017,490262.2644389337,598566.9272086212,353213.4490814189
+1,All Population,3,YLDs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2018,491782.1886117357,604940.332229301,353607.16835763754
+1,All Population,3,YLDs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2019,493548.05886383535,600249.0624009636,357484.92808664305
+1,All Population,3,YLDs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2020,493819.68913187366,602757.6008113157,359377.08606593515
+1,All Population,3,YLDs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2021,496707.32407679793,606672.2196036751,359373.3040112272
+1,All Population,3,YLDs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2022,500995.6936702035,616781.6334446882,362337.1444360276
+1,All Population,3,YLDs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,1,Number,2023,499087.2313822245,610405.881902028,362580.2286313593

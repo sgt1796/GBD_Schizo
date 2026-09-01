@@ -1,0 +1,17 @@
+source_file,location_name,sex_name,measure_name,count_years_present,rate_years_present,percent_years_present,missing_count_years,missing_rate_years,missing_percent_years,adult_rate_groups_1990,adult_rate_groups_2023,adult_count_groups_1990,adult_count_groups_2023
+C:\Users\sgt17\OneDrive\Desktop\schizo_GBD\prepared_inputs\cause_all.csv,China,Female,Incidence,34,34,34,,,,12,12,12,12
+C:\Users\sgt17\OneDrive\Desktop\schizo_GBD\prepared_inputs\cause_all.csv,China,Female,Prevalence,34,34,34,,,,12,12,12,12
+C:\Users\sgt17\OneDrive\Desktop\schizo_GBD\prepared_inputs\cause_all.csv,China,Female,YLDs,34,34,34,,,,12,12,12,12
+C:\Users\sgt17\OneDrive\Desktop\schizo_GBD\prepared_inputs\cause_all.csv,China,Female,DALYs,34,34,34,,,,12,12,12,12
+C:\Users\sgt17\OneDrive\Desktop\schizo_GBD\prepared_inputs\cause_all.csv,China,Male,Incidence,34,34,34,,,,12,12,12,12
+C:\Users\sgt17\OneDrive\Desktop\schizo_GBD\prepared_inputs\cause_all.csv,China,Male,Prevalence,34,34,34,,,,12,12,12,12
+C:\Users\sgt17\OneDrive\Desktop\schizo_GBD\prepared_inputs\cause_all.csv,China,Male,YLDs,34,34,34,,,,12,12,12,12
+C:\Users\sgt17\OneDrive\Desktop\schizo_GBD\prepared_inputs\cause_all.csv,China,Male,DALYs,34,34,34,,,,12,12,12,12
+C:\Users\sgt17\OneDrive\Desktop\schizo_GBD\prepared_inputs\cause_all.csv,United States of America,Female,Incidence,34,34,34,,,,12,12,12,12
+C:\Users\sgt17\OneDrive\Desktop\schizo_GBD\prepared_inputs\cause_all.csv,United States of America,Female,Prevalence,34,34,34,,,,12,12,12,12
+C:\Users\sgt17\OneDrive\Desktop\schizo_GBD\prepared_inputs\cause_all.csv,United States of America,Female,YLDs,34,34,34,,,,12,12,12,12
+C:\Users\sgt17\OneDrive\Desktop\schizo_GBD\prepared_inputs\cause_all.csv,United States of America,Female,DALYs,34,34,34,,,,12,12,12,12
+C:\Users\sgt17\OneDrive\Desktop\schizo_GBD\prepared_inputs\cause_all.csv,United States of America,Male,Incidence,34,34,34,,,,12,12,12,12
+C:\Users\sgt17\OneDrive\Desktop\schizo_GBD\prepared_inputs\cause_all.csv,United States of America,Male,Prevalence,34,34,34,,,,12,12,12,12
+C:\Users\sgt17\OneDrive\Desktop\schizo_GBD\prepared_inputs\cause_all.csv,United States of America,Male,YLDs,34,34,34,,,,12,12,12,12
+C:\Users\sgt17\OneDrive\Desktop\schizo_GBD\prepared_inputs\cause_all.csv,United States of America,Male,DALYs,34,34,34,,,,12,12,12,12

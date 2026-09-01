@@ -1,0 +1,1 @@
+analysis_type,software_version,location_name,sex_name,measure_name,joinpoint_count,joinpoint_years,segment_index,start_year,end_year,year,fitted,apc,apc_lower_ci,apc_upper_ci,aapc,aapc_lower_ci,aapc_upper_ci,comparison_family,stratum,group_a,group_b,parallelism_p_value

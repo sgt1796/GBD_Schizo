@@ -1,0 +1,34 @@
+GBD 2023 schizophrenia input preparation report
+================================================
+
+Requested locations: China, United States of America
+Requested years: 1990-2023
+Preparation method: combine only full-period GBD 2023 downloads; no historical/new-vintage splice.
+Sex strata: Female, Male
+Upper age bin in source data: 70+ years
+
+Cause of death or injury sources:
+- IHME-GBD_2023_DATA-8a231d74-1.zip: 11,832 rows
+- IHME-GBD_2023_DATA-d3e13215-1.zip: 11,968 rows
+- combined: 23,800 rows; no duplicate dimensional keys; years 1990-2023
+- measures: DALYs (Disability-Adjusted Life Years), Incidence, Prevalence, YLDs (Years Lived with Disability)
+- ages: 0-14 years, 15-19 years, 20-24 years, 25-29 years, 30-34 years, 35-39 years, 40-44 years, 45-49 years, 50-54 years, 55-59 years, 60-64 years, 65-69 years, 70+ years, Age-standardized, All ages
+
+Probability of death sources:
+- IHME-GBD_2023_DATA-8d0bd0df-1.zip: 1,904 rows
+- combined: 1,904 rows; no duplicate dimensional keys; years 1990-2023
+- ages: 0-14 years, 15-19 years, 20-24 years, 25-29 years, 30-34 years, 35-39 years, 40-44 years, 45-49 years, 50-54 years, 55-59 years, 60-64 years, 65-69 years, 70+ years, All ages
+
+Risk-factor sources intentionally omitted:
+- IHME-GBD_2023_DATA-5ef7a575-1.zip: 16,728 rows; rei labels in source: Behavioral risks, Sexual violence against children, Sexual violence against children and bullying; not written because these labels represent a single sexual-violence risk branch rather than a multi-risk analytic table.
+
+Prepared tables:
+- cause_all.csv: 23,800 rows
+- GBD_1990_2023_ProbabilityOfDeath_ChinaUS_Schizophrenia.csv: 1,904 rows
+
+Consumer compatibility:
+- Output CSV columns match the corresponding breast cancer prepared input schemas.
+- The schizophrenia cause table keeps both Female and Male strata.
+- No schizophrenia risk-factor table was generated.
+
+Validation warnings: none

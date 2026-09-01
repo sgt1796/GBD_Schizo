@@ -1,0 +1,65 @@
+location_name,sex_name,cohort_midpoint,cohort_rr_curvature
+China,Female,1929.0,1.0083031851594568
+China,Female,1934.0,1.0016243959314488
+China,Female,1939.0,1.0003455837945174
+China,Female,1944.0,0.9944521694179644
+China,Female,1949.0,0.99941611588149
+China,Female,1954.0,0.9999781687217346
+China,Female,1959.0,0.9982338372860445
+China,Female,1964.0,0.9979613873288665
+China,Female,1969.0,1.0
+China,Female,1974.0,1.0056047141503333
+China,Female,1979.0,1.012217752620821
+China,Female,1984.0,1.0152543746603884
+China,Female,1989.0,1.008843428851623
+China,Female,1994.0,0.9978392538069437
+China,Female,1999.0,0.9949427247567761
+China,Female,2004.0,0.9943047849873701
+China,Male,1929.0,1.0139610803954182
+China,Male,1934.0,1.0094954039478121
+China,Male,1939.0,1.0068642307243145
+China,Male,1944.0,0.9975130699158548
+China,Male,1949.0,0.9955024909272058
+China,Male,1954.0,0.9938979618285511
+China,Male,1959.0,0.9917673792115245
+China,Male,1964.0,0.9946137556807423
+China,Male,1969.0,1.0
+China,Male,1974.0,1.0060360918131037
+China,Male,1979.0,1.0090122331071543
+China,Male,1984.0,1.0093541743255665
+China,Male,1989.0,1.0046221834165132
+China,Male,1994.0,0.9971142927310052
+China,Male,1999.0,1.0033384293704388
+China,Male,2004.0,1.0073720702239437
+United States of America,Female,1929.0,0.9392814261256901
+United States of America,Female,1934.0,0.9453597821460024
+United States of America,Female,1939.0,0.9511063717537319
+United States of America,Female,1944.0,0.9548499242285099
+United States of America,Female,1949.0,0.9614884049120334
+United States of America,Female,1954.0,0.969042306516281
+United States of America,Female,1959.0,0.9781623803700362
+United States of America,Female,1964.0,0.9880537584220682
+United States of America,Female,1969.0,1.0
+United States of America,Female,1974.0,1.0108434498837422
+United States of America,Female,1979.0,1.014167122093399
+United States of America,Female,1984.0,1.0166549142334493
+United States of America,Female,1989.0,1.001677726106615
+United States of America,Female,1994.0,0.9611546781578367
+United States of America,Female,1999.0,0.9113335699189583
+United States of America,Female,2004.0,0.8905769574378886
+United States of America,Male,1929.0,0.9640572501527255
+United States of America,Male,1934.0,0.9711322238247833
+United States of America,Male,1939.0,0.9698084436415219
+United States of America,Male,1944.0,0.9653440644680173
+United States of America,Male,1949.0,0.9658703253065181
+United States of America,Male,1954.0,0.9673311559402946
+United States of America,Male,1959.0,0.974148810714473
+United States of America,Male,1964.0,0.9857663409270015
+United States of America,Male,1969.0,1.0
+United States of America,Male,1974.0,1.0092894402781072
+United States of America,Male,1979.0,1.0109783339874794
+United States of America,Male,1984.0,1.0141235750230775
+United States of America,Male,1989.0,1.0056895090319364
+United States of America,Male,1994.0,0.9763526168607581
+United States of America,Male,1999.0,0.9379582728158145
+United States of America,Male,2004.0,0.9217470253903679

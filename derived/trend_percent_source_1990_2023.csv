@@ -1,0 +1,545 @@
+population_group_id,population_group_name,measure_id,measure_name,location_id,location_name,sex_id,sex_name,age_id,age_name,cause_id,cause_name,metric_id,metric_name,year,val,upper,lower
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,2,Percent,1990,0.0050071079115952,0.0063030860957238,0.0036406300887316
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,2,Percent,1991,0.0051748563245399,0.006482764261472,0.0037612120449933
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,2,Percent,1992,0.0053657856642945,0.006713419598684,0.003971231957775
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,2,Percent,1993,0.0055593888357251,0.0070086928633006,0.0040504743926478
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,2,Percent,1994,0.0057543416735759,0.007203414753279,0.0041593115530652
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,2,Percent,1995,0.0059560760899042,0.0073547273906785,0.0042443468990634
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,2,Percent,1996,0.0061508987648979,0.0077375104367666,0.0044973691497329
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,2,Percent,1997,0.0063655450159791,0.0080449124484073,0.0046509193328263
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,2,Percent,1998,0.0065489740220693,0.008344776812428,0.0048066186022677
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,2,Percent,1999,0.0067181824534676,0.0084518007902831,0.0047546561916742
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,2,Percent,2000,0.0068628770269388,0.0085509204311038,0.0049136058421057
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,2,Percent,2001,0.007028635285128,0.0088151645514923,0.005033508861319
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,2,Percent,2002,0.0072309676580091,0.0090254471347127,0.0051796590715497
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,2,Percent,2003,0.0074506802365194,0.0093551861102018,0.0053645367792034
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,2,Percent,2004,0.007690609400511,0.0097081394965236,0.0056045756590082
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,2,Percent,2005,0.0079364987676526,0.0100457492588967,0.0057892532803287
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,2,Percent,2006,0.0081876402556007,0.0102886297399198,0.006000734950139
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,2,Percent,2007,0.0083968664299121,0.0105331550339788,0.0061637246582907
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,2,Percent,2008,0.0084797970747307,0.0106366974607012,0.0062909131902286
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,2,Percent,2009,0.0087983922052807,0.011068494200528,0.0065267552027648
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,2,Percent,2010,0.0090225058261437,0.0113830862895836,0.0066304455494787
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,2,Percent,2011,0.0092382164668098,0.0116303143711347,0.0067128983178557
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,2,Percent,2012,0.0094170581739834,0.0119024301983461,0.0068142479301249
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,2,Percent,2013,0.0095035850675437,0.0121902383566556,0.0069935314886848
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,2,Percent,2014,0.0095283589903787,0.0122383258069114,0.0070011033174339
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,2,Percent,2015,0.0094878063526867,0.0121793810932705,0.007065827894313
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,2,Percent,2016,0.0093730127113045,0.0121256349587114,0.0069607591489711
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,2,Percent,2017,0.0093601155027077,0.0119051427141067,0.0069793186251438
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,2,Percent,2018,0.009558820210592,0.0120812164644307,0.0070775922934075
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,2,Percent,2019,0.0097785428667117,0.012503705670039,0.0071918105949749
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,2,Percent,2020,0.0098252714937705,0.0126241030569558,0.0072497527703906
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,2,Percent,2021,0.0095256449184364,0.0121646828067115,0.0071367275173868
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,2,Percent,2022,0.009191737295808,0.0118587021960185,0.006780893360723
+1,All Population,2,DALYs,6,China,2,Female,22,All ages,559,Schizophrenia,2,Percent,2023,0.0089187718216249,0.0112912838545489,0.006604551642995
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,2,Percent,1990,0.0048472614624707,0.0061016579889343,0.0034059689127305
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,2,Percent,1991,0.0049934389185847,0.0063096229965427,0.0035678993303311
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,2,Percent,1992,0.0051723328492882,0.0065540325563752,0.0036781120866298
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,2,Percent,1993,0.0053559381589824,0.0067835334517062,0.0038144201978505
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,2,Percent,1994,0.0055281530609827,0.0069692915188688,0.0038693861676147
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,2,Percent,1995,0.0057238339609767,0.0070933230498496,0.0040048600221955
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,2,Percent,1996,0.0059251124959365,0.0073918887917188,0.0042089770560261
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,2,Percent,1997,0.0061187022191915,0.0075787637273873,0.0043407055584563
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,2,Percent,1998,0.0062775327979155,0.0078774307070576,0.0044223849989972
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,2,Percent,1999,0.0064344535522585,0.0080531486645793,0.0045912682634446
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,2,Percent,2000,0.00656270096702,0.0081301973517128,0.0046706746400077
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,2,Percent,2001,0.0066857388549886,0.0084248677368628,0.004702655075678
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,2,Percent,2002,0.0068489197022517,0.0085908423177761,0.004842082760475
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,2,Percent,2003,0.006995059219742,0.0087745213636267,0.0049316871088138
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,2,Percent,2004,0.0071779802963736,0.0090320470376828,0.0051473143080176
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,2,Percent,2005,0.0073676777484977,0.0091436902708936,0.0054021948277863
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,2,Percent,2006,0.007560442619464,0.0093513204998623,0.0055864436789648
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,2,Percent,2007,0.007700251476902,0.0094847028325906,0.0056398900032129
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,2,Percent,2008,0.0078268293532039,0.0098191888003035,0.0057427158610179
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,2,Percent,2009,0.0080674613244918,0.0100730403458885,0.0059107715538395
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,2,Percent,2010,0.0083184516624292,0.0102653401742825,0.0060629384878977
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,2,Percent,2011,0.0085357634830474,0.0107095813668205,0.0062049951572749
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,2,Percent,2012,0.0086734888019299,0.0108284285672024,0.0063396581180659
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,2,Percent,2013,0.0087847548807805,0.0109937042959644,0.0064141890260943
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,2,Percent,2014,0.0088341977227977,0.0110392115429607,0.0063809224679119
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,2,Percent,2015,0.0087861721162416,0.0110229306737712,0.0062819748484137
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,2,Percent,2016,0.0086642685153812,0.0109514809005722,0.0062971951446241
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,2,Percent,2017,0.0086722780203768,0.0110029306100841,0.0063125111157999
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,2,Percent,2018,0.0089079305383849,0.0112614812916967,0.0064802381048888
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,2,Percent,2019,0.0092285244230672,0.0115727118535536,0.0067305287354944
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,2,Percent,2020,0.009366385453385,0.0117417967196612,0.0068932236441474
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,2,Percent,2021,0.0089659969477212,0.0111907236017285,0.0065474244370122
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,2,Percent,2022,0.0085324996592628,0.0108114564760995,0.0062040753282976
+1,All Population,2,DALYs,6,China,1,Male,22,All ages,559,Schizophrenia,2,Percent,2023,0.0086256711149087,0.0110152042872329,0.0062054195376097
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,2,Percent,1990,0.0093180967093679,0.0115233674175259,0.0069538522002192
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,2,Percent,1991,0.0093300053265132,0.0115050490096474,0.0068885881114798
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,2,Percent,1992,0.0093800485274706,0.0115385334609138,0.0070019324568865
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,2,Percent,1993,0.0092402359046351,0.0113794029766427,0.0069109495732878
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,2,Percent,1994,0.009245230838104,0.0115163577851708,0.0068859014947832
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,2,Percent,1995,0.0092110686676335,0.0114999324370277,0.0068943395563792
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,2,Percent,1996,0.0092412814950607,0.0114805114561455,0.0068667011576699
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,2,Percent,1997,0.009292830949632,0.0115452261587921,0.0069324100000619
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,2,Percent,1998,0.0092874275126358,0.0115793135301125,0.0069590036576102
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,2,Percent,1999,0.009219683404713,0.0115161529208303,0.006881787963866
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,2,Percent,2000,0.0092149825608758,0.0115091187064879,0.006898120451368
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,2,Percent,2001,0.0092242838904537,0.0115232674743973,0.0069686117980377
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,2,Percent,2002,0.0092562269591359,0.0115582532216792,0.0069627736324873
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,2,Percent,2003,0.0092835560367705,0.0115107757810155,0.0070310661954207
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,2,Percent,2004,0.0094366789230455,0.0117285546960512,0.0070994492133258
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,2,Percent,2005,0.0093969852247813,0.0116133232823761,0.0071109089237167
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,2,Percent,2006,0.0094779243481882,0.011752859313286,0.007144283026667
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,2,Percent,2007,0.0095222846811065,0.0117152010070848,0.0072048835323333
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,2,Percent,2008,0.0094712551733898,0.0117833060149058,0.0071426895936012
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,2,Percent,2009,0.0095519368447958,0.0117878822805099,0.0072228865745992
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,2,Percent,2010,0.0095377786861664,0.0118340967094359,0.0071985832489842
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,2,Percent,2011,0.0094230533181545,0.0116331482858424,0.0070993433818528
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,2,Percent,2012,0.0092793425374566,0.0113981091209785,0.0070398715897288
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,2,Percent,2013,0.0090665836966636,0.0112003603787491,0.0068812694570925
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,2,Percent,2014,0.0088931742745504,0.0110068000968462,0.0066759895108804
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,2,Percent,2015,0.0087057172622909,0.0107418726780158,0.0065723706498094
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,2,Percent,2016,0.0086258528415453,0.0106556603526882,0.006464575934618
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,2,Percent,2017,0.0085189869921042,0.0105797056278158,0.0064396801783062
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,2,Percent,2018,0.0084851716550296,0.0104575287634913,0.0064481669354831
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,2,Percent,2019,0.008443580795264,0.0103922231649156,0.0064085912892948
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,2,Percent,2020,0.0076704453210586,0.0093285789352567,0.0057956505401609
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,2,Percent,2021,0.0073984097818337,0.0090174617587586,0.0055892656351878
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,2,Percent,2022,0.0076402218209923,0.0092978569575436,0.0058095707378988
+1,All Population,2,DALYs,102,United States of America,2,Female,22,All ages,559,Schizophrenia,2,Percent,2023,0.0078699680786827,0.0096279285929311,0.0059992611884045
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,2,Percent,1990,0.0085533106903063,0.0105437368936786,0.0061849707049716
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,2,Percent,1991,0.0086274495583661,0.0106088722153163,0.0062049012856124
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,2,Percent,1992,0.0087186263258299,0.0107716365186948,0.0063565427091738
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,2,Percent,1993,0.008633254746788,0.0105966557284791,0.0062506489013869
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,2,Percent,1994,0.0086979075075252,0.0107713510047454,0.0063367680462662
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,2,Percent,1995,0.0087644626528618,0.0108584103245279,0.0063933133315172
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,2,Percent,1996,0.0089833420900476,0.0110670793578961,0.0065635194225834
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,2,Percent,1997,0.00919102817953,0.0113509035632562,0.0066951887209221
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,2,Percent,1998,0.0092640311727489,0.0114860795096098,0.0067832527915215
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,2,Percent,1999,0.0092590010318161,0.0114599411104068,0.0067966397604459
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,2,Percent,2000,0.0092823854118289,0.0114914566304907,0.0068665109794976
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,2,Percent,2001,0.0092836862076067,0.0115429260270104,0.0068158745151833
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,2,Percent,2002,0.0092633724001293,0.0115220840061477,0.0068419273277951
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,2,Percent,2003,0.0092682970014762,0.0114286855723627,0.0068458281699159
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,2,Percent,2004,0.0093951644448947,0.011628540140644,0.0069285061575944
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,2,Percent,2005,0.0093146368003562,0.0114674865877337,0.0068745618116031
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,2,Percent,2006,0.0093525934812448,0.011594697711672,0.0069257867222939
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,2,Percent,2007,0.0093866147514944,0.011633816107188,0.0069158103197942
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,2,Percent,2008,0.0093694413329159,0.0116018661838493,0.0069729214516709
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,2,Percent,2009,0.0094425457113058,0.0116016346540662,0.0070609793527626
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,2,Percent,2010,0.0094531722698917,0.0116607317947437,0.0070367295928887
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,2,Percent,2011,0.0093848723744965,0.0115708439695483,0.0069538044117026
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,2,Percent,2012,0.0092897645937201,0.0114940988237554,0.0068798462914471
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,2,Percent,2013,0.0091396784643519,0.0113491451914185,0.006811749047552
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,2,Percent,2014,0.009017303120452,0.011111035199727,0.0067241846774044
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,2,Percent,2015,0.0088257772304964,0.010913667404873,0.0065672738681756
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,2,Percent,2016,0.0086749844527113,0.0106541096454759,0.0064318616327692
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,2,Percent,2017,0.0085513049925571,0.0105402474094872,0.006354465324628
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,2,Percent,2018,0.0084999451400915,0.0104926090391683,0.0062880436038991
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,2,Percent,2019,0.0084367055693149,0.0104038735315996,0.0062579934537492
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,2,Percent,2020,0.0074497784490954,0.0091129855136402,0.0055743316950577
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,2,Percent,2021,0.0071268104710584,0.0087064471036725,0.0053065502189903
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,2,Percent,2022,0.0075637297943829,0.0093263295008403,0.005645483933979
+1,All Population,2,DALYs,102,United States of America,1,Male,22,All ages,559,Schizophrenia,2,Percent,2023,0.0078001017475896,0.009581481280184,0.0057581532642866
+1,All Population,6,Incidence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1990,5.27499287604e-05,6.2665710116e-05,4.50094022783e-05
+1,All Population,6,Incidence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1991,5.29820354109e-05,6.28361583907e-05,4.51582412188e-05
+1,All Population,6,Incidence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1992,5.32175735712e-05,6.30917418986e-05,4.53022867005e-05
+1,All Population,6,Incidence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1993,5.3465282877e-05,6.32273896003e-05,4.54578494168e-05
+1,All Population,6,Incidence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1994,5.36885516872e-05,6.33422778382e-05,4.55851806667e-05
+1,All Population,6,Incidence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1995,5.39005928443e-05,6.35425273692e-05,4.57083537056e-05
+1,All Population,6,Incidence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1996,5.40941933104e-05,6.39626965015e-05,4.58768809513e-05
+1,All Population,6,Incidence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1997,5.44360083433e-05,6.45599973216e-05,4.61340890549e-05
+1,All Population,6,Incidence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1998,5.47727023122e-05,6.48539248605e-05,4.63130895444e-05
+1,All Population,6,Incidence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1999,5.51059548286e-05,6.5149080508e-05,4.64884806147e-05
+1,All Population,6,Incidence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2000,5.53875701924e-05,6.54805399893e-05,4.66344362437e-05
+1,All Population,6,Incidence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2001,5.54872512363e-05,6.55746296286e-05,4.67759062236e-05
+1,All Population,6,Incidence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2002,5.54034502109e-05,6.55479759235e-05,4.67879861972e-05
+1,All Population,6,Incidence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2003,5.52743965935e-05,6.54260391711e-05,4.67768440246e-05
+1,All Population,6,Incidence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2004,5.51685938379e-05,6.53618396845e-05,4.67513380842e-05
+1,All Population,6,Incidence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2005,5.52079252005e-05,6.55152172483e-05,4.68484942324e-05
+1,All Population,6,Incidence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2006,5.54195744517e-05,6.57597249226e-05,4.69883379581e-05
+1,All Population,6,Incidence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2007,5.57026457558e-05,6.60834786565e-05,4.7233836854e-05
+1,All Population,6,Incidence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2008,5.60378649425e-05,6.65761932855e-05,4.75066644365e-05
+1,All Population,6,Incidence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2009,5.63937294114e-05,6.71035020498e-05,4.7722925511e-05
+1,All Population,6,Incidence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2010,5.65098974047e-05,6.72483951729e-05,4.77573406784e-05
+1,All Population,6,Incidence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2011,5.64118063603e-05,6.69749186213e-05,4.76137984351e-05
+1,All Population,6,Incidence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2012,5.62500348581e-05,6.66373734603e-05,4.74880196318e-05
+1,All Population,6,Incidence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2013,5.60936534337e-05,6.64760752343e-05,4.73926210648e-05
+1,All Population,6,Incidence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2014,5.59800705795e-05,6.64265105109e-05,4.74024324324e-05
+1,All Population,6,Incidence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2015,5.5984937196e-05,6.65392197516e-05,4.7364026859e-05
+1,All Population,6,Incidence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2016,5.61466300775e-05,6.67979456118e-05,4.75707478413e-05
+1,All Population,6,Incidence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2017,5.64833166834e-05,6.72738974083e-05,4.79158376702e-05
+1,All Population,6,Incidence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2018,5.68665953604e-05,6.78049229325e-05,4.81902383428e-05
+1,All Population,6,Incidence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2019,5.71568555165e-05,6.82178953448e-05,4.83085875834e-05
+1,All Population,6,Incidence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2020,5.69534574274e-05,6.80268496953e-05,4.80846862994e-05
+1,All Population,6,Incidence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2021,5.71834177068e-05,6.80391693088e-05,4.85294005148e-05
+1,All Population,6,Incidence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2022,5.52448715977e-05,6.56320950737e-05,4.51563107975e-05
+1,All Population,6,Incidence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2023,4.68738652028e-05,5.60568325051e-05,3.73077903332e-05
+1,All Population,6,Incidence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1990,6.32068593637e-05,7.44688674015e-05,5.40315111222e-05
+1,All Population,6,Incidence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1991,6.34943816664e-05,7.49474685155e-05,5.43497930705e-05
+1,All Population,6,Incidence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1992,6.38134916571e-05,7.54278398058e-05,5.46999643384e-05
+1,All Population,6,Incidence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1993,6.41704925306e-05,7.59069807112e-05,5.48960904867e-05
+1,All Population,6,Incidence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1994,6.45435910157e-05,7.63640476698e-05,5.50401555017e-05
+1,All Population,6,Incidence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1995,6.49423539968e-05,7.68682288923e-05,5.52365775937e-05
+1,All Population,6,Incidence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1996,6.53950900181e-05,7.75022349402e-05,5.56359499498e-05
+1,All Population,6,Incidence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1997,6.60347454658e-05,7.83344288291e-05,5.61698923347e-05
+1,All Population,6,Incidence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1998,6.67041361963e-05,7.89296014373e-05,5.67500210517e-05
+1,All Population,6,Incidence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1999,6.73565686275e-05,7.95669271799e-05,5.72267577427e-05
+1,All Population,6,Incidence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2000,6.78994476245e-05,8.01791795097e-05,5.7622441024e-05
+1,All Population,6,Incidence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2001,6.82281032505e-05,8.06465362304e-05,5.79619320934e-05
+1,All Population,6,Incidence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2002,6.83771414527e-05,8.08778688497e-05,5.81457396064e-05
+1,All Population,6,Incidence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2003,6.84549642941e-05,8.11063487698e-05,5.81055753088e-05
+1,All Population,6,Incidence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2004,6.85187116933e-05,8.13598806305e-05,5.80680293129e-05
+1,All Population,6,Incidence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2005,6.8672648903e-05,8.15697203181e-05,5.83278442655e-05
+1,All Population,6,Incidence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2006,6.88855970875e-05,8.17650238491e-05,5.84710559967e-05
+1,All Population,6,Incidence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2007,6.90519526319e-05,8.20482113482e-05,5.85437456676e-05
+1,All Population,6,Incidence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2008,6.92258534558e-05,8.23000987383e-05,5.85982323414e-05
+1,All Population,6,Incidence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2009,6.93731293683e-05,8.25336703229e-05,5.86297074035e-05
+1,All Population,6,Incidence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2010,6.93958207822e-05,8.25275190511e-05,5.85935883355e-05
+1,All Population,6,Incidence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2011,6.92387312681e-05,8.2452843297e-05,5.84622553482e-05
+1,All Population,6,Incidence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2012,6.89760667222e-05,8.21583295736e-05,5.82522970235e-05
+1,All Population,6,Incidence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2013,6.87142657835e-05,8.18788948705e-05,5.80459690734e-05
+1,All Population,6,Incidence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2014,6.85342148517e-05,8.1680918319e-05,5.78925967178e-05
+1,All Population,6,Incidence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2015,6.8546709694e-05,8.17261200833e-05,5.78973650016e-05
+1,All Population,6,Incidence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2016,6.89096558606e-05,8.22469165246e-05,5.82184793055e-05
+1,All Population,6,Incidence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2017,6.96344418381e-05,8.31918518755e-05,5.87697113342e-05
+1,All Population,6,Incidence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2018,7.04605704512e-05,8.42395279993e-05,5.94164819191e-05
+1,All Population,6,Incidence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2019,7.11136418798e-05,8.5122607749e-05,5.99213526097e-05
+1,All Population,6,Incidence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2020,7.09997307254e-05,8.51442917701e-05,5.98294246383e-05
+1,All Population,6,Incidence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2021,7.10894588703e-05,8.52104502896e-05,5.99427178e-05
+1,All Population,6,Incidence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2022,6.84437395734e-05,8.20931961038e-05,5.66725656521e-05
+1,All Population,6,Incidence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2023,5.87800031228e-05,7.01390814547e-05,4.74725778174e-05
+1,All Population,6,Incidence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1990,4.3465705012e-05,5.26799107532e-05,3.63550183701e-05
+1,All Population,6,Incidence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1991,4.36771422306e-05,5.28369914695e-05,3.64038939139e-05
+1,All Population,6,Incidence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1992,4.38977435979e-05,5.30188387673e-05,3.64566340697e-05
+1,All Population,6,Incidence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1993,4.40198639174e-05,5.31019678888e-05,3.6530845699e-05
+1,All Population,6,Incidence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1994,4.40991649335e-05,5.32278276458e-05,3.66387987656e-05
+1,All Population,6,Incidence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1995,4.41042462903e-05,5.32562337292e-05,3.66906984503e-05
+1,All Population,6,Incidence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1996,4.4011294546e-05,5.3134409568e-05,3.66612733852e-05
+1,All Population,6,Incidence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1997,4.38787227632e-05,5.29608779352e-05,3.66140525628e-05
+1,All Population,6,Incidence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1998,4.37182718841e-05,5.27516251348e-05,3.65487961552e-05
+1,All Population,6,Incidence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1999,4.36076413323e-05,5.26170702587e-05,3.65191586916e-05
+1,All Population,6,Incidence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2000,4.35866981678e-05,5.26135121368e-05,3.6545026021e-05
+1,All Population,6,Incidence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2001,4.37760103329e-05,5.28991445762e-05,3.66633374607e-05
+1,All Population,6,Incidence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2002,4.42243281876e-05,5.34910498267e-05,3.69893224663e-05
+1,All Population,6,Incidence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2003,4.47789638914e-05,5.42343928554e-05,3.74023054209e-05
+1,All Population,6,Incidence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2004,4.53565989877e-05,5.50323657593e-05,3.78442122404e-05
+1,All Population,6,Incidence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2005,4.58253646284e-05,5.57006489472e-05,3.823796754e-05
+1,All Population,6,Incidence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2006,4.62311413352e-05,5.61124357249e-05,3.86880464352e-05
+1,All Population,6,Incidence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2007,4.66616412161e-05,5.65076098976e-05,3.91647401418e-05
+1,All Population,6,Incidence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2008,4.70921302757e-05,5.71186917049e-05,3.96333327869e-05
+1,All Population,6,Incidence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2009,4.74657862871e-05,5.76912669906e-05,4.00381885771e-05
+1,All Population,6,Incidence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2010,4.77429152205e-05,5.80090282132e-05,4.03199056943e-05
+1,All Population,6,Incidence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2011,4.77522807056e-05,5.79730557542e-05,4.02344274075e-05
+1,All Population,6,Incidence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2012,4.746425855e-05,5.74951916469e-05,3.98997586034e-05
+1,All Population,6,Incidence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2013,4.7032620154e-05,5.68594186415e-05,3.94294037808e-05
+1,All Population,6,Incidence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2014,4.66172070161e-05,5.63017830178e-05,3.89342235137e-05
+1,All Population,6,Incidence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2015,4.6384519845e-05,5.6062639288e-05,3.87423549611e-05
+1,All Population,6,Incidence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2016,4.6281176796e-05,5.5829500355e-05,3.85889045716e-05
+1,All Population,6,Incidence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2017,4.61798239323e-05,5.57629154017e-05,3.84346541298e-05
+1,All Population,6,Incidence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2018,4.60629494952e-05,5.56771263824e-05,3.83216003201e-05
+1,All Population,6,Incidence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2019,4.59016795281e-05,5.55040090608e-05,3.81763276066e-05
+1,All Population,6,Incidence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2020,4.37730964823e-05,5.29135447181e-05,3.64529621101e-05
+1,All Population,6,Incidence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2021,4.05198437192e-05,4.9205847577e-05,3.37861974642e-05
+1,All Population,6,Incidence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2022,3.41846127994e-05,4.10871587212e-05,2.86976785776e-05
+1,All Population,6,Incidence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2023,3.56572511094e-05,4.29928083896e-05,2.97641294515e-05
+1,All Population,6,Incidence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1990,5.37552251922e-05,6.4135658266e-05,4.51208052035e-05
+1,All Population,6,Incidence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1991,5.36053186368e-05,6.3938656477e-05,4.50423720537e-05
+1,All Population,6,Incidence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1992,5.35281103272e-05,6.39232024064e-05,4.50325448807e-05
+1,All Population,6,Incidence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1993,5.3449927747e-05,6.38904291141e-05,4.49791389755e-05
+1,All Population,6,Incidence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1994,5.34262037878e-05,6.37964923557e-05,4.4956851086e-05
+1,All Population,6,Incidence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1995,5.34381112878e-05,6.37536912119e-05,4.49653265312e-05
+1,All Population,6,Incidence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1996,5.34912604093e-05,6.4040984988e-05,4.49915586099e-05
+1,All Population,6,Incidence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1997,5.36030743169e-05,6.39649410074e-05,4.50616538755e-05
+1,All Population,6,Incidence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1998,5.37323654468e-05,6.4267024596e-05,4.51482389662e-05
+1,All Population,6,Incidence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1999,5.38809487076e-05,6.4734619524e-05,4.5258674195e-05
+1,All Population,6,Incidence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2000,5.40291453561e-05,6.4996385433e-05,4.53744195306e-05
+1,All Population,6,Incidence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2001,5.42887836238e-05,6.54062942781e-05,4.56173795871e-05
+1,All Population,6,Incidence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2002,5.47905512156e-05,6.59760034249e-05,4.60815936701e-05
+1,All Population,6,Incidence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2003,5.53884259349e-05,6.66016119042e-05,4.66366740475e-05
+1,All Population,6,Incidence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2004,5.60267781699e-05,6.73229499893e-05,4.72341539002e-05
+1,All Population,6,Incidence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2005,5.66018487522e-05,6.80698912034e-05,4.77737263254e-05
+1,All Population,6,Incidence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2006,5.72085509815e-05,6.88999647065e-05,4.82680721624e-05
+1,All Population,6,Incidence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2007,5.793032421e-05,6.98352679951e-05,4.88636014112e-05
+1,All Population,6,Incidence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2008,5.86925286618e-05,7.05309692803e-05,4.94991395669e-05
+1,All Population,6,Incidence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2009,5.93718183687e-05,7.11403219985e-05,5.00301560073e-05
+1,All Population,6,Incidence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2010,5.98673332163e-05,7.15622220275e-05,5.03761961393e-05
+1,All Population,6,Incidence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2011,6.01471909183e-05,7.178078708e-05,5.06143385487e-05
+1,All Population,6,Incidence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2012,6.02887089992e-05,7.18177296573e-05,5.07158348863e-05
+1,All Population,6,Incidence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2013,6.03385092842e-05,7.18355994487e-05,5.07679241495e-05
+1,All Population,6,Incidence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2014,6.03402427865e-05,7.18974408518e-05,5.07704746135e-05
+1,All Population,6,Incidence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2015,6.03486338411e-05,7.20769336157e-05,5.07536281917e-05
+1,All Population,6,Incidence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2016,6.03823781156e-05,7.19078279154e-05,5.07242178346e-05
+1,All Population,6,Incidence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2017,6.0438523219e-05,7.18011521363e-05,5.07194154403e-05
+1,All Population,6,Incidence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2018,6.04837508818e-05,7.18168535954e-05,5.07017557766e-05
+1,All Population,6,Incidence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2019,6.04799867846e-05,7.18211283297e-05,5.06344978305e-05
+1,All Population,6,Incidence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2020,5.77881075419e-05,6.88608512935e-05,4.83453715326e-05
+1,All Population,6,Incidence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2021,5.33359589582e-05,6.33063808389e-05,4.47678155074e-05
+1,All Population,6,Incidence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2022,4.4204381404e-05,5.30011659381e-05,3.72182927725e-05
+1,All Population,6,Incidence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2023,4.50725665193e-05,5.43909198184e-05,3.79692405555e-05
+1,All Population,5,Prevalence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1990,0.0028171506608763,0.0033515243349424,0.0023700868046269
+1,All Population,5,Prevalence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1991,0.0028206818335063,0.0033594954696986,0.0023740056783797
+1,All Population,5,Prevalence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1992,0.0028245561446321,0.0033575149321143,0.0023773348761851
+1,All Population,5,Prevalence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1993,0.0028287102716649,0.0033579658645954,0.0023806554296804
+1,All Population,5,Prevalence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1994,0.0028330105250937,0.0033647377752265,0.0023829799374486
+1,All Population,5,Prevalence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1995,0.0028371324264152,0.0033651751203709,0.0023848688510803
+1,All Population,5,Prevalence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1996,0.002841382692451,0.0033756276529733,0.0023879557429712
+1,All Population,5,Prevalence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1997,0.0028460785325464,0.003383878981259,0.0023949799669437
+1,All Population,5,Prevalence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1998,0.0028508255429418,0.0033903998589978,0.0023987086247895
+1,All Population,5,Prevalence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1999,0.0028551919850415,0.0033810399467137,0.002400337860729
+1,All Population,5,Prevalence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2000,0.0028586680208817,0.0033831854120758,0.0023998165298334
+1,All Population,5,Prevalence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2001,0.0028612955545554,0.0033830983887016,0.002408821077415
+1,All Population,5,Prevalence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2002,0.0028636458230559,0.0033949089302247,0.0024169668944668
+1,All Population,5,Prevalence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2003,0.0028660799827552,0.0034100251374128,0.0024218913111963
+1,All Population,5,Prevalence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2004,0.0028686117576007,0.0034196887149791,0.0024215917040858
+1,All Population,5,Prevalence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2005,0.0028711345439307,0.0034236609800277,0.0024201820032339
+1,All Population,5,Prevalence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2006,0.0028741161789803,0.0034233620245143,0.0024224525458446
+1,All Population,5,Prevalence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2007,0.0028779122780185,0.0034187450457478,0.0024251088130178
+1,All Population,5,Prevalence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2008,0.0028822795144287,0.0034148474485579,0.002427061996153
+1,All Population,5,Prevalence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2009,0.0028868600766661,0.0034141415514492,0.0024291701620639
+1,All Population,5,Prevalence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2010,0.0028909757018504,0.0034221256543646,0.0024310169222293
+1,All Population,5,Prevalence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2011,0.0028952182419712,0.0034308385445511,0.0024334929075163
+1,All Population,5,Prevalence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2012,0.0029002649725916,0.0034378928047549,0.0024364377183064
+1,All Population,5,Prevalence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2013,0.0029054937902241,0.0034447725589606,0.0024393951178309
+1,All Population,5,Prevalence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2014,0.0029100256290189,0.0034527644988874,0.0024417536800281
+1,All Population,5,Prevalence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2015,0.0029129511075307,0.0034562365310971,0.0024432173126572
+1,All Population,5,Prevalence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2016,0.0029146713367527,0.0034581807284517,0.0024428376800909
+1,All Population,5,Prevalence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2017,0.0029160194380708,0.0034563451137295,0.0024433766624984
+1,All Population,5,Prevalence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2018,0.0029170325932475,0.0034530635685558,0.0024439494380302
+1,All Population,5,Prevalence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2019,0.0029176101097221,0.003451580969072,0.0024443443146209
+1,All Population,5,Prevalence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2020,0.0029170071160906,0.0034498534029747,0.0024432546826052
+1,All Population,5,Prevalence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2021,0.0029180631102087,0.0034548998247893,0.00244181814844
+1,All Population,5,Prevalence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2022,0.0029170814476555,0.0034530782589936,0.0024381338168476
+1,All Population,5,Prevalence,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2023,0.0029114543633313,0.0034547240451743,0.002448734630616
+1,All Population,5,Prevalence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1990,0.003298303104427,0.0038828746363195,0.0027610129063022
+1,All Population,5,Prevalence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1991,0.0033089735177315,0.0038979643349123,0.0027765815424254
+1,All Population,5,Prevalence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1992,0.0033192506494517,0.0039140730282714,0.0027851525405242
+1,All Population,5,Prevalence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1993,0.0033290156306175,0.0039313728303213,0.0027920398852301
+1,All Population,5,Prevalence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1994,0.0033381495387712,0.0039478279171225,0.0027983766151086
+1,All Population,5,Prevalence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1995,0.0033464700207832,0.0039628483853424,0.0028064033256994
+1,All Population,5,Prevalence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1996,0.0033537440668935,0.0039656983187842,0.0028144135487899
+1,All Population,5,Prevalence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1997,0.0033604467047995,0.0039693753462964,0.002824816813234
+1,All Population,5,Prevalence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1998,0.0033669808088161,0.0039773842085002,0.0028351440882871
+1,All Population,5,Prevalence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1999,0.0033735716766462,0.003983917412049,0.0028434338470524
+1,All Population,5,Prevalence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2000,0.0033801472084708,0.0039889035790118,0.0028507871813845
+1,All Population,5,Prevalence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2001,0.0033874043703708,0.0040019636359835,0.0028541556892946
+1,All Population,5,Prevalence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2002,0.003395737244174,0.0040116391230195,0.0028518633148774
+1,All Population,5,Prevalence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2003,0.0034043041501266,0.004022860487853,0.0028493726393067
+1,All Population,5,Prevalence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2004,0.0034119063694618,0.0040330830163058,0.0028499024027581
+1,All Population,5,Prevalence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2005,0.0034174156570415,0.0040430118653027,0.0028531534944085
+1,All Population,5,Prevalence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2006,0.0034209173940735,0.004039814506425,0.0028580967392652
+1,All Population,5,Prevalence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2007,0.003423583230232,0.0040345573784703,0.002864519595105
+1,All Population,5,Prevalence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2008,0.0034259727503022,0.0040293307940358,0.0028753408255417
+1,All Population,5,Prevalence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2009,0.0034284358255214,0.0040263002314235,0.0028799692461267
+1,All Population,5,Prevalence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2010,0.0034312595784569,0.0040242237602185,0.0028780612553594
+1,All Population,5,Prevalence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2011,0.003434073770084,0.0040310011997058,0.0028796444983119
+1,All Population,5,Prevalence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2012,0.0034366837208711,0.0040378733872077,0.002878844929013
+1,All Population,5,Prevalence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2013,0.003439390570377,0.0040459688366357,0.0028775416823267
+1,All Population,5,Prevalence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2014,0.0034422295438938,0.0040546864131386,0.0028773373840954
+1,All Population,5,Prevalence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2015,0.0034452725402887,0.0040637177762464,0.0028769173285926
+1,All Population,5,Prevalence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2016,0.003450906716323,0.0040710507717314,0.0028825751434013
+1,All Population,5,Prevalence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2017,0.0034599412811847,0.00408388259787,0.0028907143212058
+1,All Population,5,Prevalence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2018,0.0034699702647803,0.004098074024831,0.0028975396555026
+1,All Population,5,Prevalence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2019,0.0034781234936332,0.0041047501607015,0.0029030726275565
+1,All Population,5,Prevalence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2020,0.0034809426834869,0.0041065801323872,0.002902547664083
+1,All Population,5,Prevalence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2021,0.0034803651765814,0.0041078569293459,0.0029095161039971
+1,All Population,5,Prevalence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2022,0.0034749270604873,0.0040838051929856,0.0029128381583519
+1,All Population,5,Prevalence,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2023,0.003464841558144,0.0040860306493183,0.0029122371665114
+1,All Population,5,Prevalence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1990,0.0046543157532593,0.0055141375008626,0.0038696336443038
+1,All Population,5,Prevalence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1991,0.0046540283787584,0.0055121723362067,0.0038648745630894
+1,All Population,5,Prevalence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1992,0.0046536741039142,0.0055110755859633,0.0038625525413157
+1,All Population,5,Prevalence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1993,0.0046528240540878,0.0055101937833646,0.0038646442908948
+1,All Population,5,Prevalence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1994,0.0046520126732985,0.0055097905590466,0.0038665548583077
+1,All Population,5,Prevalence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1995,0.0046513468067541,0.0055099865700459,0.0038685168187648
+1,All Population,5,Prevalence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1996,0.0046494489614089,0.0055110359138489,0.0038657147019188
+1,All Population,5,Prevalence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1997,0.0046461631877417,0.0055108459107965,0.0038620351892904
+1,All Population,5,Prevalence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1998,0.0046424537253874,0.0055102929626729,0.0038587077397964
+1,All Population,5,Prevalence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1999,0.0046398265377207,0.005510911032386,0.0038607321448885
+1,All Population,5,Prevalence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2000,0.0046396405922126,0.0055141899590843,0.0038588237799995
+1,All Population,5,Prevalence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2001,0.0046450061836472,0.0055216071715944,0.0038674562973916
+1,All Population,5,Prevalence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2002,0.0046557273651402,0.0055373503535565,0.0038779335059933
+1,All Population,5,Prevalence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2003,0.0046679684459197,0.005552394930484,0.0038825656619869
+1,All Population,5,Prevalence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2004,0.0046782076701301,0.0055562644981887,0.003883228193518
+1,All Population,5,Prevalence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2005,0.0046827044176258,0.005552885228741,0.0038795806518505
+1,All Population,5,Prevalence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2006,0.0046810773468926,0.0055682368042879,0.0038848845754217
+1,All Population,5,Prevalence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2007,0.0046755003460514,0.0055734408119691,0.0038869842105089
+1,All Population,5,Prevalence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2008,0.0046668867136142,0.0055611572250517,0.0038864855259224
+1,All Population,5,Prevalence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2009,0.0046556649276472,0.005546496717364,0.0038836227534871
+1,All Population,5,Prevalence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2010,0.0046424912397736,0.0055308609715041,0.0038791056360276
+1,All Population,5,Prevalence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2011,0.0046083060314155,0.0054784214770377,0.0038430155969858
+1,All Population,5,Prevalence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2012,0.0045462781298606,0.0053934358398334,0.0037871832006374
+1,All Population,5,Prevalence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2013,0.0044751938213475,0.0052983378209988,0.0037263780987558
+1,All Population,5,Prevalence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2014,0.0044137432099496,0.0052150582434811,0.0036728611708934
+1,All Population,5,Prevalence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2015,0.0043807310594914,0.0051651926122742,0.0036422555885034
+1,All Population,5,Prevalence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2016,0.0043687596542086,0.0051549749454955,0.0036320561741915
+1,All Population,5,Prevalence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2017,0.0043580304717033,0.005146635501708,0.0036242823866425
+1,All Population,5,Prevalence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2018,0.0043482566694335,0.0051400926427569,0.0036174747047709
+1,All Population,5,Prevalence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2019,0.0043391009484758,0.0051348821335284,0.0036113874046472
+1,All Population,5,Prevalence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2020,0.0043130735147945,0.0051081599517158,0.0035839046362317
+1,All Population,5,Prevalence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2021,0.0043084714850518,0.0050997293164769,0.0035917425951811
+1,All Population,5,Prevalence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2022,0.0043014645319767,0.0050883369972775,0.0035947310428473
+1,All Population,5,Prevalence,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2023,0.0043074925870924,0.0050807204142151,0.0035814933613165
+1,All Population,5,Prevalence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1990,0.0048502031604829,0.0057141943065281,0.0040589387615833
+1,All Population,5,Prevalence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1991,0.004854046831334,0.0057278925997868,0.0040615760100953
+1,All Population,5,Prevalence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1992,0.0048587128707081,0.0057422975967111,0.0040648294546273
+1,All Population,5,Prevalence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1993,0.0048634548078149,0.0057564196915558,0.0040682379068143
+1,All Population,5,Prevalence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1994,0.0048685101940081,0.0057651625961943,0.004071933911593
+1,All Population,5,Prevalence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1995,0.0048735431825179,0.0057737632212673,0.0040757645895986
+1,All Population,5,Prevalence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1996,0.0048809892382243,0.0057783082456867,0.0040854790760241
+1,All Population,5,Prevalence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1997,0.0048922240603318,0.0057868759437888,0.0040966808412783
+1,All Population,5,Prevalence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1998,0.0049045746651882,0.0057971258445827,0.004107353926293
+1,All Population,5,Prevalence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1999,0.0049156295697018,0.005806494771155,0.0041157748023671
+1,All Population,5,Prevalence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2000,0.0049225632462231,0.0058116477913548,0.0041204213271715
+1,All Population,5,Prevalence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2001,0.0049282751129991,0.0058183726440356,0.0041284281764049
+1,All Population,5,Prevalence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2002,0.0049363701344389,0.00582809970328,0.0041393125521071
+1,All Population,5,Prevalence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2003,0.0049449028003603,0.0058384877616095,0.0041503169340624
+1,All Population,5,Prevalence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2004,0.004952239731433,0.0058484017340114,0.0041595721844877
+1,All Population,5,Prevalence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2005,0.0049564406509917,0.0058542139377692,0.0041652582560956
+1,All Population,5,Prevalence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2006,0.0049599437600774,0.0058615359120435,0.0041664420503645
+1,All Population,5,Prevalence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2007,0.0049645391308584,0.0058709541914307,0.004167914962951
+1,All Population,5,Prevalence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2008,0.0049684434715374,0.005879490995174,0.0041671478145233
+1,All Population,5,Prevalence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2009,0.0049693547883338,0.0058844668030711,0.004162618169576
+1,All Population,5,Prevalence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2010,0.0049650652636995,0.0058831157400106,0.004153430343672
+1,All Population,5,Prevalence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2011,0.0049465265641451,0.0058631237788151,0.0041347917681613
+1,All Population,5,Prevalence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2012,0.0049132079859423,0.0058197671183464,0.0041053638632013
+1,All Population,5,Prevalence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2013,0.0048750706511386,0.005757611892439,0.0040725292079938
+1,All Population,5,Prevalence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2014,0.0048417190240892,0.0057036537823215,0.0040428508662719
+1,All Population,5,Prevalence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2015,0.0048227253274532,0.0056731165997733,0.0040249163308749
+1,All Population,5,Prevalence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2016,0.004811807367323,0.0056587343411148,0.0040198162351941
+1,All Population,5,Prevalence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2017,0.0047981225472542,0.0056422928727572,0.0040120873852095
+1,All Population,5,Prevalence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2018,0.0047835147144293,0.0056263457733403,0.0040029770792654
+1,All Population,5,Prevalence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2019,0.0047700586598287,0.0056141680326661,0.0039942606791763
+1,All Population,5,Prevalence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2020,0.0047364787590698,0.0055794428176798,0.003968575509377
+1,All Population,5,Prevalence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2021,0.0047515387613285,0.0055822850795977,0.0039723471803624
+1,All Population,5,Prevalence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2022,0.0047582516022603,0.0055952935628336,0.0039699901933388
+1,All Population,5,Prevalence,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2023,0.0047085422499834,0.0055129849470301,0.0039395607279725
+1,All Population,3,YLDs,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1990,0.0159889151510687,0.0215276135636989,0.0117323936430043
+1,All Population,3,YLDs,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1991,0.0162030404042446,0.0218268010906078,0.0119176630176344
+1,All Population,3,YLDs,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1992,0.0164036380826191,0.0220096233614477,0.012260404438793
+1,All Population,3,YLDs,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1993,0.0165725465185006,0.022192837710215,0.0122354021920328
+1,All Population,3,YLDs,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1994,0.016727252041708,0.0224718743625438,0.0124299713079122
+1,All Population,3,YLDs,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1995,0.0168246763341596,0.0225406357797225,0.0124512216946468
+1,All Population,3,YLDs,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1996,0.0168625113619965,0.0225965742249812,0.0125439880649573
+1,All Population,3,YLDs,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1997,0.016957250675204,0.0228071147270507,0.012583585758811
+1,All Population,3,YLDs,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1998,0.0169975339686097,0.0228029940343452,0.0125726795112531
+1,All Population,3,YLDs,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1999,0.0170574572855798,0.0227852440055648,0.0126481978762444
+1,All Population,3,YLDs,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2000,0.0171147204329308,0.0230834194752567,0.0126814389140809
+1,All Population,3,YLDs,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2001,0.0171954552618052,0.0230936793378663,0.0126196664447963
+1,All Population,3,YLDs,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2002,0.0172539243349369,0.0231308807711682,0.0126356493298641
+1,All Population,3,YLDs,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2003,0.0173457618184024,0.0231911237313665,0.0128978566236759
+1,All Population,3,YLDs,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2004,0.0173976523903763,0.0233921708442167,0.0127916484075727
+1,All Population,3,YLDs,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2005,0.0174597896011846,0.0234507779347763,0.0127635199615088
+1,All Population,3,YLDs,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2006,0.0174738664059932,0.0232697147939532,0.0129481709247513
+1,All Population,3,YLDs,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2007,0.0174762625453618,0.0234280086971361,0.0127046417657759
+1,All Population,3,YLDs,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2008,0.0175083817902374,0.0236471356009546,0.0128089096563089
+1,All Population,3,YLDs,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2009,0.0175122488866665,0.0235297528202087,0.0129009808846996
+1,All Population,3,YLDs,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2010,0.0175117682632442,0.0235636992009988,0.0129203502054898
+1,All Population,3,YLDs,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2011,0.0174852286099045,0.0235238888963426,0.012866979831193
+1,All Population,3,YLDs,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2012,0.0174430601997831,0.0237150847767828,0.0128631468047628
+1,All Population,3,YLDs,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2013,0.0173917425723757,0.0234074472016282,0.0129139010765782
+1,All Population,3,YLDs,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2014,0.0173520183908476,0.0233660295971961,0.0128456166461753
+1,All Population,3,YLDs,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2015,0.0173547060884753,0.0234756519766897,0.0128446354037447
+1,All Population,3,YLDs,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2016,0.0174152403292439,0.0235471623759335,0.0128017520276967
+1,All Population,3,YLDs,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2017,0.0175566067021201,0.0237286100983578,0.0130130583386785
+1,All Population,3,YLDs,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2018,0.0177502115856361,0.0238522055306752,0.0132083146128999
+1,All Population,3,YLDs,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2019,0.017880437750625,0.0240012855067656,0.0132456523895874
+1,All Population,3,YLDs,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2020,0.0177529130507951,0.0237958462421715,0.013082978839989
+1,All Population,3,YLDs,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2021,0.0177839432120175,0.0239516215639857,0.0131629845368864
+1,All Population,3,YLDs,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2022,0.0176689440583461,0.0237384555843041,0.0130985813888504
+1,All Population,3,YLDs,6,China,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2023,0.0174104102806551,0.0234592796664322,0.0129998458747693
+1,All Population,3,YLDs,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1990,0.0210212358048425,0.0284772975967888,0.0154574789952478
+1,All Population,3,YLDs,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1991,0.0212318933460885,0.0288140924520017,0.0155954961114452
+1,All Population,3,YLDs,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1992,0.0214373670071334,0.0291200187698392,0.0158123393370837
+1,All Population,3,YLDs,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1993,0.0216214310674273,0.0294127821947907,0.0158514786979681
+1,All Population,3,YLDs,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1994,0.0217556212720859,0.0295271072852248,0.0158344504062701
+1,All Population,3,YLDs,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1995,0.0218880380245625,0.029482076079971,0.0160255242596823
+1,All Population,3,YLDs,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1996,0.0219397211965246,0.0295513392046643,0.0160284326578764
+1,All Population,3,YLDs,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1997,0.0219671094509869,0.0299957034512921,0.0159717755268238
+1,All Population,3,YLDs,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1998,0.0219436524906965,0.029788459706192,0.0162065341700901
+1,All Population,3,YLDs,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1999,0.0219737039344794,0.0298707378999218,0.0161001372159857
+1,All Population,3,YLDs,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2000,0.0220425655296801,0.030375100217129,0.0161466518478575
+1,All Population,3,YLDs,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2001,0.0221299743739648,0.030260850033701,0.01617501966354
+1,All Population,3,YLDs,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2002,0.0222336438707408,0.0302045163933799,0.016233202452648
+1,All Population,3,YLDs,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2003,0.0223245483501889,0.0302356487059278,0.0162623995713039
+1,All Population,3,YLDs,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2004,0.0223975511735021,0.0307351391798561,0.0164435355658464
+1,All Population,3,YLDs,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2005,0.0224270142372514,0.0309169798236138,0.0164827631084134
+1,All Population,3,YLDs,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2006,0.0223811708796749,0.03041462018406,0.0163970606379312
+1,All Population,3,YLDs,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2007,0.0222576187112221,0.0303379009783686,0.0161694483953272
+1,All Population,3,YLDs,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2008,0.0221867654566508,0.0305290210895287,0.0162398040203385
+1,All Population,3,YLDs,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2009,0.0220490736799172,0.0303269476224181,0.0162267043655659
+1,All Population,3,YLDs,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2010,0.0219756744414034,0.0298455527838076,0.0158498890773322
+1,All Population,3,YLDs,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2011,0.0218853298313857,0.0298884785568216,0.0158958156176575
+1,All Population,3,YLDs,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2012,0.021801388117162,0.0298591497064429,0.0158459490011802
+1,All Population,3,YLDs,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2013,0.0217169707656474,0.0296983978191401,0.0159857696222973
+1,All Population,3,YLDs,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2014,0.0216440806510466,0.0296028081502045,0.0157971657274326
+1,All Population,3,YLDs,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2015,0.0216332550257624,0.0296945309824266,0.0158194737365853
+1,All Population,3,YLDs,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2016,0.0217693760757246,0.0296600692689731,0.0159362833651332
+1,All Population,3,YLDs,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2017,0.0220746669586155,0.0300521554753816,0.0160139687165154
+1,All Population,3,YLDs,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2018,0.0224263789331202,0.0304533265220865,0.0163915402740557
+1,All Population,3,YLDs,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2019,0.0227271569969592,0.0309595446176479,0.0166428558102968
+1,All Population,3,YLDs,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2020,0.022672990647079,0.0308769096804515,0.016666452543727
+1,All Population,3,YLDs,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2021,0.0226511610339716,0.0308027665313795,0.0167403770134036
+1,All Population,3,YLDs,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2022,0.022486551333204,0.0307512291160948,0.0165271348798197
+1,All Population,3,YLDs,6,China,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2023,0.0223921047151818,0.0305706266295045,0.0163885613902472
+1,All Population,3,YLDs,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1990,0.019885860790059,0.0266552083040805,0.014386219609029
+1,All Population,3,YLDs,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1991,0.0198161940282875,0.0265088044808168,0.014261669546546
+1,All Population,3,YLDs,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1992,0.0198729650446963,0.0266068478792469,0.0143536249579018
+1,All Population,3,YLDs,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1993,0.0198492429192923,0.0264765112672008,0.014395092675777
+1,All Population,3,YLDs,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1994,0.0198436584818768,0.0265333515057639,0.0144786391683646
+1,All Population,3,YLDs,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1995,0.0198181540744999,0.0265843624462357,0.0143509093291661
+1,All Population,3,YLDs,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1996,0.019820667871178,0.0264201016263732,0.0142771165910575
+1,All Population,3,YLDs,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1997,0.0199182144435174,0.0267537232807153,0.0144318175720825
+1,All Population,3,YLDs,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1998,0.0199840912328458,0.0268800858147471,0.0145271632187849
+1,All Population,3,YLDs,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,1999,0.020046761330124,0.0270952319715276,0.0146680468100762
+1,All Population,3,YLDs,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2000,0.0200558769294392,0.027047983470058,0.0145887654819964
+1,All Population,3,YLDs,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2001,0.0200623360441047,0.0270002946700353,0.0146466542743779
+1,All Population,3,YLDs,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2002,0.0201418739268939,0.0270652378487315,0.0147943716512126
+1,All Population,3,YLDs,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2003,0.0201727482357751,0.0271413799135589,0.0147644599111969
+1,All Population,3,YLDs,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2004,0.0202538295028502,0.0271362731318503,0.014867737559529
+1,All Population,3,YLDs,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2005,0.0202811189863475,0.0271056583958106,0.0150334244563258
+1,All Population,3,YLDs,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2006,0.0202923383503221,0.0271021390109361,0.0149547680747088
+1,All Population,3,YLDs,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2007,0.0202772178947867,0.0271104386049268,0.0149137926989291
+1,All Population,3,YLDs,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2008,0.0202564053535175,0.0273215948894479,0.0149055343240476
+1,All Population,3,YLDs,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2009,0.0202251945585008,0.027026746541915,0.0149950169499763
+1,All Population,3,YLDs,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2010,0.0201717427443198,0.0268593663493472,0.0149617753220499
+1,All Population,3,YLDs,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2011,0.0199725226486385,0.0265752762073006,0.0148212971502289
+1,All Population,3,YLDs,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2012,0.0196164988518636,0.0260676350548305,0.0145774462328291
+1,All Population,3,YLDs,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2013,0.0192075969850002,0.0254981265258804,0.0142789404423985
+1,All Population,3,YLDs,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2014,0.0188349465627859,0.0250729505377032,0.0140832758952598
+1,All Population,3,YLDs,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2015,0.0186088588847614,0.0246071811924188,0.0139653154054396
+1,All Population,3,YLDs,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2016,0.0184770937002909,0.0245789976511805,0.0137020989614381
+1,All Population,3,YLDs,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2017,0.0183616576246598,0.0242799034400153,0.0136248743580527
+1,All Population,3,YLDs,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2018,0.0182578957692677,0.0240844901981695,0.0136374115523703
+1,All Population,3,YLDs,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2019,0.0181517053918223,0.0239648155714411,0.0134925022223535
+1,All Population,3,YLDs,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2020,0.0173946821972802,0.0229959894073144,0.0129064528330278
+1,All Population,3,YLDs,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2021,0.0170627893891079,0.0224217225112149,0.0128290919149451
+1,All Population,3,YLDs,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2022,0.0170451739610849,0.0223584432370077,0.0128825230151435
+1,All Population,3,YLDs,102,United States of America,2,Female,27,Age-standardized,559,Schizophrenia,2,Percent,2023,0.0169833118134668,0.0223088087688542,0.012693932799668
+1,All Population,3,YLDs,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1990,0.0241097378471353,0.0324988365213833,0.0176627580886962
+1,All Population,3,YLDs,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1991,0.024148786832332,0.0325271588537682,0.0176257570514282
+1,All Population,3,YLDs,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1992,0.0242407052059586,0.0327377693366168,0.0177058173666144
+1,All Population,3,YLDs,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1993,0.0242628736054115,0.0327050655939112,0.0177248180093134
+1,All Population,3,YLDs,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1994,0.0243179792498582,0.0326862923966966,0.0177197278358204
+1,All Population,3,YLDs,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1995,0.0243432342657227,0.0327549134584619,0.0176891339530464
+1,All Population,3,YLDs,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1996,0.0243532588701672,0.0326295214738797,0.0176798071404486
+1,All Population,3,YLDs,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1997,0.0243818442928049,0.03276070839882,0.0178415323126416
+1,All Population,3,YLDs,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1998,0.0243496529834062,0.0326067883906411,0.0179243835271452
+1,All Population,3,YLDs,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,1999,0.0243420835363384,0.0326789729914943,0.0178956126510908
+1,All Population,3,YLDs,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2000,0.0243230362038691,0.0326392876322523,0.0179511690352691
+1,All Population,3,YLDs,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2001,0.0242806992595014,0.0325133734286106,0.0180438055553754
+1,All Population,3,YLDs,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2002,0.024243358436796,0.0323258502912576,0.0180654857593362
+1,All Population,3,YLDs,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2003,0.0241839145013288,0.0323051023183852,0.0179541761863199
+1,All Population,3,YLDs,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2004,0.0241741374351341,0.0321231578920011,0.0180259585247979
+1,All Population,3,YLDs,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2005,0.0241398234382748,0.0320700046820041,0.0180288265883587
+1,All Population,3,YLDs,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2006,0.0241074441999866,0.0318976024802208,0.0179510399441783
+1,All Population,3,YLDs,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2007,0.024064742758338,0.0316531102835653,0.0178813090344559
+1,All Population,3,YLDs,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2008,0.0240405651770566,0.0319772885125033,0.0180274419186624
+1,All Population,3,YLDs,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2009,0.0239952501844815,0.03174487372508,0.0179368049119581
+1,All Population,3,YLDs,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2010,0.0239427647905225,0.0313717915976357,0.0180257465319701
+1,All Population,3,YLDs,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2011,0.0238117284041765,0.0313082581404704,0.0179576962073175
+1,All Population,3,YLDs,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2012,0.02357811916234,0.0309485410547305,0.0177003081729239
+1,All Population,3,YLDs,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2013,0.0233130436750334,0.0307707805588773,0.0175711637128398
+1,All Population,3,YLDs,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2014,0.0230887569497688,0.0305779937977602,0.0172386527309039
+1,All Population,3,YLDs,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2015,0.0229286694584573,0.0299329534628139,0.0172469655529798
+1,All Population,3,YLDs,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2016,0.0228003488817886,0.0298707716651584,0.0171417991680942
+1,All Population,3,YLDs,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2017,0.0226754350096207,0.0298051918111301,0.0170086134385227
+1,All Population,3,YLDs,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2018,0.0225443333426843,0.0296490440637438,0.016996841340332
+1,All Population,3,YLDs,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2019,0.0224341396897032,0.0294938704263835,0.0168219405332885
+1,All Population,3,YLDs,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2020,0.0217033621538468,0.0283782983478121,0.0164278208906551
+1,All Population,3,YLDs,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2021,0.0213912336489256,0.0280016456067157,0.0162106129459454
+1,All Population,3,YLDs,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2022,0.0214234636355017,0.0282325493481124,0.0163717609535114
+1,All Population,3,YLDs,102,United States of America,1,Male,27,Age-standardized,559,Schizophrenia,2,Percent,2023,0.0211830469043049,0.027683315489081,0.0160758699508397
