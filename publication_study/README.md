@@ -89,14 +89,18 @@ breakpoints by BIC and does not use a resampling-based significance test.
 
 ## 5. Build the production package
 
-An official population export from the matching GBD 2023 release is the only
-mandatory external input. Its exact contract is in
-`EXTERNAL_INPUTS_REQUIRED.md`.
+Production requires matching fine-age schizophrenia burden and official
+population exports from GBD 2023, plus completed provenance sidecars for both.
+Their exact contracts are in `EXTERNAL_INPUTS_REQUIRED.md`; use
+`gbd_export_metadata_template.json` for the sidecars.
 
 ```powershell
 .\.venv\Scripts\python.exe publication_study\publication_analysis.py `
+  --burden-csv data\GBD_2023_schizophrenia_fine_age_China_US.csv `
   --population-csv data\GBD_2023_population_China_US.csv `
   --population-release "GBD 2023" `
+  --burden-metadata-json data\metadata\burden_export.json `
+  --population-metadata-json data\metadata\population_export.json `
   --output-dir publication_study\build\production
 
 .\.venv\Scripts\python.exe publication_study\build_documents.py `
@@ -151,8 +155,10 @@ year, val, lower, upper
 
 The analysis retains China and United States of America; Female and Male;
 1990-2023; Incidence, Prevalence, DALYs, and YLDs; and Number and Rate metrics.
-The prepared file must contain the all-age count, age-standardized rate, and
-age-specific panels required by the QA checks.
+The provisional prepared file contains the all-age count, age-standardized
+rate, and a broad endpoint age partition. Production requires Number and Rate
+panels in consecutive five-year ages from 0-4 through 90-94 plus 95+ for all
+three outcomes.
 
 The canonical population schema is:
 
@@ -160,9 +166,9 @@ The canonical population schema is:
 location_name,sex_name,age_name,year,population,gbd_release
 ```
 
-It requires exactly 1,768 unique rows: 2 locations x 2 sexes x 13 age groups x
-34 years. The groups run from `0-14 years` through `70+ years`, so the
-decomposition reconstructs all ages. Values must be finite and positive. Exact
+It requires exactly 2,720 unique rows: 2 locations x 2 sexes x 20 age groups x
+34 years. The groups run from `0-4 years` through `90-94 years` plus `95+ years`.
+Values must be finite and positive. Exact
 accepted labels and the
 optional NCI normalized-result schema are listed in
 `EXTERNAL_INPUTS_REQUIRED.md`.
@@ -175,16 +181,21 @@ inputs, and `build_metadata.json`. The document builder adds the manuscript,
 supplement, statistical methods appendix, GATHER checklist, and a document
 manifest under `documents/`.
 
-The current primary trend schema is descriptive. `segmented_summary.csv`,
-`segmented_segments.csv`, `trajectory_contrasts.csv`, `apc_summary.csv`, and
-`apc_local_drift.csv` contain no p values, q values, regression confidence
-intervals, or parallelism-test decisions. The decomposition population is
+The current primary trend schema is descriptive. Segmented, trajectory, APC,
+and cross-analysis tables contain no p values, q values, regression confidence
+intervals, or parallelism-test decisions. APC outputs separately report net
+drift, local drift, longitudinal age curves, period RRs, and cohort RRs for the
+1994-2023 primary and 1990-2019 sensitivity windows. The decomposition is
 consistently identified as all-age: audit fields use `all_age_groups` and
 `all_age_year_cells`, while decomposition tables use
 `all_age_count_start_reconstructed` and
 `all_age_count_end_reconstructed`. The separate
-`all_age_count_reconstruction.csv` table verifies that sums reconstructed from
-all 13 age-specific population-rate cells agree with reported all-age counts.
+`all_age_count_reconstruction.csv` table verifies that age-specific
+population-rate cells sum to reported all-age counts. The production partition
+has 20 groups; the provisional input has 13 and is visibly barred from
+submission. `decomposition_age_bin_sensitivity.csv`,
+`cross_analysis_consistency.csv`, and `qa/methodological_notes.md` retain
+sensitivity flags and cross-method disagreements.
 Run into a fresh directory so removed permutation-era tables cannot survive
 beside the current schema.
 
@@ -193,7 +204,8 @@ The authoritative final checks are:
 - `qa/validation_summary.json` for data and output invariants;
 - `build_metadata.json` for input provenance and submission status; and
 - `verify_reproducibility.py --require-submission-ready` for a single failing
-  command if the official-population gate remains unresolved.
+  command if the official-population, fine-age, or provenance gate remains
+  unresolved.
 
 ## Document rendering and visual QA
 
@@ -222,8 +234,9 @@ DOCX package but does not perform or certify visual QA.
   because posterior draws are absent.
 - The built-in BIC-selected segmented model is an independent implementation
   and must not be described as NCI Joinpoint.
-- APC analysis is secondary and restricted to incidence, ages 15-69, equal
-  five-year periods, estimable drifts, and nonlinear curvature contrasts. The
-  all-age decomposition separately includes `0-14 years` and `70+ years`.
+- APC analysis is secondary and restricted to incidence, equal five-year ages
+  (preferably 10-69; provisional fallback 15-69), two six-period windows, and
+  identifiable drifts/nonlinear relative-risk functions. The production
+  all-age decomposition uses the complete fine-age partition.
 
 See `EXTERNAL_INPUTS_REQUIRED.md` before treating any build as submit-ready.

@@ -1,10 +1,12 @@
 # External inputs and optional validation
 
-One authenticated input remains mandatory before submission: official
-population denominators from the matching GBD 2023 release. Official NCI output
-and posterior GBD draws are optional validation/strengthening inputs. None of
-these inputs may be inferred, relabeled, or manufactured by the Python
-pipeline.
+Two matching authenticated exports remain mandatory before submission: a
+fine-age schizophrenia burden export and official population denominators from
+the same GBD 2023 release. Each needs a provenance sidecar recording the exact
+query, retrieval date, export identifier, and hashes of the preserved raw
+files. Official NCI output and posterior GBD draws are optional
+validation/strengthening inputs. None of these inputs may be inferred,
+relabeled, or manufactured by the Python pipeline.
 
 The burden/population data are governed by IHME terms independently of any code
 license. Users of redistributed source ZIPs, prepared CSVs, or a newly obtained
@@ -13,21 +15,26 @@ population export must comply with the current
 and cite the applicable GBD release. Nothing in this repository grants
 unrestricted or Creative Commons rights to IHME data.
 
-## 1. Mandatory: official GBD 2023 population export
+## 1. Mandatory: matching fine-age GBD 2023 exports
 
-Download population estimates from the same GBD 2023 results release as the
-burden data. Preserve the original downloaded file and its query/export record
-outside generated output directories.
+Download both schizophrenia burden estimates and population estimates from the
+same GBD 2023 results release. Preserve the original files unchanged under a
+non-generated raw-data directory.
 
 ### Required dimensions
 
 - Locations: `China`; `United States of America`
 - Sexes: `Female`; `Male`
 - Years: every integer from `1990` through `2023`
-- Ages: `0-14 years`, `15-19 years`, `20-24 years`, `25-29 years`, `30-34 years`,
-  `35-39 years`, `40-44 years`, `45-49 years`, `50-54 years`,
-  `55-59 years`, `60-64 years`, `65-69 years`, and `70+ years`
-- Measure/metric: population number
+- Ages: `0-4 years`, `5-9 years`, `10-14 years`, every consecutive five-year
+  group through `90-94 years`, and `95+ years`
+- Burden measures: schizophrenia incidence, prevalence, and DALYs
+- Burden metrics: Number and Rate
+- Population measure/metric: population number in persons
+
+Do not substitute `0-14 years` or `70+ years` for their component groups in the
+production inputs. The former 13-bin files remain suitable only for provisional
+engineering and sensitivity work.
 
 ### Canonical CSV schema
 
@@ -37,8 +44,9 @@ Use the header in `population_input_template.csv`:
 location_name,sex_name,age_name,year,population,gbd_release
 ```
 
-There must be one and only one row per location-sex-age-year combination:
-1,768 rows in total. `population` must be numeric, finite, positive, and in
+There must be one and only one population row per location-sex-age-year
+combination: 2,720 rows in total (2 locations x 2 sexes x 20 ages x 34 years).
+`population` must be numeric, finite, positive, and in
 persons (not thousands). Set `gbd_release` to `GBD 2023` on every row. The
 loader also recognizes the column aliases `location`, `sex`, `age`, and one of
 `pop`, `value`, or `val` for population, but canonical names are preferred for
@@ -48,29 +56,33 @@ Run the file with:
 
 ```powershell
 --population-csv data\GBD_2023_population_China_US.csv `
---population-release "GBD 2023"
+--population-release "GBD 2023" `
+--burden-csv data\GBD_2023_schizophrenia_fine_age_China_US.csv `
+--burden-metadata-json data\metadata\burden_export.json `
+--population-metadata-json data\metadata\population_export.json
 ```
 
 `--population-release` is a provenance assertion supplied by the analyst; it
-does not authenticate the CSV. Retain the GBD download receipt/query metadata,
-record the retrieval date, and independently confirm that the file comes from
-the same release. Do not use population reconstructed from burden count/rate
-pairs in a submitted analysis.
+does not authenticate the CSV. Copy `gbd_export_metadata_template.json` once
+for each export role, replace every placeholder, and list the preserved raw
+files using repository-relative paths and actual lowercase SHA-256 hashes. The
+pipeline verifies those hashes. Do not use population reconstructed from burden
+count/rate pairs in a submitted analysis.
 
-The 13 population groups cover all ages and are used in decomposition. As a
+The 20 fine population groups cover all ages and are used in decomposition. As a
 cross-source QA check, summing each age-specific reconstruction
 (`population x rate / 100,000`) must agree with the corresponding reported
 all-age count within the pipeline's documented numerical/rounding tolerance.
-The secondary APC analysis has a different prespecified structure: it remains
-restricted to the 11 five-year age groups from 15-19 through 65-69 years and
-does not use either `0-14 years` or `70+ years`.
+The secondary APC analysis uses the consecutive groups from 10--14 through
+65--69 years when complete. It excludes open-ended ages and retains a visible
+15--69 fallback only for provisional builds.
 
 ## 2. Optional: official NCI Joinpoint validation
 
 NCI requires the end user to accept its Terms of Use and register before
 downloading the application. The Python analysis exports 12 input series plus
 `input_manifest.csv` and `analysis_settings.json` under
-`<analysis-dir>/nci_joinpoint_inputs/`. Those files identify the prespecified
+`<analysis-dir>/nci_joinpoint_inputs/`. Those files identify the recorded
 series and settings; they are not evidence that NCI was run.
 
 Official NCI output is useful for validating or replacing the repository's
@@ -154,11 +166,11 @@ After running the final analysis and document builds in a fresh directory, run:
 ```
 
 The command must exit successfully. `build_metadata.json` must report
-`population_status` as `official_GBD_2023` and `submission_ready` as `true`,
-and `qa/validation_summary.json` must report
-`population_is_official_gbd_2023` as true. NCI-import status may be false because
-it is optional. Passing this mechanical gate does not replace scientific review
-of the source export, model settings, or manuscript claims.
+`population_status` as `official_GBD_2023`, `fine_age_burden_validated` and
+`source_metadata_complete` as true, and `submission_ready` as true. The QA
+summary must agree. NCI-import status may be false because it is optional.
+Passing this mechanical gate does not replace scientific review of the source
+export, model settings, or manuscript claims.
 
 It also does not certify rendered documents. The automated build produces DOCX
 files, not authoritative PDFs. Render the final DOCX files afresh and complete

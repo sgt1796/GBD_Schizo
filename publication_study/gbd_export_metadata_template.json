@@ -1,0 +1,31 @@
+{
+  "export_role": "burden_or_population",
+  "gbd_release": "GBD 2023",
+  "retrieval_date": "YYYY-MM-DD",
+  "export_id": "IHME export/download identifier",
+  "source_url": "https://vizhub.healthdata.org/gbd-results/",
+  "query_dimensions": {
+    "locations": [
+      "China",
+      "United States of America"
+    ],
+    "sexes": [
+      "Female",
+      "Male"
+    ],
+    "years": "1990-2023",
+    "ages": "replace with the exact selected age labels",
+    "measures": "replace with the exact selected measure labels",
+    "metrics": [
+      "Number",
+      "Rate"
+    ]
+  },
+  "raw_files": [
+    {
+      "file": "data/raw/replace-with-preserved-export.zip",
+      "sha256": "replace-with-the-64-character-lowercase-sha256"
+    }
+  ],
+  "notes": "Record any tool defaults, filters, split downloads, or transformations needed to understand the export. Paths are repository-relative."
+}

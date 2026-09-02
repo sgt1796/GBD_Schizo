@@ -109,7 +109,33 @@ def test_official_population_requires_release_marker(tmp_path, proxy_population)
         pa.load_official_population(path, "GBD 2023")
 
 
-def test_apc_periods_are_equal_width_and_prespecified():
+def test_official_population_requires_complete_fine_age_keys(tmp_path):
+    rows = []
+    for location in pa.LOCATIONS:
+        for sex in pa.SEXES:
+            for age in pa.FINE_DECOMPOSITION_AGES:
+                for year in pa.YEARS:
+                    rows.append({
+                        "location_name": location,
+                        "sex_name": sex,
+                        "age_name": age,
+                        "year": year,
+                        "population": 100_000 + year,
+                        "gbd_release": "GBD 2023",
+                    })
+    path = tmp_path / "fine_population.csv"
+    pd.DataFrame(rows).to_csv(path, index=False)
+    loaded = pa.load_official_population(path, "GBD 2023")
+    assert len(loaded) == 2720
+    assert set(loaded.age_name) == set(pa.FINE_DECOMPOSITION_AGES)
+    assert set(loaded.population_source) == {"official_GBD_2023"}
+
+    pd.DataFrame(rows[:-1]).to_csv(path, index=False)
+    with pytest.raises(ValueError, match="expected 2720"):
+        pa.load_official_population(path, "GBD 2023")
+
+
+def test_apc_primary_periods_are_equal_width_and_recorded():
     assert pa.apc_period(1993) is None
     assert pa.apc_period(1994) == "1994-1998"
     assert pa.apc_period(1998) == "1994-1998"
@@ -126,6 +152,20 @@ def test_decomposition_closes_exactly():
     assert abs(out["closure_error"]) < 1e-10
     expected = np.sum(p1 * r1) - np.sum(p0 * r0)
     assert out["total_change"] == pytest.approx(expected)
+    assert {
+        "population_size_change",
+        "age_structure_change",
+        "age_specific_rate_change",
+    } <= set(out)
+
+
+def test_decomposition_age_bin_sensitivity_is_explicit(burden, proxy_population):
+    sensitivity = pa.decomposition_age_bin_sensitivity(burden, proxy_population)
+    assert len(sensitivity) == 12
+    assert sensitivity.finest_age_group_count.eq(13).all()
+    assert sensitivity.collapsed_age_group_count.eq(4).all()
+    assert sensitivity.maximum_component_shift_pct_of_total_change.ge(0).all()
+    assert sensitivity.material_age_bin_sensitivity.dtype == bool
 
 
 def test_trend_direction_is_explicit_and_handles_missing_values():
@@ -174,6 +214,17 @@ def test_trajectory_contrasts_are_descriptive(burden):
     assert np.isfinite(contrasts.rms_annual_log_change_difference).all()
 
 
+def test_segmented_model_specification_sensitivity_is_descriptive(burden):
+    sensitivity = pa.segmented_specification_sensitivity(burden)
+    assert len(sensitivity) == 12 * 6
+    assert sensitivity.groupby(
+        ["location_name", "sex_name", "measure_name"]
+    ).specification.nunique().eq(6).all()
+    assert set(sensitivity.model_scale) == {"log_rate", "rate"}
+    assert not sensitivity.formal_inference_performed.any()
+    assert sensitivity.direction_stable_vs_primary.dtype == bool
+
+
 def test_endpoint_outputs_exclude_percent_and_duplicate_yld(burden):
     table = pa.endpoint_table(burden)
     assert set(table.measure_name) == set(pa.OUTCOMES)
@@ -185,6 +236,8 @@ def test_secondary_apc_dimensions(apc_results):
     assert set(apc["summary"].measure_name) == {"Incidence"}
     assert apc["cells"].period.nunique() == 6
     assert apc["cells"].age_name.nunique() == 11
+    assert (apc["summary"].design_rank == apc["summary"].design_columns).all()
+    assert {"period_rr", "cohort_rr"} <= set(apc)
     assert "net_drift_lower_model_ci" not in apc["summary"]
     assert not apc["summary"].formal_inference_performed.any()
 
@@ -203,6 +256,32 @@ def test_apc_primary_direction_agreement_is_reported(
     assert set(comparison.apc_net_drift_direction) <= {"increase", "decrease", "stable"}
 
 
+def test_cross_analysis_table_and_contradiction_audit(
+    burden, proxy_population, descriptive_trends, apc_results
+):
+    segmented, _, _ = descriptive_trends
+    endpoints = pa.endpoint_table(burden)
+    decomposition = pa.run_decomposition(burden, proxy_population)
+    consistency = pa.build_cross_analysis_consistency(
+        burden,
+        proxy_population,
+        endpoints,
+        segmented,
+        apc_results,
+        decomposition,
+    )
+    contradictions = pa.investigate_cross_method_contradictions(
+        burden, proxy_population, consistency
+    )
+    assert len(consistency) == 12
+    assert not consistency.methods_are_independent_replications.any()
+    incidence = consistency[consistency.measure_name.eq("Incidence")]
+    assert incidence.apc_net_drift_1994_2023.notna().all()
+    assert not contradictions.empty
+    assert not contradictions.implementation_failure_indicated.any()
+    assert contradictions.likely_explanatory_factors.str.len().gt(0).all()
+
+
 def test_pandemic_sensitivity_windows_are_unambiguous(
     burden, proxy_population
 ):
@@ -210,8 +289,12 @@ def test_pandemic_sensitivity_windows_are_unambiguous(
     assert (trend.start_year == 1990).all()
     assert (trend.end_year == 2019).all()
     apc = pa.run_secondary_apc(burden, proxy_population, include_last_period=False)
-    assert (apc["summary"].end_year == 2018).all()
-    assert "2019-2023" not in set(apc["cells"].period)
+    assert (apc["summary"].start_year == 1990).all()
+    assert (apc["summary"].end_year == 2019).all()
+    assert set(apc["cells"].period) == {
+        "1990-1994", "1995-1999", "2000-2004", "2005-2009",
+        "2010-2014", "2015-2019",
+    }
 
 
 def test_nci_version_is_recorded_without_hard_coding_one_release():
@@ -231,6 +314,37 @@ def test_sha256_fingerprint_is_content_based(tmp_path):
     assert pa.file_sha256(source) == (
         "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
     )
+
+
+def test_export_metadata_verifies_preserved_raw_hashes(tmp_path, monkeypatch):
+    monkeypatch.setattr(pa, "ROOT", tmp_path)
+    raw = tmp_path / "data" / "raw" / "export.zip"
+    raw.parent.mkdir(parents=True)
+    raw.write_bytes(b"preserved raw export")
+    metadata = {
+        "export_role": "burden",
+        "gbd_release": "GBD 2023",
+        "retrieval_date": "2026-06-10",
+        "export_id": "IHME-test-export",
+        "source_url": "https://vizhub.healthdata.org/gbd-results/",
+        "query_dimensions": {"years": "1990-2023"},
+        "raw_files": [
+            {
+                "file": "data/raw/export.zip",
+                "sha256": pa.file_sha256(raw),
+            }
+        ],
+    }
+    path = tmp_path / "metadata.json"
+    path.write_text(json.dumps(metadata), encoding="utf-8")
+    loaded = pa.load_export_metadata(path, "burden")
+    assert loaded["export_id"] == "IHME-test-export"
+    assert len(loaded["metadata_sha256"]) == 64
+
+    metadata["raw_files"][0]["sha256"] = "0" * 64
+    path.write_text(json.dumps(metadata), encoding="utf-8")
+    with pytest.raises(ValueError, match="hash mismatch"):
+        pa.load_export_metadata(path, "burden")
 
 
 def test_table_writer_removes_only_known_stale_outputs(tmp_path):
@@ -265,8 +379,13 @@ def test_full_descriptive_pipeline_smoke(tmp_path):
     assert "trajectory_contrasts" in result["tables"]
     assert "all_age_count_reconstruction" in result["tables"]
     assert "trend_excluding_2020_2023" in result["tables"]
-    assert "apc_excluding_2019_2023" in result["tables"]
+    assert "apc_sensitivity_summary_1990_2019" in result["tables"]
     assert "apc_primary_direction_agreement" in result["tables"]
+    assert "decomposition_age_bin_sensitivity" in result["tables"]
+    assert "segmented_specification_sensitivity" in result["tables"]
+    assert "cross_analysis_consistency" in result["tables"]
+    assert "cross_method_contradictions" in result["tables"]
+    assert (tmp_path / "qa" / "methodological_notes.md").exists()
     assert len(result["metadata"]["burden_csv_sha256"]) == 64
     validation = json.loads((tmp_path / "qa" / "validation_summary.json").read_text(encoding="utf-8"))
     assert validation["all_age_count_reconstruction_rows"] == 408

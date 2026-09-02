@@ -23,15 +23,23 @@ ANALYSIS_FILES = (
     "tables/all_age_count_reconstruction.csv",
     "tables/segmented_summary.csv",
     "tables/segmented_segments.csv",
+    "tables/segmented_specification_sensitivity.csv",
     "tables/trajectory_contrasts.csv",
     "tables/trend_excluding_2020_2023.csv",
     "tables/decomposition.csv",
+    "tables/decomposition_age_bin_sensitivity.csv",
     "tables/annual_chained_decomposition.csv",
     "tables/fiveyear_chained_decomposition.csv",
     "tables/apc_summary.csv",
     "tables/apc_local_drift.csv",
-    "tables/apc_excluding_2019_2023.csv",
+    "tables/apc_age_curve.csv",
+    "tables/apc_period_rr.csv",
+    "tables/apc_cohort_rr.csv",
+    "tables/apc_sensitivity_summary_1990_2019.csv",
     "tables/apc_primary_direction_agreement.csv",
+    "tables/cross_analysis_consistency.csv",
+    "tables/cross_method_contradictions.csv",
+    "qa/methodological_notes.md",
     "figures/main/figure_1_asr_trends.png",
     "figures/main/figure_2_segmented_trends.png",
     "figures/main/figure_3_age_patterns.png",
@@ -54,6 +62,9 @@ STALE_ANALYSIS_FILES = (
     "tables/pairwise_parallelism.csv",
     "tables/prepandemic_trend_sensitivity.csv",
     "tables/apc_excluding_2020_2023.csv",
+    "tables/apc_excluding_2019_2023.csv",
+    "tables/apc_period_curvature.csv",
+    "tables/apc_cohort_curvature.csv",
 )
 
 ALL_AGE_SCHEMA = {
@@ -71,6 +82,9 @@ ALL_AGE_SCHEMA = {
     "tables/decomposition.csv": {
         "all_age_count_start_reconstructed",
         "all_age_count_end_reconstructed",
+        "population_size_change",
+        "age_structure_change",
+        "age_specific_rate_change",
     },
     "tables/annual_chained_decomposition.csv": {
         "all_age_count_start_reconstructed",
@@ -88,6 +102,9 @@ PRIMARY_DESCRIPTIVE_TABLES = (
     "tables/trajectory_contrasts.csv",
     "tables/apc_summary.csv",
     "tables/apc_local_drift.csv",
+    "tables/apc_age_curve.csv",
+    "tables/apc_period_rr.csv",
+    "tables/apc_cohort_rr.csv",
 )
 
 LEGACY_AGE_FIELDS = {
@@ -184,8 +201,10 @@ def check_environment(results: Results) -> None:
         "prepared_inputs/GBD_1990_2023_ProbabilityOfDeath_ChinaUS_Schizophrenia.csv",
         "prepared_inputs/GBD_1990_2023_schizophrenia_preparation_report.txt",
         "publication_study/publication_analysis.py",
+        "publication_study/apc_analysis.py",
         "publication_study/build_documents.py",
         "publication_study/population_input_template.csv",
+        "publication_study/gbd_export_metadata_template.json",
         "publication_study/nci_results_template.csv",
     ):
         path = REPO_ROOT / relative
@@ -341,6 +360,8 @@ def check_analysis(base: Path, require_ready: bool, results: Results) -> None:
     check_qa(qa, results)
 
     official_population = metadata.get("population_status") == "official_GBD_2023"
+    fine_age_burden = metadata.get("fine_age_burden_validated") is True
+    source_metadata = metadata.get("source_metadata_complete") is True
     official_nci = qa.get("official_nci_results_imported") is True
     internal_validation = qa.get("internal_validation_passed") is True
     ready = metadata.get("submission_ready") is True
@@ -355,14 +376,26 @@ def check_analysis(base: Path, require_ready: bool, results: Results) -> None:
         results.fail("population provenance disagrees between metadata and QA")
     if qa.get("submission_ready") is not ready:
         results.fail("submission status disagrees between metadata and QA")
-    if ready != (official_population and internal_validation):
-        results.fail("submission_ready is inconsistent with population provenance or internal QA")
+    if qa.get("fine_age_burden_validated") is not fine_age_burden:
+        results.fail("fine-age burden status disagrees between metadata and QA")
+    if qa.get("source_metadata_complete") is not source_metadata:
+        results.fail("source-metadata status disagrees between metadata and QA")
+    if ready != (
+        official_population and fine_age_burden and source_metadata and internal_validation
+    ):
+        results.fail(
+            "submission_ready is inconsistent with population provenance, fine-age input, or internal QA"
+        )
     elif ready:
         results.passed("official-population gate supplied; submission_ready=true")
     else:
         unresolved = []
         if not official_population:
             unresolved.append("official GBD 2023 population is absent")
+        if not fine_age_burden:
+            unresolved.append("matching fine-age burden panels are absent")
+        if not source_metadata:
+            unresolved.append("complete export metadata sidecars are absent")
         if not internal_validation:
             unresolved.append("internal QA did not pass")
         message = "submission gate remains closed: " + "; ".join(unresolved)
