@@ -272,8 +272,27 @@ def compact_endpoint_table(endpoints: pd.DataFrame, segmented: pd.DataFrame) -> 
     return pd.DataFrame(rows)
 
 
+def document_build_context(meta: dict, tables: dict[str, pd.DataFrame]) -> dict:
+    """Derive manuscript input wording from the generated analysis package."""
+    submission_ready = bool(meta.get("submission_ready", False))
+    decomp = tables["decomposition"]
+    age_count = int(decomp.age_group_count.iloc[0])
+    age_span = "0-4 through 95+ years" if age_count == 20 else "0-14 through 70+ years"
+    apc_coverage = str(tables["apc_summary"].age_coverage.iloc[0])
+    identity = tables["yld_daly_identity"].iloc[0]
+    yld_available = bool(identity.get("yld_panel_available", True))
+    return {
+        "submission_ready": submission_ready,
+        "age_count": age_count,
+        "age_span": age_span,
+        "apc_coverage": apc_coverage,
+        "yld_available": yld_available,
+    }
+
+
 def build_manuscript(analysis: Path, out_dir: Path, meta: dict, tables: dict[str,pd.DataFrame]):
-    provisional=not bool(meta.get("submission_ready", False))
+    context=document_build_context(meta,tables)
+    provisional=not context["submission_ready"]
     doc=setup_document("Contrasting sex-specific trends and demographic contributions to schizophrenia burden in China and the United States, 1990–2023",
                        "A comparative analysis of Global Burden of Disease 2023 estimates",provisional)
     endpoints=tables["endpoint_summary"]; segmented=tables["segmented_summary"]
@@ -295,32 +314,40 @@ def build_manuscript(analysis: Path, out_dir: Path, meta: dict, tables: dict[str
     add_heading(doc,"Background")
     add_paragraph(doc,"Schizophrenia is a severe mental disorder associated with persistent functional impairment, premature mortality, family burden, and substantial health and social care needs [1-3]. In these GBD extracts, schizophrenia DALYs equal years lived with disability (YLDs) because GBD does not assign schizophrenia a direct fatal component; this accounting convention does not imply an absence of excess mortality among people with schizophrenia [1,3].")
     add_paragraph(doc,"Earlier global GBD analyses found that incident and prevalent case counts and DALYs increased substantially while age-standardized schizophrenia rates changed much less [2,3]. Counts and standardized rates therefore answer different questions: absolute quantities reflect population size and age structure as well as age-specific rates, whereas ASRs remove differences in population age composition.")
-    add_paragraph(doc,"A 2026 GBD 2023 study of China already reported the same 1990-2023 endpoints, sex strata, and decomposition into population growth, ageing, and epidemiological change [4]. The Chinese 1990 and 2023 endpoint point estimates used here overlap exactly with that publication because both analyses use the same GBD release. GBD 2021 studies have also combined schizophrenia trends with sex and age patterns, country comparisons, decomposition, joinpoint models, inequalities, and projections [5-7]. Country-level trend and decomposition analysis is therefore a crowded literature, and neither method is claimed as novel here. The incremental contribution is a release-matched, sex-specific China-U.S. comparison through 2023 in one reproducible framework, with descriptive paired contrasts and no causal interpretation of ecological differences.")
+    add_paragraph(doc,"A 2026 GBD 2023 study of China already reported the same 1990-2023 endpoints, sex strata, and decomposition into population growth, ageing, and age-specific-rate change [4]. The Chinese 1990 and 2023 endpoint point estimates used here overlap exactly with that publication because both analyses use the same GBD release. GBD 2021 studies have also combined schizophrenia trends with sex and age patterns, country comparisons, decomposition, joinpoint models, inequalities, and projections [5-7]. Country-level trend and decomposition analysis is therefore a crowded literature, and neither method is claimed as novel here. The incremental contribution is a release-matched, sex-specific China-U.S. comparison through 2023 in one reproducible framework, with descriptive paired contrasts and no causal interpretation of ecological differences.")
     add_paragraph(doc,"We therefore examined incidence, prevalence, and DALY burden in China and the United States from 1990 through 2023. Our objectives were to quantify endpoints and nonlinear trends, compare country and sex trajectories descriptively, decompose all-age changes, and assess agreement between primary trends and secondary age-period-cohort estimable summaries.")
 
     add_heading(doc,"Methods")
     add_heading(doc,"Study design and data source",2)
-    add_paragraph(doc,"We conducted a comparative secondary analysis of GBD 2023 modeled health estimates [8]. The analytic population comprised females and males in China and the United States from 1990 through 2023. The burden extract contained annual posterior means and 95% uncertainty intervals (UIs) for incidence, prevalence, YLDs, and DALYs by age, sex, country, year, and metric. The source files contained aggregated, non-identifiable population estimates; institutional review board review and informed consent were therefore not applicable.")
+    source_measures=("incidence, prevalence, YLDs, and DALYs" if context["yld_available"] else "incidence, prevalence, and DALYs")
+    add_paragraph(doc,f"We conducted a comparative secondary analysis of GBD 2023 modeled health estimates [8]. The analytic population comprised females and males in China and the United States from 1990 through 2023. The burden extract contained annual posterior means and 95% uncertainty intervals (UIs) for {source_measures} by age, sex, country, year, and metric. The source files contained aggregated, non-identifiable population estimates; institutional review board review and informed consent were therefore not applicable.")
     add_heading(doc,"Outcomes and analytical exclusions",2)
-    add_paragraph(doc,"Primary outcomes were incidence, prevalence, and DALYs. Trend analyses used all-age numbers and ASRs per 100,000. The production decomposition contract requires matching Number and Rate estimates plus population for 20 mutually exclusive age groups from 0-4 through 95+ years. The available provisional extract instead supports 13 groups from 0-14 through 70+, so every result in this build remains non-submission. We excluded the GBD Percent metric because its denominator and age basis differed by outcome. Probability-of-death and available risk-factor extracts were excluded because they did not represent schizophrenia-specific causal attribution. YLD and DALY estimates were audited for numerical identity and YLDs were not duplicated in results.")
+    if provisional:
+        input_scope=("The production decomposition contract requires matching Number and Rate estimates plus population for 20 mutually exclusive age groups from 0-4 through 95+ years. The available provisional extract instead supports 13 groups from 0-14 through 70+, so every result in this build remains non-submission.")
+    else:
+        input_scope=("The production decomposition used matching Number and Rate estimates plus official population for 20 mutually exclusive age groups from 0-4 through 95+ years.")
+    yld_scope=("YLD and DALY estimates were audited for numerical identity and YLDs were not duplicated in results." if context["yld_available"] else "YLDs were not included in the production export and were not required because they were not a study outcome.")
+    add_paragraph(doc,f"Primary outcomes were incidence, prevalence, and DALYs. Trend analyses used all-age numbers and ASRs per 100,000. {input_scope} We excluded the GBD Percent metric because its denominator and age basis differed by outcome. Probability-of-death and available risk-factor extracts were excluded because they did not represent schizophrenia-specific causal attribution. {yld_scope}")
     add_heading(doc,"Data quality and population denominators",2)
     source_text="official GBD 2023 population estimates" if meta["population_status"]=="official_GBD_2023" else "a provisional population proxy reconstructed from matched GBD count-rate pairs"
-    add_paragraph(doc,f"We audited dimensional uniqueness, completeness across 34 years, missingness, positivity, uncertainty-bound ordering, and age-bin consistency. Decomposition currently uses {source_text}. A submission build requires both a matching fine-age burden export and an authenticated population export from GBD 2023, with retrieval records, export identifiers, query dimensions, preserved raw files, and verified SHA-256 hashes. We checked age-specific reconstruction by multiplying population by rate and dividing by 100,000.")
+    provenance_scope=("A submission build requires both a matching fine-age burden export and an authenticated population export from GBD 2023, with retrieval records, export identifiers, query dimensions, preserved raw files, and verified SHA-256 hashes." if provisional else "The matching fine-age burden and population exports were accompanied by verified retrieval records, export identifiers, query dimensions, preserved raw-file records, and SHA-256 hashes.")
+    add_paragraph(doc,f"We audited dimensional uniqueness, completeness across 34 years, missingness, positivity, uncertainty-bound ordering, and age-bin consistency. Decomposition used {source_text}. {provenance_scope} We checked age-specific reconstruction by multiplying population by rate and dividing by 100,000.")
     add_heading(doc,"Trend and comparison analyses",2)
     add_paragraph(doc,"We modeled log ASRs with an open Python implementation of piecewise linear regression, using the general joinpoint parameterization [9]. Candidate models allowed zero to two change points and required at least four annual observations per segment. The number and locations of change points were selected by the Bayesian information criterion. Segment annual percentage changes and overall average annual percentage changes (AAPCs) summarize fitted changes in the annual GBD posterior means; they are descriptive and are not presented with model p values or confidence intervals. Sensitivities varied the maximum breakpoint count, minimum segment length, calendar window, rate versus log-rate scale, and weights based on log-UI widths. The native UIs are not sampling standard errors, so weighted results also remained descriptive. A registered NCI Joinpoint 6.1.0 analysis may be used as optional validation but is not required for the primary open workflow [10].")
     add_paragraph(doc,"We summarized China-U.S. contrasts within outcome and sex and female-male contrasts within outcome and country as differences in descriptive AAPCs. Lag-1 residual autocorrelation was used as a diagnostic because annual GBD estimates may be serially correlated. We did not conduct parallelism F tests or multiplicity-adjusted significance tests. Native GBD UIs were reported only for original GBD estimates. Derived ratios, differences, changes, AAPCs, and decomposition components remained point estimates because posterior draws and cross-estimate correlations were unavailable.")
     add_heading(doc,"Demographic decomposition",2)
     add_paragraph(doc,"For each outcome, country, and sex, we decomposed the change in reconstructed all-age quantities into population-size change, age-structure change, and age-specific-rate change [11]. We averaged marginal contributions over all six possible factor-replacement orders, which is equivalent to a Shapley decomposition. Components were required to sum to total reconstructed change within numerical tolerance, and reconstructed endpoint quantities were checked against the reported all-age numbers. Primary estimates used 1990-2023; 2000-2023, 2010-2023, annual-chain, and five-year-chain analyses assessed endpoint and path sensitivity. We also compared the finest available age partition with a four-group collapse and flagged sign, magnitude-rank, or component-size changes.")
     add_heading(doc,"Secondary age-period-cohort analysis",2)
-    add_paragraph(doc,"Secondary incidence analysis used equal five-year age groups from 15-19 through 65-69 years and six equal periods from 1994-1998 through 2019-2023. The production contract will add ages 10-14 when available. We estimated net drift, age-specific local drift, longitudinal age relative risks, and nonlinear period and cohort relative risks. The design included an intercept, two identifiable linear trends, and nonlinear age, period, and cohort bases that were orthogonal to intercept and linear trend; it did not fit three unrestricted linear effects [12-15]. Reference relative risks were set to one. We did not interpret period or cohort patterns causally. The grouped sensitivity used the six complete periods from 1990-1994 through 2015-2019, thereby excluding 2020-2023 without shortening the six-period design.")
+    add_paragraph(doc,f"Secondary incidence analysis used equal five-year age groups covering {context['apc_coverage']} years and six equal periods from 1994-1998 through 2019-2023. We estimated net drift, age-specific local drift, longitudinal age relative risks, and nonlinear period and cohort relative risks. The design included an intercept, two identifiable linear trends, and nonlinear age, period, and cohort bases that were orthogonal to intercept and linear trend; it did not fit three unrestricted linear effects [12-15]. Reference relative risks were set to one. We did not interpret period or cohort patterns causally. The grouped sensitivity used the six complete periods from 1990-1994 through 2015-2019, thereby excluding 2020-2023 without shortening the six-period design.")
     add_heading(doc,"Reporting and reproducibility",2)
     add_paragraph(doc,"The analysis was conducted in Python with deterministic settings. Every table and figure is generated from saved machine-readable inputs. Reporting follows the Guidelines for Accurate and Transparent Health Estimates Reporting (GATHER) [16]. The working package contains the complete code, provenance table, data dictionary, and readiness metadata; these materials will be deposited at a persistent repository before submission. OpenAI Codex, a large language model tool, was used during software engineering and manuscript drafting. All generated code, analyses, claims, and references were reviewed and remain the authors' responsibility; the tool is not an author.")
 
     add_heading(doc,"Results")
     add_heading(doc,"Data completeness and outcome selection",2)
     audit=tables["data_audit"]; ident=tables["yld_daly_identity"].iloc[0]; recon=tables["population_reconstruction"]
-    age_count=int(decomp.age_group_count.iloc[0])
-    add_paragraph(doc,f"All 12 primary country-sex-outcome panels contained 34 annual all-age quantities and 34 annual ASRs. The provisional decomposition panels contained {age_count} age groups spanning 0-14 through 70+ years. No invalid UI ordering or nonpositive point estimates were identified. DALYs and YLDs were numerically identical across {int(ident.matched_cells):,} matched cells (maximum relative point-estimate difference {ident.max_relative_difference_val:.2e}); YLDs were therefore omitted as duplicate outcomes. The 99th percentile absolute population-rate reconstruction discrepancy was {recon.relative_error_pct.abs().quantile(.99):.3g}%, and decomposition endpoint reconstructions agreed with reported all-age numbers within floating-point tolerance.")
+    identity_result=(f"DALYs and YLDs were numerically identical across {int(ident.matched_cells):,} matched cells (maximum relative point-estimate difference {ident.max_relative_difference_val:.2e}); YLDs were therefore omitted as duplicate outcomes." if context["yld_available"] else "The export did not include YLDs; the YLD-DALY duplication audit was therefore recorded as not available and did not affect the three specified study outcomes.")
+    package_label="provisional" if provisional else "production"
+    add_paragraph(doc,f"All 12 primary country-sex-outcome panels contained 34 annual all-age quantities and 34 annual ASRs. The {package_label} decomposition panels contained {context['age_count']} age groups spanning {context['age_span']}. No invalid UI ordering or nonpositive point estimates were identified. {identity_result} The 99th percentile absolute population-rate reconstruction discrepancy was {recon.relative_error_pct.abs().quantile(.99):.3g}%, and decomposition endpoint reconstructions agreed with reported all-age numbers within floating-point tolerance.")
     add_heading(doc,"Burden levels and temporal changes",2)
     add_paragraph(doc,"All-age incidence, prevalence, and DALY counts increased between 1990 and 2023 in both countries and both sexes. In contrast, Chinese ASRs were nearly stable, whereas U.S. ASRs declined across the three outcomes. Males generally had higher rates than females. Thus, count growth and standardized-rate trends conveyed different dimensions of population burden.")
     table1=compact_endpoint_table(endpoints,segmented)
@@ -339,7 +366,8 @@ def build_manuscript(analysis: Path, out_dir: Path, meta: dict, tables: dict[str
     add_paragraph(doc,"Annualized endpoint changes are descriptive point estimates calculated from the 1990 and 2023 ASRs. The difference is United States minus China; no parallelism test or interval is implied. Full country and sex contrasts are reported in the supplement.")
     add_figure(doc,analysis/"figures"/"main"/"figure_2_segmented_trends.png","Figure 2. Observed and fitted descriptive segmented age-standardized rate trajectories. Curves were selected by BIC in the open Python workflow and are not NCI Joinpoint output.","Six panels showing observed and fitted sex-specific segmented rate trends.")
     add_heading(doc,"Age-specific patterns",2)
-    add_paragraph(doc,"The age profiles differed by outcome and sex, but male rates were generally higher. Incidence peaked in early adulthood, whereas prevalence and DALY rates remained substantial across middle adulthood. The coarse 70+ terminal category limited interpretation of late-life heterogeneity.")
+    late_age_note=(" The coarse 70+ terminal category limited interpretation of late-life heterogeneity." if provisional else " The fine-age production groups permitted late-life patterns to be retained through 95+ years.")
+    add_paragraph(doc,"The age profiles differed by outcome and sex, but male rates were generally higher. Incidence peaked in early adulthood, whereas prevalence and DALY rates remained substantial across middle adulthood."+late_age_note)
     add_figure(doc,analysis/"figures"/"main"/"figure_3_age_patterns.png","Figure 3. Age-specific incidence, prevalence, and DALY rates in 2023 by country and sex. Shading shows native 95% GBD uncertainty intervals.","Six panels showing age-specific schizophrenia rates in 2023 by country and sex.")
     add_heading(doc,"Drivers of changing all-age quantities",2)
     primary=decomp[(decomp.start_year==1990)&(decomp.end_year==2023)].copy()
@@ -347,7 +375,9 @@ def build_manuscript(analysis: Path, out_dir: Path, meta: dict, tables: dict[str
     for c in ("population_size_change","age_structure_change","age_specific_rate_change","total_change"): primary[c]=primary[c].map(lambda x:fmt(x,0))
     add_paragraph(doc,"Table 3. Shapley decomposition of all-age changes, 1990-2023",bold_lead="Table 3.")
     add_dataframe_table(doc,primary,[("Location","Location"),("sex_name","Sex"),("measure_name","Outcome"),("population_size_change","Population size"),("age_structure_change","Age structure"),("age_specific_rate_change","Age-specific rate"),("total_change","Total change")],font_size=8)
-    add_paragraph(doc,"Population-size change contributed positively in every panel. In China, age-structure change reduced incident cases but increased prevalent cases and DALYs; age-specific-rate change was small relative to demographic components. In the United States, age-structure and rate changes countervailed population-size change across all three outcomes and both sexes. Negative components represent countervailing forces; component percentages can therefore exceed 100% and were not treated as compositional shares. The age-bin sensitivity flagged material variation in selected incidence panels, so component magnitudes from this provisional broad-bin build should not be interpreted as final.")
+    positive_population=int((decomp[(decomp.start_year==1990)&(decomp.end_year==2023)].population_size_change>0).sum())
+    sensitivity_note=(" Because this is a provisional broad-bin build, its component magnitudes are not final." if provisional else " The fine-age results are the production estimates; collapsed-bin comparisons remain an aggregation sensitivity.")
+    add_paragraph(doc,f"Population-size change contributed positively in {positive_population} of 12 panels. Age-structure and age-specific-rate contributions varied by country, sex, and outcome (Table 3). Negative components represent countervailing forces; component percentages can therefore exceed 100% and were not treated as compositional shares. The age-bin sensitivity flagged material variation in {age_flags} of 12 panels.{sensitivity_note}")
     add_figure(doc,analysis/"figures"/"main"/"figure_4_decomposition.png","Figure 4. Shapley decomposition of changes in reconstructed all-age schizophrenia quantities, 1990-2023. Components are deterministic attributions based on posterior mean rates.","Six panels decomposing all-age changes into population-size, age-structure, and age-specific-rate components.",width=5.55)
     add_heading(doc,"Secondary age-period-cohort summaries",2)
     if "apc_primary_direction_agreement" in tables:
@@ -364,12 +394,13 @@ def build_manuscript(analysis: Path, out_dir: Path, meta: dict, tables: dict[str
 
     add_heading(doc,"Discussion")
     add_paragraph(doc,"This comparative study found increases in estimated incident cases, people living with schizophrenia, and DALYs, alongside contrasting standardized-rate trajectories. Chinese ASRs were broadly stable, whereas U.S. ASRs declined, particularly among females. The combination of increasing absolute quantities and flat or falling ASRs is not contradictory: population growth, age composition, and age-specific rates contribute separately.")
-    add_paragraph(doc,"The China endpoint point estimates are identical to those reported by Song and colleagues because both studies use the same GBD 2023 source [4]; this is expected data overlap, not independent validation. The component pattern also closely reproduces that study: population growth was the largest positive component, ageing reduced incidence but increased prevalence and DALYs, and rate change was comparatively small. The added comparison shows a different U.S. pattern, in which population growth was partly offset by age-composition and rate changes for each outcome and sex. These deterministic decompositions allocate endpoint differences under the specified identity; they do not identify causes of the demographic or rate changes.")
+    add_paragraph(doc,"The China endpoint point estimates overlap those reported by Song and colleagues because both studies use the same GBD 2023 source [4]; this is expected data overlap, not independent validation. The decomposition extends that descriptive context by applying the same population-size, age-structure, and age-specific-rate accounting to both countries and sexes. Component signs and magnitudes are reported directly rather than treated as causal explanations. These deterministic decompositions allocate endpoint differences under the specified identity; they do not identify causes of the demographic or rate changes.")
     add_paragraph(doc,"The distinction between measures has practical relevance. Incident and prevalent case counts can help approximate potential service-volume need, whereas DALYs quantify healthy life lost and are not a count of people. None of these quantities measures realized service use or demand, which also depends on detection, access, coverage, severity, and treatment pathways. ASRs facilitate temporal and cross-country rate comparisons after standardizing age composition. Planning based on ASRs alone may miss growth in potential service volume, while interpreting count growth as worsening individual risk would also be misleading.")
     add_paragraph(doc,"Sex-specific estimates showed a persistent male excess for several outcomes and an incidence peak in younger age groups, patterns broadly consistent with earlier GBD schizophrenia analyses [2,3]. However, modeled estimates cannot determine whether country or sex contrasts reflect underlying incidence, diagnostic recognition, data availability, care access, remission, excess mortality, or model assumptions. Health-system and policy differences remain contextual hypotheses rather than tested mechanisms.")
     add_heading(doc,"Strengths and limitations",2)
     add_paragraph(doc,"Strengths include a focused comparative question, consistent GBD 2023 outcome definitions, explicit separation of native UIs from derived point summaries, deterministic and reproducible trend selection, exact Shapley decomposition, a dedicated APC module with synthetic recovery tests, and restriction of APC interpretation to identifiable estimable functions. The pipeline records exclusions and prevents incomplete age or provenance inputs from being silently treated as submission-ready.")
-    add_paragraph(doc,"Several limitations are important. First, GBD values are modeled estimates rather than direct observations and may share smoothing assumptions across years, sexes, outcomes, and countries. Annual posterior means therefore cannot be treated as independent observations; segmented curves, change points, AAPCs, and pairwise contrasts are descriptive. Second, posterior draws were unavailable, so uncertainty could not be propagated to changes, ratios, decomposition components, or trajectory contrasts. Third, the provisional broad 0-14 and 70+ bins obscure heterogeneity within childhood and late life, and the explicit collapse sensitivity materially changed selected decomposition results. Fourth, APC estimates are restricted to incidence at ages 15-69 in this extract, are sensitive to grouping, and cannot identify independent causal age, period, and cohort effects. Comparisons with ASR trends are qualitative because the estimands differ. Fifth, ecological country contrasts cannot support causal attribution to policy or health systems. Finally, the provisional build lacks both matching fine-age burden data and an authenticated GBD 2023 population export with complete provenance. Registered NCI Joinpoint output and posterior draws would provide useful validation and uncertainty propagation, respectively, but are not mandatory for the primary open analysis.")
+    input_limit=("Third, the provisional broad 0-14 and 70+ bins obscure heterogeneity within childhood and late life, and the explicit collapse sensitivity materially changed selected decomposition results. Finally, this provisional build lacks both matching fine-age burden data and an authenticated GBD 2023 population export with complete provenance." if provisional else "Third, even the production five-year groups aggregate heterogeneity within age intervals, and the explicit collapse sensitivity shows how age grouping can alter decomposition components.")
+    add_paragraph(doc,f"Several limitations are important. First, GBD values are modeled estimates rather than direct observations and may share smoothing assumptions across years, sexes, outcomes, and countries. Annual posterior means therefore cannot be treated as independent observations; segmented curves, change points, AAPCs, and pairwise contrasts are descriptive. Second, posterior draws were unavailable, so uncertainty could not be propagated to changes, ratios, decomposition components, or trajectory contrasts. {input_limit} APC estimates are restricted to incidence at ages {context['apc_coverage']}, are sensitive to grouping, and cannot identify independent causal age, period, and cohort effects. Comparisons with ASR trends are qualitative because the estimands differ. Ecological country contrasts cannot support causal attribution to policy or health systems. Registered NCI Joinpoint output and posterior draws would provide useful validation and uncertainty propagation, respectively, but are not mandatory for the primary open analysis.")
     add_heading(doc,"Conclusions")
     add_paragraph(doc,"Between 1990 and 2023, estimated incident and prevalent case counts and DALYs increased in China and the United States while standardized-rate trajectories differed. Population growth contributed positively throughout, but age-composition and rate components contrasted between countries. These modeled patterns support considering potential service volume, health loss, standardized rates, age structure, and sex jointly in planning; they do not establish causal effects of policy or health systems.")
 
@@ -512,26 +543,32 @@ def build_supplement(analysis: Path, out_dir: Path, meta: dict, tables: dict[str
     add_figure(doc,analysis/"figures"/"supplement"/"figure_s1_counts.png","Figure S1. All-age schizophrenia quantities by country and sex, 1990-2023. DALYs represent healthy life-years lost rather than people.","Three panels showing all-age incident cases, prevalent cases, and DALYs.")
     add_figure(doc,analysis/"figures"/"supplement"/"figure_s2_apc_incidence.png","Figure S2. Secondary incidence APC estimable summaries. Relative-risk curves are nonlinear curvature contrasts, not independent causal age, period, or cohort effects.","Four panels showing incidence net drift and nonlinear age, period, and cohort curvature summaries.")
     add_heading(doc,"Readiness condition and optional validation")
-    add_bullets(doc,[
+    readiness_items=[
         f"Population status: {meta['population_status']}",
         f"Fine-age burden validated: {meta.get('fine_age_burden_validated', False)}",
         f"Source metadata complete: {meta.get('source_metadata_complete', False)}",
         f"Trend status: {meta['trend_status']}",
-        "The matching fine-age burden and official population exports, each with a validated provenance sidecar and preserved raw files, are required before submission.",
         "Registered NCI Joinpoint output is optional validation; the primary trend workflow is the open descriptive BIC implementation and must not be described as NCI Joinpoint.",
         "Posterior draws are desirable for uncertainty propagation but are currently unavailable; derived quantities must remain explicitly labeled as point estimates.",
-    ])
+    ]
+    if provisional:
+        readiness_items.insert(4,"The matching fine-age burden and official population exports, each with a validated provenance sidecar and preserved raw files, are required before submission.")
+    else:
+        readiness_items.insert(4,"The matching fine-age burden and official population exports passed the automated provenance and completeness gates.")
+    add_bullets(doc,readiness_items)
     out=out_dir/"supplementary_material.docx"; doc.save(out); return out
 
 
 def build_methods_appendix(out_dir: Path, meta: dict):
-    doc=setup_document("Statistical methods appendix","China-US schizophrenia burden study",False,show_blinded=False)
-    if not bool(meta.get("submission_ready", False)):
+    provisional=not bool(meta.get("submission_ready", False))
+    doc=setup_document("Statistical methods appendix","China-US schizophrenia burden study",provisional,show_blinded=False)
+    if provisional:
         note=doc.add_paragraph()
         run=note.add_run("Provisional methods appendix: matching fine-age GBD 2023 burden and official population exports with validated provenance are required before submission.")
         run.bold=True; run.font.color.rgb=RGBColor(156,87,0)
     add_heading(doc,"Analysis estimands")
-    add_bullets(doc,["Incident and prevalent case counts approximate potential service-volume need; DALYs quantify health loss and are not people.","Age-standardized rates describe temporal and cross-country rate patterns after standardization.","Derived ratios, changes, trend contrasts, APC functions, and decomposition components are point estimands; no draw-based uncertainty is asserted.","Production decomposition components are deterministic functions of posterior mean rates and populations across 20 fine-age groups from 0-4 through 95+ years; the provisional build uses 13 broader groups."])
+    decomposition_scope=("The current provisional build uses 13 broader groups and cannot support final ageing attribution." if provisional else "The production build uses 20 fine-age groups from 0-4 through 95+ years.")
+    add_bullets(doc,["Incident and prevalent case counts approximate potential service-volume need; DALYs quantify health loss and are not people.","Age-standardized rates describe temporal and cross-country rate patterns after standardization.","Derived ratios, changes, trend contrasts, APC functions, and decomposition components are point estimands; no draw-based uncertainty is asserted.",f"Decomposition components are deterministic functions of posterior mean rates and populations. {decomposition_scope}"])
     add_heading(doc,"Segmented log-linear trend model")
     add_paragraph(doc,"For year t and rate r(t), log r(t) = beta0 + beta1(t-t0) + sum[j] delta_j max(0,t-tau_j) + error(t). Candidate models contain zero, one, or two knots and require four observations between boundaries. The model with minimum BIC is selected, counting each knot location in the parameter penalty. Segment APC is 100[exp(slope)-1]; AAPC is the time-weighted mean log slope transformed to a percentage.")
     add_paragraph(doc,"The implementation is deterministic, open, and descriptive. Residual-permutation p values and regression confidence intervals are not used because serial dependence and the joint GBD posterior covariance are unavailable. Registered NCI Joinpoint 6.1.0 output can be compared as optional validation but is not part of the primary estimator.")
@@ -556,13 +593,16 @@ def build_methods_appendix(out_dir: Path, meta: dict):
 def build_gather(out_dir: Path, meta: dict):
     provisional=not bool(meta.get("submission_ready", False))
     doc=setup_document("GATHER reporting checklist","Guidelines for Accurate and Transparent Health Estimates Reporting",provisional)
+    source_access_status=("Complete" if not provisional else "Partial: verified retrieval metadata and repository link pending")
+    source_identity_status=("Complete" if not provisional else "Partial until matching fine-age burden and population exports are supplied")
+    source_characteristics_status=("Complete" if not provisional else "Partial: export IDs, queries, retrieval dates, and raw-file hashes incomplete")
     rows=[
         (1,"Define indicators, populations, and time periods","Methods: Outcomes; Study design","Complete"),
         (2,"List funding sources and funder roles","Declarations: Funding","Partial: author-confirmed funding and funder roles pending"),
-        (3,"Describe source data access","Methods: Data source; Availability statement","Partial: verified retrieval metadata and repository link pending"),
-        (4,"Identify all data sources","Supplementary Table S1","Partial until matching fine-age burden and population exports are supplied"),
+        (3,"Describe source data access","Methods: Data source; Availability statement",source_access_status),
+        (4,"Identify all data sources","Supplementary Table S1",source_identity_status),
         (5,"Describe data-source inclusion/exclusion","Methods: Analytical exclusions","Complete"),
-        (6,"Report data-source characteristics","Supplementary Table S1","Partial: export IDs, queries, retrieval dates, and raw-file hashes incomplete"),
+        (6,"Report data-source characteristics","Supplementary Table S1",source_characteristics_status),
         (7,"Provide source data in machine-readable form","Provenance CSV and source archives","Partial subject to IHME terms and repository deposit"),
         (8,"Describe data processing","Methods; Statistical appendix","Complete"),
         (9,"Describe model and parameter selection","Methods: Trend/APC; Statistical appendix","Complete"),
@@ -587,10 +627,14 @@ def load_tables(analysis: Path) -> dict[str,pd.DataFrame]:
 
 def main():
     p=argparse.ArgumentParser(); p.add_argument("--analysis-dir",type=Path,required=True); p.add_argument("--output-dir",type=Path)
-    args=p.parse_args(); analysis=args.analysis_dir; out=args.output_dir or analysis/"documents"; out.mkdir(parents=True,exist_ok=True)
+    args=p.parse_args(); analysis=args.analysis_dir; out=args.output_dir or analysis/"documents"
+    if out.exists() and any(out.iterdir()):
+        raise SystemExit(f"Document output directory must be absent or empty to prevent stale artifacts: {out}")
+    out.mkdir(parents=True,exist_ok=True)
     meta=json.loads((analysis/"build_metadata.json").read_text(encoding="utf-8")); tables=load_tables(analysis)
     paths=[build_manuscript(analysis,out,meta,tables),build_supplement(analysis,out,meta,tables),build_methods_appendix(out,meta),build_gather(out,meta)]
-    (out/"document_manifest.json").write_text(json.dumps([str(x) for x in paths],indent=2),encoding="utf-8")
+    manifest = [path.resolve().relative_to(out.resolve()).as_posix() for path in paths]
+    (out/"document_manifest.json").write_text(json.dumps(manifest,indent=2),encoding="utf-8")
     print("\n".join(map(str,paths)))
 
 

@@ -1,5 +1,5 @@
 {
-  "export_role": "burden",
+  "export_role": "population",
   "gbd_release": "GBD 2023",
   "retrieval_date": "YYYY-MM-DD",
   "export_id": "IHME export/download identifier",
@@ -34,25 +34,20 @@
       "80-84 years",
       "85-89 years",
       "90-94 years",
-      "95+ years",
-      "All ages",
-      "Age-standardized"
+      "95+ years"
     ],
     "measures": [
-      "Incidence",
-      "Prevalence",
-      "DALYs"
+      "Population"
     ],
     "metrics": [
-      "Number",
-      "Rate"
+      "Number"
     ]
   },
   "raw_files": [
     {
-      "file": "data/raw/replace-with-preserved-export.zip",
+      "file": "data/raw/replace-with-preserved-population-export.zip",
       "sha256": "replace-with-the-64-character-lowercase-sha256"
     }
   ],
-  "notes": "Burden template. Record any tool defaults, filters, split downloads, or transformations needed to understand the export. Paths are repository-relative."
+  "notes": "Population template. Record any tool defaults, filters, split downloads, or transformations needed to understand the export. Paths are repository-relative."
 }

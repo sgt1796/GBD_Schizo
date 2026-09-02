@@ -177,6 +177,34 @@ def burden_age_granularity_audit(df: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+def validate_required_burden_summaries(df: pd.DataFrame) -> None:
+    """Require the all-age counts and ASRs used by the frozen primary analysis."""
+    keys = ["location_name", "sex_name", "measure_name", "age_name", "metric_name", "year"]
+    required = (
+        (ALL_AGES, "Number", "all-age Number"),
+        (ASR, "Rate", "age-standardized Rate"),
+    )
+    expected = len(LOCATIONS) * len(SEXES) * len(OUTCOMES) * len(YEARS)
+    problems = []
+    for age_name, metric_name, label in required:
+        panel = df[
+            df.measure_name.isin(OUTCOMES)
+            & df.age_name.eq(age_name)
+            & df.metric_name.eq(metric_name)
+        ]
+        duplicate_count = int(panel.duplicated(keys).sum())
+        if len(panel) != expected or duplicate_count:
+            problems.append(
+                f"{label}: found {len(panel)} rows and {duplicate_count} duplicates; "
+                f"expected {expected} unique rows"
+            )
+    if problems:
+        raise ValueError(
+            "Burden input is incomplete for the primary descriptive analysis: "
+            + "; ".join(problems)
+        )
+
+
 def load_official_population(path: Path, release: str) -> pd.DataFrame:
     df = _normalise_population_columns(pd.read_csv(path, low_memory=False))
     required = {"location_name", "sex_name", "age_name", "year", "population", "gbd_release"}
@@ -204,14 +232,73 @@ def load_official_population(path: Path, release: str) -> pd.DataFrame:
     return out
 
 
-def infer_proxy_population(df: pd.DataFrame) -> pd.DataFrame:
+def infer_proxy_population(
+    df: pd.DataFrame, allow_undefined: bool = False
+) -> pd.DataFrame:
     ages = select_decomposition_ages(set(df.age_name.dropna().astype(str)))
     keys = ["location_name", "sex_name", "age_name", "year", "measure_name"]
     num = df[(df.metric_name == "Number") & df.age_name.isin(ages)][keys + ["val"]].rename(columns={"val": "number"})
     rate = df[(df.metric_name == "Rate") & df.age_name.isin(ages)][keys + ["val"]].rename(columns={"val": "rate"})
     merged = num.merge(rate, on=keys, validate="one_to_one")
-    merged["population"] = merged["number"] / merged["rate"] * 100000.0
-    out = merged.groupby(keys[:-1], as_index=False)["population"].median()
+    invalid = merged.rate.eq(0) & merged.number.ne(0)
+    if invalid.any():
+        raise ValueError("Cannot reconstruct population where Rate is zero but Number is nonzero.")
+    merged["population"] = np.where(
+        merged.rate.gt(0), merged.number / merged.rate * 100000.0, np.nan
+    )
+    out = merged.groupby(keys[:-1], as_index=False, dropna=False)["population"].median()
+
+    expected_index = pd.MultiIndex.from_product(
+        [LOCATIONS, SEXES, ages, YEARS], names=keys[:-1]
+    )
+    out = (
+        out.set_index(keys[:-1])
+        .reindex(expected_index)
+        .reset_index()
+    )
+    missing = out.population.isna()
+    if missing.any():
+        # Some disorders legitimately have Number=Rate=0 in a fine age group,
+        # making the direct ratio undefined. If exactly one age is undefined,
+        # reconstruct total population from exported All ages Number/Rate and
+        # fill the residual. This remains an explicitly nonofficial proxy.
+        total_keys = ["location_name", "sex_name", "year", "measure_name"]
+        all_number = df[
+            df.age_name.eq(ALL_AGES) & df.metric_name.eq("Number")
+        ][total_keys + ["val"]].rename(columns={"val": "number"})
+        all_rate = df[
+            df.age_name.eq(ALL_AGES) & df.metric_name.eq("Rate")
+        ][total_keys + ["val"]].rename(columns={"val": "rate"})
+        totals = all_number.merge(all_rate, on=total_keys, validate="one_to_one")
+        totals = totals[totals.rate.gt(0)].copy()
+        totals["total_population"] = totals.number / totals.rate * 100000.0
+        totals = totals.groupby(total_keys[:-1], as_index=False).total_population.median()
+        totals = totals.set_index(total_keys[:-1]).total_population
+
+        group_keys = ["location_name", "sex_name", "year"]
+        for group, indices in out.groupby(group_keys, sort=False).groups.items():
+            indices = list(indices)
+            missing_indices = [index for index in indices if pd.isna(out.at[index, "population"])]
+            if not missing_indices:
+                continue
+            if len(missing_indices) != 1 or group not in totals.index:
+                if allow_undefined:
+                    continue
+                missing_ages = out.loc[missing_indices, "age_name"].tolist()
+                raise ValueError(
+                    "Cannot reconstruct proxy population for undefined Number/Rate cells: "
+                    f"group={group}, missing_ages={missing_ages}."
+                )
+            residual = float(totals.loc[group]) - float(
+                out.loc[indices, "population"].sum(skipna=True)
+            )
+            if not np.isfinite(residual) or residual <= 0:
+                raise ValueError(
+                    "All-age residual population is not finite and positive for "
+                    f"group={group}: {residual}."
+                )
+            out.at[missing_indices[0], "population"] = residual
+
     out["population_source"] = "derived_proxy_NOT_OFFICIAL"
     return out
 
@@ -258,6 +345,12 @@ def compare_population_sources(
         100.0 * out.absolute_difference / out.official_population
     )
     out["key_match_status"] = out.pop("_merge").astype(str)
+    out["reconstruction_available"] = np.isfinite(out.reconstructed_population)
+    out["comparison_status"] = np.where(
+        out.reconstruction_available,
+        "compared",
+        "unavailable_zero_burden_number_and_rate",
+    )
     return out
 
 
@@ -279,6 +372,8 @@ def audit_burden(df: pd.DataFrame, pop: pd.DataFrame) -> tuple[pd.DataFrame, pd.
                     "all_age_year_cells": age_groups[["age_name", "year"]].drop_duplicates().shape[0],
                     "missing_values": int(panel[["val", "lower", "upper"]].isna().sum().sum()),
                     "invalid_ui_rows": int(((panel.lower > panel.val) | (panel.val > panel.upper)).sum()),
+                    "negative_rows": int((panel.val < 0).sum()),
+                    "zero_rows": int((panel.val == 0).sum()),
                     "nonpositive_rows": int((panel.val <= 0).sum()),
                 })
     audit = pd.DataFrame(rows)
@@ -327,6 +422,14 @@ def all_age_count_reconstruction(df: pd.DataFrame, reconstruction: pd.DataFrame)
 
 
 def verify_yld_daly_identity(df: pd.DataFrame) -> pd.DataFrame:
+    """Audit an optional YLD panel without making it a production input.
+
+    Schizophrenia DALYs and YLDs are identical in the provisional source
+    exports, so retaining both would duplicate an outcome.  The production
+    contract, however, requires incidence, prevalence, and DALYs only.  A
+    completely absent YLD panel is therefore a valid ``not_available`` audit
+    result, while a partial or non-identical panel fails the audit.
+    """
     ages = select_decomposition_ages(set(df.age_name.dropna().astype(str)))
     keys = ["location_name", "sex_name", "age_name", "metric_name", "year"]
     a = df[df.measure_name == "DALYs"][keys + ["val", "lower", "upper"]]
@@ -337,6 +440,24 @@ def verify_yld_daly_identity(df: pd.DataFrame) -> pd.DataFrame:
     }
     expected_cells = len(LOCATIONS) * len(SEXES) * len(YEARS) * len(expected_age_metrics)
     duplicate_cells = int(a.duplicated(keys).sum() + b.duplicated(keys).sum())
+    if b.empty:
+        return pd.DataFrame([{
+            "audit_status": "not_available",
+            "audit_passed": True,
+            "yld_panel_available": False,
+            "matched_cells": 0,
+            "expected_cells": expected_cells,
+            "duplicate_cells": duplicate_cells,
+            "complete_expected_panel": False,
+            **{
+                f"max_{kind}_difference_{field}": np.nan
+                for field in ("val", "lower", "upper")
+                for kind in ("abs", "relative")
+            },
+            "identity_tolerance": YLD_DALY_IDENTITY_TOLERANCE,
+            "numerically_identical": False,
+        }])
+
     m = a.merge(b, on=keys, suffixes=("_daly", "_yld"), validate="one_to_one")
     observed_age_metrics = set(map(tuple, m[["age_name", "metric_name"]].drop_duplicates().to_numpy()))
     complete = bool(
@@ -359,6 +480,13 @@ def verify_yld_daly_identity(df: pd.DataFrame) -> pd.DataFrame:
             result[f"max_relative_difference_{col}"] < YLD_DALY_IDENTITY_TOLERANCE
             for col in ("val", "lower", "upper")
         )
+    )
+    result["yld_panel_available"] = True
+    result["audit_passed"] = result["numerically_identical"]
+    result["audit_status"] = (
+        "verified_identical"
+        if result["numerically_identical"]
+        else "incomplete_or_nonidentical"
     )
     return pd.DataFrame([result])
 
@@ -1659,7 +1787,7 @@ def portable_path(path: Path) -> str:
     try:
         return resolved.relative_to(ROOT).as_posix()
     except ValueError:
-        return str(resolved)
+        return f"external/{resolved.name}"
 
 
 def file_sha256(path: Path) -> str:
@@ -1698,12 +1826,59 @@ def load_export_metadata(path: Path, expected_role: str) -> dict:
         date.fromisoformat(str(metadata["retrieval_date"]))
     except ValueError as exc:
         raise ValueError("Export metadata retrieval_date must use YYYY-MM-DD.") from exc
-    if not str(metadata["export_id"]).strip():
+    export_id = str(metadata["export_id"]).strip()
+    if not export_id or "identifier" in export_id.casefold() or "replace" in export_id.casefold():
         raise ValueError("Export metadata export_id must be non-empty.")
-    if not str(metadata["source_url"]).startswith("https://"):
-        raise ValueError("Export metadata source_url must be an HTTPS URL.")
+    source_url = str(metadata["source_url"])
+    if not re.match(r"https://([a-z0-9-]+\.)*healthdata\.org(?:/|$)", source_url, re.I):
+        raise ValueError("Export metadata source_url must be an official HTTPS healthdata.org URL.")
     if not isinstance(metadata["query_dimensions"], dict) or not metadata["query_dimensions"]:
         raise ValueError("Export metadata query_dimensions must be a non-empty object.")
+    dimensions = metadata["query_dimensions"]
+    required_dimensions = {"locations", "sexes", "years", "ages", "measures", "metrics"}
+    missing_dimensions = required_dimensions - set(dimensions)
+    if missing_dimensions:
+        raise ValueError(
+            f"Export metadata query_dimensions is missing: {sorted(missing_dimensions)}"
+        )
+
+    def dimension_set(name: str) -> set[str]:
+        values = dimensions[name]
+        if not isinstance(values, list) or not values:
+            raise ValueError(f"Export metadata query_dimensions.{name} must be a non-empty list.")
+        return {str(value).strip() for value in values}
+
+    if dimension_set("locations") != set(LOCATIONS):
+        raise ValueError("Export metadata locations must exactly match the two analysis locations.")
+    if dimension_set("sexes") != set(SEXES):
+        raise ValueError("Export metadata sexes must exactly match Female and Male.")
+    years = dimensions["years"]
+    valid_years = (
+        str(years).replace("–", "-") == "1990-2023"
+        or (
+            isinstance(years, list)
+            and {int(value) for value in years} == set(YEARS)
+        )
+    )
+    if not valid_years:
+        raise ValueError("Export metadata years must cover every year from 1990 through 2023.")
+
+    ages = dimension_set("ages")
+    measures = dimension_set("measures")
+    metrics = dimension_set("metrics")
+    if expected_role == "burden":
+        required_ages = {*FINE_DECOMPOSITION_AGES, ALL_AGES, ASR}
+        if not required_ages <= ages:
+            raise ValueError("Burden export metadata is missing required fine or summary ages.")
+        if not set(OUTCOMES) <= measures:
+            raise ValueError("Burden export metadata is missing a required study outcome.")
+        if not {"Number", "Rate"} <= metrics:
+            raise ValueError("Burden export metadata must include Number and Rate metrics.")
+    elif expected_role == "population":
+        if ages != set(FINE_DECOMPOSITION_AGES):
+            raise ValueError("Population export metadata ages must exactly match the 20 fine groups.")
+        if "Population" not in measures or "Number" not in metrics:
+            raise ValueError("Population export metadata must identify Population and Number.")
     if not isinstance(metadata["raw_files"], list) or not metadata["raw_files"]:
         raise ValueError("Export metadata raw_files must be a non-empty list.")
     for item in metadata["raw_files"]:
@@ -1739,6 +1914,14 @@ def provenance_table(
     burden_metadata: dict | None = None,
     population_metadata: dict | None = None,
 ) -> pd.DataFrame:
+    def dimensions(metadata: dict | None, fallback: str) -> str:
+        if not metadata:
+            return fallback
+        return "; ".join(
+            f"{key}={json.dumps(value, ensure_ascii=False, sort_keys=True)}"
+            for key, value in sorted(metadata["query_dimensions"].items())
+        )
+
     population_file = (
         portable_path(population_path)
         if population_path
@@ -1758,9 +1941,10 @@ def provenance_table(
             "export_id": burden_metadata["export_id"] if burden_metadata else "not recorded",
             "metadata_file": burden_metadata["metadata_file"] if burden_metadata else "not supplied",
             "metadata_sha256": burden_metadata["metadata_sha256"] if burden_metadata else "not applicable",
-            "dimensions": (
+            "dimensions": dimensions(
+                burden_metadata,
                 "China; United States; 1990-2023; Female; Male; incidence; "
-                "prevalence; YLD; DALY; counts and rates"
+                "prevalence; YLD; DALY; counts and rates",
             ),
             "status": "included",
         },
@@ -1781,13 +1965,14 @@ def provenance_table(
             "export_id": population_metadata["export_id"] if population_metadata else "not supplied",
             "metadata_file": population_metadata["metadata_file"] if population_metadata else "not supplied",
             "metadata_sha256": population_metadata["metadata_sha256"] if population_metadata else "not applicable",
-            "dimensions": (
+            "dimensions": dimensions(
+                population_metadata,
                 "China; United States; 1990-2023; Female; Male; "
                 + (
                     "five-year ages 0-4 through 90-94 plus 95+"
                     if population_source == "official_GBD_2023"
                     else "provisional ages 0-14 through 70+"
-                )
+                ),
             ),
             "status": population_source,
         },
@@ -1831,7 +2016,12 @@ def provenance_table(
 
 
 def run(args) -> dict:
-    out=Path(args.output_dir); tables_dir=out/"tables"; main_fig=out/"figures"/"main"; supp_fig=out/"figures"/"supplement"
+    out=Path(args.output_dir)
+    if out.exists() and any(out.iterdir()):
+        raise ValueError(
+            f"Analysis output directory must be absent or empty to prevent stale artifacts: {out}"
+        )
+    tables_dir=out/"tables"; main_fig=out/"figures"/"main"; supp_fig=out/"figures"/"supplement"
     for p in (tables_dir,main_fig,supp_fig,out/"qa",out/"nci_joinpoint_inputs"): p.mkdir(parents=True,exist_ok=True)
     burden_path=Path(args.burden_csv); population_path=Path(args.population_csv) if args.population_csv else None
     burden_metadata_path=Path(args.burden_metadata_json) if getattr(args,"burden_metadata_json",None) else None
@@ -1840,6 +2030,7 @@ def run(args) -> dict:
     burden_metadata=load_export_metadata(burden_metadata_path,"burden") if burden_metadata_path else None
     population_metadata=load_export_metadata(population_metadata_path,"population") if population_metadata_path else None
     burden=load_burden(burden_path)
+    validate_required_burden_summaries(burden)
     age_granularity=burden_age_granularity_audit(burden)
     if population_path:
         if burden_metadata is None or population_metadata is None:
@@ -1859,14 +2050,17 @@ def run(args) -> dict:
     else:
         raise SystemExit("A matching official GBD 2023 --population-csv is required. Use --allow-proxy-population only for a visibly provisional build.")
     validate_population(pop)
-    reconstructed_population=infer_proxy_population(burden)
+    reconstructed_population=infer_proxy_population(
+        burden,
+        allow_undefined=pop.population_source.iloc[0] == "official_GBD_2023",
+    )
     if pop.population_source.iloc[0]=="official_GBD_2023":
         population_comparison=compare_population_sources(pop,reconstructed_population)
     else:
         population_comparison=pd.DataFrame(columns=[
             "location_name","sex_name","age_name","year","official_population",
             "reconstructed_population","absolute_difference","relative_difference_pct",
-            "key_match_status",
+            "key_match_status","reconstruction_available","comparison_status",
         ])
     audit,duplicate,reconstruction=audit_burden(burden,pop)
     all_age_reconstruction=all_age_count_reconstruction(burden,reconstruction)
@@ -1930,8 +2124,8 @@ def run(args) -> dict:
                                       and all_age_reconstruction.within_tolerance.all())
     internal_validation_passed=bool((audit.all_age_count_years.eq(34)&audit.asr_years.eq(34)).all()
                                     and int(duplicate.duplicate_dimensional_keys.iloc[0])==0
-                                    and int(audit.invalid_ui_rows.sum())==0 and int(audit.nonpositive_rows.sum())==0
-                                    and bool(yld_identity.numerically_identical.iloc[0])
+                                    and int(audit.invalid_ui_rows.sum())==0 and int(audit.negative_rows.sum())==0
+                                    and bool(yld_identity.audit_passed.iloc[0])
                                     and all_age_reconstruction_valid and float(decomp.closure_error.abs().max())<1e-8)
     trend_status="descriptive BIC-selected segmented curves; no formal trend inference"
     if nci_valid: trend_status+=f"; optional NCI Joinpoint {nci_version} validation imported"
@@ -1960,7 +2154,11 @@ def run(args) -> dict:
         "all_primary_panels_complete_34_years":bool((audit.all_age_count_years.eq(34)&audit.asr_years.eq(34)).all()),
         "duplicate_dimensional_keys":int(duplicate.duplicate_dimensional_keys.iloc[0]),
         "invalid_ui_rows":int(audit.invalid_ui_rows.sum()),
+        "negative_rows":int(audit.negative_rows.sum()),
+        "zero_rows":int(audit.zero_rows.sum()),
         "nonpositive_rows":int(audit.nonpositive_rows.sum()),
+        "yld_daly_audit_status":str(yld_identity.audit_status.iloc[0]),
+        "yld_daly_audit_passed":bool(yld_identity.audit_passed.iloc[0]),
         "yld_daly_numerically_identical":bool(yld_identity.numerically_identical.iloc[0]),
         "population_reconstruction_p99_absolute_relative_error_pct":float(reconstruction.relative_error_pct.abs().quantile(.99)),
         "all_age_count_reconstruction_rows":int(len(all_age_reconstruction)),

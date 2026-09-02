@@ -18,10 +18,12 @@ uv pip install --python .venv\Scripts\python.exe `
   --requirement publication_study\requirements.txt
 ```
 
-## 2. Prepare the burden input
+## 2. Prepare the burden inputs
 
 ```powershell
 .\.venv\Scripts\python.exe prepare_schizo_inputs.py
+.\.venv\Scripts\python.exe publication_study\prepare_production_burden.py
+.\.venv\Scripts\python.exe publication_study\prepare_production_population.py
 .\.venv\Scripts\python.exe publication_study\verify_reproducibility.py
 ```
 
@@ -41,6 +43,21 @@ duplicates, exclusions, and validation warnings in
 `prepared_inputs/GBD_1990_2023_schizophrenia_preparation_report.txt`. The
 verifier checks the Python environment and these source/prepared artifacts; it
 does not run the analysis.
+
+The second preparation command builds the production fine-age burden file from
+the preserved split downloads under `addition_inputs/`. The first download
+contained an accidental `65-74 years` aggregate and the second supplied the
+required `70-74 years` group. The script removes the aggregate and unused
+Percent rows, normalizes `<5 years` to `0-4 years`, validates every required
+dimensional cell, and writes
+`data/GBD_2023_schizophrenia_fine_age_China_US.csv` deterministically. It does
+not create or infer the mandatory official population file.
+
+The third preparation command reads the preserved GBD 2023 Population/Number
+ZIP, normalizes the IHME `<5 years` label to `0-4 years`, validates exactly
+2,720 positive location-sex-age-year cells and their source uncertainty bounds,
+and writes `data/GBD_2023_population_China_US.csv` with an explicit `GBD 2023`
+release marker.
 
 ### IHME data terms
 
@@ -84,6 +101,12 @@ deterministic, labels the population and decomposition as provisional, and sets
 package is internally complete; it does **not** mean that the study is ready for
 submission.
 
+The fine-age schizophrenia export has exact zero Number and Rate values in both
+`0-4 years` and `5-9 years`. Their separate populations therefore cannot be
+reconstructed from burden ratios. Do not run the fine-age input with proxy mode
+or invent a split of the combined residual; use the official population export
+for the fine-age production analysis.
+
 Trend selection is deterministic: the primary open model chooses zero to two
 breakpoints by BIC and does not use a resampling-based significance test.
 
@@ -92,7 +115,8 @@ breakpoints by BIC and does not use a resampling-based significance test.
 Production requires matching fine-age schizophrenia burden and official
 population exports from GBD 2023, plus completed provenance sidecars for both.
 Their exact contracts are in `EXTERNAL_INPUTS_REQUIRED.md`; use
-`gbd_export_metadata_template.json` for the sidecars.
+`gbd_export_metadata_template.json` for burden and
+`gbd_population_export_metadata_template.json` for population.
 
 ```powershell
 .\.venv\Scripts\python.exe publication_study\publication_analysis.py `
@@ -113,7 +137,8 @@ Their exact contracts are in `EXTERNAL_INPUTS_REQUIRED.md`; use
 
 Do not build production over an older provisional directory. A fresh output
 directory prevents stale tables or documents from being mistaken for results
-from the current inputs.
+from the current inputs. Both analysis and document commands reject nonempty
+output directories.
 
 ### Optional official NCI validation
 
@@ -154,11 +179,13 @@ year, val, lower, upper
 ```
 
 The analysis retains China and United States of America; Female and Male;
-1990-2023; Incidence, Prevalence, DALYs, and YLDs; and Number and Rate metrics.
+1990-2023; required Incidence, Prevalence, and DALY outcomes; optional YLDs for
+the duplication audit; and Number and Rate metrics.
 The provisional prepared file contains the all-age count, age-standardized
 rate, and a broad endpoint age partition. Production requires Number and Rate
 panels in consecutive five-year ages from 0-4 through 90-94 plus 95+ for all
-three outcomes.
+three outcomes, as well as All ages Number and Age-standardized Rate panels for
+the primary endpoint and trend analyses.
 
 The canonical population schema is:
 
@@ -225,8 +252,10 @@ DOCX package but does not perform or certify visual QA.
 
 - Primary outcomes are incidence, prevalence, and DALYs. Percent metrics and
   probability-of-death outputs are excluded.
-- DALYs and YLDs are audited for numerical identity; YLDs are not reported
-  twice.
+- When YLDs are supplied, DALYs and YLDs are audited for numerical identity and
+  YLDs are not reported twice. A wholly absent YLD panel is recorded as an
+  optional audit that was not available; a partial or non-identical panel fails
+  validation.
 - Native 95% GBD uncertainty intervals are reported only for original GBD
   estimates. Descriptive segmented trends and AAPCs have no model confidence
   intervals or p values.

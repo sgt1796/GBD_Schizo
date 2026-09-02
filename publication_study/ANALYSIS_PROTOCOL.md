@@ -113,8 +113,10 @@ visibly provisional engineering build. When official population is supplied,
 the pipeline records cell-level discrepancies from the reconstructed
 denominator rather than silently substituting values.
 
-YLDs are audited against DALYs and are not reported as a separate outcome when
-the estimates are numerically identical. The GBD Percent metric,
+When a YLD panel is included in an export, it is audited against DALYs and is
+not reported as a separate outcome when the estimates are numerically
+identical. YLD is not a required production input because it is not a study
+outcome. The GBD Percent metric,
 probability-of-death extract, and available risk-factor extract are outside the
 research question and are excluded.
 

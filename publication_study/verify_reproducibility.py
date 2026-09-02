@@ -203,9 +203,19 @@ def check_environment(results: Results) -> None:
         "publication_study/publication_analysis.py",
         "publication_study/apc_analysis.py",
         "publication_study/build_documents.py",
+        "publication_study/prepare_production_burden.py",
+        "publication_study/prepare_production_population.py",
         "publication_study/population_input_template.csv",
         "publication_study/gbd_export_metadata_template.json",
+        "publication_study/gbd_population_export_metadata_template.json",
         "publication_study/nci_results_template.csv",
+        "addition_inputs/IHME-GBD_2023_DATA-774041bd-1.zip",
+        "addition_inputs/IHME-GBD_2023_DATA-22ef74c2-1.zip",
+        "addition_inputs/IHME-GBD_2023_DATA-a9a792bb-1.zip",
+        "data/GBD_2023_schizophrenia_fine_age_China_US.csv",
+        "data/GBD_2023_population_China_US.csv",
+        "data/metadata/burden_export.json",
+        "data/metadata/population_export.json",
     ):
         path = REPO_ROOT / relative
         if path.is_file() and path.stat().st_size > 0:
@@ -286,14 +296,14 @@ def check_qa(qa: dict, results: Results) -> None:
     expected_true = (
         "all_primary_panels_complete_34_years",
         "all_age_count_reconstruction_within_tolerance",
-        "yld_daly_numerically_identical",
+        "yld_daly_audit_passed",
         "primary_outputs_exclude_percent_metric",
         "internal_validation_passed",
     )
     expected_zero = (
         "duplicate_dimensional_keys",
         "invalid_ui_rows",
-        "nonpositive_rows",
+        "negative_rows",
     )
     for key in expected_true:
         if qa.get(key) is True:
@@ -305,6 +315,15 @@ def check_qa(qa: dict, results: Results) -> None:
             results.passed(f"QA {key}=0")
         else:
             results.fail(f"QA {key} is not zero")
+
+    yld_status = qa.get("yld_daly_audit_status")
+    if yld_status in {"verified_identical", "not_available"}:
+        results.passed(f"QA yld_daly_audit_status={yld_status}")
+    else:
+        results.fail(
+            "QA yld_daly_audit_status must be verified_identical or not_available; "
+            f"found {yld_status}"
+        )
 
     if qa.get("formal_trend_inference_performed") is False:
         results.passed("QA formal_trend_inference_performed=false")

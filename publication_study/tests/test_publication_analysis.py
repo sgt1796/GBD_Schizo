@@ -9,6 +9,7 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import publication_analysis as pa
+import build_documents as bd
 
 
 @pytest.fixture(scope="module")
@@ -32,6 +33,7 @@ def apc_results(burden, proxy_population):
 
 
 def test_primary_outcomes_and_years_complete(burden):
+    pa.validate_required_burden_summaries(burden)
     primary = burden[
         burden.measure_name.isin(pa.OUTCOMES)
         & (burden.metric_name == "Rate")
@@ -42,14 +44,212 @@ def test_primary_outcomes_and_years_complete(burden):
     assert (sizes == 34).all()
 
 
+def test_missing_primary_summary_panel_fails_early(burden):
+    missing = burden.drop(
+        burden[
+            (burden.location_name == "China")
+            & (burden.sex_name == "Female")
+            & (burden.measure_name == "Incidence")
+            & (burden.age_name == pa.ALL_AGES)
+            & (burden.metric_name == "Number")
+            & (burden.year == 1990)
+        ].index
+    )
+    with pytest.raises(ValueError, match="all-age Number"):
+        pa.validate_required_burden_summaries(missing)
+
+
 def test_yld_daly_are_numerically_identical(burden):
     result = pa.verify_yld_daly_identity(burden).iloc[0]
+    assert bool(result.audit_passed)
+    assert result.audit_status == "verified_identical"
     assert bool(result.numerically_identical)
     assert bool(result.complete_expected_panel)
     assert result.matched_cells == result.expected_cells == 3944
     assert result.duplicate_cells == 0
     for field in ("val", "lower", "upper"):
         assert result[f"max_relative_difference_{field}"] < pa.YLD_DALY_IDENTITY_TOLERANCE
+
+
+def test_yld_panel_is_optional_but_partial_yld_input_fails(burden):
+    without_yld = burden[burden.measure_name != "YLDs"].copy()
+    absent = pa.verify_yld_daly_identity(without_yld).iloc[0]
+    assert bool(absent.audit_passed)
+    assert not bool(absent.yld_panel_available)
+    assert absent.audit_status == "not_available"
+    assert not bool(absent.numerically_identical)
+
+    yld_index = burden.index[burden.measure_name == "YLDs"][0]
+    partial = pa.verify_yld_daly_identity(burden.drop(index=yld_index)).iloc[0]
+    assert not bool(partial.audit_passed)
+    assert bool(partial.yld_panel_available)
+    assert partial.audit_status == "incomplete_or_nonidentical"
+
+
+def test_document_context_tracks_production_inputs_without_proxy_wording():
+    tables = {
+        "decomposition": pd.DataFrame({"age_group_count": [20]}),
+        "apc_summary": pd.DataFrame({"age_coverage": ["10-14 to 65-69"]}),
+        "yld_daly_identity": pd.DataFrame({"yld_panel_available": [False]}),
+    }
+    context = bd.document_build_context({"submission_ready": True}, tables)
+    assert context == {
+        "submission_ready": True,
+        "age_count": 20,
+        "age_span": "0-4 through 95+ years",
+        "apc_coverage": "10-14 to 65-69",
+        "yld_available": False,
+    }
+
+
+def _write_synthetic_fine_production_inputs(tmp_path, burden, proxy_population):
+    population_rows = []
+    burden_rows = []
+    age_weights = np.linspace(1.0, 2.0, len(pa.FINE_DECOMPOSITION_AGES))
+    profiles = {
+        "Incidence": np.exp(-((np.arange(20) - 4.0) / 3.2) ** 2) + 0.08,
+        "Prevalence": np.exp(-((np.arange(20) - 8.0) / 6.0) ** 2) + 0.18,
+        "DALYs": np.exp(-((np.arange(20) - 7.0) / 5.5) ** 2) + 0.16,
+    }
+    total_population = proxy_population.groupby(
+        ["location_name", "sex_name", "year"], as_index=False
+    ).population.sum()
+
+    for population_cell in total_population.itertuples(index=False):
+        year_shift = 1.0 + 0.001 * (population_cell.year - 1990) * np.linspace(-1, 1, 20)
+        shares = age_weights * year_shift
+        shares = shares / shares.sum()
+        populations = float(population_cell.population) * shares
+        for age_name, population in zip(pa.FINE_DECOMPOSITION_AGES, populations):
+            population_rows.append({
+                "location_name": population_cell.location_name,
+                "sex_name": population_cell.sex_name,
+                "age_name": age_name,
+                "year": population_cell.year,
+                "population": population,
+                "gbd_release": "GBD 2023",
+            })
+
+        for outcome in pa.OUTCOMES:
+            all_age = burden[
+                burden.location_name.eq(population_cell.location_name)
+                & burden.sex_name.eq(population_cell.sex_name)
+                & burden.measure_name.eq(outcome)
+                & burden.age_name.eq(pa.ALL_AGES)
+                & burden.metric_name.eq("Number")
+                & burden.year.eq(population_cell.year)
+            ].iloc[0]
+            raw_counts = populations * profiles[outcome]
+            counts = float(all_age.val) * raw_counts / raw_counts.sum()
+            rates = 100000.0 * counts / populations
+            for age_name, count, rate in zip(pa.FINE_DECOMPOSITION_AGES, counts, rates):
+                for metric_name, value in (("Number", count), ("Rate", rate)):
+                    burden_rows.append({
+                        "location_name": population_cell.location_name,
+                        "sex_name": population_cell.sex_name,
+                        "age_name": age_name,
+                        "measure_name": outcome,
+                        "metric_name": metric_name,
+                        "cause_name": "Schizophrenia",
+                        "year": population_cell.year,
+                        "val": value,
+                        "lower": value * 0.9,
+                        "upper": value * 1.1,
+                    })
+
+    summary = burden[
+        burden.measure_name.isin(pa.OUTCOMES)
+        & (
+            (burden.age_name.eq(pa.ALL_AGES) & burden.metric_name.eq("Number"))
+            | (burden.age_name.eq(pa.ASR) & burden.metric_name.eq("Rate"))
+        )
+    ][[
+        "location_name", "sex_name", "age_name", "measure_name", "metric_name",
+        "cause_name", "year", "val", "lower", "upper",
+    ]]
+    burden_frame = pd.concat([summary, pd.DataFrame(burden_rows)], ignore_index=True)
+    population_frame = pd.DataFrame(population_rows)
+    burden_path = tmp_path / "synthetic_fine_burden.csv"
+    population_path = tmp_path / "synthetic_population.csv"
+    burden_frame.to_csv(burden_path, index=False)
+    population_frame.to_csv(population_path, index=False)
+
+    common_dimensions = {
+        "locations": ["China", "United States of America"],
+        "sexes": ["Female", "Male"],
+        "years": "1990-2023",
+    }
+    metadata_paths = []
+    for role, data_path, extra_dimensions in (
+        (
+            "burden",
+            burden_path,
+            {
+                "ages": [*pa.FINE_DECOMPOSITION_AGES, pa.ALL_AGES, pa.ASR],
+                "measures": list(pa.OUTCOMES),
+                "metrics": ["Number", "Rate"],
+            },
+        ),
+        (
+            "population",
+            population_path,
+            {
+                "ages": list(pa.FINE_DECOMPOSITION_AGES),
+                "measures": ["Population"],
+                "metrics": ["Number"],
+            },
+        ),
+    ):
+        metadata = {
+            "export_role": role,
+            "gbd_release": "GBD 2023",
+            "retrieval_date": "2026-09-02",
+            "export_id": f"SYNTHETIC-TEST-{role.upper()}",
+            "source_url": "https://vizhub.healthdata.org/gbd-results/",
+            "query_dimensions": {**common_dimensions, **extra_dimensions},
+            "raw_files": [{"file": data_path.name, "sha256": pa.file_sha256(data_path)}],
+        }
+        metadata_path = tmp_path / f"{role}_metadata.json"
+        metadata_path.write_text(json.dumps(metadata), encoding="utf-8")
+        metadata_paths.append(metadata_path)
+    return burden_path, population_path, *metadata_paths
+
+
+def test_full_synthetic_production_pipeline_without_optional_yld(
+    tmp_path, monkeypatch, burden, proxy_population
+):
+    monkeypatch.setattr(pa, "ROOT", tmp_path)
+    burden_path, population_path, burden_metadata, population_metadata = (
+        _write_synthetic_fine_production_inputs(tmp_path, burden, proxy_population)
+    )
+    output = tmp_path / "production_output"
+    args = SimpleNamespace(
+        output_dir=output,
+        burden_csv=burden_path,
+        population_csv=population_path,
+        burden_metadata_json=burden_metadata,
+        population_metadata_json=population_metadata,
+        population_release="GBD 2023",
+        allow_proxy_population=False,
+        nci_results_csv=None,
+    )
+    result = pa.run(args)
+    assert result["metadata"]["submission_ready"]
+    assert result["metadata"]["fine_age_burden_validated"]
+    assert result["metadata"]["population_status"] == "official_GBD_2023"
+    assert result["tables"]["yld_daly_identity"].iloc[0].audit_status == "not_available"
+    assert result["tables"]["apc_summary"].age_coverage.eq("10-14 to 65-69").all()
+    assert result["tables"]["decomposition"].age_group_count.eq(20).all()
+    assert result["tables"]["population_source_comparison"].relative_difference_pct.abs().max() < 1e-10
+    assert "YLD" not in result["tables"]["provenance"].iloc[0].dimensions
+
+    documents = output / "documents"
+    documents.mkdir()
+    manuscript = bd.build_manuscript(output, documents, result["metadata"], result["tables"])
+    text = "\n".join(paragraph.text for paragraph in bd.Document(manuscript).paragraphs)
+    assert "PROVISIONAL ANALYTICAL DRAFT" not in text
+    assert "official GBD 2023 population estimates" in text
+    assert "did not include YLDs" in text
 
 
 def test_burden_cause_is_verified(tmp_path):
@@ -70,6 +270,50 @@ def test_proxy_population_is_complete_and_reconstructs(burden, proxy_population)
     assert len(all_age) == 408
     assert all_age.within_tolerance.all()
     assert all_age.relative_error_pct.abs().max() < 1e-10
+
+
+def test_proxy_population_backfills_one_zero_burden_age_from_all_age_rate(burden):
+    modified = burden.copy()
+    zero_age = pa.PROVISIONAL_DECOMPOSITION_AGES[0]
+    mask = (
+        modified.age_name.eq(zero_age)
+        & modified.measure_name.isin((*pa.OUTCOMES, "YLDs"))
+        & modified.metric_name.isin(("Number", "Rate"))
+    )
+    modified.loc[mask, ["val", "lower", "upper"]] = 0.0
+
+    population = pa.infer_proxy_population(modified)
+    pa.validate_population(population)
+    backfilled = population[population.age_name.eq(zero_age)]
+    assert len(backfilled) == len(pa.LOCATIONS) * len(pa.SEXES) * len(pa.YEARS)
+    assert backfilled.population.gt(0).all()
+
+
+def test_proxy_population_refuses_to_invent_split_for_two_zero_burden_ages(
+    burden, proxy_population
+):
+    modified = burden.copy()
+    zero_ages = pa.PROVISIONAL_DECOMPOSITION_AGES[:2]
+    mask = (
+        modified.age_name.isin(zero_ages)
+        & modified.measure_name.isin((*pa.OUTCOMES, "YLDs"))
+        & modified.metric_name.isin(("Number", "Rate"))
+    )
+    modified.loc[mask, ["val", "lower", "upper"]] = 0.0
+
+    with pytest.raises(ValueError, match="missing_ages"):
+        pa.infer_proxy_population(modified)
+
+    partial = pa.infer_proxy_population(modified, allow_undefined=True)
+    unavailable = partial.population.isna()
+    assert unavailable.sum() == (
+        len(zero_ages) * len(pa.LOCATIONS) * len(pa.SEXES) * len(pa.YEARS)
+    )
+    comparison = pa.compare_population_sources(proxy_population, partial)
+    assert comparison.reconstruction_available.eq(~unavailable).all()
+    assert set(comparison.loc[~comparison.reconstruction_available, "comparison_status"]) == {
+        "unavailable_zero_burden_number_and_rate"
+    }
 
 
 def test_all_age_decomposition_schema_is_explicit(burden, proxy_population):
@@ -308,6 +552,11 @@ def test_portable_workspace_paths_use_forward_slashes():
     assert pa.portable_path(pa.DEFAULT_BURDEN) == "prepared_inputs/cause_all.csv"
 
 
+def test_external_paths_are_redacted_to_portable_names():
+    external = pa.ROOT.parent / "__outside_repository_test__" / "official_population.csv"
+    assert pa.portable_path(external) == "external/official_population.csv"
+
+
 def test_sha256_fingerprint_is_content_based(tmp_path):
     source = tmp_path / "input.txt"
     source.write_text("abc", encoding="utf-8")
@@ -327,7 +576,14 @@ def test_export_metadata_verifies_preserved_raw_hashes(tmp_path, monkeypatch):
         "retrieval_date": "2026-06-10",
         "export_id": "IHME-test-export",
         "source_url": "https://vizhub.healthdata.org/gbd-results/",
-        "query_dimensions": {"years": "1990-2023"},
+        "query_dimensions": {
+            "locations": list(pa.LOCATIONS),
+            "sexes": list(pa.SEXES),
+            "years": "1990-2023",
+            "ages": [*pa.FINE_DECOMPOSITION_AGES, pa.ALL_AGES, pa.ASR],
+            "measures": list(pa.OUTCOMES),
+            "metrics": ["Number", "Rate"],
+        },
         "raw_files": [
             {
                 "file": "data/raw/export.zip",
@@ -340,6 +596,12 @@ def test_export_metadata_verifies_preserved_raw_hashes(tmp_path, monkeypatch):
     loaded = pa.load_export_metadata(path, "burden")
     assert loaded["export_id"] == "IHME-test-export"
     assert len(loaded["metadata_sha256"]) == 64
+
+    incomplete = dict(metadata)
+    incomplete["query_dimensions"] = {"years": "1990-2023"}
+    path.write_text(json.dumps(incomplete), encoding="utf-8")
+    with pytest.raises(ValueError, match="query_dimensions is missing"):
+        pa.load_export_metadata(path, "burden")
 
     metadata["raw_files"][0]["sha256"] = "0" * 64
     path.write_text(json.dumps(metadata), encoding="utf-8")
@@ -362,6 +624,20 @@ def test_table_writer_removes_only_known_stale_outputs(tmp_path):
     assert unrelated.read_text(encoding="utf-8") == "preserve me"
     assert (tmp_path / "current_table.csv").exists()
     assert (tmp_path / "publication_tables.xlsx").exists()
+
+
+def test_analysis_rejects_nonempty_output_directory(tmp_path):
+    (tmp_path / "stale.csv").write_text("obsolete", encoding="utf-8")
+    args = SimpleNamespace(
+        output_dir=tmp_path,
+        burden_csv=pa.DEFAULT_BURDEN,
+        population_csv=None,
+        population_release="GBD 2023",
+        allow_proxy_population=True,
+        nci_results_csv=None,
+    )
+    with pytest.raises(ValueError, match="must be absent or empty"):
+        pa.run(args)
 
 
 def test_full_descriptive_pipeline_smoke(tmp_path):

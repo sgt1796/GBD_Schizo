@@ -1,0 +1,64 @@
+{
+  "export_role": "burden",
+  "gbd_release": "GBD 2023",
+  "retrieval_date": "2026-09-02",
+  "export_id": "IHME-GBD_2023_DATA-774041bd-1 + IHME-GBD_2023_DATA-22ef74c2-1",
+  "source_url": "https://vizhub.healthdata.org/gbd-results/",
+  "query_dimensions": {
+    "locations": [
+      "China",
+      "United States of America"
+    ],
+    "sexes": [
+      "Female",
+      "Male"
+    ],
+    "years": "1990-2023",
+    "ages": [
+      "0-4 years",
+      "5-9 years",
+      "10-14 years",
+      "15-19 years",
+      "20-24 years",
+      "25-29 years",
+      "30-34 years",
+      "35-39 years",
+      "40-44 years",
+      "45-49 years",
+      "50-54 years",
+      "55-59 years",
+      "60-64 years",
+      "65-69 years",
+      "65-74 years",
+      "70-74 years",
+      "75-79 years",
+      "80-84 years",
+      "85-89 years",
+      "90-94 years",
+      "95+ years",
+      "All ages",
+      "Age-standardized"
+    ],
+    "measures": [
+      "Incidence",
+      "Prevalence",
+      "DALYs"
+    ],
+    "metrics": [
+      "Number",
+      "Rate",
+      "Percent"
+    ]
+  },
+  "raw_files": [
+    {
+      "file": "addition_inputs/IHME-GBD_2023_DATA-774041bd-1.zip",
+      "sha256": "8c900ee6c89dbc0e8cefdd8073e1a2a2b2a2569deb342a3547c99906be5872c4"
+    },
+    {
+      "file": "addition_inputs/IHME-GBD_2023_DATA-22ef74c2-1.zip",
+      "sha256": "fbf265460d2a2b956e4e775e0f73ef605cea1c8871d71719d0f1d856dab305b8"
+    }
+  ],
+  "notes": "The first export accidentally included the overlapping 65-74 years aggregate. The second export supplied the required 70-74 years group. Preparation removes 65-74 years and Percent, maps the IHME label <5 years to canonical 0-4 years, and retains fine-age Number/Rate, All ages Number/Rate, and Age-standardized Rate. All ages Rate is retained solely to audit provisional population reconstruction and is not a substitute for the mandatory official population export. Both original ZIPs and their bundled citation files are preserved unchanged."
+}

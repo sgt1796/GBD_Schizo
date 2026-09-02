@@ -1,8 +1,8 @@
 {
-  "export_role": "burden",
+  "export_role": "population",
   "gbd_release": "GBD 2023",
-  "retrieval_date": "YYYY-MM-DD",
-  "export_id": "IHME export/download identifier",
+  "retrieval_date": "2026-09-02",
+  "export_id": "IHME-GBD_2023_DATA-a9a792bb-1",
   "source_url": "https://vizhub.healthdata.org/gbd-results/",
   "query_dimensions": {
     "locations": [
@@ -34,25 +34,20 @@
       "80-84 years",
       "85-89 years",
       "90-94 years",
-      "95+ years",
-      "All ages",
-      "Age-standardized"
+      "95+ years"
     ],
     "measures": [
-      "Incidence",
-      "Prevalence",
-      "DALYs"
+      "Population"
     ],
     "metrics": [
-      "Number",
-      "Rate"
+      "Number"
     ]
   },
   "raw_files": [
     {
-      "file": "data/raw/replace-with-preserved-export.zip",
-      "sha256": "replace-with-the-64-character-lowercase-sha256"
+      "file": "addition_inputs/IHME-GBD_2023_DATA-a9a792bb-1.zip",
+      "sha256": "97fd21b83c7c4f0c3da248846848dec002d5feba5fd03ee79c704128b54fda63"
     }
   ],
-  "notes": "Burden template. Record any tool defaults, filters, split downloads, or transformations needed to understand the export. Paths are repository-relative."
+  "notes": "The raw GBD Results export contains Population Number estimates in persons with uncertainty bounds. Preparation maps the IHME label <5 years to canonical 0-4 years, validates all 2,720 location-sex-age-year cells and bounds, and writes the canonical central-estimate population CSV. The original ZIP and bundled citation are preserved unchanged."
 }

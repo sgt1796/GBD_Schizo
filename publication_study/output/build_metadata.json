@@ -9,7 +9,7 @@
   "official_nci_software_version": null,
   "legacy_permutations_argument_ignored": 4499,
   "legacy_seed_argument_ignored": 20230707,
-  "burden_csv": "C:\\Users\\tracy\\Desktop\\GBD_Schizo\\prepared_inputs\\cause_all.csv",
+  "burden_csv": "prepared_inputs/cause_all.csv",
   "population_csv": null,
   "limitations": [
     "No posterior draws",

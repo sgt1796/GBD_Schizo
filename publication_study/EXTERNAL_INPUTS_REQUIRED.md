@@ -26,8 +26,10 @@ non-generated raw-data directory.
 - Locations: `China`; `United States of America`
 - Sexes: `Female`; `Male`
 - Years: every integer from `1990` through `2023`
-- Ages: `0-4 years`, `5-9 years`, `10-14 years`, every consecutive five-year
-  group through `90-94 years`, and `95+ years`
+- Burden ages: `0-4 years`, `5-9 years`, `10-14 years`, every consecutive
+  five-year group through `90-94 years`, and `95+ years`, plus `All ages` and
+  `Age-standardized`
+- Population ages: the 20 fine groups from `0-4 years` through `95+ years`
 - Burden measures: schizophrenia incidence, prevalence, and DALYs
 - Burden metrics: Number and Rate
 - Population measure/metric: population number in persons
@@ -35,6 +37,12 @@ non-generated raw-data directory.
 Do not substitute `0-14 years` or `70+ years` for their component groups in the
 production inputs. The former 13-bin files remain suitable only for provisional
 engineering and sensitivity work.
+
+For each burden outcome, the 20 fine groups must contain both Number and Rate.
+The frozen primary analysis additionally requires `All ages` Number and
+`Age-standardized` Rate for every location-sex-year cell. Other exported
+age-metric combinations may be retained, but they do not replace those two
+summary panels.
 
 ### Canonical CSV schema
 
@@ -63,11 +71,12 @@ Run the file with:
 ```
 
 `--population-release` is a provenance assertion supplied by the analyst; it
-does not authenticate the CSV. Copy `gbd_export_metadata_template.json` once
-for each export role, replace every placeholder, and list the preserved raw
-files using repository-relative paths and actual lowercase SHA-256 hashes. The
-pipeline verifies those hashes. Do not use population reconstructed from burden
-count/rate pairs in a submitted analysis.
+does not authenticate the CSV. Use `gbd_export_metadata_template.json` for the
+burden sidecar and `gbd_population_export_metadata_template.json` for the
+population sidecar. Replace every placeholder and list the preserved raw files
+using repository-relative paths and actual lowercase SHA-256 hashes. The
+pipeline verifies the query dimensions and hashes. Do not use population
+reconstructed from burden count/rate pairs in a submitted analysis.
 
 The 20 fine population groups cover all ages and are used in decomposition. As a
 cross-source QA check, summing each age-specific reconstruction
