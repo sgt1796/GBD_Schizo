@@ -36,6 +36,7 @@ ANALYSIS_FILES = (
     "tables/apc_period_rr.csv",
     "tables/apc_cohort_rr.csv",
     "tables/apc_sensitivity_summary_1990_2019.csv",
+    "tables/apc_window_sensitivity.csv",
     "tables/apc_primary_direction_agreement.csv",
     "tables/cross_analysis_consistency.csv",
     "tables/cross_method_contradictions.csv",
@@ -45,7 +46,7 @@ ANALYSIS_FILES = (
     "figures/main/figure_3_age_patterns.png",
     "figures/main/figure_4_decomposition.png",
     "figures/supplement/figure_s1_counts.png",
-    "figures/supplement/figure_s2_apc_incidence.png",
+    "figures/supplement/figure_s2_apc_estimable_functions.png",
     "nci_joinpoint_inputs/input_manifest.csv",
     "nci_joinpoint_inputs/analysis_settings.json",
 )
@@ -292,6 +293,47 @@ def check_current_table_schema(base: Path, results: Results) -> None:
             results.passed(f"{name} contains descriptive fields only")
 
 
+def check_apc_completeness(base: Path, results: Results) -> None:
+    expected_outcomes = {"Incidence", "Prevalence", "DALYs"}
+    expected_panels = 12
+    paths = {
+        "APC summary": base / "tables" / "apc_summary.csv",
+        "APC window sensitivity": base / "tables" / "apc_window_sensitivity.csv",
+        "cross-analysis consistency": base / "tables" / "cross_analysis_consistency.csv",
+    }
+    loaded: dict[str, list[dict[str, str]]] = {}
+    for label, path in paths.items():
+        try:
+            with path.open("r", encoding="utf-8-sig", newline="") as handle:
+                loaded[label] = list(csv.DictReader(handle))
+        except (OSError, csv.Error) as exc:
+            results.fail(f"cannot inspect {label}: {exc}")
+            return
+    for label, rows in loaded.items():
+        panels = {
+            (row.get("location_name"), row.get("sex_name"), row.get("measure_name"))
+            for row in rows
+        }
+        outcomes = {row.get("measure_name") for row in rows}
+        if len(rows) == expected_panels and len(panels) == expected_panels and outcomes == expected_outcomes:
+            results.passed(f"{label} covers all 12 country-sex-outcome panels")
+        else:
+            results.fail(
+                f"{label} is incomplete: rows={len(rows)}, unique panels={len(panels)}, outcomes={sorted(str(value) for value in outcomes)}"
+            )
+    consistency = loaded["cross-analysis consistency"]
+    drifts = []
+    for row in consistency:
+        try:
+            drifts.append(float(row.get("apc_net_drift_1994_2023", "")))
+        except (TypeError, ValueError):
+            drifts.append(float("nan"))
+    if len(drifts) == expected_panels and all(math.isfinite(value) for value in drifts):
+        results.passed("cross-analysis consistency has finite APC net drift for every outcome")
+    else:
+        results.fail("cross-analysis consistency has missing or non-finite APC net drift")
+
+
 def check_qa(qa: dict, results: Results) -> None:
     expected_true = (
         "all_primary_panels_complete_34_years",
@@ -364,6 +406,7 @@ def check_analysis(base: Path, require_ready: bool, results: Results) -> None:
     require_files(base, ANALYSIS_FILES, results)
     require_files(base, DOCUMENT_FILES, results)
     check_current_table_schema(base, results)
+    check_apc_completeness(base, results)
 
     nci_series = list((base / "nci_joinpoint_inputs").glob("*.csv"))
     nci_series = [path for path in nci_series if path.name != "input_manifest.csv"]
@@ -435,7 +478,10 @@ def check_analysis(base: Path, require_ready: bool, results: Results) -> None:
             "from the current DOCX files and complete page-by-page visual QA"
         )
     else:
-        results.info("PDF rendering and page-by-page visual QA remain manual finalization steps")
+        results.info(
+            "PDF rendering is external to this automated verifier; consult "
+            "GOAL_COMPLETION_AUDIT.md for the recorded page-by-page QA."
+        )
 
 
 def parse_args() -> argparse.Namespace:

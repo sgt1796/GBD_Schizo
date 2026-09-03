@@ -1,13 +1,13 @@
-location_name,sex_name,measure_name,all_age_count_years,asr_years,adult_age_groups,adult_age_year_cells,missing_values,invalid_ui_rows,nonpositive_rows
-China,Female,Incidence,34,34,12,408,0,0,0
-China,Male,Incidence,34,34,12,408,0,0,0
-United States of America,Female,Incidence,34,34,12,408,0,0,0
-United States of America,Male,Incidence,34,34,12,408,0,0,0
-China,Female,Prevalence,34,34,12,408,0,0,0
-China,Male,Prevalence,34,34,12,408,0,0,0
-United States of America,Female,Prevalence,34,34,12,408,0,0,0
-United States of America,Male,Prevalence,34,34,12,408,0,0,0
-China,Female,DALYs,34,34,12,408,0,0,0
-China,Male,DALYs,34,34,12,408,0,0,0
-United States of America,Female,DALYs,34,34,12,408,0,0,0
-United States of America,Male,DALYs,34,34,12,408,0,0,0
+location_name,sex_name,measure_name,all_age_count_years,asr_years,all_age_groups,all_age_year_cells,missing_values,invalid_ui_rows,negative_rows,zero_rows,nonpositive_rows
+China,Female,Incidence,34,34,20,680,0,0,0,408,408
+China,Male,Incidence,34,34,20,680,0,0,0,408,408
+United States of America,Female,Incidence,34,34,20,680,0,0,0,408,408
+United States of America,Male,Incidence,34,34,20,680,0,0,0,408,408
+China,Female,Prevalence,34,34,20,680,0,0,0,136,136
+China,Male,Prevalence,34,34,20,680,0,0,0,136,136
+United States of America,Female,Prevalence,34,34,20,680,0,0,0,136,136
+United States of America,Male,Prevalence,34,34,20,680,0,0,0,136,136
+China,Female,DALYs,34,34,20,680,0,0,0,136,136
+China,Male,DALYs,34,34,20,680,0,0,0,136,136
+United States of America,Female,DALYs,34,34,20,680,0,0,0,136,136
+United States of America,Male,DALYs,34,34,20,680,0,0,0,136,136

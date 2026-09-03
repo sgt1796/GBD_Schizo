@@ -1,0 +1,4 @@
+measure_name,required_age_groups,available_required_age_groups,expected_cells_per_metric,number_cells,rate_cells,duplicate_number_keys,duplicate_rate_keys,fine_age_panel_complete
+Incidence,20,20,2720,2720,2720,0,0,True
+Prevalence,20,20,2720,2720,2720,0,0,True
+DALYs,20,20,2720,2720,2720,0,0,True

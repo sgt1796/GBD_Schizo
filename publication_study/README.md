@@ -263,7 +263,7 @@ DOCX package but does not perform or certify visual QA.
   because posterior draws are absent.
 - The built-in BIC-selected segmented model is an independent implementation
   and must not be described as NCI Joinpoint.
-- APC analysis is secondary and restricted to incidence, equal five-year ages
+- APC analysis is secondary and covers incidence, prevalence, and DALYs in equal five-year ages
   (preferably 10-69; provisional fallback 15-69), two six-period windows, and
   identifiable drifts/nonlinear relative-risk functions. The production
   all-age decomposition uses the complete fine-age partition.

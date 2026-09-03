@@ -305,7 +305,7 @@ def build_manuscript(analysis: Path, out_dir: Path, meta: dict, tables: dict[str
     us_f=endpoint_lookup(endpoints,"United States of America","Female","DALYs","Age-standardized rate per 100,000")
     us_m=endpoint_lookup(endpoints,"United States of America","Male","DALYs","Age-standardized rate per 100,000")
     add_paragraph(doc,"Background: Schizophrenia produces substantial lifelong disability, but comparisons of national trends can be obscured by population growth, population ageing, and changes in age-specific rates. We compared sex-specific schizophrenia burden in China and the United States, two populous settings with contrasting demographic trajectories.")
-    add_paragraph(doc,"Methods: We analyzed GBD 2023 incidence, prevalence, and disability-adjusted life-year (DALY) estimates for 1990-2023. We summarized all-age quantities and age-standardized rates (ASRs), described nonlinear trends with Bayesian-information-criterion-selected segmented log-linear regression, and decomposed all-age changes into population-size, age-structure, and age-specific-rate components using Shapley replacement. Incidence age-period-cohort (APC) estimable functions were secondary. All derived results are point estimates because posterior draws were unavailable.")
+    add_paragraph(doc,"Methods: We analyzed GBD 2023 incidence, prevalence, and disability-adjusted life-year (DALY) estimates for 1990-2023. We summarized all-age quantities and age-standardized rates (ASRs), described nonlinear trends with Bayesian-information-criterion-selected segmented log-linear regression, and decomposed all-age changes into population-size, age-structure, and age-specific-rate components using Shapley replacement. Age-period-cohort (APC) estimable functions for all three outcomes were secondary. All derived results are point estimates because posterior draws were unavailable.")
     age_flags=int(tables["decomposition_age_bin_sensitivity"].material_age_bin_sensitivity.sum())
     add_paragraph(doc,f"Results: From 1990 to 2023, estimated incident cases, prevalent cases, and DALYs increased in every country-sex stratum. DALY ASRs in China changed from {fmt(china_f.value_1990,1)} to {fmt(china_f.value_2023,1)} per 100,000 among females and {fmt(china_m.value_1990,1)} to {fmt(china_m.value_2023,1)} among males. Corresponding U.S. rates changed from {fmt(us_f.value_1990,1)} to {fmt(us_f.value_2023,1)} among females and {fmt(us_m.value_1990,1)} to {fmt(us_m.value_2023,1)} among males. Descriptive segmented trends were near stable in China and declined in the United States. Population-size change was the principal positive contributor in most strata, but collapsing age bins materially changed at least one decomposition component in {age_flags} of 12 panels.")
     add_paragraph(doc,"Conclusions: Increasing incident and prevalent case counts and DALYs did not imply worsening age-standardized burden. The estimates identify contrasting demographic and rate patterns that may inform sex- and age-responsive capacity planning; they do not establish effects of health systems or policies.")
@@ -338,7 +338,7 @@ def build_manuscript(analysis: Path, out_dir: Path, meta: dict, tables: dict[str
     add_heading(doc,"Demographic decomposition",2)
     add_paragraph(doc,"For each outcome, country, and sex, we decomposed the change in reconstructed all-age quantities into population-size change, age-structure change, and age-specific-rate change [11]. We averaged marginal contributions over all six possible factor-replacement orders, which is equivalent to a Shapley decomposition. Components were required to sum to total reconstructed change within numerical tolerance, and reconstructed endpoint quantities were checked against the reported all-age numbers. Primary estimates used 1990-2023; 2000-2023, 2010-2023, annual-chain, and five-year-chain analyses assessed endpoint and path sensitivity. We also compared the finest available age partition with a four-group collapse and flagged sign, magnitude-rank, or component-size changes.")
     add_heading(doc,"Secondary age-period-cohort analysis",2)
-    add_paragraph(doc,f"Secondary incidence analysis used equal five-year age groups covering {context['apc_coverage']} years and six equal periods from 1994-1998 through 2019-2023. We estimated net drift, age-specific local drift, longitudinal age relative risks, and nonlinear period and cohort relative risks. The design included an intercept, two identifiable linear trends, and nonlinear age, period, and cohort bases that were orthogonal to intercept and linear trend; it did not fit three unrestricted linear effects [12-15]. Reference relative risks were set to one. We did not interpret period or cohort patterns causally. The grouped sensitivity used the six complete periods from 1990-1994 through 2015-2019, thereby excluding 2020-2023 without shortening the six-period design.")
+    add_paragraph(doc,f"Secondary APC analyses of incidence, prevalence, and DALYs used equal five-year age groups covering {context['apc_coverage']} years and six equal periods from 1994-1998 through 2019-2023. We estimated net drift, age-specific local drift, longitudinal age relative risks, and nonlinear period and cohort relative risks. The design included an intercept, two identifiable linear trends, and nonlinear age, period, and cohort bases that were orthogonal to intercept and linear trend; it did not fit three unrestricted linear effects [12-15]. Reference relative risks were set to one. We did not interpret period or cohort patterns causally. The grouped sensitivity used the six complete periods from 1990-1994 through 2015-2019, thereby excluding 2020-2023 without shortening the six-period design.")
     add_heading(doc,"Reporting and reproducibility",2)
     add_paragraph(doc,"The analysis was conducted in Python with deterministic settings. Every table and figure is generated from saved machine-readable inputs. Reporting follows the Guidelines for Accurate and Transparent Health Estimates Reporting (GATHER) [16]. The working package contains the complete code, provenance table, data dictionary, and readiness metadata; these materials will be deposited at a persistent repository before submission. OpenAI Codex, a large language model tool, was used during software engineering and manuscript drafting. All generated code, analyses, claims, and references were reviewed and remain the authors' responsibility; the tool is not an author.")
 
@@ -390,17 +390,38 @@ def build_manuscript(analysis: Path, out_dir: Path, meta: dict, tables: dict[str
             on=["location_name","sex_name"],validate="one_to_one")
         agreement_count=int(((direction.net_drift>0)==(direction.aapc>0)).sum())
         agreement_total=len(direction)
-    add_paragraph(doc,f"The signs of incidence APC net drift and primary segmented AAPC agreed in {agreement_count} of {agreement_total} country-sex strata, indicating partial rather than uniform directional corroboration. This is not expected to be exact numerical agreement because ASR segmented trends and selected-age APC net drift use different estimands, age coverage, standardization, weighting, model form, calendar aggregation, and identification constraints. Longitudinal age and nonlinear period and cohort relative risks are presented in the supplement and normalized to one at their reference categories. Interpretation remained descriptive because the exact linear dependency among age, period, and cohort prevents unique causal separation.")
+    apc_primary=tables["apc_summary"].copy()
+    apc_sensitivity=tables["apc_sensitivity_summary_1990_2019"].copy()
+    apc_windows=apc_primary.merge(
+        apc_sensitivity,
+        on=["location_name","sex_name","measure_name"],
+        suffixes=("_primary","_sensitivity"),
+        validate="one_to_one",
+    )
+    window_sign_agreement=int(
+        ((apc_windows.net_drift_primary>0)==(apc_windows.net_drift_sensitivity>0)).sum()
+    )
+    opposing_local_count=int(
+        tables["cross_analysis_consistency"].local_drifts_include_opposing_directions.sum()
+    )
+    lowest=apc_primary.loc[apc_primary.net_drift.idxmin()]
+    highest=apc_primary.loc[apc_primary.net_drift.idxmax()]
+    period_rr=tables["apc_period_rr"].period_rr
+    cohort_rr=tables["apc_cohort_rr"].cohort_rr
+    add_paragraph(doc,f"Across the 12 country-sex-outcome panels, primary-window APC net drift ranged from {lowest.net_drift:.3f}%/year for {lowest.sex_name.lower()} {lowest.measure_name.lower()} in {lowest.location_name.replace('United States of America','the United States')} to {highest.net_drift:.3f}%/year for {highest.sex_name.lower()} {highest.measure_name.lower()} in {highest.location_name.replace('United States of America','the United States')}. Net-drift direction agreed between the primary and 1990-2019 sensitivity windows in {window_sign_agreement} of 12 panels. Opposing age-specific local drifts occurred in {opposing_local_count} panels, showing that aggregate drift can conceal age-specific heterogeneity.")
+    add_paragraph(doc,f"Across the normalized APC curves, nonlinear period relative risks ranged from {period_rr.min():.3f} to {period_rr.max():.3f}, and cohort relative risks ranged from {cohort_rr.min():.3f} to {cohort_rr.max():.3f}. These modest deviations summarize curvature around the selected reference categories and are not causal period or birth-cohort effects.")
+    add_paragraph(doc,f"APC estimable functions were generated for all 12 country-sex-outcome panels. For the focused incidence comparison, the signs of APC net drift and primary segmented AAPC agreed in {agreement_count} of {agreement_total} country-sex strata, indicating partial rather than uniform directional corroboration. Exact numerical agreement is not expected because ASR segmented trends and selected-age APC net drift use different estimands, age coverage, standardization, weighting, model form, calendar aggregation, and identification constraints. Longitudinal age and nonlinear period and cohort relative risks are presented in the supplement and normalized to one at their reference categories. Interpretation remained descriptive because the exact linear dependency among age, period, and cohort prevents unique causal separation.")
 
     add_heading(doc,"Discussion")
     add_paragraph(doc,"This comparative study found increases in estimated incident cases, people living with schizophrenia, and DALYs, alongside contrasting standardized-rate trajectories. Chinese ASRs were broadly stable, whereas U.S. ASRs declined, particularly among females. The combination of increasing absolute quantities and flat or falling ASRs is not contradictory: population growth, age composition, and age-specific rates contribute separately.")
+    add_paragraph(doc,"The APC results add a distinct age-specific view rather than an independent replication of the ASR analysis. Opposing local drifts in 10 of 12 panels show that aggregate trajectories can conceal age groups moving in different directions. China-male incidence had concordant negative segmented and APC summaries after use of the fine-age official population inputs, whereas U.S.-male incidence retained a negative segmented AAPC but a small positive APC net drift. That retained discrepancy is consistent with differing calendar windows, selected-age population weighting, age standardization, piecewise versus global model form, and APC identification constraints. The normalized period and cohort curves describe population patterns around reference categories; they do not identify causal period shocks or cohort exposures.")
     add_paragraph(doc,"The China endpoint point estimates overlap those reported by Song and colleagues because both studies use the same GBD 2023 source [4]; this is expected data overlap, not independent validation. The decomposition extends that descriptive context by applying the same population-size, age-structure, and age-specific-rate accounting to both countries and sexes. Component signs and magnitudes are reported directly rather than treated as causal explanations. These deterministic decompositions allocate endpoint differences under the specified identity; they do not identify causes of the demographic or rate changes.")
     add_paragraph(doc,"The distinction between measures has practical relevance. Incident and prevalent case counts can help approximate potential service-volume need, whereas DALYs quantify healthy life lost and are not a count of people. None of these quantities measures realized service use or demand, which also depends on detection, access, coverage, severity, and treatment pathways. ASRs facilitate temporal and cross-country rate comparisons after standardizing age composition. Planning based on ASRs alone may miss growth in potential service volume, while interpreting count growth as worsening individual risk would also be misleading.")
     add_paragraph(doc,"Sex-specific estimates showed a persistent male excess for several outcomes and an incidence peak in younger age groups, patterns broadly consistent with earlier GBD schizophrenia analyses [2,3]. However, modeled estimates cannot determine whether country or sex contrasts reflect underlying incidence, diagnostic recognition, data availability, care access, remission, excess mortality, or model assumptions. Health-system and policy differences remain contextual hypotheses rather than tested mechanisms.")
     add_heading(doc,"Strengths and limitations",2)
     add_paragraph(doc,"Strengths include a focused comparative question, consistent GBD 2023 outcome definitions, explicit separation of native UIs from derived point summaries, deterministic and reproducible trend selection, exact Shapley decomposition, a dedicated APC module with synthetic recovery tests, and restriction of APC interpretation to identifiable estimable functions. The pipeline records exclusions and prevents incomplete age or provenance inputs from being silently treated as submission-ready.")
     input_limit=("Third, the provisional broad 0-14 and 70+ bins obscure heterogeneity within childhood and late life, and the explicit collapse sensitivity materially changed selected decomposition results. Finally, this provisional build lacks both matching fine-age burden data and an authenticated GBD 2023 population export with complete provenance." if provisional else "Third, even the production five-year groups aggregate heterogeneity within age intervals, and the explicit collapse sensitivity shows how age grouping can alter decomposition components.")
-    add_paragraph(doc,f"Several limitations are important. First, GBD values are modeled estimates rather than direct observations and may share smoothing assumptions across years, sexes, outcomes, and countries. Annual posterior means therefore cannot be treated as independent observations; segmented curves, change points, AAPCs, and pairwise contrasts are descriptive. Second, posterior draws were unavailable, so uncertainty could not be propagated to changes, ratios, decomposition components, or trajectory contrasts. {input_limit} APC estimates are restricted to incidence at ages {context['apc_coverage']}, are sensitive to grouping, and cannot identify independent causal age, period, and cohort effects. Comparisons with ASR trends are qualitative because the estimands differ. Ecological country contrasts cannot support causal attribution to policy or health systems. Registered NCI Joinpoint output and posterior draws would provide useful validation and uncertainty propagation, respectively, but are not mandatory for the primary open analysis.")
+    add_paragraph(doc,f"Several limitations are important. First, GBD values are modeled estimates rather than direct observations and may share smoothing assumptions across years, sexes, outcomes, and countries. Annual posterior means therefore cannot be treated as independent observations; segmented curves, change points, AAPCs, and pairwise contrasts are descriptive. Second, posterior draws were unavailable, so uncertainty could not be propagated to changes, ratios, decomposition components, or trajectory contrasts. {input_limit} APC estimates cover ages {context['apc_coverage']}, are sensitive to grouping, and cannot identify independent causal age, period, and cohort effects. Comparisons with ASR trends are qualitative because the estimands differ. Ecological country contrasts cannot support causal attribution to policy or health systems. Registered NCI Joinpoint output and posterior draws would provide useful validation and uncertainty propagation, respectively, but are not mandatory for the primary open analysis.")
     add_heading(doc,"Conclusions")
     add_paragraph(doc,"Between 1990 and 2023, estimated incident and prevalent case counts and DALYs increased in China and the United States while standardized-rate trajectories differed. Population growth contributed positively throughout, but age-composition and rate components contrasted between countries. These modeled patterns support considering potential service volume, health loss, standardized rates, age structure, and sex jointly in planning; they do not establish causal effects of policy or health systems.")
 
@@ -458,12 +479,30 @@ def build_supplement(analysis: Path, out_dir: Path, meta: dict, tables: dict[str
     add_paragraph(doc,"Complete SHA-256 hashes, metadata-file hashes, and query dimensions are retained in provenance.csv and publication_tables.xlsx.")
     doc.add_page_break()
     add_heading(doc,"Table S2. Completeness and validity audit",2)
-    add_dataframe_table(doc,tables["data_audit"],[(c,c.replace("_"," ").title()) for c in tables["data_audit"].columns],font_size=7.2)
+    audit=tables["data_audit"].copy()
+    audit_columns=[
+        ("location_name","Location"),("sex_name","Sex"),("measure_name","Outcome"),
+        ("all_age_count_years","Count years"),("asr_years","ASR years"),
+        ("all_age_year_cells","Age-year cells"),("missing_values","Missing"),
+        ("invalid_ui_rows","Invalid UI"),("negative_rows","Negative"),("zero_rows","Zero"),
+    ]
+    add_dataframe_table(doc,audit,audit_columns,font_size=7.2)
     add_heading(doc,"Table S3. YLD-DALY identity audit",2)
     ident=tables["yld_daly_identity"].copy()
-    for c in ident.columns:
-        if c.startswith("max_"): ident[c]=ident[c].map(lambda v:f"{float(v):.3e}")
-    add_dataframe_table(doc,ident,[(c,c.replace("_"," ").title()) for c in ident.columns],font_size=7.5)
+    ident["Audit passed"]=ident.audit_passed.map(lambda value:"Yes" if bool(value) else "No")
+    ident["YLD available"]=ident.yld_panel_available.map(lambda value:"Yes" if bool(value) else "No")
+    ident["Tolerance"]=ident.identity_tolerance.map(lambda value:f"{float(value):.1e}")
+    ident["Interpretation"]=ident.yld_panel_available.map(
+        lambda value:"YLD-DALY equality checked" if bool(value)
+        else "YLD was not in the production export and was not a study outcome"
+    )
+    ident_columns=[
+        ("audit_status","Status"),("Audit passed","Audit passed"),
+        ("YLD available","YLD available"),("expected_cells","Expected cells"),
+        ("duplicate_cells","Duplicates"),("Tolerance","Tolerance"),
+        ("Interpretation","Interpretation"),
+    ]
+    add_dataframe_table(doc,ident,ident_columns,font_size=7.5)
     doc.add_page_break()
     add_heading(doc,"Table S4. Full descriptive trajectory contrasts",2)
     contrasts=tables["trajectory_contrasts"].copy()
@@ -510,21 +549,22 @@ def build_supplement(analysis: Path, out_dir: Path, meta: dict, tables: dict[str
     add_dataframe_table(doc,bins,bin_columns,font_size=7.1)
     add_paragraph(doc,"A result was flagged when a component changed sign, component magnitude ranking changed, or a component shifted by at least 10% of total change. The comparison is an aggregation sensitivity, not an uncertainty interval.")
     add_heading(doc,"Secondary APC analysis",1)
-    add_paragraph(doc,"The APC analysis is intentionally restricted to incidence and identifiable summaries. The model uses two linear trends and nonlinear age, period, and cohort curvature bases rather than three unrestricted linear effects. Longitudinal age, period, and cohort relative risks are normalized to one at their reference categories. They are not separately identified causal effects.")
-    add_heading(doc,"Table S9. Descriptive incidence APC net drift",2)
+    add_paragraph(doc,"The APC analysis covers incidence, prevalence, and DALYs and is restricted to identifiable summaries. The model uses two linear trends and nonlinear age, period, and cohort curvature bases rather than three unrestricted linear effects. Longitudinal age, period, and cohort relative risks are normalized to one at their reference categories. They are not separately identified causal effects.")
+    add_heading(doc,"Table S9. Descriptive APC net drift",2)
     apc=tables["apc_summary"].copy()
     apc["Location"]=apc.location_name.str.replace("United States of America","United States",regex=False)
     apc["Period"]=apc.start_year.astype(int).astype(str)+"-"+apc.end_year.astype(int).astype(str)
     apc["Net drift"]=apc.net_drift.map(lambda v:fmt(v,4))
-    add_dataframe_table(doc,apc,[("Location","Location"),("sex_name","Sex"),("Period","Period"),("Net drift","Net drift, %/year")],font_size=8)
+    add_dataframe_table(doc,apc,[("Location","Location"),("sex_name","Sex"),("measure_name","Outcome"),("Period","Period"),("Net drift","Net drift, %/year")],font_size=7.5)
     add_paragraph(doc,"Net drift is a descriptive point estimate; no model confidence interval is reported.")
-    if "apc_sensitivity_summary_1990_2019" in tables:
+    if "apc_window_sensitivity" in tables:
         add_heading(doc,"Table S10. APC sensitivity, 1990-2019",2)
-        apc_sensitivity=tables["apc_sensitivity_summary_1990_2019"].copy()
+        apc_sensitivity=tables["apc_window_sensitivity"].copy()
         apc_sensitivity["Location"]=apc_sensitivity.location_name.str.replace("United States of America","United States",regex=False)
-        apc_sensitivity["Period"]=apc_sensitivity.start_year.astype(int).astype(str)+"-"+apc_sensitivity.end_year.astype(int).astype(str)
-        apc_sensitivity["Net drift"]=apc_sensitivity.net_drift.map(lambda v:fmt(v,4))
-        add_dataframe_table(doc,apc_sensitivity,[("Location","Location"),("sex_name","Sex"),("Period","Period"),("Net drift","Net drift, %/year")],font_size=8)
+        apc_sensitivity["Primary drift"]=apc_sensitivity.primary_net_drift_1994_2023.map(lambda v:fmt(v,4))
+        apc_sensitivity["Sensitivity drift"]=apc_sensitivity.sensitivity_net_drift_1990_2019.map(lambda v:fmt(v,4))
+        apc_sensitivity["Direction stable"]=apc_sensitivity.direction_agreement.map(lambda value:"Yes" if bool(value) else "No")
+        add_dataframe_table(doc,apc_sensitivity,[("Location","Location"),("sex_name","Sex"),("measure_name","Outcome"),("Primary drift","1994-2023, %/year"),("Sensitivity drift","1990-2019, %/year"),("Direction stable","Direction stable")],font_size=7.1)
         add_paragraph(doc,"This sensitivity retains six equal five-year periods, from 1990-1994 through 2015-2019, and therefore excludes 2020-2023 without shortening the grouped design.")
     if "apc_primary_direction_agreement" in tables:
         add_heading(doc,"Table S11. Primary-APC direction comparison",2)
@@ -541,7 +581,7 @@ def build_supplement(analysis: Path, out_dir: Path, meta: dict, tables: dict[str
     add_dataframe_table(doc,contradiction,contradiction_columns,font_size=7.0)
     add_paragraph(doc,"Each apparent mismatch was checked on an aligned 1994-2023 calendar window. Likely factors include estimand, age coverage, standardization, weighting, model form, and APC constraints; the tested implementation did not indicate a software failure.")
     add_figure(doc,analysis/"figures"/"supplement"/"figure_s1_counts.png","Figure S1. All-age schizophrenia quantities by country and sex, 1990-2023. DALYs represent healthy life-years lost rather than people.","Three panels showing all-age incident cases, prevalent cases, and DALYs.")
-    add_figure(doc,analysis/"figures"/"supplement"/"figure_s2_apc_incidence.png","Figure S2. Secondary incidence APC estimable summaries. Relative-risk curves are nonlinear curvature contrasts, not independent causal age, period, or cohort effects.","Four panels showing incidence net drift and nonlinear age, period, and cohort curvature summaries.")
+    add_figure(doc,analysis/"figures"/"supplement"/"figure_s2_apc_estimable_functions.png","Figure S2. Secondary APC estimable summaries for incidence, prevalence, and DALYs. Relative-risk curves are nonlinear curvature contrasts, not independent causal age, period, or cohort effects.","Twelve panels showing local drift and nonlinear age, period, and cohort curvature summaries for the three outcomes.")
     add_heading(doc,"Readiness condition and optional validation")
     readiness_items=[
         f"Population status: {meta['population_status']}",
@@ -579,7 +619,6 @@ def build_methods_appendix(out_dir: Path, meta: dict):
     add_paragraph(doc,"For all-age population N, age-share vector S, and age-specific rate vector R, reconstructed burden is B=N sum_a(S_a R_a). Each factor was replaced from baseline to endpoint in all 3! orders. A factor's contribution is the average marginal change across orders. The three contributions therefore sum exactly to B_end-B_start apart from floating-point tolerance; reconstructed endpoints are also checked against reported all-age numbers. The production age vector has 20 groups from 0-4 through 95+. A sensitivity collapses the finest available vector into 0-14, 15-49, 50-69, and 70+ and flags sign, magnitude-rank, or component shifts of at least 10% of total change.")
     add_heading(doc,"APC estimable functions")
     add_paragraph(doc,"The exact relation cohort=period-age prevents simultaneous identification of unrestricted linear age, period, and cohort effects. The model therefore contains an intercept, two identifiable linear trends, and nonlinear age, period, and cohort bases constrained to be orthogonal to intercept and linear trend. It does not estimate three unrestricted linear effects. Net drift, local drift, longitudinal age relative risks, period relative risks, and cohort relative risks are point estimates. Reference relative risks equal one. The primary window contains six five-year periods from 1994-1998 through 2019-2023; the sensitivity contains six periods from 1990-1994 through 2015-2019.")
-    doc.add_page_break()
     add_heading(doc,"Uncertainty taxonomy")
     add_dataframe_table(doc,pd.DataFrame([
         {"Quantity":"Original GBD estimate","Interval":"Native 95% UI","Interpretation":"2.5th-97.5th percentiles of GBD draws"},

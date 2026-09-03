@@ -1,2 +1,2 @@
-matched_cells,max_abs_difference_val,max_relative_difference_val,max_abs_difference_lower,max_relative_difference_lower,max_abs_difference_upper,max_relative_difference_upper,numerically_identical
-3944,7.342204639826377e-06,2.6000001462920838e-08,5.304532805894269e-06,2.6000000775131412e-08,9.111646761539305e-06,2.6000000801438498e-08,True
+audit_status,audit_passed,yld_panel_available,matched_cells,expected_cells,duplicate_cells,complete_expected_panel,max_abs_difference_val,max_relative_difference_val,max_abs_difference_lower,max_relative_difference_lower,max_abs_difference_upper,max_relative_difference_upper,identity_tolerance,numerically_identical
+not_available,True,False,0,5848,0,False,,,,,,,1e-07,False

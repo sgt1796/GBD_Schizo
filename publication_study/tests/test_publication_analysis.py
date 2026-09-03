@@ -477,7 +477,8 @@ def test_endpoint_outputs_exclude_percent_and_duplicate_yld(burden):
 
 def test_secondary_apc_dimensions(apc_results):
     apc = apc_results
-    assert set(apc["summary"].measure_name) == {"Incidence"}
+    assert set(apc["summary"].measure_name) == set(pa.OUTCOMES)
+    assert len(apc["summary"]) == 12
     assert apc["cells"].period.nunique() == 6
     assert apc["cells"].age_name.nunique() == 11
     assert (apc["summary"].design_rank == apc["summary"].design_columns).all()
@@ -500,6 +501,20 @@ def test_apc_primary_direction_agreement_is_reported(
     assert set(comparison.apc_net_drift_direction) <= {"increase", "decrease", "stable"}
 
 
+def test_apc_window_sensitivity_compares_every_outcome(
+    burden, proxy_population
+):
+    primary = pa.run_secondary_apc(burden, proxy_population)["summary"]
+    sensitivity = pa.run_secondary_apc(
+        burden, proxy_population, include_last_period=False
+    )["summary"]
+    comparison = pa.compare_apc_windows(primary, sensitivity)
+    assert len(comparison) == 12
+    assert set(comparison.measure_name) == set(pa.OUTCOMES)
+    assert comparison.direction_agreement.dtype == bool
+    assert comparison.comparison_note.str.contains("not an inferential test").all()
+
+
 def test_cross_analysis_table_and_contradiction_audit(
     burden, proxy_population, descriptive_trends, apc_results
 ):
@@ -519,9 +534,10 @@ def test_cross_analysis_table_and_contradiction_audit(
     )
     assert len(consistency) == 12
     assert not consistency.methods_are_independent_replications.any()
-    incidence = consistency[consistency.measure_name.eq("Incidence")]
-    assert incidence.apc_net_drift_1994_2023.notna().all()
+    assert consistency.apc_net_drift_1994_2023.notna().all()
+    assert set(consistency.apc_net_drift_direction) <= {"increase", "decrease", "stable"}
     assert not contradictions.empty
+    assert set(contradictions.measure_name) <= set(pa.OUTCOMES)
     assert not contradictions.implementation_failure_indicated.any()
     assert contradictions.likely_explanatory_factors.str.len().gt(0).all()
 
@@ -656,6 +672,7 @@ def test_full_descriptive_pipeline_smoke(tmp_path):
     assert "all_age_count_reconstruction" in result["tables"]
     assert "trend_excluding_2020_2023" in result["tables"]
     assert "apc_sensitivity_summary_1990_2019" in result["tables"]
+    assert "apc_window_sensitivity" in result["tables"]
     assert "apc_primary_direction_agreement" in result["tables"]
     assert "decomposition_age_bin_sensitivity" in result["tables"]
     assert "segmented_specification_sensitivity" in result["tables"]

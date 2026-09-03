@@ -162,6 +162,31 @@ def test_apc_synthetic_estimands_are_recovered():
     ].iloc[0] == pytest.approx(1.0)
 
 
+def test_apc_runs_every_requested_outcome_without_cross_panel_mixing():
+    burden, population, expected = synthetic_apc_inputs()
+    measures = ("Incidence", "Prevalence", "DALYs")
+    burden = pd.concat(
+        [burden.assign(measure_name=measure) for measure in measures],
+        ignore_index=True,
+    )
+    result = aa.run_apc(
+        burden,
+        population,
+        aa.PRIMARY_WINDOW,
+        ("Test location",),
+        ("Test sex",),
+        aa.BASE_APC_AGES,
+        measures,
+    )
+    assert set(result["summary"].measure_name) == set(measures)
+    assert len(result["summary"]) == len(measures)
+    assert result["summary"].net_drift.to_numpy() == pytest.approx(
+        np.repeat(expected["net_drift"], len(measures)), abs=1e-9
+    )
+    for name, frame in result.items():
+        assert set(frame.measure_name) == set(measures), name
+
+
 def test_apc_missing_and_duplicated_cells_fail_loudly():
     burden, population, _ = synthetic_apc_inputs()
     with pytest.raises(ValueError):

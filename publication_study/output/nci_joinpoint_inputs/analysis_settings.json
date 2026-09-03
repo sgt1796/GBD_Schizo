@@ -10,6 +10,6 @@
   "alpha": 0.05,
   "primary_error_model": "homoscedastic",
   "sensitivity_error_model": "log SE approximated from native GBD UI",
-  "inference_note": "Descriptive analysis of annual GBD posterior means. No hypothesis test or confidence interval is reported because posterior draws and cross-year/cross-stratum correlations are unavailable.",
+  "inference_note": "Descriptive analysis of annual GBD posterior means. Primary analyses report no hypothesis tests or confidence intervals because posterior draws and cross-year/cross-stratum correlations are unavailable.",
   "status": "optional; requires user registration and execution in official NCI software"
 }

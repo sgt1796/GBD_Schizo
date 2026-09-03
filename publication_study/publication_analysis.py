@@ -1056,7 +1056,7 @@ def run_secondary_apc(
 ) -> dict[str, pd.DataFrame]:
     """Run the primary 1994--2023 or sensitivity 1990--2019 APC model."""
     window = apc.PRIMARY_WINDOW if include_last_period else apc.SENSITIVITY_WINDOW
-    return apc.run_apc(df, pop, window, LOCATIONS, SEXES)
+    return apc.run_apc(df, pop, window, LOCATIONS, SEXES, measures=OUTCOMES)
 
 
 def compare_primary_apc_directions(
@@ -1105,6 +1105,34 @@ def compare_primary_apc_directions(
     )
     out["comparison_note"] = (
         "Direction is based on the sign of each descriptive point estimate; agreement is not a significance test."
+    )
+    return out
+
+
+def compare_apc_windows(
+    primary_summary: pd.DataFrame,
+    sensitivity_summary: pd.DataFrame,
+) -> pd.DataFrame:
+    """Compare qualitative net-drift conclusions across the two complete windows."""
+    keys = ["location_name", "sex_name", "measure_name"]
+    primary = primary_summary[keys + ["net_drift"]].rename(
+        columns={"net_drift": "primary_net_drift_1994_2023"}
+    )
+    sensitivity = sensitivity_summary[keys + ["net_drift"]].rename(
+        columns={"net_drift": "sensitivity_net_drift_1990_2019"}
+    )
+    out = primary.merge(sensitivity, on=keys, validate="one_to_one")
+    out["primary_direction"] = out.primary_net_drift_1994_2023.map(trend_direction)
+    out["sensitivity_direction"] = out.sensitivity_net_drift_1990_2019.map(
+        trend_direction
+    )
+    out["direction_agreement"] = out.primary_direction.eq(out.sensitivity_direction)
+    out["net_drift_difference_pct_points"] = (
+        out.primary_net_drift_1994_2023 - out.sensitivity_net_drift_1990_2019
+    )
+    out["comparison_note"] = (
+        "Direction compares descriptive point estimates across two six-period windows; "
+        "it is not an inferential test."
     )
     return out
 
@@ -1186,44 +1214,46 @@ def build_cross_analysis_consistency(
                     "methods_are_independent_replications": False,
                     "uncertainty_note": DESCRIPTIVE_INFERENCE_NOTE,
                 }
-                if outcome == "Incidence":
-                    apc_summary = apc_results["summary"]
-                    apc_row = apc_summary[
-                        apc_summary.location_name.eq(location)
-                        & apc_summary.sex_name.eq(sex)
-                    ].iloc[0]
-                    local = apc_results["local_drift"]
-                    local = local[
-                        local.location_name.eq(location) & local.sex_name.eq(sex)
-                    ]
-                    period = apc_results["period_rr"]
-                    period = period[
-                        period.location_name.eq(location) & period.sex_name.eq(sex)
-                    ]
-                    cohort = apc_results["cohort_rr"]
-                    cohort = cohort[
-                        cohort.location_name.eq(location) & cohort.sex_name.eq(sex)
-                    ]
-                    row.update(
-                        {
-                            "apc_net_drift_1994_2023": float(apc_row.net_drift),
-                            "apc_net_drift_direction": trend_direction(
-                                float(apc_row.net_drift)
-                            ),
-                            "important_local_drifts": _extreme_pattern(
-                                local, "local_drift", "age_name"
-                            ),
-                            "local_drifts_include_opposing_directions": bool(
-                                local.local_drift.min() < 0 < local.local_drift.max()
-                            ),
-                            "period_pattern": _extreme_pattern(
-                                period, "period_rr", "period"
-                            ),
-                            "cohort_pattern": _extreme_pattern(
-                                cohort, "cohort_rr", "cohort_midpoint"
-                            ),
-                        }
-                    )
+                panel_filter = (
+                    apc_results["summary"].location_name.eq(location)
+                    & apc_results["summary"].sex_name.eq(sex)
+                    & apc_results["summary"].measure_name.eq(outcome)
+                )
+                apc_row = apc_results["summary"][panel_filter].iloc[0]
+                local = apc_results["local_drift"]
+                local = local[
+                    local.location_name.eq(location)
+                    & local.sex_name.eq(sex)
+                    & local.measure_name.eq(outcome)
+                ]
+                period = apc_results["period_rr"]
+                period = period[
+                    period.location_name.eq(location)
+                    & period.sex_name.eq(sex)
+                    & period.measure_name.eq(outcome)
+                ]
+                cohort = apc_results["cohort_rr"]
+                cohort = cohort[
+                    cohort.location_name.eq(location)
+                    & cohort.sex_name.eq(sex)
+                    & cohort.measure_name.eq(outcome)
+                ]
+                row.update(
+                    {
+                        "apc_net_drift_1994_2023": float(apc_row.net_drift),
+                        "apc_net_drift_direction": trend_direction(float(apc_row.net_drift)),
+                        "important_local_drifts": _extreme_pattern(
+                            local, "local_drift", "age_name"
+                        ),
+                        "local_drifts_include_opposing_directions": bool(
+                            local.local_drift.min() < 0 < local.local_drift.max()
+                        ),
+                        "period_pattern": _extreme_pattern(period, "period_rr", "period"),
+                        "cohort_pattern": _extreme_pattern(
+                            cohort, "cohort_rr", "cohort_midpoint"
+                        ),
+                    }
+                )
                 rows.append(row)
     return pd.DataFrame(rows)
 
@@ -1233,15 +1263,15 @@ def investigate_cross_method_contradictions(
     population: pd.DataFrame,
     consistency: pd.DataFrame,
 ) -> pd.DataFrame:
-    """Diagnose apparent incidence contradictions using aligned descriptive contrasts."""
+    """Diagnose apparent cross-method contradictions using aligned contrasts."""
     rows = []
     ages = apc.select_apc_ages(set(burden.age_name.dropna().astype(str)))
-    for _, item in consistency[consistency.measure_name.eq("Incidence")].iterrows():
-        location, sex = item.location_name, item.sex_name
+    for _, item in consistency.iterrows():
+        location, sex, outcome = item.location_name, item.sex_name, item.measure_name
         asr = burden[
             burden.location_name.eq(location)
             & burden.sex_name.eq(sex)
-            & burden.measure_name.eq("Incidence")
+            & burden.measure_name.eq(outcome)
             & burden.metric_name.eq("Rate")
             & burden.age_name.eq(ASR)
             & burden.year.between(1994, 2023)
@@ -1253,7 +1283,7 @@ def investigate_cross_method_contradictions(
         age_rates = burden[
             burden.location_name.eq(location)
             & burden.sex_name.eq(sex)
-            & burden.measure_name.eq("Incidence")
+            & burden.measure_name.eq(outcome)
             & burden.metric_name.eq("Rate")
             & burden.age_name.isin(ages)
             & burden.year.isin((1994, 2023))
@@ -1296,7 +1326,7 @@ def investigate_cross_method_contradictions(
             {
                 "location_name": location,
                 "sex_name": sex,
-                "measure_name": "Incidence",
+                "measure_name": outcome,
                 "segmented_direction_1990_2023": directions["segmented_1990_2023"],
                 "asr_endpoint_direction_1994_2023": directions[
                     "asr_endpoint_1994_2023"
@@ -1324,14 +1354,17 @@ def investigate_cross_method_contradictions(
 
 
 def write_methodological_notes(
-    path: Path, contradictions: pd.DataFrame, age_sensitivity: pd.DataFrame
+    path: Path,
+    contradictions: pd.DataFrame,
+    age_sensitivity: pd.DataFrame,
+    apc_window_sensitivity: pd.DataFrame,
 ) -> None:
     lines = [
         "# Internal methodological notes",
         "",
         "This file is generated from the current analysis outputs. Apparent disagreements are retained and investigated; they are not automatically described as validation failures.",
         "",
-        "## Cross-method incidence disagreements",
+        "## Cross-method disagreements",
         "",
     ]
     if contradictions.empty:
@@ -1340,7 +1373,7 @@ def write_methodological_notes(
         for row in contradictions.itertuples(index=False):
             lines.extend(
                 [
-                    f"### {row.location_name}, {row.sex_name}",
+                    f"### {row.location_name}, {row.sex_name}, {row.measure_name}",
                     "",
                     f"- Directions: segmented 1990-2023 = {row.segmented_direction_1990_2023}; ASR endpoint 1994-2023 = {row.asr_endpoint_direction_1994_2023}; selected-age crude endpoint 1994-2023 = {row.selected_age_crude_direction_1994_2023}; APC net drift = {row.apc_net_drift_direction_1994_2023}.",
                     f"- Likely factors: {row.likely_explanatory_factors}.",
@@ -1348,7 +1381,16 @@ def write_methodological_notes(
                     "",
                 ]
             )
-    lines.extend(["## Decomposition age-bin sensitivity", ""])
+    lines.extend(["## APC window sensitivity", ""])
+    changed = apc_window_sensitivity[~apc_window_sensitivity.direction_agreement]
+    if changed.empty:
+        lines.append("All APC net-drift directions were stable across the two windows.")
+    else:
+        for row in changed.itertuples(index=False):
+            lines.append(
+                f"- {row.location_name}, {row.sex_name}, {row.measure_name}: primary 1994-2023 net drift = {row.primary_net_drift_1994_2023:.6f}%/year ({row.primary_direction}); sensitivity 1990-2019 net drift = {row.sensitivity_net_drift_1990_2019:.6f}%/year ({row.sensitivity_direction}). Both magnitudes should be inspected before interpreting the sign change."
+            )
+    lines.extend(["", "## Decomposition age-bin sensitivity", ""])
     flagged = age_sensitivity[age_sensitivity.material_age_bin_sensitivity]
     if flagged.empty:
         lines.append("No stratum met the recorded material-sensitivity rule.")
@@ -1557,20 +1599,42 @@ def plot_counts(df: pd.DataFrame, path: Path) -> None:
 
 
 def plot_apc(apc: dict[str,pd.DataFrame], path: Path) -> None:
-    fig,axes=plt.subplots(2,2,figsize=(12,8))
-    for ax,(key,xcol,ycol,title) in zip(axes.ravel(),[
-        ("local_drift","age_midpoint","local_drift","Local drift by age"),
-        ("age_curve","age_midpoint","longitudinal_age_rr","Longitudinal age curve RR"),
-        ("period_rr","period_midpoint","period_rr","Period RR (nonlinear deviation)"),
-        ("cohort_rr","cohort_midpoint","cohort_rr","Cohort RR (nonlinear deviation)")]):
-        data=apc[key]
-        for loc in LOCATIONS:
-            for sex in SEXES:
-                s=data[(data.location_name==loc)&(data.sex_name==sex)].sort_values(xcol)
-                ax.plot(s[xcol],s[ycol],color=COLORS[loc],ls=SEX_LINE[sex],lw=2,label=f"{loc.replace('United States of America','United States')} {sex}")
-        ax.axhline(0 if key=="local_drift" else 1,color="black",lw=.6); ax.set_title(title); ax.grid(alpha=.2)
-    h,l=axes[0,0].get_legend_handles_labels(); fig.legend(h,l,loc="lower center",ncol=4,frameon=False)
-    fig.suptitle("Secondary incidence age-period-cohort estimable summaries",fontweight="bold"); fig.tight_layout(rect=(0,.07,1,.95)); fig.savefig(path,dpi=300,bbox_inches="tight"); plt.close(fig)
+    specifications = [
+        ("local_drift", "age_midpoint", "local_drift", "Local drift by age"),
+        ("age_curve", "age_midpoint", "longitudinal_age_rr", "Longitudinal age curve RR"),
+        ("period_rr", "period_midpoint", "period_rr", "Period RR (nonlinear deviation)"),
+        ("cohort_rr", "cohort_midpoint", "cohort_rr", "Cohort RR (nonlinear deviation)"),
+    ]
+    fig, axes = plt.subplots(len(OUTCOMES), len(specifications), figsize=(16, 11))
+    for row_index, outcome in enumerate(OUTCOMES):
+        for column_index, (key, xcol, ycol, title) in enumerate(specifications):
+            ax = axes[row_index, column_index]
+            data = apc[key]
+            for loc in LOCATIONS:
+                for sex in SEXES:
+                    s = data[
+                        data.location_name.eq(loc)
+                        & data.sex_name.eq(sex)
+                        & data.measure_name.eq(outcome)
+                    ].sort_values(xcol)
+                    ax.plot(
+                        s[xcol], s[ycol], color=COLORS[loc], ls=SEX_LINE[sex], lw=1.8,
+                        label=f"{loc.replace('United States of America','United States')} {sex}",
+                    )
+            ax.axhline(0 if key == "local_drift" else 1, color="black", lw=.6)
+            if row_index == 0:
+                ax.set_title(title)
+            if column_index == 0:
+                ax.set_ylabel(f"{outcome}\n%/year")
+            else:
+                ax.set_ylabel(f"{outcome}\nrelative risk")
+            ax.grid(alpha=.2)
+    h, l = axes[0, 0].get_legend_handles_labels()
+    fig.legend(h, l, loc="lower center", ncol=4, frameon=False)
+    fig.suptitle("Secondary age-period-cohort estimable summaries", fontweight="bold")
+    fig.tight_layout(rect=(0, .05, 1, .96))
+    fig.savefig(path, dpi=300, bbox_inches="tight")
+    plt.close(fig)
 
 
 def write_tables(tables: dict[str, pd.DataFrame], out: Path) -> None:
@@ -2084,6 +2148,7 @@ def run(args) -> dict:
     decomp_age_sensitivity=decomposition_age_bin_sensitivity(burden,pop)
     apc=run_secondary_apc(burden,pop,True); apc_pre=run_secondary_apc(burden,pop,False)
     apc_agreement=compare_primary_apc_directions(burden,seg,apc["summary"])
+    apc_window_sensitivity=compare_apc_windows(apc["summary"],apc_pre["summary"])
     cross_analysis=build_cross_analysis_consistency(
         burden,pop,endpoints,seg,apc,decomp
     )
@@ -2109,17 +2174,19 @@ def run(args) -> dict:
             "apc_sensitivity_local_drift_1990_2019":apc_pre["local_drift"],
             "apc_sensitivity_period_rr_1990_2019":apc_pre["period_rr"],
             "apc_sensitivity_cohort_rr_1990_2019":apc_pre["cohort_rr"],
+            "apc_window_sensitivity":apc_window_sensitivity,
             "apc_primary_direction_agreement":apc_agreement,
             "cross_analysis_consistency":cross_analysis,
             "cross_method_contradictions":contradictions,
             "provenance":provenance,**nci_tables}
     write_tables(tables,tables_dir); write_data_dictionary(tables,out/"data_dictionary.csv"); export_nci_inputs(burden,out/"nci_joinpoint_inputs")
     write_methodological_notes(
-        out/"qa"/"methodological_notes.md",contradictions,decomp_age_sensitivity
+        out/"qa"/"methodological_notes.md",contradictions,decomp_age_sensitivity,
+        apc_window_sensitivity
     )
     plot_asr(burden,main_fig/"figure_1_asr_trends.png"); plot_segmented(burden,fitted,main_fig/"figure_2_segmented_trends.png")
     plot_age_patterns(burden,main_fig/"figure_3_age_patterns.png"); plot_decomposition(decomp,main_fig/"figure_4_decomposition.png")
-    plot_counts(burden,supp_fig/"figure_s1_counts.png"); plot_apc(apc,supp_fig/"figure_s2_apc_incidence.png")
+    plot_counts(burden,supp_fig/"figure_s1_counts.png"); plot_apc(apc,supp_fig/"figure_s2_apc_estimable_functions.png")
     all_age_reconstruction_valid=bool(len(all_age_reconstruction)==len(LOCATIONS)*len(SEXES)*len(OUTCOMES)*len(YEARS)
                                       and all_age_reconstruction.within_tolerance.all())
     internal_validation_passed=bool((audit.all_age_count_years.eq(34)&audit.asr_years.eq(34)).all()

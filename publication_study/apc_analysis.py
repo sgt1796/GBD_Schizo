@@ -153,23 +153,27 @@ def _validate_source_panel(
     window: APCWindow,
     locations: tuple[str, ...],
     sexes: tuple[str, ...],
+    measures: tuple[str, ...],
 ) -> None:
     validate_equal_age_width(ages, window.period_width)
-    keys = ["location_name", "sex_name", "age_name", "year"]
+    keys = ["location_name", "sex_name", "measure_name", "age_name", "year"]
     duplicates = int(annual.duplicated(keys).sum())
     if duplicates:
         raise ValueError(f"APC input contains {duplicates} duplicated age-year cells.")
     expected_years = window.end_year - window.start_year + 1
     expected_per_panel = len(ages) * expected_years
-    expected_total = len(locations) * len(sexes) * expected_per_panel
+    expected_total = len(locations) * len(sexes) * len(measures) * expected_per_panel
     if len(annual) != expected_total:
         raise ValueError(
             f"APC input has {len(annual)} annual cells; expected {expected_total} "
-            f"({expected_per_panel} per location-sex panel)."
+            f"({expected_per_panel} per location-sex-outcome panel)."
         )
-    sizes = annual.groupby(["location_name", "sex_name"]).size()
-    if len(sizes) != len(locations) * len(sexes) or not sizes.eq(expected_per_panel).all():
-        raise ValueError("APC input does not contain complete location-sex age-year panels.")
+    sizes = annual.groupby(["location_name", "sex_name", "measure_name"]).size()
+    expected_panels = len(locations) * len(sexes) * len(measures)
+    if len(sizes) != expected_panels or not sizes.eq(expected_per_panel).all():
+        raise ValueError(
+            "APC input does not contain complete location-sex-outcome age-year panels."
+        )
 
 
 def build_apc_cells(
@@ -179,33 +183,45 @@ def build_apc_cells(
     locations: tuple[str, ...],
     sexes: tuple[str, ...],
     ages: tuple[str, ...] | None = None,
+    measures: tuple[str, ...] = ("Incidence",),
 ) -> tuple[pd.DataFrame, tuple[str, ...]]:
-    """Pool annual incidence estimates into equal five-year APC cells."""
+    """Pool annual outcome estimates into equal five-year APC cells."""
     if len(window.period_starts) != 6:
         raise ValueError("The analysis specification requires exactly six APC periods.")
     if window.period_starts[-1] + window.period_width - 1 != window.end_year:
         raise ValueError("APC window does not end on a complete period boundary.")
 
-    available = set(burden.loc[burden.measure_name.eq("Incidence"), "age_name"])
+    if not measures:
+        raise ValueError("At least one APC outcome is required.")
+    available_by_measure = {
+        measure: set(burden.loc[burden.measure_name.eq(measure), "age_name"])
+        for measure in measures
+    }
+    missing_measures = [
+        measure for measure, available in available_by_measure.items() if not available
+    ]
+    if missing_measures:
+        raise ValueError(f"APC input is missing outcomes: {missing_measures}.")
+    available = set.intersection(*available_by_measure.values())
     ages = tuple(ages or select_apc_ages(available))
     validate_equal_age_width(ages, window.period_width)
     keys = ["location_name", "sex_name", "age_name", "year"]
     rates = burden[
-        burden.measure_name.eq("Incidence")
+        burden.measure_name.isin(measures)
         & burden.metric_name.eq("Rate")
         & burden.age_name.isin(ages)
         & burden.location_name.isin(locations)
         & burden.sex_name.isin(sexes)
         & burden.year.between(window.start_year, window.end_year)
-    ][keys + ["val"]].rename(columns={"val": "rate"})
+    ][["measure_name", *keys, "val"]].rename(columns={"val": "rate"})
     pop = population[
         population.age_name.isin(ages)
         & population.location_name.isin(locations)
         & population.sex_name.isin(sexes)
         & population.year.between(window.start_year, window.end_year)
     ][keys + ["population"]]
-    annual = rates.merge(pop, on=keys, how="inner", validate="one_to_one")
-    _validate_source_panel(annual, ages, window, locations, sexes)
+    annual = rates.merge(pop, on=keys, how="inner", validate="many_to_one")
+    _validate_source_panel(annual, ages, window, locations, sexes, measures)
 
     annual = annual.copy()
     annual["period"] = annual.year.map(window.period_for_year)
@@ -221,6 +237,7 @@ def build_apc_cells(
         [
             "location_name",
             "sex_name",
+            "measure_name",
             "age_name",
             "age_midpoint",
             "period",
@@ -259,6 +276,10 @@ def _fit_panel(
 ) -> dict[str, pd.DataFrame]:
     _validate_cell_matrix(panel, ages, window)
     panel = panel.copy()
+    measures = panel.measure_name.drop_duplicates().tolist()
+    if len(measures) != 1:
+        raise ValueError("Each APC model panel must contain exactly one outcome.")
+    measure = measures[0]
     age_lookup = {value: index for index, value in enumerate(ages)}
     period_lookup = {
         value: index for index, value in enumerate(window.period_labels)
@@ -377,7 +398,7 @@ def _fit_panel(
     summary = pd.DataFrame(
         [
             {
-                "measure_name": "Incidence",
+                "measure_name": measure,
                 "window": window.name,
                 "start_year": window.start_year,
                 "end_year": window.end_year,
@@ -422,10 +443,11 @@ def run_apc(
     locations: tuple[str, ...],
     sexes: tuple[str, ...],
     ages: tuple[str, ...] | None = None,
+    measures: tuple[str, ...] = ("Incidence",),
 ) -> dict[str, pd.DataFrame]:
-    """Run APC point-estimate analyses for every location-sex incidence panel."""
+    """Run APC point-estimate analyses for every requested outcome panel."""
     cells, selected_ages = build_apc_cells(
-        burden, population, window, locations, sexes, ages
+        burden, population, window, locations, sexes, ages, measures
     )
     outputs = {
         "summary": [],
@@ -435,8 +457,8 @@ def run_apc(
         "cohort_rr": [],
         "cells": [],
     }
-    for (location, sex), panel in cells.groupby(
-        ["location_name", "sex_name"], sort=True
+    for (location, sex, measure), panel in cells.groupby(
+        ["location_name", "sex_name", "measure_name"], sort=True
     ):
         fitted = _fit_panel(panel, selected_ages, window)
         for name, frame in fitted.items():
@@ -445,6 +467,8 @@ def run_apc(
                 frame.insert(0, "sex_name", sex)
             if "location_name" not in frame:
                 frame.insert(0, "location_name", location)
+            if "measure_name" not in frame:
+                frame.insert(2, "measure_name", measure)
             outputs[name].append(frame)
     return {
         name: pd.concat(frames, ignore_index=True)
