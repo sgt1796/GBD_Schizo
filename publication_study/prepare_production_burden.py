@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import json
 from itertools import product
 from pathlib import Path
 from zipfile import ZipFile
@@ -12,6 +13,7 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE_DIR = ROOT / "addition_inputs"
 OUTPUT = ROOT / "data" / "GBD_2023_schizophrenia_fine_age_China_US.csv"
+ZERO_PROVENANCE_OUTPUT = ROOT / "data" / "metadata" / "structural_zero_provenance.json"
 
 BASE_EXPORT = SOURCE_DIR / "IHME-GBD_2023_DATA-774041bd-1.zip"
 CORRECTION_EXPORT = SOURCE_DIR / "IHME-GBD_2023_DATA-22ef74c2-1.zip"
@@ -168,12 +170,65 @@ def main() -> None:
     canonical = canonical.sort_values(list(KEYS), kind="stable").reset_index(drop=True)
     validate(canonical)
 
+    # Values are never transformed during preparation. Record an explicit
+    # source-to-canonical audit because exact zeros have important modeling
+    # implications and must not be mistaken for pipeline-created values.
+    source_required = merged.loc[required_cell].copy()
+    source_zero_keys = set(
+        map(tuple, source_required.loc[source_required["val"].eq(0), KEYS].to_numpy())
+    )
+    canonical_zero_keys = set(
+        map(tuple, canonical.loc[canonical["val"].eq(0), KEYS].to_numpy())
+    )
+    if source_zero_keys != canonical_zero_keys:
+        raise ValueError("Canonical zero-valued cells do not match the preserved source exports.")
+    zero_rows = canonical.loc[
+        canonical["val"].eq(0) & canonical["age_name"].isin(FINE_AGES)
+    ].copy()
+    zero_summary = (
+        zero_rows.groupby(["measure_name", "age_name", "metric_name"], sort=False)
+        .agg(
+            zero_cell_count=("val", "size"),
+            location_count=("location_name", "nunique"),
+            sex_count=("sex_name", "nunique"),
+            year_count=("year", "nunique"),
+            lower_also_zero=("lower", lambda values: bool(values.eq(0).all())),
+            upper_also_zero=("upper", lambda values: bool(values.eq(0).all())),
+        )
+        .reset_index()
+    )
+    zero_payload = {
+        "audit_scope": "fine-age Number and Rate rows retained for analysis",
+        "source_archives": [
+            {"file": str(BASE_EXPORT.relative_to(ROOT)).replace("\\", "/"), "sha256": file_sha256(BASE_EXPORT)},
+            {"file": str(CORRECTION_EXPORT.relative_to(ROOT)).replace("\\", "/"), "sha256": file_sha256(CORRECTION_EXPORT)},
+        ],
+        "canonical_file": str(OUTPUT.relative_to(ROOT)).replace("\\", "/"),
+        "source_to_canonical_zero_keys_exact_match": True,
+        "total_zero_cells": int(len(zero_rows)),
+        "zero_patterns": zero_summary.to_dict(orient="records"),
+        "interpretation": (
+            "Exact zero point estimates originate in the preserved IHME exports and were retained "
+            "unchanged. The export alone does not establish whether a zero is a biological structural "
+            "zero or a GBD model-support convention. Log-rate APC analyses must exclude zero cells, "
+            "and decomposition interpretation must acknowledge them."
+        ),
+    }
+
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     canonical.to_csv(OUTPUT, index=False, lineterminator="\n")
+    ZERO_PROVENANCE_OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    ZERO_PROVENANCE_OUTPUT.write_text(
+        json.dumps(zero_payload, indent=2) + "\n", encoding="utf-8"
+    )
     print(f"Wrote {len(canonical):,} validated rows to {OUTPUT.relative_to(ROOT)}")
     print(f"Output SHA-256: {file_sha256(OUTPUT)}")
     print(f"Base ZIP SHA-256: {file_sha256(BASE_EXPORT)}")
     print(f"Correction ZIP SHA-256: {file_sha256(CORRECTION_EXPORT)}")
+    print(
+        f"Verified {len(zero_rows):,} source-export zero cells; audit: "
+        f"{ZERO_PROVENANCE_OUTPUT.relative_to(ROOT)}"
+    )
 
 
 if __name__ == "__main__":

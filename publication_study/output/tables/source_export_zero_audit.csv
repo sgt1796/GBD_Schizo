@@ -1,0 +1,21 @@
+measure_name,age_name,metric_name,zero_cell_count,location_count,sex_count,year_count,lower_also_zero,upper_also_zero,source_export_provenance_verified,interpretation
+DALYs,0-4 years,Number,136,2,2,34,True,True,True,Exact zero is present in the preserved IHME export; the export alone does not distinguish a biological structural zero from a GBD model-support convention.
+DALYs,0-4 years,Rate,136,2,2,34,True,True,True,Exact zero is present in the preserved IHME export; the export alone does not distinguish a biological structural zero from a GBD model-support convention.
+Incidence,0-4 years,Number,136,2,2,34,True,True,True,Exact zero is present in the preserved IHME export; the export alone does not distinguish a biological structural zero from a GBD model-support convention.
+Incidence,0-4 years,Rate,136,2,2,34,True,True,True,Exact zero is present in the preserved IHME export; the export alone does not distinguish a biological structural zero from a GBD model-support convention.
+Prevalence,0-4 years,Number,136,2,2,34,True,True,True,Exact zero is present in the preserved IHME export; the export alone does not distinguish a biological structural zero from a GBD model-support convention.
+Prevalence,0-4 years,Rate,136,2,2,34,True,True,True,Exact zero is present in the preserved IHME export; the export alone does not distinguish a biological structural zero from a GBD model-support convention.
+DALYs,5-9 years,Number,136,2,2,34,True,True,True,Exact zero is present in the preserved IHME export; the export alone does not distinguish a biological structural zero from a GBD model-support convention.
+DALYs,5-9 years,Rate,136,2,2,34,True,True,True,Exact zero is present in the preserved IHME export; the export alone does not distinguish a biological structural zero from a GBD model-support convention.
+Incidence,5-9 years,Number,136,2,2,34,True,True,True,Exact zero is present in the preserved IHME export; the export alone does not distinguish a biological structural zero from a GBD model-support convention.
+Incidence,5-9 years,Rate,136,2,2,34,True,True,True,Exact zero is present in the preserved IHME export; the export alone does not distinguish a biological structural zero from a GBD model-support convention.
+Prevalence,5-9 years,Number,136,2,2,34,True,True,True,Exact zero is present in the preserved IHME export; the export alone does not distinguish a biological structural zero from a GBD model-support convention.
+Prevalence,5-9 years,Rate,136,2,2,34,True,True,True,Exact zero is present in the preserved IHME export; the export alone does not distinguish a biological structural zero from a GBD model-support convention.
+Incidence,80-84 years,Number,136,2,2,34,True,True,True,Exact zero is present in the preserved IHME export; the export alone does not distinguish a biological structural zero from a GBD model-support convention.
+Incidence,80-84 years,Rate,136,2,2,34,True,True,True,Exact zero is present in the preserved IHME export; the export alone does not distinguish a biological structural zero from a GBD model-support convention.
+Incidence,85-89 years,Number,136,2,2,34,True,True,True,Exact zero is present in the preserved IHME export; the export alone does not distinguish a biological structural zero from a GBD model-support convention.
+Incidence,85-89 years,Rate,136,2,2,34,True,True,True,Exact zero is present in the preserved IHME export; the export alone does not distinguish a biological structural zero from a GBD model-support convention.
+Incidence,90-94 years,Number,136,2,2,34,True,True,True,Exact zero is present in the preserved IHME export; the export alone does not distinguish a biological structural zero from a GBD model-support convention.
+Incidence,90-94 years,Rate,136,2,2,34,True,True,True,Exact zero is present in the preserved IHME export; the export alone does not distinguish a biological structural zero from a GBD model-support convention.
+Incidence,95+ years,Number,136,2,2,34,True,True,True,Exact zero is present in the preserved IHME export; the export alone does not distinguish a biological structural zero from a GBD model-support convention.
+Incidence,95+ years,Rate,136,2,2,34,True,True,True,Exact zero is present in the preserved IHME export; the export alone does not distinguish a biological structural zero from a GBD model-support convention.

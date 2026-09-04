@@ -183,3 +183,6 @@ cython_debug/
 # Local publication smoke/integration builds
 publication_study/_smoke_output/
 publication_study/_integration_*/
+
+# Author-controlled submission metadata may contain private contact details
+publication_study/submission_metadata.json

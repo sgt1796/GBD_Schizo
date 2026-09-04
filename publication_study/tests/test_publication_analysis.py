@@ -8,8 +8,7 @@ import pandas as pd
 import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-import publication_analysis as pa
-import build_documents as bd
+import gbd_analysis as pa
 
 
 @pytest.fixture(scope="module")
@@ -30,6 +29,19 @@ def descriptive_trends(burden):
 @pytest.fixture(scope="module")
 def apc_results(burden, proxy_population):
     return pa.run_secondary_apc(burden, proxy_population)
+
+
+@pytest.fixture(scope="module")
+def production_burden():
+    return pa.load_burden(Path(__file__).resolve().parents[2] / "data" / "GBD_2023_schizophrenia_fine_age_China_US.csv")
+
+
+@pytest.fixture(scope="module")
+def official_population():
+    return pa.load_official_population(
+        Path(__file__).resolve().parents[2] / "data" / "GBD_2023_population_China_US.csv",
+        "GBD 2023",
+    )
 
 
 def test_primary_outcomes_and_years_complete(burden):
@@ -86,20 +98,32 @@ def test_yld_panel_is_optional_but_partial_yld_input_fails(burden):
     assert partial.audit_status == "incomplete_or_nonidentical"
 
 
-def test_document_context_tracks_production_inputs_without_proxy_wording():
-    tables = {
-        "decomposition": pd.DataFrame({"age_group_count": [20]}),
-        "apc_summary": pd.DataFrame({"age_coverage": ["10-14 to 65-69"]}),
-        "yld_daly_identity": pd.DataFrame({"yld_panel_available": [False]}),
+def test_source_export_zero_pattern_and_provenance_are_exact(production_burden):
+    metadata = Path(__file__).resolve().parents[2] / "data" / "metadata" / "burden_export.json"
+    table, audit = pa.audit_source_export_zeros(production_burden, metadata)
+    assert audit == {
+        "total_fine_age_zero_cells": 2720,
+        "expected_age_outcome_pattern": True,
+        "complete_location_sex_year_metric_pattern": True,
+        "source_export_provenance_verified": True,
+        "provenance_file": "data/metadata/structural_zero_provenance.json",
     }
-    context = bd.document_build_context({"submission_ready": True}, tables)
-    assert context == {
-        "submission_ready": True,
-        "age_count": 20,
-        "age_span": "0-4 through 95+ years",
-        "apc_coverage": "10-14 to 65-69",
-        "yld_available": False,
-    }
+    assert len(table) == 20
+    assert table.zero_cell_count.eq(136).all()
+    assert table.lower_also_zero.all() and table.upper_also_zero.all()
+
+
+def test_supported_age_incidence_decomposition_is_closed(
+    production_burden, official_population
+):
+    result = pa.incidence_supported_age_decomposition(
+        production_burden, official_population
+    )
+    assert len(result) == 4
+    assert result.age_partition.eq("supported_10_79").all()
+    assert result.age_group_count.eq(14).all()
+    assert result.quantity_scope.str.contains("not all-age burden").all()
+    assert result.closure_error.abs().max() < 1e-8
 
 
 def _write_synthetic_fine_production_inputs(tmp_path, burden, proxy_population):
@@ -111,6 +135,10 @@ def _write_synthetic_fine_production_inputs(tmp_path, burden, proxy_population):
         "Prevalence": np.exp(-((np.arange(20) - 8.0) / 6.0) ** 2) + 0.18,
         "DALYs": np.exp(-((np.arange(20) - 7.0) / 5.5) ** 2) + 0.16,
     }
+    profiles["Incidence"][:2] = 0.0
+    profiles["Incidence"][-4:] = 0.0
+    profiles["Prevalence"][:2] = 0.0
+    profiles["DALYs"][:2] = 0.0
     total_population = proxy_population.groupby(
         ["location_name", "sex_name", "year"], as_index=False
     ).population.sum()
@@ -212,13 +240,19 @@ def _write_synthetic_fine_production_inputs(tmp_path, burden, proxy_population):
         metadata_path = tmp_path / f"{role}_metadata.json"
         metadata_path.write_text(json.dumps(metadata), encoding="utf-8")
         metadata_paths.append(metadata_path)
+    (tmp_path / "structural_zero_provenance.json").write_text(
+        json.dumps({
+            "source_to_canonical_zero_keys_exact_match": True,
+            "total_zero_cells": 2720,
+        }),
+        encoding="utf-8",
+    )
     return burden_path, population_path, *metadata_paths
 
 
 def test_full_synthetic_production_pipeline_without_optional_yld(
-    tmp_path, monkeypatch, burden, proxy_population
+    tmp_path, burden, proxy_population
 ):
-    monkeypatch.setattr(pa, "ROOT", tmp_path)
     burden_path, population_path, burden_metadata, population_metadata = (
         _write_synthetic_fine_production_inputs(tmp_path, burden, proxy_population)
     )
@@ -234,23 +268,14 @@ def test_full_synthetic_production_pipeline_without_optional_yld(
         nci_results_csv=None,
     )
     result = pa.run(args)
-    assert result["metadata"]["submission_ready"]
+    assert result["metadata"]["analysis_ready"], result["metadata"]
     assert result["metadata"]["fine_age_burden_validated"]
     assert result["metadata"]["population_status"] == "official_GBD_2023"
     assert result["tables"]["yld_daly_identity"].iloc[0].audit_status == "not_available"
-    assert result["tables"]["apc_summary"].age_coverage.eq("10-14 to 65-69").all()
+    assert result["tables"]["apc_descriptive_summary"].age_coverage.eq("10-14 to 65-69").all()
     assert result["tables"]["decomposition"].age_group_count.eq(20).all()
     assert result["tables"]["population_source_comparison"].relative_difference_pct.abs().max() < 1e-10
     assert "YLD" not in result["tables"]["provenance"].iloc[0].dimensions
-
-    documents = output / "documents"
-    documents.mkdir()
-    manuscript = bd.build_manuscript(output, documents, result["metadata"], result["tables"])
-    text = "\n".join(paragraph.text for paragraph in bd.Document(manuscript).paragraphs)
-    assert "PROVISIONAL ANALYTICAL DRAFT" not in text
-    assert "official GBD 2023 population estimates" in text
-    assert "did not include YLDs" in text
-
 
 def test_burden_cause_is_verified(tmp_path):
     bad = pd.read_csv(pa.DEFAULT_BURDEN, nrows=1)
@@ -415,7 +440,7 @@ def test_decomposition_age_bin_sensitivity_is_explicit(burden, proxy_population)
 def test_trend_direction_is_explicit_and_handles_missing_values():
     assert pa.trend_direction(0.2) == "increase"
     assert pa.trend_direction(-0.2) == "decrease"
-    assert pa.trend_direction(0.0) == "stable"
+    assert pa.trend_direction(0.0) == "practically stable"
     assert pa.trend_direction(np.nan) == "not available"
 
 
@@ -444,6 +469,32 @@ def test_residual_autocorrelation_is_reported_not_used_for_inference():
     assert diagnostics["lag1_residual_autocorrelation"] == pytest.approx(1.0)
     assert diagnostics["material_residual_autocorrelation"]
     assert diagnostics["durbin_watson"] > 0
+
+
+def test_practical_stability_thresholds_are_explicit(descriptive_trends):
+    primary, _, _ = descriptive_trends
+    sensitivity = pa.practical_stability_sensitivity(primary)
+    assert len(sensitivity) == 12
+    assert sensitivity.primary_threshold_pct_per_year.eq(0.05).all()
+    assert {
+        "label_at_0.02_pct_per_year",
+        "label_at_0.05_pct_per_year",
+        "label_at_0.10_pct_per_year",
+    } <= set(sensitivity)
+    assert sensitivity.interpretation.str.contains("not statistical equivalence tests").all()
+
+
+def test_ar1_segmented_sensitivity_converges_and_remains_descriptive(
+    burden, descriptive_trends
+):
+    primary, _, _ = descriptive_trends
+    summary, segments = pa.segmented_ar1_sensitivity(burden, primary)
+    assert len(summary) == 12
+    assert summary.iterations_converged.all()
+    assert summary.ar1_rho.between(-0.95, 0.95).all()
+    assert summary.practical_label_agreement.dtype == bool
+    assert len(segments) >= 12
+    assert not segments.formal_inference_performed.any()
 
 
 def test_trajectory_contrasts_are_descriptive(burden):
@@ -487,6 +538,22 @@ def test_secondary_apc_dimensions(apc_results):
     assert not apc["summary"].formal_inference_performed.any()
 
 
+def test_custom_apc_public_tables_and_weighting_sensitivity(
+    burden, proxy_population, apc_results
+):
+    equal = pa.run_secondary_apc(burden, proxy_population, weighting="equal")
+    comparison = pa.compare_apc_weighting(apc_results, equal)
+    assert len(comparison) == 12
+    assert comparison.maximum_absolute_age_specific_slope_difference.ge(0).all()
+    assert comparison.equal_minus_population_weighted_global_period_slope.abs().max() > 0
+    public = pa.format_apc_tables(apc_results, "apc_descriptive")
+    assert "global_period_slope_pct_per_year" in public["apc_descriptive_summary"]
+    assert "net_drift" not in public["apc_descriptive_summary"]
+    assert "age_specific_slope_pct_per_year" in public["apc_descriptive_age_specific_slopes"]
+    assert "local_drift" not in public["apc_descriptive_age_specific_slopes"]
+    assert public["apc_descriptive_summary"].method_label.str.contains("not asserted equivalent").all()
+
+
 def test_apc_primary_direction_agreement_is_reported(
     burden, descriptive_trends, apc_results
 ):
@@ -495,10 +562,11 @@ def test_apc_primary_direction_agreement_is_reported(
         burden, primary, apc_results["summary"]
     )
     assert len(comparison) == 4
-    expected = comparison.apc_net_drift_direction == comparison.primary_segmented_direction
+    expected = comparison.apc_global_period_slope_label == comparison.primary_segmented_direction
     assert comparison.apc_vs_segmented_direction_agreement.equals(expected)
-    assert set(comparison.primary_segmented_direction) <= {"increase", "decrease", "stable"}
-    assert set(comparison.apc_net_drift_direction) <= {"increase", "decrease", "stable"}
+    labels = {"increase", "decrease", "practically stable"}
+    assert set(comparison.primary_segmented_direction) <= labels
+    assert set(comparison.apc_global_period_slope_label) <= labels
 
 
 def test_apc_window_sensitivity_compares_every_outcome(
@@ -512,7 +580,7 @@ def test_apc_window_sensitivity_compares_every_outcome(
     assert len(comparison) == 12
     assert set(comparison.measure_name) == set(pa.OUTCOMES)
     assert comparison.direction_agreement.dtype == bool
-    assert comparison.comparison_note.str.contains("not an inferential test").all()
+    assert comparison.comparison_note.str.contains("not an inferential or equivalence test").all()
 
 
 def test_cross_analysis_table_and_contradiction_audit(
@@ -534,8 +602,8 @@ def test_cross_analysis_table_and_contradiction_audit(
     )
     assert len(consistency) == 12
     assert not consistency.methods_are_independent_replications.any()
-    assert consistency.apc_net_drift_1994_2023.notna().all()
-    assert set(consistency.apc_net_drift_direction) <= {"increase", "decrease", "stable"}
+    assert consistency.apc_global_period_slope_1994_2023.notna().all()
+    assert set(consistency.apc_global_period_slope_label) <= {"increase", "decrease", "practically stable"}
     assert not contradictions.empty
     assert set(contradictions.measure_name) <= set(pa.OUTCOMES)
     assert not contradictions.implementation_failure_indicated.any()
@@ -639,7 +707,7 @@ def test_table_writer_removes_only_known_stale_outputs(tmp_path):
     assert all(not (tmp_path / f"{name}.csv").exists() for name in pa.OPTIONAL_NCI_TABLES)
     assert unrelated.read_text(encoding="utf-8") == "preserve me"
     assert (tmp_path / "current_table.csv").exists()
-    assert (tmp_path / "publication_tables.xlsx").exists()
+    assert (tmp_path / "analysis_tables.xlsx").exists()
 
 
 def test_analysis_rejects_nonempty_output_directory(tmp_path):
@@ -666,12 +734,12 @@ def test_full_descriptive_pipeline_smoke(tmp_path):
         nci_results_csv=None,
     )
     result = pa.run(args)
-    assert not result["metadata"]["submission_ready"]
+    assert not result["metadata"]["analysis_ready"]
     assert not result["metadata"]["formal_trend_inference_performed"]
     assert "trajectory_contrasts" in result["tables"]
     assert "all_age_count_reconstruction" in result["tables"]
     assert "trend_excluding_2020_2023" in result["tables"]
-    assert "apc_sensitivity_summary_1990_2019" in result["tables"]
+    assert "apc_sensitivity_1990_2019_summary" in result["tables"]
     assert "apc_window_sensitivity" in result["tables"]
     assert "apc_primary_direction_agreement" in result["tables"]
     assert "decomposition_age_bin_sensitivity" in result["tables"]
@@ -684,4 +752,6 @@ def test_full_descriptive_pipeline_smoke(tmp_path):
     assert validation["all_age_count_reconstruction_rows"] == 408
     assert validation["all_age_count_reconstruction_within_tolerance"]
     assert (tmp_path / "qa" / "validation_summary.json").exists()
+
+
 

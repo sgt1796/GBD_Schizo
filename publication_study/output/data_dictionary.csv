@@ -24,6 +24,17 @@ burden_age_granularity_audit,rate_cells,int64,Rate cells,none/not applicable
 burden_age_granularity_audit,duplicate_number_keys,int64,Duplicate number keys,none/not applicable
 burden_age_granularity_audit,duplicate_rate_keys,int64,Duplicate rate keys,none/not applicable
 burden_age_granularity_audit,fine_age_panel_complete,bool,Fine age panel complete,none/not applicable
+source_export_zero_audit,measure_name,object,Measure name,none/not applicable
+source_export_zero_audit,age_name,object,Age name,none/not applicable
+source_export_zero_audit,metric_name,object,Metric name,none/not applicable
+source_export_zero_audit,zero_cell_count,int64,Zero cell count,none/not applicable
+source_export_zero_audit,location_count,int64,Location count,none/not applicable
+source_export_zero_audit,sex_count,int64,Sex count,none/not applicable
+source_export_zero_audit,year_count,int64,Year count,none/not applicable
+source_export_zero_audit,lower_also_zero,bool,Lower also zero,none/not applicable
+source_export_zero_audit,upper_also_zero,bool,Upper also zero,none/not applicable
+source_export_zero_audit,source_export_provenance_verified,bool,Source export provenance verified,none/not applicable
+source_export_zero_audit,interpretation,object,Interpretation,none/not applicable
 population_reconstruction,location_name,object,Location name,none/not applicable
 population_reconstruction,sex_name,object,Sex name,none/not applicable
 population_reconstruction,age_name,object,Age name,none/not applicable
@@ -135,6 +146,41 @@ segmented_segments,end_year,int64,End year,none/not applicable
 segmented_segments,apc,float64,Apc,none/not applicable
 segmented_segments,formal_inference_performed,bool,Whether hypothesis tests or confidence intervals were treated as valid for GBD estimates,none/not applicable
 segmented_segments,inference_note,object,Inference note,none/not applicable
+segmented_ar1_sensitivity,location_name,object,Location name,none/not applicable
+segmented_ar1_sensitivity,sex_name,object,Sex name,none/not applicable
+segmented_ar1_sensitivity,measure_name,object,Measure name,none/not applicable
+segmented_ar1_sensitivity,primary_joinpoint_count,int64,Primary joinpoint count,none/not applicable
+segmented_ar1_sensitivity,primary_joinpoint_years,object,Primary joinpoint years,none/not applicable
+segmented_ar1_sensitivity,primary_aapc,float64,Primary aapc,none/not applicable
+segmented_ar1_sensitivity,ar1_joinpoint_count,int64,Ar1 joinpoint count,none/not applicable
+segmented_ar1_sensitivity,ar1_joinpoint_years,object,Ar1 joinpoint years,none/not applicable
+segmented_ar1_sensitivity,ar1_aapc,float64,Ar1 aapc,none/not applicable
+segmented_ar1_sensitivity,ar1_minus_primary_aapc,float64,Ar1 minus primary aapc,none/not applicable
+segmented_ar1_sensitivity,ar1_rho,float64,Ar1 rho,none/not applicable
+segmented_ar1_sensitivity,ar1_bic,float64,Ar1 bic,none/not applicable
+segmented_ar1_sensitivity,iterations_converged,bool,Iterations converged,none/not applicable
+segmented_ar1_sensitivity,primary_practical_label,object,Primary practical label,none/not applicable
+segmented_ar1_sensitivity,ar1_practical_label,object,Ar1 practical label,none/not applicable
+segmented_ar1_sensitivity,practical_label_agreement,bool,Practical label agreement,none/not applicable
+segmented_ar1_sensitivity,interpretation,object,Interpretation,none/not applicable
+segmented_ar1_segments,location_name,object,Location name,none/not applicable
+segmented_ar1_segments,sex_name,object,Sex name,none/not applicable
+segmented_ar1_segments,measure_name,object,Measure name,none/not applicable
+segmented_ar1_segments,segment_index,int64,Segment index,none/not applicable
+segmented_ar1_segments,start_year,int64,Start year,none/not applicable
+segmented_ar1_segments,end_year,int64,End year,none/not applicable
+segmented_ar1_segments,ar1_segment_apc,float64,Ar1 segment apc,none/not applicable
+segmented_ar1_segments,ar1_rho,float64,Ar1 rho,none/not applicable
+segmented_ar1_segments,formal_inference_performed,bool,Whether hypothesis tests or confidence intervals were treated as valid for GBD estimates,none/not applicable
+trend_practical_stability_sensitivity,location_name,object,Location name,none/not applicable
+trend_practical_stability_sensitivity,sex_name,object,Sex name,none/not applicable
+trend_practical_stability_sensitivity,measure_name,object,Measure name,none/not applicable
+trend_practical_stability_sensitivity,aapc_pct_per_year,float64,Aapc pct per year,none/not applicable
+trend_practical_stability_sensitivity,label_at_0.02_pct_per_year,object,Label at 0.02 pct per year,none/not applicable
+trend_practical_stability_sensitivity,label_at_0.05_pct_per_year,object,Label at 0.05 pct per year,none/not applicable
+trend_practical_stability_sensitivity,label_at_0.10_pct_per_year,object,Label at 0.10 pct per year,none/not applicable
+trend_practical_stability_sensitivity,primary_threshold_pct_per_year,float64,Primary threshold pct per year,none/not applicable
+trend_practical_stability_sensitivity,interpretation,object,Interpretation,none/not applicable
 segmented_fitted,location_name,object,Location name,none/not applicable
 segmented_fitted,sex_name,object,Sex name,none/not applicable
 segmented_fitted,measure_name,object,Measure name,none/not applicable
@@ -246,6 +292,26 @@ decomposition_age_bin_sensitivity,age_specific_rate_change_sign_stable,bool,Age 
 decomposition_age_bin_sensitivity,age_specific_rate_change_shift_pct_of_total_change,float64,Age specific rate change shift pct of total change,none/not applicable
 decomposition_age_bin_sensitivity,material_age_bin_sensitivity,bool,Material age bin sensitivity,none/not applicable
 decomposition_age_bin_sensitivity,sensitivity_rule,object,Sensitivity rule,none/not applicable
+incidence_supported_age_decomposition,location_name,object,Location name,none/not applicable
+incidence_supported_age_decomposition,sex_name,object,Sex name,none/not applicable
+incidence_supported_age_decomposition,measure_name,object,Measure name,none/not applicable
+incidence_supported_age_decomposition,start_year,int64,Start year,none/not applicable
+incidence_supported_age_decomposition,end_year,int64,End year,none/not applicable
+incidence_supported_age_decomposition,supported_age_quantity_start_reconstructed,float64,Supported age quantity start reconstructed,none/not applicable
+incidence_supported_age_decomposition,supported_age_quantity_end_reconstructed,float64,Supported age quantity end reconstructed,none/not applicable
+incidence_supported_age_decomposition,population_source,object,Provenance status of population denominator,none/not applicable
+incidence_supported_age_decomposition,age_partition,object,Age partition,none/not applicable
+incidence_supported_age_decomposition,quantity_scope,object,Quantity scope,none/not applicable
+incidence_supported_age_decomposition,age_group_count,int64,Age group count,none/not applicable
+incidence_supported_age_decomposition,population_size_change,float64,Population size change,none/not applicable
+incidence_supported_age_decomposition,age_structure_change,float64,Age structure change,none/not applicable
+incidence_supported_age_decomposition,age_specific_rate_change,float64,Age specific rate change,none/not applicable
+incidence_supported_age_decomposition,total_change,float64,Total change,none/not applicable
+incidence_supported_age_decomposition,component_sum,float64,Component sum,none/not applicable
+incidence_supported_age_decomposition,closure_error,float64,Component sum minus total reconstructed change,none/not applicable
+incidence_supported_age_decomposition,population_size_change_pct_of_total,float64,Population size change pct of total,none/not applicable
+incidence_supported_age_decomposition,age_structure_change_pct_of_total,float64,Age structure change pct of total,none/not applicable
+incidence_supported_age_decomposition,age_specific_rate_change_pct_of_total,float64,Age specific rate change pct of total,none/not applicable
 annual_chained_decomposition,location_name,object,Location name,none/not applicable
 annual_chained_decomposition,sex_name,object,Sex name,none/not applicable
 annual_chained_decomposition,measure_name,object,Measure name,none/not applicable
@@ -294,134 +360,297 @@ fiveyear_chained_decomposition,cumulative_age_structure_change,float64,Cumulativ
 fiveyear_chained_decomposition,cumulative_age_specific_rate_change,float64,Cumulative age specific rate change,none/not applicable
 fiveyear_chained_decomposition,cumulative_total_change,float64,Cumulative total change,none/not applicable
 fiveyear_chained_decomposition,chain_step_years,int64,Chain step years,none/not applicable
-apc_summary,location_name,object,Location name,none/not applicable
-apc_summary,sex_name,object,Sex name,none/not applicable
-apc_summary,measure_name,object,Measure name,none/not applicable
-apc_summary,window,object,Window,none/not applicable
-apc_summary,start_year,int64,Start year,none/not applicable
-apc_summary,end_year,int64,End year,none/not applicable
-apc_summary,period_count,int64,Period count,none/not applicable
-apc_summary,period_width_years,int64,Period width years,none/not applicable
-apc_summary,age_group_count,int64,Age group count,none/not applicable
-apc_summary,age_coverage,object,Age coverage,none/not applicable
-apc_summary,net_drift,float64,Net drift,none/not applicable
-apc_summary,reference_age,object,Reference age,none/not applicable
-apc_summary,reference_period,object,Reference period,none/not applicable
-apc_summary,reference_cohort_midpoint,float64,Reference cohort midpoint,none/not applicable
-apc_summary,design_rank,int64,Design rank,none/not applicable
-apc_summary,design_columns,int64,Design columns,none/not applicable
-apc_summary,weighted_log_rate_rss,float64,Weighted log rate rss,none/not applicable
-apc_summary,formal_inference_performed,bool,Whether hypothesis tests or confidence intervals were treated as valid for GBD estimates,none/not applicable
-apc_summary,identifiability_note,object,Identifiability note,none/not applicable
-apc_summary,interpretation,object,Interpretation,none/not applicable
-apc_local_drift,location_name,object,Location name,none/not applicable
-apc_local_drift,sex_name,object,Sex name,none/not applicable
-apc_local_drift,measure_name,object,Measure name,none/not applicable
-apc_local_drift,age_name,object,Age name,none/not applicable
-apc_local_drift,age_midpoint,float64,Age midpoint,none/not applicable
-apc_local_drift,local_drift,float64,Local drift,none/not applicable
-apc_local_drift,formal_inference_performed,bool,Whether hypothesis tests or confidence intervals were treated as valid for GBD estimates,none/not applicable
-apc_local_drift,inference_note,object,Inference note,none/not applicable
-apc_age_curve,location_name,object,Location name,none/not applicable
-apc_age_curve,sex_name,object,Sex name,none/not applicable
-apc_age_curve,measure_name,object,Measure name,none/not applicable
-apc_age_curve,age_name,object,Age name,none/not applicable
-apc_age_curve,age_midpoint,float64,Age midpoint,none/not applicable
-apc_age_curve,longitudinal_age_rr,float64,Longitudinal age rr,none/not applicable
-apc_age_curve,reference_age,object,Reference age,none/not applicable
-apc_period_rr,location_name,object,Location name,none/not applicable
-apc_period_rr,sex_name,object,Sex name,none/not applicable
-apc_period_rr,measure_name,object,Measure name,none/not applicable
-apc_period_rr,period,object,Period,none/not applicable
-apc_period_rr,period_midpoint,float64,Period midpoint,none/not applicable
-apc_period_rr,period_rr,float64,Period rr,none/not applicable
-apc_period_rr,reference_period,object,Reference period,none/not applicable
-apc_cohort_rr,location_name,object,Location name,none/not applicable
-apc_cohort_rr,sex_name,object,Sex name,none/not applicable
-apc_cohort_rr,measure_name,object,Measure name,none/not applicable
-apc_cohort_rr,cohort_index,int32,Cohort index,none/not applicable
-apc_cohort_rr,cohort_midpoint,float64,Cohort midpoint,none/not applicable
-apc_cohort_rr,cohort_rr,float64,Cohort rr,none/not applicable
-apc_cohort_rr,reference_cohort_midpoint,float64,Reference cohort midpoint,none/not applicable
-apc_cells,location_name,object,Location name,none/not applicable
-apc_cells,sex_name,object,Sex name,none/not applicable
-apc_cells,measure_name,object,Measure name,none/not applicable
-apc_cells,age_name,object,Age name,none/not applicable
-apc_cells,age_midpoint,float64,Age midpoint,none/not applicable
-apc_cells,period,object,Period,none/not applicable
-apc_cells,period_midpoint,float64,Period midpoint,none/not applicable
-apc_cells,cohort_midpoint,float64,Cohort midpoint,none/not applicable
-apc_cells,events,float64,Events,none/not applicable
-apc_cells,population,float64,Population,none/not applicable
-apc_cells,rate,float64,Rate,none/not applicable
-apc_cells,window,object,Window,none/not applicable
-apc_cells,age_coverage,object,Age coverage,none/not applicable
-apc_cells,age_index,int32,Age index,none/not applicable
-apc_cells,period_index,int32,Period index,none/not applicable
-apc_cells,cohort_index,int32,Cohort index,none/not applicable
-apc_cells,cohort_level,int32,Cohort level,none/not applicable
-apc_cells,fitted_rate,float64,Fitted rate,none/not applicable
-apc_sensitivity_summary_1990_2019,location_name,object,Location name,none/not applicable
-apc_sensitivity_summary_1990_2019,sex_name,object,Sex name,none/not applicable
-apc_sensitivity_summary_1990_2019,measure_name,object,Measure name,none/not applicable
-apc_sensitivity_summary_1990_2019,window,object,Window,none/not applicable
-apc_sensitivity_summary_1990_2019,start_year,int64,Start year,none/not applicable
-apc_sensitivity_summary_1990_2019,end_year,int64,End year,none/not applicable
-apc_sensitivity_summary_1990_2019,period_count,int64,Period count,none/not applicable
-apc_sensitivity_summary_1990_2019,period_width_years,int64,Period width years,none/not applicable
-apc_sensitivity_summary_1990_2019,age_group_count,int64,Age group count,none/not applicable
-apc_sensitivity_summary_1990_2019,age_coverage,object,Age coverage,none/not applicable
-apc_sensitivity_summary_1990_2019,net_drift,float64,Net drift,none/not applicable
-apc_sensitivity_summary_1990_2019,reference_age,object,Reference age,none/not applicable
-apc_sensitivity_summary_1990_2019,reference_period,object,Reference period,none/not applicable
-apc_sensitivity_summary_1990_2019,reference_cohort_midpoint,float64,Reference cohort midpoint,none/not applicable
-apc_sensitivity_summary_1990_2019,design_rank,int64,Design rank,none/not applicable
-apc_sensitivity_summary_1990_2019,design_columns,int64,Design columns,none/not applicable
-apc_sensitivity_summary_1990_2019,weighted_log_rate_rss,float64,Weighted log rate rss,none/not applicable
-apc_sensitivity_summary_1990_2019,formal_inference_performed,bool,Whether hypothesis tests or confidence intervals were treated as valid for GBD estimates,none/not applicable
-apc_sensitivity_summary_1990_2019,identifiability_note,object,Identifiability note,none/not applicable
-apc_sensitivity_summary_1990_2019,interpretation,object,Interpretation,none/not applicable
-apc_sensitivity_local_drift_1990_2019,location_name,object,Location name,none/not applicable
-apc_sensitivity_local_drift_1990_2019,sex_name,object,Sex name,none/not applicable
-apc_sensitivity_local_drift_1990_2019,measure_name,object,Measure name,none/not applicable
-apc_sensitivity_local_drift_1990_2019,age_name,object,Age name,none/not applicable
-apc_sensitivity_local_drift_1990_2019,age_midpoint,float64,Age midpoint,none/not applicable
-apc_sensitivity_local_drift_1990_2019,local_drift,float64,Local drift,none/not applicable
-apc_sensitivity_local_drift_1990_2019,formal_inference_performed,bool,Whether hypothesis tests or confidence intervals were treated as valid for GBD estimates,none/not applicable
-apc_sensitivity_local_drift_1990_2019,inference_note,object,Inference note,none/not applicable
-apc_sensitivity_period_rr_1990_2019,location_name,object,Location name,none/not applicable
-apc_sensitivity_period_rr_1990_2019,sex_name,object,Sex name,none/not applicable
-apc_sensitivity_period_rr_1990_2019,measure_name,object,Measure name,none/not applicable
-apc_sensitivity_period_rr_1990_2019,period,object,Period,none/not applicable
-apc_sensitivity_period_rr_1990_2019,period_midpoint,float64,Period midpoint,none/not applicable
-apc_sensitivity_period_rr_1990_2019,period_rr,float64,Period rr,none/not applicable
-apc_sensitivity_period_rr_1990_2019,reference_period,object,Reference period,none/not applicable
-apc_sensitivity_cohort_rr_1990_2019,location_name,object,Location name,none/not applicable
-apc_sensitivity_cohort_rr_1990_2019,sex_name,object,Sex name,none/not applicable
-apc_sensitivity_cohort_rr_1990_2019,measure_name,object,Measure name,none/not applicable
-apc_sensitivity_cohort_rr_1990_2019,cohort_index,int32,Cohort index,none/not applicable
-apc_sensitivity_cohort_rr_1990_2019,cohort_midpoint,float64,Cohort midpoint,none/not applicable
-apc_sensitivity_cohort_rr_1990_2019,cohort_rr,float64,Cohort rr,none/not applicable
-apc_sensitivity_cohort_rr_1990_2019,reference_cohort_midpoint,float64,Reference cohort midpoint,none/not applicable
+decomposition_path_sensitivity,location_name,object,Location name,none/not applicable
+decomposition_path_sensitivity,sex_name,object,Sex name,none/not applicable
+decomposition_path_sensitivity,measure_name,object,Measure name,none/not applicable
+decomposition_path_sensitivity,total_change,float64,Total change,none/not applicable
+decomposition_path_sensitivity,population_size_change,float64,Population size change,none/not applicable
+decomposition_path_sensitivity,age_structure_change,float64,Age structure change,none/not applicable
+decomposition_path_sensitivity,age_specific_rate_change,float64,Age specific rate change,none/not applicable
+decomposition_path_sensitivity,annual_chained_population_size_change,float64,Annual chained population size change,none/not applicable
+decomposition_path_sensitivity,annual_chained_age_structure_change,float64,Annual chained age structure change,none/not applicable
+decomposition_path_sensitivity,annual_chained_age_specific_rate_change,float64,Annual chained age specific rate change,none/not applicable
+decomposition_path_sensitivity,annual_population_size_change_shift_pct_of_total_change,float64,Annual population size change shift pct of total change,none/not applicable
+decomposition_path_sensitivity,annual_age_structure_change_shift_pct_of_total_change,float64,Annual age structure change shift pct of total change,none/not applicable
+decomposition_path_sensitivity,annual_age_specific_rate_change_shift_pct_of_total_change,float64,Annual age specific rate change shift pct of total change,none/not applicable
+decomposition_path_sensitivity,fiveyear_chained_population_size_change,float64,Fiveyear chained population size change,none/not applicable
+decomposition_path_sensitivity,fiveyear_chained_age_structure_change,float64,Fiveyear chained age structure change,none/not applicable
+decomposition_path_sensitivity,fiveyear_chained_age_specific_rate_change,float64,Fiveyear chained age specific rate change,none/not applicable
+decomposition_path_sensitivity,fiveyear_population_size_change_shift_pct_of_total_change,float64,Fiveyear population size change shift pct of total change,none/not applicable
+decomposition_path_sensitivity,fiveyear_age_structure_change_shift_pct_of_total_change,float64,Fiveyear age structure change shift pct of total change,none/not applicable
+decomposition_path_sensitivity,fiveyear_age_specific_rate_change_shift_pct_of_total_change,float64,Fiveyear age specific rate change shift pct of total change,none/not applicable
+decomposition_path_sensitivity,maximum_path_shift_pct_of_total_change,float64,Maximum path shift pct of total change,none/not applicable
+decomposition_path_sensitivity,interpretation,object,Interpretation,none/not applicable
+apc_descriptive_summary,location_name,object,Location name,none/not applicable
+apc_descriptive_summary,sex_name,object,Sex name,none/not applicable
+apc_descriptive_summary,measure_name,object,Measure name,none/not applicable
+apc_descriptive_summary,window,object,Window,none/not applicable
+apc_descriptive_summary,start_year,int64,Start year,none/not applicable
+apc_descriptive_summary,end_year,int64,End year,none/not applicable
+apc_descriptive_summary,period_count,int64,Period count,none/not applicable
+apc_descriptive_summary,period_width_years,int64,Period width years,none/not applicable
+apc_descriptive_summary,age_group_count,int64,Age group count,none/not applicable
+apc_descriptive_summary,age_coverage,object,Age coverage,none/not applicable
+apc_descriptive_summary,global_period_slope_pct_per_year,float64,Global period slope pct per year,none/not applicable
+apc_descriptive_summary,reference_age,object,Reference age,none/not applicable
+apc_descriptive_summary,reference_period,object,Reference period,none/not applicable
+apc_descriptive_summary,reference_cohort_midpoint,float64,Reference cohort midpoint,none/not applicable
+apc_descriptive_summary,design_rank,int64,Design rank,none/not applicable
+apc_descriptive_summary,design_columns,int64,Design columns,none/not applicable
+apc_descriptive_summary,log_rate_objective_value,float64,Log rate objective value,none/not applicable
+apc_descriptive_summary,weighting,object,Weighting,none/not applicable
+apc_descriptive_summary,formal_inference_performed,bool,Whether hypothesis tests or confidence intervals were treated as valid for GBD estimates,none/not applicable
+apc_descriptive_summary,identifiability_note,object,Identifiability note,none/not applicable
+apc_descriptive_summary,interpretation,object,Interpretation,none/not applicable
+apc_descriptive_summary,analysis_role,object,Analysis role,none/not applicable
+apc_descriptive_summary,method_label,object,Method label,none/not applicable
+apc_descriptive_age_specific_slopes,location_name,object,Location name,none/not applicable
+apc_descriptive_age_specific_slopes,sex_name,object,Sex name,none/not applicable
+apc_descriptive_age_specific_slopes,measure_name,object,Measure name,none/not applicable
+apc_descriptive_age_specific_slopes,weighting,object,Weighting,none/not applicable
+apc_descriptive_age_specific_slopes,age_name,object,Age name,none/not applicable
+apc_descriptive_age_specific_slopes,age_midpoint,float64,Age midpoint,none/not applicable
+apc_descriptive_age_specific_slopes,age_specific_slope_pct_per_year,float64,Age specific slope pct per year,none/not applicable
+apc_descriptive_age_specific_slopes,formal_inference_performed,bool,Whether hypothesis tests or confidence intervals were treated as valid for GBD estimates,none/not applicable
+apc_descriptive_age_specific_slopes,inference_note,object,Inference note,none/not applicable
+apc_descriptive_age_specific_slopes,method_label,object,Method label,none/not applicable
+apc_descriptive_age_curve,location_name,object,Location name,none/not applicable
+apc_descriptive_age_curve,sex_name,object,Sex name,none/not applicable
+apc_descriptive_age_curve,measure_name,object,Measure name,none/not applicable
+apc_descriptive_age_curve,weighting,object,Weighting,none/not applicable
+apc_descriptive_age_curve,age_name,object,Age name,none/not applicable
+apc_descriptive_age_curve,age_midpoint,float64,Age midpoint,none/not applicable
+apc_descriptive_age_curve,descriptive_age_rate_ratio,float64,Descriptive age rate ratio,none/not applicable
+apc_descriptive_age_curve,reference_age,object,Reference age,none/not applicable
+apc_descriptive_age_curve,method_label,object,Method label,none/not applicable
+apc_descriptive_period_curvature,location_name,object,Location name,none/not applicable
+apc_descriptive_period_curvature,sex_name,object,Sex name,none/not applicable
+apc_descriptive_period_curvature,measure_name,object,Measure name,none/not applicable
+apc_descriptive_period_curvature,weighting,object,Weighting,none/not applicable
+apc_descriptive_period_curvature,period,object,Period,none/not applicable
+apc_descriptive_period_curvature,period_midpoint,float64,Period midpoint,none/not applicable
+apc_descriptive_period_curvature,period_curvature_rate_ratio,float64,Period curvature rate ratio,none/not applicable
+apc_descriptive_period_curvature,reference_period,object,Reference period,none/not applicable
+apc_descriptive_period_curvature,method_label,object,Method label,none/not applicable
+apc_descriptive_cohort_curvature,location_name,object,Location name,none/not applicable
+apc_descriptive_cohort_curvature,sex_name,object,Sex name,none/not applicable
+apc_descriptive_cohort_curvature,measure_name,object,Measure name,none/not applicable
+apc_descriptive_cohort_curvature,weighting,object,Weighting,none/not applicable
+apc_descriptive_cohort_curvature,cohort_index,int32,Cohort index,none/not applicable
+apc_descriptive_cohort_curvature,cohort_midpoint,float64,Cohort midpoint,none/not applicable
+apc_descriptive_cohort_curvature,cohort_curvature_rate_ratio,float64,Cohort curvature rate ratio,none/not applicable
+apc_descriptive_cohort_curvature,reference_cohort_midpoint,float64,Reference cohort midpoint,none/not applicable
+apc_descriptive_cohort_curvature,method_label,object,Method label,none/not applicable
+apc_descriptive_cells,location_name,object,Location name,none/not applicable
+apc_descriptive_cells,sex_name,object,Sex name,none/not applicable
+apc_descriptive_cells,measure_name,object,Measure name,none/not applicable
+apc_descriptive_cells,weighting,object,Weighting,none/not applicable
+apc_descriptive_cells,age_name,object,Age name,none/not applicable
+apc_descriptive_cells,age_midpoint,float64,Age midpoint,none/not applicable
+apc_descriptive_cells,period,object,Period,none/not applicable
+apc_descriptive_cells,period_midpoint,float64,Period midpoint,none/not applicable
+apc_descriptive_cells,cohort_midpoint,float64,Cohort midpoint,none/not applicable
+apc_descriptive_cells,events,float64,Events,none/not applicable
+apc_descriptive_cells,population,float64,Population,none/not applicable
+apc_descriptive_cells,observed_rate,float64,Observed rate,none/not applicable
+apc_descriptive_cells,window,object,Window,none/not applicable
+apc_descriptive_cells,age_coverage,object,Age coverage,none/not applicable
+apc_descriptive_cells,age_index,int32,Age index,none/not applicable
+apc_descriptive_cells,period_index,int32,Period index,none/not applicable
+apc_descriptive_cells,cohort_index,int32,Cohort index,none/not applicable
+apc_descriptive_cells,cohort_level,int32,Cohort level,none/not applicable
+apc_descriptive_cells,custom_fitted_rate,float64,Custom fitted rate,none/not applicable
+apc_descriptive_cells,method_label,object,Method label,none/not applicable
+apc_unweighted_summary,location_name,object,Location name,none/not applicable
+apc_unweighted_summary,sex_name,object,Sex name,none/not applicable
+apc_unweighted_summary,measure_name,object,Measure name,none/not applicable
+apc_unweighted_summary,window,object,Window,none/not applicable
+apc_unweighted_summary,start_year,int64,Start year,none/not applicable
+apc_unweighted_summary,end_year,int64,End year,none/not applicable
+apc_unweighted_summary,period_count,int64,Period count,none/not applicable
+apc_unweighted_summary,period_width_years,int64,Period width years,none/not applicable
+apc_unweighted_summary,age_group_count,int64,Age group count,none/not applicable
+apc_unweighted_summary,age_coverage,object,Age coverage,none/not applicable
+apc_unweighted_summary,global_period_slope_pct_per_year,float64,Global period slope pct per year,none/not applicable
+apc_unweighted_summary,reference_age,object,Reference age,none/not applicable
+apc_unweighted_summary,reference_period,object,Reference period,none/not applicable
+apc_unweighted_summary,reference_cohort_midpoint,float64,Reference cohort midpoint,none/not applicable
+apc_unweighted_summary,design_rank,int64,Design rank,none/not applicable
+apc_unweighted_summary,design_columns,int64,Design columns,none/not applicable
+apc_unweighted_summary,log_rate_objective_value,float64,Log rate objective value,none/not applicable
+apc_unweighted_summary,weighting,object,Weighting,none/not applicable
+apc_unweighted_summary,formal_inference_performed,bool,Whether hypothesis tests or confidence intervals were treated as valid for GBD estimates,none/not applicable
+apc_unweighted_summary,identifiability_note,object,Identifiability note,none/not applicable
+apc_unweighted_summary,interpretation,object,Interpretation,none/not applicable
+apc_unweighted_summary,analysis_role,object,Analysis role,none/not applicable
+apc_unweighted_summary,method_label,object,Method label,none/not applicable
+apc_unweighted_age_specific_slopes,location_name,object,Location name,none/not applicable
+apc_unweighted_age_specific_slopes,sex_name,object,Sex name,none/not applicable
+apc_unweighted_age_specific_slopes,measure_name,object,Measure name,none/not applicable
+apc_unweighted_age_specific_slopes,weighting,object,Weighting,none/not applicable
+apc_unweighted_age_specific_slopes,age_name,object,Age name,none/not applicable
+apc_unweighted_age_specific_slopes,age_midpoint,float64,Age midpoint,none/not applicable
+apc_unweighted_age_specific_slopes,age_specific_slope_pct_per_year,float64,Age specific slope pct per year,none/not applicable
+apc_unweighted_age_specific_slopes,formal_inference_performed,bool,Whether hypothesis tests or confidence intervals were treated as valid for GBD estimates,none/not applicable
+apc_unweighted_age_specific_slopes,inference_note,object,Inference note,none/not applicable
+apc_unweighted_age_specific_slopes,method_label,object,Method label,none/not applicable
+apc_unweighted_age_curve,location_name,object,Location name,none/not applicable
+apc_unweighted_age_curve,sex_name,object,Sex name,none/not applicable
+apc_unweighted_age_curve,measure_name,object,Measure name,none/not applicable
+apc_unweighted_age_curve,weighting,object,Weighting,none/not applicable
+apc_unweighted_age_curve,age_name,object,Age name,none/not applicable
+apc_unweighted_age_curve,age_midpoint,float64,Age midpoint,none/not applicable
+apc_unweighted_age_curve,descriptive_age_rate_ratio,float64,Descriptive age rate ratio,none/not applicable
+apc_unweighted_age_curve,reference_age,object,Reference age,none/not applicable
+apc_unweighted_age_curve,method_label,object,Method label,none/not applicable
+apc_unweighted_period_curvature,location_name,object,Location name,none/not applicable
+apc_unweighted_period_curvature,sex_name,object,Sex name,none/not applicable
+apc_unweighted_period_curvature,measure_name,object,Measure name,none/not applicable
+apc_unweighted_period_curvature,weighting,object,Weighting,none/not applicable
+apc_unweighted_period_curvature,period,object,Period,none/not applicable
+apc_unweighted_period_curvature,period_midpoint,float64,Period midpoint,none/not applicable
+apc_unweighted_period_curvature,period_curvature_rate_ratio,float64,Period curvature rate ratio,none/not applicable
+apc_unweighted_period_curvature,reference_period,object,Reference period,none/not applicable
+apc_unweighted_period_curvature,method_label,object,Method label,none/not applicable
+apc_unweighted_cohort_curvature,location_name,object,Location name,none/not applicable
+apc_unweighted_cohort_curvature,sex_name,object,Sex name,none/not applicable
+apc_unweighted_cohort_curvature,measure_name,object,Measure name,none/not applicable
+apc_unweighted_cohort_curvature,weighting,object,Weighting,none/not applicable
+apc_unweighted_cohort_curvature,cohort_index,int32,Cohort index,none/not applicable
+apc_unweighted_cohort_curvature,cohort_midpoint,float64,Cohort midpoint,none/not applicable
+apc_unweighted_cohort_curvature,cohort_curvature_rate_ratio,float64,Cohort curvature rate ratio,none/not applicable
+apc_unweighted_cohort_curvature,reference_cohort_midpoint,float64,Reference cohort midpoint,none/not applicable
+apc_unweighted_cohort_curvature,method_label,object,Method label,none/not applicable
+apc_unweighted_cells,location_name,object,Location name,none/not applicable
+apc_unweighted_cells,sex_name,object,Sex name,none/not applicable
+apc_unweighted_cells,measure_name,object,Measure name,none/not applicable
+apc_unweighted_cells,weighting,object,Weighting,none/not applicable
+apc_unweighted_cells,age_name,object,Age name,none/not applicable
+apc_unweighted_cells,age_midpoint,float64,Age midpoint,none/not applicable
+apc_unweighted_cells,period,object,Period,none/not applicable
+apc_unweighted_cells,period_midpoint,float64,Period midpoint,none/not applicable
+apc_unweighted_cells,cohort_midpoint,float64,Cohort midpoint,none/not applicable
+apc_unweighted_cells,events,float64,Events,none/not applicable
+apc_unweighted_cells,population,float64,Population,none/not applicable
+apc_unweighted_cells,observed_rate,float64,Observed rate,none/not applicable
+apc_unweighted_cells,window,object,Window,none/not applicable
+apc_unweighted_cells,age_coverage,object,Age coverage,none/not applicable
+apc_unweighted_cells,age_index,int32,Age index,none/not applicable
+apc_unweighted_cells,period_index,int32,Period index,none/not applicable
+apc_unweighted_cells,cohort_index,int32,Cohort index,none/not applicable
+apc_unweighted_cells,cohort_level,int32,Cohort level,none/not applicable
+apc_unweighted_cells,custom_fitted_rate,float64,Custom fitted rate,none/not applicable
+apc_unweighted_cells,method_label,object,Method label,none/not applicable
+apc_weighting_sensitivity,location_name,object,Location name,none/not applicable
+apc_weighting_sensitivity,sex_name,object,Sex name,none/not applicable
+apc_weighting_sensitivity,measure_name,object,Measure name,none/not applicable
+apc_weighting_sensitivity,population_weighted_global_period_slope,float64,Population weighted global period slope,none/not applicable
+apc_weighting_sensitivity,equal_weight_global_period_slope,float64,Equal weight global period slope,none/not applicable
+apc_weighting_sensitivity,equal_minus_population_weighted_global_period_slope,float64,Equal minus population weighted global period slope,none/not applicable
+apc_weighting_sensitivity,maximum_absolute_age_specific_slope_difference,float64,Maximum absolute age specific slope difference,none/not applicable
+apc_weighting_sensitivity,maximum_absolute_log_age_rate_ratio_difference,float64,Maximum absolute log age rate ratio difference,none/not applicable
+apc_weighting_sensitivity,maximum_absolute_log_period_rate_ratio_difference,float64,Maximum absolute log period rate ratio difference,none/not applicable
+apc_weighting_sensitivity,maximum_absolute_log_cohort_rate_ratio_difference,float64,Maximum absolute log cohort rate ratio difference,none/not applicable
+apc_weighting_sensitivity,interpretation,object,Interpretation,none/not applicable
+apc_sensitivity_1990_2019_summary,location_name,object,Location name,none/not applicable
+apc_sensitivity_1990_2019_summary,sex_name,object,Sex name,none/not applicable
+apc_sensitivity_1990_2019_summary,measure_name,object,Measure name,none/not applicable
+apc_sensitivity_1990_2019_summary,window,object,Window,none/not applicable
+apc_sensitivity_1990_2019_summary,start_year,int64,Start year,none/not applicable
+apc_sensitivity_1990_2019_summary,end_year,int64,End year,none/not applicable
+apc_sensitivity_1990_2019_summary,period_count,int64,Period count,none/not applicable
+apc_sensitivity_1990_2019_summary,period_width_years,int64,Period width years,none/not applicable
+apc_sensitivity_1990_2019_summary,age_group_count,int64,Age group count,none/not applicable
+apc_sensitivity_1990_2019_summary,age_coverage,object,Age coverage,none/not applicable
+apc_sensitivity_1990_2019_summary,global_period_slope_pct_per_year,float64,Global period slope pct per year,none/not applicable
+apc_sensitivity_1990_2019_summary,reference_age,object,Reference age,none/not applicable
+apc_sensitivity_1990_2019_summary,reference_period,object,Reference period,none/not applicable
+apc_sensitivity_1990_2019_summary,reference_cohort_midpoint,float64,Reference cohort midpoint,none/not applicable
+apc_sensitivity_1990_2019_summary,design_rank,int64,Design rank,none/not applicable
+apc_sensitivity_1990_2019_summary,design_columns,int64,Design columns,none/not applicable
+apc_sensitivity_1990_2019_summary,log_rate_objective_value,float64,Log rate objective value,none/not applicable
+apc_sensitivity_1990_2019_summary,weighting,object,Weighting,none/not applicable
+apc_sensitivity_1990_2019_summary,formal_inference_performed,bool,Whether hypothesis tests or confidence intervals were treated as valid for GBD estimates,none/not applicable
+apc_sensitivity_1990_2019_summary,identifiability_note,object,Identifiability note,none/not applicable
+apc_sensitivity_1990_2019_summary,interpretation,object,Interpretation,none/not applicable
+apc_sensitivity_1990_2019_summary,analysis_role,object,Analysis role,none/not applicable
+apc_sensitivity_1990_2019_summary,method_label,object,Method label,none/not applicable
+apc_sensitivity_1990_2019_age_specific_slopes,location_name,object,Location name,none/not applicable
+apc_sensitivity_1990_2019_age_specific_slopes,sex_name,object,Sex name,none/not applicable
+apc_sensitivity_1990_2019_age_specific_slopes,measure_name,object,Measure name,none/not applicable
+apc_sensitivity_1990_2019_age_specific_slopes,weighting,object,Weighting,none/not applicable
+apc_sensitivity_1990_2019_age_specific_slopes,age_name,object,Age name,none/not applicable
+apc_sensitivity_1990_2019_age_specific_slopes,age_midpoint,float64,Age midpoint,none/not applicable
+apc_sensitivity_1990_2019_age_specific_slopes,age_specific_slope_pct_per_year,float64,Age specific slope pct per year,none/not applicable
+apc_sensitivity_1990_2019_age_specific_slopes,formal_inference_performed,bool,Whether hypothesis tests or confidence intervals were treated as valid for GBD estimates,none/not applicable
+apc_sensitivity_1990_2019_age_specific_slopes,inference_note,object,Inference note,none/not applicable
+apc_sensitivity_1990_2019_age_specific_slopes,method_label,object,Method label,none/not applicable
+apc_sensitivity_1990_2019_age_curve,location_name,object,Location name,none/not applicable
+apc_sensitivity_1990_2019_age_curve,sex_name,object,Sex name,none/not applicable
+apc_sensitivity_1990_2019_age_curve,measure_name,object,Measure name,none/not applicable
+apc_sensitivity_1990_2019_age_curve,weighting,object,Weighting,none/not applicable
+apc_sensitivity_1990_2019_age_curve,age_name,object,Age name,none/not applicable
+apc_sensitivity_1990_2019_age_curve,age_midpoint,float64,Age midpoint,none/not applicable
+apc_sensitivity_1990_2019_age_curve,descriptive_age_rate_ratio,float64,Descriptive age rate ratio,none/not applicable
+apc_sensitivity_1990_2019_age_curve,reference_age,object,Reference age,none/not applicable
+apc_sensitivity_1990_2019_age_curve,method_label,object,Method label,none/not applicable
+apc_sensitivity_1990_2019_period_curvature,location_name,object,Location name,none/not applicable
+apc_sensitivity_1990_2019_period_curvature,sex_name,object,Sex name,none/not applicable
+apc_sensitivity_1990_2019_period_curvature,measure_name,object,Measure name,none/not applicable
+apc_sensitivity_1990_2019_period_curvature,weighting,object,Weighting,none/not applicable
+apc_sensitivity_1990_2019_period_curvature,period,object,Period,none/not applicable
+apc_sensitivity_1990_2019_period_curvature,period_midpoint,float64,Period midpoint,none/not applicable
+apc_sensitivity_1990_2019_period_curvature,period_curvature_rate_ratio,float64,Period curvature rate ratio,none/not applicable
+apc_sensitivity_1990_2019_period_curvature,reference_period,object,Reference period,none/not applicable
+apc_sensitivity_1990_2019_period_curvature,method_label,object,Method label,none/not applicable
+apc_sensitivity_1990_2019_cohort_curvature,location_name,object,Location name,none/not applicable
+apc_sensitivity_1990_2019_cohort_curvature,sex_name,object,Sex name,none/not applicable
+apc_sensitivity_1990_2019_cohort_curvature,measure_name,object,Measure name,none/not applicable
+apc_sensitivity_1990_2019_cohort_curvature,weighting,object,Weighting,none/not applicable
+apc_sensitivity_1990_2019_cohort_curvature,cohort_index,int32,Cohort index,none/not applicable
+apc_sensitivity_1990_2019_cohort_curvature,cohort_midpoint,float64,Cohort midpoint,none/not applicable
+apc_sensitivity_1990_2019_cohort_curvature,cohort_curvature_rate_ratio,float64,Cohort curvature rate ratio,none/not applicable
+apc_sensitivity_1990_2019_cohort_curvature,reference_cohort_midpoint,float64,Reference cohort midpoint,none/not applicable
+apc_sensitivity_1990_2019_cohort_curvature,method_label,object,Method label,none/not applicable
+apc_sensitivity_1990_2019_cells,location_name,object,Location name,none/not applicable
+apc_sensitivity_1990_2019_cells,sex_name,object,Sex name,none/not applicable
+apc_sensitivity_1990_2019_cells,measure_name,object,Measure name,none/not applicable
+apc_sensitivity_1990_2019_cells,weighting,object,Weighting,none/not applicable
+apc_sensitivity_1990_2019_cells,age_name,object,Age name,none/not applicable
+apc_sensitivity_1990_2019_cells,age_midpoint,float64,Age midpoint,none/not applicable
+apc_sensitivity_1990_2019_cells,period,object,Period,none/not applicable
+apc_sensitivity_1990_2019_cells,period_midpoint,float64,Period midpoint,none/not applicable
+apc_sensitivity_1990_2019_cells,cohort_midpoint,float64,Cohort midpoint,none/not applicable
+apc_sensitivity_1990_2019_cells,events,float64,Events,none/not applicable
+apc_sensitivity_1990_2019_cells,population,float64,Population,none/not applicable
+apc_sensitivity_1990_2019_cells,observed_rate,float64,Observed rate,none/not applicable
+apc_sensitivity_1990_2019_cells,window,object,Window,none/not applicable
+apc_sensitivity_1990_2019_cells,age_coverage,object,Age coverage,none/not applicable
+apc_sensitivity_1990_2019_cells,age_index,int32,Age index,none/not applicable
+apc_sensitivity_1990_2019_cells,period_index,int32,Period index,none/not applicable
+apc_sensitivity_1990_2019_cells,cohort_index,int32,Cohort index,none/not applicable
+apc_sensitivity_1990_2019_cells,cohort_level,int32,Cohort level,none/not applicable
+apc_sensitivity_1990_2019_cells,custom_fitted_rate,float64,Custom fitted rate,none/not applicable
+apc_sensitivity_1990_2019_cells,method_label,object,Method label,none/not applicable
 apc_window_sensitivity,location_name,object,Location name,none/not applicable
 apc_window_sensitivity,sex_name,object,Sex name,none/not applicable
 apc_window_sensitivity,measure_name,object,Measure name,none/not applicable
-apc_window_sensitivity,primary_net_drift_1994_2023,float64,Primary net drift 1994 2023,none/not applicable
-apc_window_sensitivity,sensitivity_net_drift_1990_2019,float64,Sensitivity net drift 1990 2019,none/not applicable
+apc_window_sensitivity,primary_global_period_slope_1994_2023,float64,Primary global period slope 1994 2023,none/not applicable
+apc_window_sensitivity,sensitivity_global_period_slope_1990_2019,float64,Sensitivity global period slope 1990 2019,none/not applicable
 apc_window_sensitivity,primary_direction,object,Primary direction,none/not applicable
 apc_window_sensitivity,sensitivity_direction,object,Sensitivity direction,none/not applicable
 apc_window_sensitivity,direction_agreement,bool,Direction agreement,none/not applicable
-apc_window_sensitivity,net_drift_difference_pct_points,float64,Net drift difference pct points,none/not applicable
+apc_window_sensitivity,global_period_slope_difference_pct_points,float64,Global period slope difference pct points,none/not applicable
 apc_window_sensitivity,comparison_note,object,Comparison note,none/not applicable
 apc_primary_direction_agreement,location_name,object,Location name,none/not applicable
 apc_primary_direction_agreement,sex_name,object,Sex name,none/not applicable
 apc_primary_direction_agreement,measure_name,object,Measure name,none/not applicable
 apc_primary_direction_agreement,primary_segmented_aapc,float64,Primary segmented aapc,none/not applicable
 apc_primary_direction_agreement,primary_observed_annualized_endpoint_change_pct,float64,Primary observed annualized endpoint change pct,none/not applicable
-apc_primary_direction_agreement,apc_net_drift,float64,Apc net drift,none/not applicable
+apc_primary_direction_agreement,apc_global_period_slope,float64,Apc global period slope,none/not applicable
 apc_primary_direction_agreement,primary_segmented_direction,object,Primary segmented direction,none/not applicable
 apc_primary_direction_agreement,primary_observed_direction,object,Primary observed direction,none/not applicable
-apc_primary_direction_agreement,apc_net_drift_direction,object,Apc net drift direction,none/not applicable
+apc_primary_direction_agreement,apc_global_period_slope_label,object,Apc global period slope label,none/not applicable
 apc_primary_direction_agreement,apc_vs_segmented_direction_agreement,bool,Apc vs segmented direction agreement,none/not applicable
 apc_primary_direction_agreement,apc_vs_observed_direction_agreement,bool,Apc vs observed direction agreement,none/not applicable
 apc_primary_direction_agreement,apc_minus_segmented_aapc_pct_points,float64,Apc minus segmented aapc pct points,none/not applicable
@@ -440,12 +669,12 @@ cross_analysis_consistency,age_structure_change,float64,Age structure change,non
 cross_analysis_consistency,age_specific_rate_change,float64,Age specific rate change,none/not applicable
 cross_analysis_consistency,decomposition_total_change,float64,Decomposition total change,none/not applicable
 cross_analysis_consistency,decomposition_age_partition,object,Decomposition age partition,none/not applicable
-cross_analysis_consistency,apc_net_drift_1994_2023,float64,Apc net drift 1994 2023,none/not applicable
-cross_analysis_consistency,apc_net_drift_direction,object,Apc net drift direction,none/not applicable
-cross_analysis_consistency,important_local_drifts,object,Important local drifts,none/not applicable
-cross_analysis_consistency,local_drifts_include_opposing_directions,bool,Local drifts include opposing directions,none/not applicable
-cross_analysis_consistency,period_pattern,object,Period pattern,none/not applicable
-cross_analysis_consistency,cohort_pattern,object,Cohort pattern,none/not applicable
+cross_analysis_consistency,apc_global_period_slope_1994_2023,float64,Apc global period slope 1994 2023,none/not applicable
+cross_analysis_consistency,apc_global_period_slope_label,object,Apc global period slope label,none/not applicable
+cross_analysis_consistency,important_age_specific_slopes,object,Important age specific slopes,none/not applicable
+cross_analysis_consistency,age_specific_slopes_include_opposing_directions,bool,Age specific slopes include opposing directions,none/not applicable
+cross_analysis_consistency,period_curvature_pattern,object,Period curvature pattern,none/not applicable
+cross_analysis_consistency,cohort_curvature_pattern,object,Cohort curvature pattern,none/not applicable
 cross_analysis_consistency,methods_are_independent_replications,bool,Methods are independent replications,none/not applicable
 cross_analysis_consistency,uncertainty_note,object,Uncertainty note,none/not applicable
 cross_method_contradictions,location_name,object,Location name,none/not applicable
@@ -454,11 +683,11 @@ cross_method_contradictions,measure_name,object,Measure name,none/not applicable
 cross_method_contradictions,segmented_direction_1990_2023,object,Segmented direction 1990 2023,none/not applicable
 cross_method_contradictions,asr_endpoint_direction_1994_2023,object,Asr endpoint direction 1994 2023,none/not applicable
 cross_method_contradictions,selected_age_crude_direction_1994_2023,object,Selected age crude direction 1994 2023,none/not applicable
-cross_method_contradictions,apc_net_drift_direction_1994_2023,object,Apc net drift direction 1994 2023,none/not applicable
+cross_method_contradictions,apc_global_period_slope_label_1994_2023,object,Apc global period slope label 1994 2023,none/not applicable
 cross_method_contradictions,asr_annualized_endpoint_change_1994_2023,float64,Asr annualized endpoint change 1994 2023,none/not applicable
 cross_method_contradictions,selected_age_crude_annualized_change_1994_2023,float64,Selected age crude annualized change 1994 2023,none/not applicable
-cross_method_contradictions,apc_net_drift_1994_2023,float64,Apc net drift 1994 2023,none/not applicable
-cross_method_contradictions,opposing_local_drifts,bool,Opposing local drifts,none/not applicable
+cross_method_contradictions,apc_global_period_slope_1994_2023,float64,Apc global period slope 1994 2023,none/not applicable
+cross_method_contradictions,opposing_age_specific_slopes,bool,Opposing age specific slopes,none/not applicable
 cross_method_contradictions,likely_explanatory_factors,object,Likely explanatory factors,none/not applicable
 cross_method_contradictions,implementation_failure_indicated,bool,Implementation failure indicated,none/not applicable
 cross_method_contradictions,interpretation,object,Interpretation,none/not applicable

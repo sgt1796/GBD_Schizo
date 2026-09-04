@@ -1,537 +1,109 @@
 ---
-title: "Schizophrenia GBD Analysis Results"
+title: "Schizophrenia burden in China and the United States, 1990-2023"
+subtitle: "Analysis report based on Global Burden of Disease 2023 estimates"
+date: "4 September 2026"
 output:
   pdf_document:
-    toc: yes
-    toc_depth: '3'
-  html_document:
-    toc: yes
+    toc: true
     toc_depth: 3
-    number_sections: yes
-    df_print: paged
+  html_document:
+    toc: true
+    toc_depth: 3
+    number_sections: true
 ---
 
-```{r rmd-setting, echo=FALSE}
-knitr::opts_chunk$set(
-  echo = FALSE,
-  warning = FALSE,
-  message = FALSE,
-  fig.width = 10,
-  fig.height = 6,
-  dpi = 150
-)
-```
-
-This report mirrors the breast cancer analysis structure, adapted to the schizophrenia extract. The schizophrenia cause table contains incidence, prevalence, YLDs, and DALYs for China and the United States, with female and male strata. The source age structure uses `70+ years` as the top age bin. The report focuses on the available cause-burden measures in this extract.
-
-```{r setup}
-library(dplyr)
-library(tidyr)
-library(readr)
-library(knitr)
-
-options(scipen = 999)
-
-input_file <- knitr::current_input()
-candidate_inputs <- unique(c(
-  input_file,
-  file.path(getwd(), input_file),
-  file.path("schizo_GBD", basename(input_file))
-))
-candidate_inputs <- candidate_inputs[!is.na(candidate_inputs) & file.exists(candidate_inputs)]
-
-root_dir <- if (length(candidate_inputs) > 0) {
-  dirname(normalizePath(candidate_inputs[[1]], winslash = "/", mustWork = TRUE))
-} else {
-  normalizePath(".", winslash = "/", mustWork = TRUE)
-}
-if (!dir.exists(file.path(root_dir, "derived")) && dir.exists(file.path(root_dir, "schizo_GBD", "derived"))) {
-  root_dir <- file.path(root_dir, "schizo_GBD")
-}
-derived_dir <- file.path(root_dir, "derived")
-fig_dir <- file.path(root_dir, "figures")
-
-locations <- c("China", "United States of America")
-sexes <- c("Female", "Male")
-main_measures <- c("Incidence", "Prevalence", "DALYs")
-all_measures <- c("Incidence", "Prevalence", "YLDs", "DALYs")
-
-fmt_int <- function(x) {
-  format(round(as.numeric(x)), big.mark = ",", scientific = FALSE, trim = TRUE)
-}
-
-fmt_num <- function(x, digits = 1) {
-  x_num <- as.numeric(x)
-  ifelse(
-    is.na(x_num),
-    "NA",
-    formatC(x_num, digits = digits, format = "f", big.mark = ",")
-  )
-}
-
-fmt_pct <- function(x, digits = 1) {
-  paste0(fmt_num(x, digits), "%")
-}
-
-fmt_signed_int <- function(x) {
-  x_num <- as.numeric(x)
-  paste0(ifelse(!is.na(x_num) & x_num > 0, "+", ""), fmt_int(x_num))
-}
-
-fmt_signed_pct <- function(x, digits = 1) {
-  x_num <- as.numeric(x)
-  paste0(ifelse(!is.na(x_num) & x_num > 0, "+", ""), fmt_pct(x_num, digits))
-}
-
-fmt_ratio <- function(x, digits = 2) {
-  formatC(as.numeric(x), digits = digits, format = "f")
-}
-
-fmt_ratio_range <- function(x, digits = 2) {
-  x_num <- as.numeric(x)
-  x_num <- x_num[!is.na(x_num)]
-  if (length(x_num) == 0) {
-    return("NA")
-  }
-  paste0(fmt_ratio(min(x_num), digits), "-", fmt_ratio(max(x_num), digits))
-}
-
-fmt_pct_range <- function(x, digits = 2) {
-  x_num <- as.numeric(x)
-  x_num <- x_num[!is.na(x_num)]
-  if (length(x_num) == 0) {
-    return("NA")
-  }
-  paste0(fmt_signed_pct(min(x_num), digits), " to ", fmt_signed_pct(max(x_num), digits))
-}
-
-fmt_count_range <- function(x) {
-  x_num <- as.numeric(x)
-  x_num <- x_num[!is.na(x_num)]
-  if (length(x_num) == 0) {
-    return("NA")
-  }
-  if (min(x_num) == max(x_num)) {
-    return(fmt_int(min(x_num)))
-  }
-  paste0(fmt_int(min(x_num)), "-", fmt_int(max(x_num)))
-}
-
-format_joinpoints <- function(x, empty = "None") {
-  value <- trimws(as.character(x))
-  value[is.na(value)] <- ""
-  ifelse(value == "", empty, gsub(",", ", ", value))
-}
-
-emit_burden_highlights <- function(data) {
-  cat("Selected endpoint highlights:\n\n")
-  for (sx in sexes) {
-    for (measure in main_measures) {
-      rows <- data %>%
-        filter(sex_name == sx, measure_name == measure)
-      china <- rows %>% filter(location_name == "China") %>% slice_head(n = 1)
-      us <- rows %>% filter(location_name == "United States of America") %>% slice_head(n = 1)
-      if (nrow(china) == 0 || nrow(us) == 0) {
-        next
-      }
-      cat(
-        "- **", sx, " ", measure, ".** China reached ", fmt_int(china$count_2023),
-        " in 2023 (", fmt_signed_pct(china$count_change_pct, 1), " since 1990; ASR ",
-        fmt_num(china$asr_2023, 2), " per 100,000). The United States reached ",
-        fmt_int(us$count_2023), " (", fmt_signed_pct(us$count_change_pct, 1),
-        "; ASR ", fmt_num(us$asr_2023, 2), " per 100,000).\n",
-        sep = ""
-      )
-    }
-  }
-  cat("\n")
-}
-
-emit_comparison_highlights <- function(data) {
-  data_main <- data %>% filter(measure_name %in% main_measures)
-  country_asr <- data_main %>%
-    filter(comparison_type == "China vs United States", metric_name == "Age-standardized rate")
-  country_counts <- data_main %>%
-    filter(comparison_type == "China vs United States", metric_name == "All-age number")
-  sex_asr <- data_main %>%
-    filter(comparison_type == "Male vs Female", metric_name == "Age-standardized rate")
-  sex_counts <- data_main %>%
-    filter(comparison_type == "Male vs Female", metric_name == "All-age number")
-  largest_shifts <- data_main %>%
-    mutate(abs_shift = abs(ratio_change_pct)) %>%
-    arrange(desc(abs_shift)) %>%
-    slice_head(n = 3) %>%
-    transmute(
-      label = paste0(
-        comparison_type, ", ", sex_name, " ", measure_name, " ",
-        metric_name, " (", fmt_signed_pct(ratio_change_pct, 1), ")"
-      )
-    )
-
-  cat("Concise contrast summary:\n\n")
-  cat(
-    "- **Country rate contrast.** In 2023, China/United States age-standardized rate ratios for the main measures ranged from ",
-    fmt_ratio_range(country_asr$ratio_2023, 2),
-    "; values below 1.00 indicate lower ASRs in China than in the United States.\n",
-    sep = ""
-  )
-  cat(
-    "- **Country count contrast.** China's 2023 all-age numbers were ",
-    fmt_ratio_range(country_counts$ratio_2023, 2),
-    " times the corresponding U.S. counts across the main measures.\n",
-    sep = ""
-  )
-  cat(
-    "- **Sex contrast.** Male/female 2023 ratios ranged from ",
-    fmt_ratio_range(sex_asr$ratio_2023, 2),
-    " for ASRs and ", fmt_ratio_range(sex_counts$ratio_2023, 2),
-    " for all-age numbers.\n",
-    sep = ""
-  )
-  cat("- **Largest ratio shifts.** ", paste(largest_shifts$label, collapse = "; "), ".\n\n", sep = "")
-}
-
-emit_segmented_highlights <- function(data) {
-  segmented_notes <- data %>%
-    filter(measure_name %in% main_measures) %>%
-    group_by(measure_name) %>%
-    summarise(
-      panels = n(),
-      panels_with_joinpoints = sum(joinpoint_count > 0, na.rm = TRUE),
-      aapc_range = fmt_pct_range(aapc, 2),
-      eapc_range = fmt_pct_range(single_slope_eapc, 2),
-      .groups = "drop"
-    ) %>%
-    arrange(factor(measure_name, levels = main_measures))
-
-  cat("Segmented-model summary:\n\n")
-  for (row_index in seq_len(nrow(segmented_notes))) {
-    row <- segmented_notes[row_index, ]
-    cat(
-      "- **", row$measure_name, ".** AAPC ranged from ", row$aapc_range,
-      " across ", row$panels, " location-sex panels; ",
-      row$panels_with_joinpoints, " panels selected at least one joinpoint. The comparable single-slope EAPC range was ",
-      row$eapc_range, ".\n",
-      sep = ""
-    )
-  }
-  cat("\n")
-}
-
-emit_decomposition_highlights <- function(data) {
-  component_notes <- data %>%
-    filter(measure_name %in% main_measures) %>%
-    mutate(
-      dominant_component = case_when(
-        abs(population_growth) >= abs(population_aging) & abs(population_growth) >= abs(rate_change) ~ "population growth",
-        abs(population_aging) >= abs(population_growth) & abs(population_aging) >= abs(rate_change) ~ "population aging",
-        TRUE ~ "rate change"
-      ),
-      dominant_value = case_when(
-        dominant_component == "population growth" ~ population_growth,
-        dominant_component == "population aging" ~ population_aging,
-        TRUE ~ rate_change
-      ),
-      dominant_share = case_when(
-        dominant_component == "population growth" ~ population_growth_pct_of_total,
-        dominant_component == "population aging" ~ population_aging_pct_of_total,
-        TRUE ~ rate_change_pct_of_total
-      )
-    ) %>%
-    group_by(measure_name) %>%
-    slice_max(abs(total_change), n = 1, with_ties = FALSE) %>%
-    ungroup() %>%
-    arrange(factor(measure_name, levels = main_measures))
-
-  cat("Endpoint decomposition highlights:\n\n")
-  for (row_index in seq_len(nrow(component_notes))) {
-    row <- component_notes[row_index, ]
-    cat(
-      "- **", row$measure_name, ".** The largest adult count change was in ",
-      row$location_name, " ", row$sex_name, " (", fmt_signed_int(row$total_change),
-      "). The dominant component was ", row$dominant_component, " (",
-      fmt_signed_int(row$dominant_value), "; ", fmt_signed_pct(row$dominant_share, 1),
-      " of total change).\n",
-      sep = ""
-    )
-  }
-  cat("\n")
-}
-
-emit_annual_chain_highlights <- function(data) {
-  data_main <- data %>% filter(measure_name %in% main_measures)
-  max_total_difference <- max(abs(data_main$total_change_difference), na.rm = TRUE)
-  path_shift <- data_main %>%
-    mutate(
-      component_shift =
-        abs(annual_chain_population_growth - endpoint_population_growth) +
-        abs(annual_chain_population_aging - endpoint_population_aging) +
-        abs(annual_chain_rate_change - endpoint_rate_change)
-    ) %>%
-    slice_max(component_shift, n = 1, with_ties = FALSE)
-
-  cat("Annual-chain decomposition checks:\n\n")
-  cat(
-    "- **Total-change agreement.** Annual-chain totals matched endpoint totals within ",
-    fmt_num(max_total_difference, 6), " counts across the main panels.\n",
-    sep = ""
-  )
-  cat(
-    "- **Path dependence.** Component allocation shifted most for ",
-    path_shift$location_name, " ", path_shift$sex_name, " ", path_shift$measure_name,
-    ": endpoint rate change was ", fmt_signed_int(path_shift$endpoint_rate_change),
-    " versus ", fmt_signed_int(path_shift$annual_chain_rate_change),
-    " under annual chaining.\n\n",
-    sep = ""
-  )
-}
-
-emit_apc_coverage_highlights <- function(cells, summary_data) {
-  coverage <- cells %>%
-    group_by(location_name, sex_name, measure_name) %>%
-    summarise(
-      age_groups = n_distinct(age_name),
-      period_blocks = n_distinct(period_label),
-      cohort_groups = n_distinct(cohort_label),
-      age_period_cells = n(),
-      .groups = "drop"
-    ) %>%
-    left_join(
-      summary_data %>%
-        select(location_name, sex_name, measure_name, model_year_start, model_year_end),
-      by = c("location_name", "sex_name", "measure_name")
-    ) %>%
-    filter(measure_name %in% main_measures)
-
-  year_span <- coverage %>%
-    summarise(
-      start_year = min(model_year_start, na.rm = TRUE),
-      end_year = max(model_year_end, na.rm = TRUE)
-    )
-
-  cat("APC coverage summary:\n\n")
-  cat(
-    "- Main-measure APC panels covered ", year_span$start_year, "-", year_span$end_year,
-    " with ", fmt_count_range(coverage$age_groups), " age groups, ",
-    fmt_count_range(coverage$period_blocks), " period blocks, ",
-    fmt_count_range(coverage$cohort_groups), " cohort groups, and ",
-    fmt_count_range(coverage$age_period_cells), " age-period cells per panel.\n",
-    sep = ""
-  )
-  cat(
-    "- Reference ages, periods, and cohorts remain available in the APC summary CSV, but the full panel matrix is omitted from the report body for readability.\n\n"
-  )
-}
-
-emit_apc_highlights <- function(summary_data, local_drift_data) {
-  net_notes <- summary_data %>%
-    filter(measure_name %in% main_measures) %>%
-    mutate(abs_net_drift = abs(net_drift)) %>%
-    arrange(desc(abs_net_drift)) %>%
-    slice_head(n = 4) %>%
-    transmute(
-      label = paste0(location_name, " ", sex_name, " ", measure_name, " (", fmt_signed_pct(net_drift, 2), ")")
-    )
-
-  local_notes <- local_drift_data %>%
-    filter(measure_name %in% main_measures) %>%
-    mutate(abs_local_drift = abs(local_drift)) %>%
-    arrange(desc(abs_local_drift)) %>%
-    slice_head(n = 4) %>%
-    transmute(
-      label = paste0(
-        location_name, " ", sex_name, " ", measure_name, " at ", age_name,
-        " (", fmt_signed_pct(local_drift, 2), ")"
-      )
-    )
-
-  cat("APC comparative highlights:\n\n")
-  cat("- **Net drift.** Largest absolute net-drift estimates: ", paste(net_notes$label, collapse = "; "), ".\n", sep = "")
-  cat("- **Local drift.** Strongest local-drift estimates: ", paste(local_notes$label, collapse = "; "), ".\n\n", sep = "")
-}
-
-read_derived <- function(filename) {
-  read_csv(file.path(derived_dir, filename), show_col_types = FALSE)
-}
-
-include_figure <- function(filename) {
-  path <- file.path(fig_dir, filename)
-  if (file.exists(path)) {
-    knitr::include_graphics(path)
-  } else {
-    cat("Missing figure:", path)
-  }
-}
-```
-
-```{r load-data}
-burden_audit <- read_derived("burden_data_audit_1990_2023.csv")
-burden_summary <- read_derived("burden_summary_1990_2023.csv")
-comparative_metrics <- read_derived("comparative_metrics_1990_2023.csv")
-segmented_summary <- read_derived("segmented_summary_1990_2023.csv")
-decomposition <- read_derived("decomposition_1990_2023.csv")
-decomposition_interval <- read_derived("decomposition_interval_1990_2023.csv")
-annual_chain_final <- read_derived("annual_chain_final_summary.csv")
-annual_chain_vs_endpoint <- read_derived("annual_chain_vs_endpoint_1990_2023.csv")
-age_specific <- read_derived("age_specific_comparison_1990_2023.csv")
-age_difference <- read_derived("age_specific_china_us_difference_1990_2023.csv")
-apc_summary <- read_derived("apc_summary_1990_2023.csv")
-apc_age_curve <- read_derived("apc_age_curve_1990_2023.csv")
-apc_local_drift <- read_derived("apc_local_drift_1990_2023.csv")
-apc_period_rr <- read_derived("apc_period_rr_1990_2023.csv")
-apc_cohort_rr <- read_derived("apc_cohort_rr_1990_2023.csv")
-apc_cells <- read_derived("apc_input_cells_1990_2023.csv")
-```
-
-
-# Overall Burden Trends
-
-Counts are all-age values and rates are age-standardized rates per 100,000. The `Percent basis` column identifies the age basis of the GBD `Percent` metric used for each measure; in this extract, incidence and prevalence use age-standardized percent rows when available, whereas DALYs and YLDs use all-age percent rows. DALY and YLD numbers and rates are numerically identical here because the extract has no YLL component for schizophrenia; their percent values can still differ because the GBD percent denominator is measure-specific.
-
-```{r burden-summary-notes, results='asis'}
-emit_burden_highlights(burden_summary)
-```
-
-```{r count-trend-figure, out.width='100%'}
-include_figure("01_trend_counts.png")
-```
-
-```{r percent-trend-figure, out.width='100%'}
-include_figure("01b_trend_percent.png")
-```
-
-```{r asr-trend-figure, out.width='100%'}
-include_figure("02_trend_asr.png")
-```
-
-# Country And Sex Contrasts
-
-Ratios compare like-for-like point estimates within each metric. The `Measure-specific GBD percent` rows should be read as ratios of the GBD `Percent` metric for the same measure and age basis, not as a single common "share of all-cause burden" denominator across incidence, prevalence, YLDs, and DALYs.
-
-```{r comparison-notes, results='asis'}
-emit_comparison_highlights(comparative_metrics)
-```
-
-# Segmented Trends
-
-Age-standardized rates are fitted with a compact BIC-selected segmented log-linear model, allowing up to two joinpoints per location-sex-measure series. The single-slope EAPC is retained alongside the segmented AAPC for continuity with common GBD trend reporting.
-
-```{r segmented-notes, results='asis'}
-emit_segmented_highlights(segmented_summary)
-```
-
-```{r segmented-figure, out.width='100%'}
-include_figure("03_segmented_trends.png")
-```
-
-# Age-Specific Patterns
-
-The age-specific panels retain the schizophrenia-specific top bin (`70+ years`). The heatmap difference panels show China relative to the United States within sex, measure, age, and year. Percent panels use the GBD `Percent` metric for each measure.
-
-```{r age-number-figure, out.width='100%'}
-include_figure("05b_age_specific_numbers_1990_vs_2023.png")
-```
-
-```{r age-number-difference-figure, out.width='100%'}
-include_figure("05c_age_specific_number_difference.png")
-```
-
-```{r age-percent-figure, out.width='100%'}
-include_figure("05d_age_specific_percent_1990_vs_2023.png")
-```
-
-```{r age-percent-difference-figure, out.width='100%'}
-include_figure("05e_age_specific_percent_difference.png")
-```
-
-```{r age-rate-figure, out.width='100%'}
-include_figure("04_age_specific_rate_1990_vs_2023.png")
-```
-
-```{r age-rate-difference-figure, out.width='100%'}
-include_figure("05_age_specific_rate_difference.png")
-```
-
-## Full Age-Year Heatmaps
-
-```{r age-number-heatmap, out.width='100%'}
-include_figure("05f_age_specific_number_heatmaps_1990_2023.png")
-```
-
-```{r age-percent-heatmap, out.width='100%'}
-include_figure("05g_age_specific_percent_heatmaps_1990_2023.png")
-```
-
-```{r age-rate-heatmap, out.width='100%'}
-include_figure("05h_age_specific_rate_heatmaps_1990_2023.png")
-```
-
-# Decomposition
-
-The decomposition uses adult age-specific numbers and rates from 15-19 years through 70+ years. It decomposes 1990-2023 adult count change into adult population growth, adult population aging, and age-specific rate change using the average replacement approach. Population denominators are calculated from GBD count/rate pairs.
-
-```{r decomposition-notes, results='asis'}
-emit_decomposition_highlights(decomposition)
-```
-
-```{r decomposition-figure, out.width='100%'}
-include_figure("06_decomposition.png")
-```
-
-# Annual Chained Decomposition
-
-The annual chained decomposition repeats the same population-growth, population-aging, and rate-change replacement decomposition for adjacent years, then accumulates components from 1990. As in the breast cancer analysis, component allocations differ from the direct 1990-2023 endpoint decomposition because the decomposition is path-dependent; total observed change should still agree apart from numerical tolerance.
-
-```{r annual-chain-notes, results='asis'}
-emit_annual_chain_highlights(annual_chain_final)
-```
-
-```{r annual-chain-figure, out.width='100%'}
-include_figure("08_annual_chained_decomposition.png")
-```
-
-```{r interval-chain-figure, out.width='100%'}
-include_figure("09_interval_chained_decomposition.png")
-```
-
-# Age-Period-Cohort Analysis
-
-This section follows the breast cancer report's APC layout. Annual age-specific schizophrenia observations from 1990-2023 are collapsed into recent-aligned five-year period blocks (`1990-1993`, `1994-1998`, ..., `2019-2023`) and summarized through net drift, age curves, local drift, period relative risks, and cohort relative risks.
-
-## Surface Coverage
-
-The APC model coverage is summarized below without the full reference-group matrix.
-
-```{r apc-coverage-notes, results='asis'}
-emit_apc_coverage_highlights(apc_cells, apc_summary)
-```
-
-## Incidence and DALY Age-Period Surfaces: China and United States
-
-The age-period rate surfaces are shown with China and the United States side by side within each sex and measure panel.
-
-```{r apc-figure, out.width='100%'}
-include_figure("07_apc_rate_heatmaps.png")
-```
-
-## Marginal APC Summaries: China and United States
-
-The marginal panels show fitted age curves, local drift, period relative risks, and cohort relative risks by measure and sex.
-
-```{r apc-marginal-figure, out.width='100%'}
-include_figure("11_apc_marginal_effects.png")
-```
-
-## Cohort Relative-Risk Patterns: China and United States
-
-The cohort panels compare China and the United States within each sex and measure.
-
-```{r apc-cohort-figure, out.width='100%'}
-include_figure("12_apc_cohort_rr.png")
-```
-
-## Comparative Summary
-
-```{r apc-summary-notes, results='asis'}
-emit_apc_highlights(apc_summary, apc_local_drift)
-```
+# Scope
+
+This report compares schizophrenia burden in China and the United States from
+1990 through 2023, separately for females and males. Outcomes are incidence,
+prevalence, and disability-adjusted life-years (DALYs), reported as all-age
+numbers and age-standardized rates. The demographic decomposition uses official
+GBD 2023 population estimates and 20 mutually exclusive five-year age groups
+from 0-4 years through 95+ years.
+
+The burden and population inputs have retained export metadata and SHA-256
+fingerprints. The source exports contain 2,720 exact zero Number/Rate cells.
+These values were preserved and audited; they were not interpreted as proof of
+biological absence.
+
+# Methods
+
+Annual age-standardized rates were summarized using an open Python
+BIC-selected segmented log-linear model allowing zero to two breakpoints.
+Breakpoint locations, segment changes, and average annual percentage changes
+are descriptive point estimates. A feasible-GLS AR(1) sensitivity assesses
+serial correlation. Continuous changes are primary; the +/-0.05% per year
+practical-stability label and its +/-0.02% and +/-0.10% sensitivities are
+reporting rules rather than equivalence tests.
+
+Changes in reconstructed all-age quantities were decomposed into population
+size, age structure, and age-specific rate components by averaging over all six
+factor-replacement orders (a Shapley decomposition). Endpoint, annual-chain,
+five-year-chain, collapsed-age, and positive-supported-age sensitivities assess
+path and aggregation dependence.
+
+The secondary age-period-cohort analysis is custom and descriptive. It reports
+a global period slope, separately fitted age-specific slopes, an age rate-ratio
+curve, and period- and cohort-curvature rate ratios for ages 10-14 through
+65-69 years. Incidence is the principal secondary outcome; prevalence and DALY
+rate surfaces are exploratory. No equivalence to conventional NCI APC
+estimable functions is claimed.
+
+# Principal findings
+
+Point estimates of incident cases, prevalent cases, and DALYs increased from
+1990 to 2023 in every country-sex stratum. DALY age-standardized rates in China
+changed from 175.3 to 177.6 per 100,000 among females and from 207.2 to 209.1
+among males. Corresponding United States rates changed from 269.5 to 247.9
+among females and from 281.2 to 270.2 among males.
+
+Under the stated descriptive stability band, Chinese segmented AAPCs were
+practically stable and United States AAPCs were negative. The AR(1) sensitivity
+preserved the practical trajectory label in all 12 country-sex-outcome panels,
+preserved breakpoint count in 11 panels, and changed AAPC by no more than 0.009
+percentage points per year.
+
+Population-size change was positive in all 12 decompositions. Age-structure and
+age-specific-rate components varied by country, sex, and outcome. Annual- and
+five-year-chain allocations differed from endpoint allocations by at most 7.9%
+of total change. Restricting incidence to positive-valued ages 10-79 preserved
+all component signs, while collapsing ages into four broad groups materially
+changed at least one component in 3 of 12 panels.
+
+Across the 12 custom APC panels, primary-window global period slopes ranged
+from -0.291% per year to 0.038% per year. Alternative-window practical labels
+agreed in all panels, and equal weighting changed the global period slope by at
+most 0.002 percentage points per year. Opposing separately fitted age-specific
+slopes occurred in 10 panels, indicating that aggregate trends can conceal age
+heterogeneity.
+
+# Interpretation
+
+Increasing all-age quantities do not necessarily indicate worsening
+age-standardized burden. Counts reflect population size and age composition in
+addition to age-specific rates. The results may inform planning for potential
+service volume and healthy life lost, but they do not measure realized service
+use and do not establish causal effects of policies or health systems.
+
+All derived changes, ratios, trends, breakpoints, contrasts, APC summaries, and
+decomposition components are point estimates because posterior draws and
+cross-estimate covariance were unavailable. Native GBD uncertainty intervals
+apply only to the original endpoint estimates.
+
+# Figures
+
+![Sex-specific age-standardized trends](analysis/results/figures/main/figure_1_asr_trends.png)
+
+![Descriptive segmented trends](analysis/results/figures/main/figure_2_segmented_trends.png)
+
+![Age-specific patterns in 2023](analysis/results/figures/main/figure_3_age_patterns.png)
+
+![Shapley decomposition](analysis/results/figures/main/figure_4_decomposition.png)
+
+# Reproducibility
+
+The analysis code, data provenance, data dictionary, model settings, validation
+records, machine-readable tables, and generated figures are retained under
+`analysis/`. The final analysis checks confirm complete annual
+panels, official population inputs, valid uncertainty bounds, exact
+decomposition closure, and consistent reconstruction of all-age quantities.

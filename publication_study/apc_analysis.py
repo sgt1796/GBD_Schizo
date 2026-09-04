@@ -122,7 +122,10 @@ def curvature_basis(level_count: int) -> np.ndarray:
 
 
 def _fit_weighted_log_rate(
-    rate: np.ndarray, design: np.ndarray, population: np.ndarray
+    rate: np.ndarray,
+    design: np.ndarray,
+    population: np.ndarray,
+    weighting: str = "population",
 ) -> dict[str, np.ndarray | float | int]:
     rate = np.asarray(rate, dtype=float)
     design = np.asarray(design, dtype=float)
@@ -131,7 +134,12 @@ def _fit_weighted_log_rate(
         raise ValueError("APC rates must be finite and positive.")
     if (population <= 0).any() or not np.isfinite(population).all():
         raise ValueError("APC populations must be finite and positive.")
-    root_weight = np.sqrt(population / np.mean(population))
+    if weighting == "population":
+        root_weight = np.sqrt(population / np.mean(population))
+    elif weighting == "equal":
+        root_weight = np.ones_like(population)
+    else:
+        raise ValueError("APC weighting must be 'population' or 'equal'.")
     weighted_design = design * root_weight[:, None]
     weighted_response = np.log(rate) * root_weight
     beta = np.linalg.pinv(weighted_design) @ weighted_response
@@ -272,7 +280,10 @@ def _validate_cell_matrix(
 
 
 def _fit_panel(
-    panel: pd.DataFrame, ages: tuple[str, ...], window: APCWindow
+    panel: pd.DataFrame,
+    ages: tuple[str, ...],
+    window: APCWindow,
+    weighting: str = "population",
 ) -> dict[str, pd.DataFrame]:
     _validate_cell_matrix(panel, ages, window)
     panel = panel.copy()
@@ -307,7 +318,7 @@ def _fit_panel(
         ]
     )
     fit = _fit_weighted_log_rate(
-        panel.rate.to_numpy(), design, panel.population.to_numpy()
+        panel.rate.to_numpy(), design, panel.population.to_numpy(), weighting
     )
     if fit["rank"] != fit["columns"]:
         raise ValueError(
@@ -381,6 +392,7 @@ def _fit_panel(
             age_panel.rate.to_numpy(),
             local_design,
             age_panel.population.to_numpy(),
+            weighting,
         )
         local_rows.append(
             {
@@ -415,6 +427,7 @@ def _fit_panel(
                 "design_rank": fit["rank"],
                 "design_columns": fit["columns"],
                 "weighted_log_rate_rss": fit["weighted_rss"],
+                "weighting": weighting,
                 "formal_inference_performed": False,
                 "identifiability_note": (
                     "The exact age = period - cohort dependency is handled by two "
@@ -444,6 +457,7 @@ def run_apc(
     sexes: tuple[str, ...],
     ages: tuple[str, ...] | None = None,
     measures: tuple[str, ...] = ("Incidence",),
+    weighting: str = "population",
 ) -> dict[str, pd.DataFrame]:
     """Run APC point-estimate analyses for every requested outcome panel."""
     cells, selected_ages = build_apc_cells(
@@ -460,7 +474,7 @@ def run_apc(
     for (location, sex, measure), panel in cells.groupby(
         ["location_name", "sex_name", "measure_name"], sort=True
     ):
-        fitted = _fit_panel(panel, selected_ages, window)
+        fitted = _fit_panel(panel, selected_ages, window, weighting)
         for name, frame in fitted.items():
             frame = frame.copy()
             if "sex_name" not in frame:
@@ -469,6 +483,8 @@ def run_apc(
                 frame.insert(0, "location_name", location)
             if "measure_name" not in frame:
                 frame.insert(2, "measure_name", measure)
+            if "weighting" not in frame:
+                frame.insert(3, "weighting", weighting)
             outputs[name].append(frame)
     return {
         name: pd.concat(frames, ignore_index=True)

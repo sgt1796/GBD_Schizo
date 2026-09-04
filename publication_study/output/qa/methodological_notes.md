@@ -6,67 +6,67 @@ This file is generated from the current analysis outputs. Apparent disagreements
 
 ### China, Female, Incidence
 
-- Directions: segmented 1990-2023 = increase; ASR endpoint 1994-2023 = decrease; selected-age crude endpoint 1994-2023 = decrease; APC net drift = decrease.
-- Likely factors: calendar window and piecewise-versus-endpoint estimand; opposing age-specific local drifts hidden by aggregate summaries.
+- Practical labels: segmented 1990-2023 = practically stable; ASR endpoint 1994-2023 = practically stable; selected-age crude endpoint 1994-2023 = decrease; custom APC global period slope = practically stable.
+- Likely factors: age coverage, age standardization, and population weighting; custom APC global period slope versus crude endpoint change and model constraints; opposing age-specific slopes hidden by aggregate summaries.
 - Interpretation: The compared methods target different age coverage, weighting, windows, and model functions. The discrepancy is retained as a substantive cross-method finding unless synthetic recovery or input QA fails.
 
 ### China, Female, Prevalence
 
-- Directions: segmented 1990-2023 = increase; ASR endpoint 1994-2023 = increase; selected-age crude endpoint 1994-2023 = increase; APC net drift = decrease.
-- Likely factors: APC global drift versus crude endpoint change and APC constraints; opposing age-specific local drifts hidden by aggregate summaries.
+- Practical labels: segmented 1990-2023 = practically stable; ASR endpoint 1994-2023 = practically stable; selected-age crude endpoint 1994-2023 = increase; custom APC global period slope = practically stable.
+- Likely factors: age coverage, age standardization, and population weighting; custom APC global period slope versus crude endpoint change and model constraints; opposing age-specific slopes hidden by aggregate summaries.
 - Interpretation: The compared methods target different age coverage, weighting, windows, and model functions. The discrepancy is retained as a substantive cross-method finding unless synthetic recovery or input QA fails.
 
 ### China, Female, DALYs
 
-- Directions: segmented 1990-2023 = increase; ASR endpoint 1994-2023 = increase; selected-age crude endpoint 1994-2023 = increase; APC net drift = decrease.
-- Likely factors: APC global drift versus crude endpoint change and APC constraints; opposing age-specific local drifts hidden by aggregate summaries.
+- Practical labels: segmented 1990-2023 = practically stable; ASR endpoint 1994-2023 = practically stable; selected-age crude endpoint 1994-2023 = increase; custom APC global period slope = practically stable.
+- Likely factors: age coverage, age standardization, and population weighting; custom APC global period slope versus crude endpoint change and model constraints; opposing age-specific slopes hidden by aggregate summaries.
 - Interpretation: The compared methods target different age coverage, weighting, windows, and model functions. The discrepancy is retained as a substantive cross-method finding unless synthetic recovery or input QA fails.
 
 ### China, Male, Incidence
 
-- Directions: segmented 1990-2023 = decrease; ASR endpoint 1994-2023 = decrease; selected-age crude endpoint 1994-2023 = decrease; APC net drift = decrease.
-- Likely factors: opposing age-specific local drifts hidden by aggregate summaries.
+- Practical labels: segmented 1990-2023 = practically stable; ASR endpoint 1994-2023 = practically stable; selected-age crude endpoint 1994-2023 = decrease; custom APC global period slope = practically stable.
+- Likely factors: age coverage, age standardization, and population weighting; custom APC global period slope versus crude endpoint change and model constraints; opposing age-specific slopes hidden by aggregate summaries.
 - Interpretation: The compared methods target different age coverage, weighting, windows, and model functions. The discrepancy is retained as a substantive cross-method finding unless synthetic recovery or input QA fails.
 
 ### China, Male, Prevalence
 
-- Directions: segmented 1990-2023 = increase; ASR endpoint 1994-2023 = increase; selected-age crude endpoint 1994-2023 = increase; APC net drift = increase.
-- Likely factors: opposing age-specific local drifts hidden by aggregate summaries.
+- Practical labels: segmented 1990-2023 = practically stable; ASR endpoint 1994-2023 = practically stable; selected-age crude endpoint 1994-2023 = increase; custom APC global period slope = practically stable.
+- Likely factors: age coverage, age standardization, and population weighting; custom APC global period slope versus crude endpoint change and model constraints; opposing age-specific slopes hidden by aggregate summaries.
 - Interpretation: The compared methods target different age coverage, weighting, windows, and model functions. The discrepancy is retained as a substantive cross-method finding unless synthetic recovery or input QA fails.
 
 ### China, Male, DALYs
 
-- Directions: segmented 1990-2023 = increase; ASR endpoint 1994-2023 = increase; selected-age crude endpoint 1994-2023 = increase; APC net drift = decrease.
-- Likely factors: APC global drift versus crude endpoint change and APC constraints; opposing age-specific local drifts hidden by aggregate summaries.
+- Practical labels: segmented 1990-2023 = practically stable; ASR endpoint 1994-2023 = practically stable; selected-age crude endpoint 1994-2023 = increase; custom APC global period slope = practically stable.
+- Likely factors: age coverage, age standardization, and population weighting; custom APC global period slope versus crude endpoint change and model constraints; opposing age-specific slopes hidden by aggregate summaries.
 - Interpretation: The compared methods target different age coverage, weighting, windows, and model functions. The discrepancy is retained as a substantive cross-method finding unless synthetic recovery or input QA fails.
 
 ### United States of America, Female, Incidence
 
-- Directions: segmented 1990-2023 = decrease; ASR endpoint 1994-2023 = decrease; selected-age crude endpoint 1994-2023 = decrease; APC net drift = decrease.
-- Likely factors: opposing age-specific local drifts hidden by aggregate summaries.
+- Practical labels: segmented 1990-2023 = decrease; ASR endpoint 1994-2023 = decrease; selected-age crude endpoint 1994-2023 = decrease; custom APC global period slope = decrease.
+- Likely factors: opposing age-specific slopes hidden by aggregate summaries.
 - Interpretation: The compared methods target different age coverage, weighting, windows, and model functions. The discrepancy is retained as a substantive cross-method finding unless synthetic recovery or input QA fails.
 
 ### United States of America, Male, Incidence
 
-- Directions: segmented 1990-2023 = decrease; ASR endpoint 1994-2023 = decrease; selected-age crude endpoint 1994-2023 = decrease; APC net drift = increase.
-- Likely factors: APC global drift versus crude endpoint change and APC constraints; opposing age-specific local drifts hidden by aggregate summaries.
+- Practical labels: segmented 1990-2023 = decrease; ASR endpoint 1994-2023 = decrease; selected-age crude endpoint 1994-2023 = decrease; custom APC global period slope = practically stable.
+- Likely factors: custom APC global period slope versus crude endpoint change and model constraints; opposing age-specific slopes hidden by aggregate summaries.
 - Interpretation: The compared methods target different age coverage, weighting, windows, and model functions. The discrepancy is retained as a substantive cross-method finding unless synthetic recovery or input QA fails.
 
 ### United States of America, Male, Prevalence
 
-- Directions: segmented 1990-2023 = decrease; ASR endpoint 1994-2023 = decrease; selected-age crude endpoint 1994-2023 = decrease; APC net drift = decrease.
-- Likely factors: opposing age-specific local drifts hidden by aggregate summaries.
+- Practical labels: segmented 1990-2023 = decrease; ASR endpoint 1994-2023 = decrease; selected-age crude endpoint 1994-2023 = decrease; custom APC global period slope = decrease.
+- Likely factors: opposing age-specific slopes hidden by aggregate summaries.
 - Interpretation: The compared methods target different age coverage, weighting, windows, and model functions. The discrepancy is retained as a substantive cross-method finding unless synthetic recovery or input QA fails.
 
 ### United States of America, Male, DALYs
 
-- Directions: segmented 1990-2023 = decrease; ASR endpoint 1994-2023 = decrease; selected-age crude endpoint 1994-2023 = decrease; APC net drift = decrease.
-- Likely factors: opposing age-specific local drifts hidden by aggregate summaries.
+- Practical labels: segmented 1990-2023 = decrease; ASR endpoint 1994-2023 = decrease; selected-age crude endpoint 1994-2023 = decrease; custom APC global period slope = decrease.
+- Likely factors: opposing age-specific slopes hidden by aggregate summaries.
 - Interpretation: The compared methods target different age coverage, weighting, windows, and model functions. The discrepancy is retained as a substantive cross-method finding unless synthetic recovery or input QA fails.
 
 ## APC window sensitivity
 
-- China, Female, DALYs: primary 1994-2023 net drift = -0.001645%/year (decrease); sensitivity 1990-2019 net drift = 0.001900%/year (increase). Both magnitudes should be inspected before interpreting the sign change.
+All custom APC global-period-slope practical labels agreed across the two windows.
 
 ## Decomposition age-bin sensitivity
 

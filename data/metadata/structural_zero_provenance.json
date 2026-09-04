@@ -1,0 +1,239 @@
+{
+  "audit_scope": "fine-age Number and Rate rows retained for analysis",
+  "source_archives": [
+    {
+      "file": "addition_inputs/IHME-GBD_2023_DATA-774041bd-1.zip",
+      "sha256": "8c900ee6c89dbc0e8cefdd8073e1a2a2b2a2569deb342a3547c99906be5872c4"
+    },
+    {
+      "file": "addition_inputs/IHME-GBD_2023_DATA-22ef74c2-1.zip",
+      "sha256": "fbf265460d2a2b956e4e775e0f73ef605cea1c8871d71719d0f1d856dab305b8"
+    }
+  ],
+  "canonical_file": "data/GBD_2023_schizophrenia_fine_age_China_US.csv",
+  "source_to_canonical_zero_keys_exact_match": true,
+  "total_zero_cells": 2720,
+  "zero_patterns": [
+    {
+      "measure_name": "DALYs",
+      "age_name": "0-4 years",
+      "metric_name": "Number",
+      "zero_cell_count": 136,
+      "location_count": 2,
+      "sex_count": 2,
+      "year_count": 34,
+      "lower_also_zero": true,
+      "upper_also_zero": true
+    },
+    {
+      "measure_name": "DALYs",
+      "age_name": "0-4 years",
+      "metric_name": "Rate",
+      "zero_cell_count": 136,
+      "location_count": 2,
+      "sex_count": 2,
+      "year_count": 34,
+      "lower_also_zero": true,
+      "upper_also_zero": true
+    },
+    {
+      "measure_name": "Incidence",
+      "age_name": "0-4 years",
+      "metric_name": "Number",
+      "zero_cell_count": 136,
+      "location_count": 2,
+      "sex_count": 2,
+      "year_count": 34,
+      "lower_also_zero": true,
+      "upper_also_zero": true
+    },
+    {
+      "measure_name": "Incidence",
+      "age_name": "0-4 years",
+      "metric_name": "Rate",
+      "zero_cell_count": 136,
+      "location_count": 2,
+      "sex_count": 2,
+      "year_count": 34,
+      "lower_also_zero": true,
+      "upper_also_zero": true
+    },
+    {
+      "measure_name": "Prevalence",
+      "age_name": "0-4 years",
+      "metric_name": "Number",
+      "zero_cell_count": 136,
+      "location_count": 2,
+      "sex_count": 2,
+      "year_count": 34,
+      "lower_also_zero": true,
+      "upper_also_zero": true
+    },
+    {
+      "measure_name": "Prevalence",
+      "age_name": "0-4 years",
+      "metric_name": "Rate",
+      "zero_cell_count": 136,
+      "location_count": 2,
+      "sex_count": 2,
+      "year_count": 34,
+      "lower_also_zero": true,
+      "upper_also_zero": true
+    },
+    {
+      "measure_name": "DALYs",
+      "age_name": "5-9 years",
+      "metric_name": "Number",
+      "zero_cell_count": 136,
+      "location_count": 2,
+      "sex_count": 2,
+      "year_count": 34,
+      "lower_also_zero": true,
+      "upper_also_zero": true
+    },
+    {
+      "measure_name": "DALYs",
+      "age_name": "5-9 years",
+      "metric_name": "Rate",
+      "zero_cell_count": 136,
+      "location_count": 2,
+      "sex_count": 2,
+      "year_count": 34,
+      "lower_also_zero": true,
+      "upper_also_zero": true
+    },
+    {
+      "measure_name": "Incidence",
+      "age_name": "5-9 years",
+      "metric_name": "Number",
+      "zero_cell_count": 136,
+      "location_count": 2,
+      "sex_count": 2,
+      "year_count": 34,
+      "lower_also_zero": true,
+      "upper_also_zero": true
+    },
+    {
+      "measure_name": "Incidence",
+      "age_name": "5-9 years",
+      "metric_name": "Rate",
+      "zero_cell_count": 136,
+      "location_count": 2,
+      "sex_count": 2,
+      "year_count": 34,
+      "lower_also_zero": true,
+      "upper_also_zero": true
+    },
+    {
+      "measure_name": "Prevalence",
+      "age_name": "5-9 years",
+      "metric_name": "Number",
+      "zero_cell_count": 136,
+      "location_count": 2,
+      "sex_count": 2,
+      "year_count": 34,
+      "lower_also_zero": true,
+      "upper_also_zero": true
+    },
+    {
+      "measure_name": "Prevalence",
+      "age_name": "5-9 years",
+      "metric_name": "Rate",
+      "zero_cell_count": 136,
+      "location_count": 2,
+      "sex_count": 2,
+      "year_count": 34,
+      "lower_also_zero": true,
+      "upper_also_zero": true
+    },
+    {
+      "measure_name": "Incidence",
+      "age_name": "80-84 years",
+      "metric_name": "Number",
+      "zero_cell_count": 136,
+      "location_count": 2,
+      "sex_count": 2,
+      "year_count": 34,
+      "lower_also_zero": true,
+      "upper_also_zero": true
+    },
+    {
+      "measure_name": "Incidence",
+      "age_name": "80-84 years",
+      "metric_name": "Rate",
+      "zero_cell_count": 136,
+      "location_count": 2,
+      "sex_count": 2,
+      "year_count": 34,
+      "lower_also_zero": true,
+      "upper_also_zero": true
+    },
+    {
+      "measure_name": "Incidence",
+      "age_name": "85-89 years",
+      "metric_name": "Number",
+      "zero_cell_count": 136,
+      "location_count": 2,
+      "sex_count": 2,
+      "year_count": 34,
+      "lower_also_zero": true,
+      "upper_also_zero": true
+    },
+    {
+      "measure_name": "Incidence",
+      "age_name": "85-89 years",
+      "metric_name": "Rate",
+      "zero_cell_count": 136,
+      "location_count": 2,
+      "sex_count": 2,
+      "year_count": 34,
+      "lower_also_zero": true,
+      "upper_also_zero": true
+    },
+    {
+      "measure_name": "Incidence",
+      "age_name": "90-94 years",
+      "metric_name": "Number",
+      "zero_cell_count": 136,
+      "location_count": 2,
+      "sex_count": 2,
+      "year_count": 34,
+      "lower_also_zero": true,
+      "upper_also_zero": true
+    },
+    {
+      "measure_name": "Incidence",
+      "age_name": "90-94 years",
+      "metric_name": "Rate",
+      "zero_cell_count": 136,
+      "location_count": 2,
+      "sex_count": 2,
+      "year_count": 34,
+      "lower_also_zero": true,
+      "upper_also_zero": true
+    },
+    {
+      "measure_name": "Incidence",
+      "age_name": "95+ years",
+      "metric_name": "Number",
+      "zero_cell_count": 136,
+      "location_count": 2,
+      "sex_count": 2,
+      "year_count": 34,
+      "lower_also_zero": true,
+      "upper_also_zero": true
+    },
+    {
+      "measure_name": "Incidence",
+      "age_name": "95+ years",
+      "metric_name": "Rate",
+      "zero_cell_count": 136,
+      "location_count": 2,
+      "sex_count": 2,
+      "year_count": 34,
+      "lower_also_zero": true,
+      "upper_also_zero": true
+    }
+  ],
+  "interpretation": "Exact zero point estimates originate in the preserved IHME exports and were retained unchanged. The export alone does not establish whether a zero is a biological structural zero or a GBD model-support convention. Log-rate APC analyses must exclude zero cells, and decomposition interpretation must acknowledge them."
+}

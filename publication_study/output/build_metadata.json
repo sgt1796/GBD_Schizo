@@ -1,10 +1,11 @@
 {
-  "build_date": "2026-09-03",
+  "build_date": "2026-09-04",
   "population_status": "official_GBD_2023",
   "fine_age_burden_validated": true,
   "decomposition_age_partition": "fine_5_year",
   "source_metadata_complete": true,
-  "submission_ready": true,
+  "data_readiness_passed": true,
+  "analysis_ready": true,
   "trend_status": "descriptive BIC-selected segmented curves; no formal trend inference",
   "trend_selection_method": "deterministic BIC; zero to two breakpoints",
   "formal_trend_inference_performed": false,

@@ -21,7 +21,7 @@ import apc_analysis as apc
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_BURDEN = ROOT / "prepared_inputs" / "cause_all.csv"
-DEFAULT_OUTPUT = Path(__file__).resolve().parent / "output"
+DEFAULT_OUTPUT = Path(__file__).resolve().parent / "results"
 
 LOCATIONS = ("China", "United States of America")
 SEXES = ("Female", "Male")
@@ -47,6 +47,8 @@ YEARS = tuple(range(1990, 2024))
 ENDPOINTS = (1990, 2023)
 ALL_AGE_RECONSTRUCTION_TOLERANCE_PCT = 1e-4
 YLD_DALY_IDENTITY_TOLERANCE = 1e-7
+PRACTICAL_STABILITY_THRESHOLD_PCT_PER_YEAR = 0.05
+PRACTICAL_STABILITY_SENSITIVITY_THRESHOLDS = (0.02, 0.05, 0.10)
 COLORS = {"China": "#0072B2", "United States of America": "#D55E00"}
 SEX_LINE = {"Female": "-", "Male": "--"}
 COMPONENT_COLORS = {
@@ -66,6 +68,16 @@ OBSOLETE_TABLE_CSVS = frozenset({
     "apc_excluding_2019_2023.csv",
     "apc_period_curvature.csv",
     "apc_cohort_curvature.csv",
+    "apc_summary.csv",
+    "apc_local_drift.csv",
+    "apc_age_curve.csv",
+    "apc_period_rr.csv",
+    "apc_cohort_rr.csv",
+    "apc_cells.csv",
+    "apc_sensitivity_summary_1990_2019.csv",
+    "apc_sensitivity_local_drift_1990_2019.csv",
+    "apc_sensitivity_period_rr_1990_2019.csv",
+    "apc_sensitivity_cohort_rr_1990_2019.csv",
     "pairwise_parallelism.csv",
     "prepandemic_trend_sensitivity.csv",
 })
@@ -398,6 +410,79 @@ def audit_burden(df: pd.DataFrame, pop: pd.DataFrame) -> tuple[pd.DataFrame, pd.
     return audit, duplicate_audit, recon
 
 
+def audit_source_export_zeros(
+    df: pd.DataFrame, burden_metadata_path: Path | None
+) -> tuple[pd.DataFrame, dict]:
+    """Describe exact zero cells and verify their preserved-export provenance."""
+    fine = df[
+        df.measure_name.isin(OUTCOMES)
+        & df.metric_name.isin(("Number", "Rate"))
+        & df.age_name.isin(FINE_DECOMPOSITION_AGES)
+    ].copy()
+    zeros = fine[fine.val.eq(0)].copy()
+    summary = (
+        zeros.groupby(["measure_name", "age_name", "metric_name"], sort=False)
+        .agg(
+            zero_cell_count=("val", "size"),
+            location_count=("location_name", "nunique"),
+            sex_count=("sex_name", "nunique"),
+            year_count=("year", "nunique"),
+            lower_also_zero=("lower", lambda values: bool(values.eq(0).all())),
+            upper_also_zero=("upper", lambda values: bool(values.eq(0).all())),
+        )
+        .reset_index()
+    )
+    expected_ages = {
+        "Incidence": {
+            "0-4 years", "5-9 years", "80-84 years", "85-89 years",
+            "90-94 years", "95+ years",
+        },
+        "Prevalence": {"0-4 years", "5-9 years"},
+        "DALYs": {"0-4 years", "5-9 years"},
+    }
+    observed_ages = {
+        outcome: set(zeros.loc[zeros.measure_name.eq(outcome), "age_name"])
+        for outcome in OUTCOMES
+    }
+    expected_pattern = observed_ages == expected_ages
+    complete_panel_pattern = bool(
+        len(zeros) == 2720
+        and summary.zero_cell_count.eq(len(LOCATIONS) * len(SEXES) * len(YEARS)).all()
+        and summary.location_count.eq(len(LOCATIONS)).all()
+        and summary.sex_count.eq(len(SEXES)).all()
+        and summary.year_count.eq(len(YEARS)).all()
+    )
+
+    provenance_path = (
+        burden_metadata_path.parent / "structural_zero_provenance.json"
+        if burden_metadata_path is not None
+        else None
+    )
+    provenance = {}
+    if provenance_path is not None and provenance_path.is_file():
+        try:
+            provenance = json.loads(provenance_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            provenance = {}
+    source_verified = bool(
+        provenance.get("source_to_canonical_zero_keys_exact_match") is True
+        and provenance.get("total_zero_cells") == len(zeros)
+    )
+    summary["source_export_provenance_verified"] = source_verified
+    summary["interpretation"] = (
+        "Exact zero is present in the preserved IHME export; the export alone does not "
+        "distinguish a biological structural zero from a GBD model-support convention."
+    )
+    validation = {
+        "total_fine_age_zero_cells": int(len(zeros)),
+        "expected_age_outcome_pattern": bool(expected_pattern),
+        "complete_location_sex_year_metric_pattern": complete_panel_pattern,
+        "source_export_provenance_verified": source_verified,
+        "provenance_file": portable_path(provenance_path) if provenance_path else None,
+    }
+    return summary, validation
+
+
 def all_age_count_reconstruction(df: pd.DataFrame, reconstruction: pd.DataFrame) -> pd.DataFrame:
     """Compare summed age-specific reconstructed counts with reported all-age counts."""
     keys = ["location_name", "sex_name", "measure_name", "year"]
@@ -617,6 +702,163 @@ def select_segmented_bic(
     return selected
 
 
+def fit_ar1_gls(
+    y: np.ndarray, X: np.ndarray, max_iterations: int = 100, tolerance: float = 1e-10
+) -> dict:
+    """Fit a stationary AR(1) feasible-GLS model by Prais-Winsten iteration."""
+    y = np.asarray(y, float)
+    X = np.asarray(X, float)
+    beta = np.linalg.pinv(X) @ y
+    rho = 0.0
+    for _ in range(max_iterations):
+        residual = y - X @ beta
+        denominator = float(residual[:-1] @ residual[:-1])
+        updated_rho = (
+            float(residual[1:] @ residual[:-1] / denominator)
+            if denominator > np.finfo(float).tiny
+            else 0.0
+        )
+        updated_rho = float(np.clip(updated_rho, -0.95, 0.95))
+        scale0 = math.sqrt(max(1.0 - updated_rho**2, np.finfo(float).eps))
+        transformed_y = np.r_[scale0 * y[0], y[1:] - updated_rho * y[:-1]]
+        transformed_X = np.vstack(
+            [scale0 * X[0], X[1:] - updated_rho * X[:-1]]
+        )
+        updated_beta = np.linalg.pinv(transformed_X) @ transformed_y
+        converged = bool(
+            abs(updated_rho - rho) < tolerance
+            and np.max(np.abs(updated_beta - beta)) < tolerance
+        )
+        rho, beta = updated_rho, updated_beta
+        if converged:
+            break
+    residual = y - X @ beta
+    innovations = np.r_[
+        math.sqrt(max(1.0 - rho**2, np.finfo(float).eps)) * residual[0],
+        residual[1:] - rho * residual[:-1],
+    ]
+    innovation_rss = float(innovations @ innovations)
+    return {
+        "beta": beta,
+        "fitted": X @ beta,
+        "residual": residual,
+        "rho": rho,
+        "innovation_rss": innovation_rss,
+        "iterations_converged": converged,
+    }
+
+
+def select_segmented_ar1_bic(
+    years: np.ndarray,
+    y: np.ndarray,
+    max_joinpoints: int = 2,
+    min_segment: int = 4,
+) -> dict:
+    """Select a segmented AR(1) GLS sensitivity using Gaussian likelihood BIC."""
+    candidates = []
+    n = len(y)
+    for knot_count in range(max_joinpoints + 1):
+        best = None
+        for knots in candidate_knots(years, knot_count, min_segment=min_segment):
+            X = segmented_design(years, knots)
+            fit = fit_ar1_gls(y, X)
+            parameter_count = X.shape[1] + knot_count + 1  # includes AR(1) rho
+            bic = (
+                n * math.log(max(fit["innovation_rss"] / n, np.finfo(float).tiny))
+                - math.log(max(1.0 - fit["rho"] ** 2, np.finfo(float).eps))
+                + parameter_count * math.log(n)
+            )
+            item = fit | {
+                "knots": knots,
+                "X": X,
+                "bic": float(bic),
+                "bic_parameter_count": parameter_count,
+            }
+            if best is None or item["bic"] < best["bic"]:
+                best = item
+        if best is None:
+            raise ValueError("No valid segmented AR(1) model candidate.")
+        candidates.append(best)
+    selected = min(candidates, key=lambda item: item["bic"])
+    selected["candidate_bic"] = {
+        len(item["knots"]): item["bic"] for item in candidates
+    }
+    return selected
+
+
+def segmented_ar1_sensitivity(
+    df: pd.DataFrame, primary_summary: pd.DataFrame
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Compare primary segmented curves with AR(1) feasible-GLS sensitivity fits."""
+    trend = df[
+        df.measure_name.isin(OUTCOMES)
+        & df.metric_name.eq("Rate")
+        & df.age_name.eq(ASR)
+    ]
+    primary = primary_summary.set_index(["location_name", "sex_name", "measure_name"])
+    summaries = []
+    segments = []
+    for keys, panel in trend.groupby(
+        ["location_name", "sex_name", "measure_name"], sort=True
+    ):
+        panel = panel.sort_values("year")
+        years = panel.year.to_numpy(int)
+        selected = select_segmented_ar1_bic(years, np.log(panel.val.to_numpy(float)))
+        span = float(years.max() - years.min())
+        contrast = np.zeros(len(selected["beta"]))
+        contrast[1] = 1.0
+        for index, knot in enumerate(selected["knots"]):
+            contrast[2 + index] = (years.max() - knot) / span
+        aapc = 100.0 * (math.exp(float(contrast @ selected["beta"])) - 1.0)
+        primary_row = primary.loc[keys]
+        summaries.append(
+            {
+                "location_name": keys[0],
+                "sex_name": keys[1],
+                "measure_name": keys[2],
+                "primary_joinpoint_count": int(primary_row.joinpoint_count),
+                "primary_joinpoint_years": primary_row.joinpoint_years,
+                "primary_aapc": float(primary_row.aapc),
+                "ar1_joinpoint_count": len(selected["knots"]),
+                "ar1_joinpoint_years": ",".join(map(str, selected["knots"])),
+                "ar1_aapc": aapc,
+                "ar1_minus_primary_aapc": aapc - float(primary_row.aapc),
+                "ar1_rho": float(selected["rho"]),
+                "ar1_bic": float(selected["bic"]),
+                "iterations_converged": bool(selected["iterations_converged"]),
+                "primary_practical_label": trend_direction(float(primary_row.aapc)),
+                "ar1_practical_label": trend_direction(aapc),
+                "practical_label_agreement": trend_direction(float(primary_row.aapc)) == trend_direction(aapc),
+                "interpretation": (
+                    "AR(1) feasible-GLS robustness analysis of posterior-mean series; "
+                    "not GBD posterior uncertainty."
+                ),
+            }
+        )
+        breaks = (int(years.min()), *selected["knots"], int(years.max()))
+        for segment_index, (start, end) in enumerate(zip(breaks[:-1], breaks[1:]), 1):
+            slope_contrast = np.zeros(len(selected["beta"]))
+            slope_contrast[1] = 1.0
+            for index, knot in enumerate(selected["knots"]):
+                slope_contrast[2 + index] = 1.0 if start >= knot else 0.0
+            segments.append(
+                {
+                    "location_name": keys[0],
+                    "sex_name": keys[1],
+                    "measure_name": keys[2],
+                    "segment_index": segment_index,
+                    "start_year": start,
+                    "end_year": end,
+                    "ar1_segment_apc": 100.0 * (
+                        math.exp(float(slope_contrast @ selected["beta"])) - 1.0
+                    ),
+                    "ar1_rho": float(selected["rho"]),
+                    "formal_inference_performed": False,
+                }
+            )
+    return pd.DataFrame(summaries), pd.DataFrame(segments)
+
+
 def residual_diagnostics(residual: np.ndarray) -> dict[str, float | bool]:
     residual = np.asarray(residual, float)
     denominator = float(np.sum(residual**2))
@@ -794,14 +1036,40 @@ def weighted_trend_sensitivity(df: pd.DataFrame, primary: pd.DataFrame) -> pd.Da
     return pd.DataFrame(rows)
 
 
-def trend_direction(value: float, tolerance: float = 1e-12) -> str:
+def trend_direction(
+    value: float, tolerance: float = PRACTICAL_STABILITY_THRESHOLD_PCT_PER_YEAR
+) -> str:
+    """Return a descriptive trajectory label using the practical-stability band."""
     if not np.isfinite(value):
         return "not available"
     if value > tolerance:
         return "increase"
     if value < -tolerance:
         return "decrease"
-    return "stable"
+    return "practically stable"
+
+
+def practical_stability_sensitivity(segmented: pd.DataFrame) -> pd.DataFrame:
+    """Show how compact trajectory labels change across descriptive thresholds."""
+    rows = []
+    for row in segmented.itertuples(index=False):
+        item = {
+            "location_name": row.location_name,
+            "sex_name": row.sex_name,
+            "measure_name": row.measure_name,
+            "aapc_pct_per_year": float(row.aapc),
+        }
+        for threshold in PRACTICAL_STABILITY_SENSITIVITY_THRESHOLDS:
+            item[f"label_at_{threshold:.2f}_pct_per_year"] = trend_direction(
+                float(row.aapc), tolerance=threshold
+            )
+        rows.append(item)
+    out = pd.DataFrame(rows)
+    out["primary_threshold_pct_per_year"] = PRACTICAL_STABILITY_THRESHOLD_PCT_PER_YEAR
+    out["interpretation"] = (
+        "Practical-description sensitivity only; labels are not statistical equivalence tests."
+    )
+    return out
 
 
 def descriptive_trajectory_contrast(a: pd.DataFrame, b: pd.DataFrame) -> dict:
@@ -886,16 +1154,22 @@ def decompose_change(pop0: np.ndarray, pop1: np.ndarray, rate0: np.ndarray, rate
     return out
 
 
-def run_decomposition(df: pd.DataFrame, pop: pd.DataFrame, windows=((1990, 2023), (2000, 2023), (2010, 2023))) -> pd.DataFrame:
-    ages = select_decomposition_ages(set(pop.age_name.dropna().astype(str)))
-    rates = df[(df.measure_name.isin(OUTCOMES)) & (df.metric_name == "Rate") & df.age_name.isin(ages)][
+def run_decomposition(
+    df: pd.DataFrame,
+    pop: pd.DataFrame,
+    windows=((1990, 2023), (2000, 2023), (2010, 2023)),
+    ages: tuple[str, ...] | None = None,
+    outcomes: tuple[str, ...] = OUTCOMES,
+) -> pd.DataFrame:
+    ages = ages or select_decomposition_ages(set(pop.age_name.dropna().astype(str)))
+    rates = df[(df.measure_name.isin(outcomes)) & (df.metric_name == "Rate") & df.age_name.isin(ages)][
         ["location_name", "sex_name", "measure_name", "age_name", "year", "val"]
     ].rename(columns={"val": "rate"})
     merged = rates.merge(pop, on=["location_name", "sex_name", "age_name", "year"], validate="many_to_one")
     rows = []
     for loc in LOCATIONS:
         for sex in SEXES:
-            for outcome in OUTCOMES:
+            for outcome in outcomes:
                 p = merged[(merged.location_name == loc) & (merged.sex_name == sex) & (merged.measure_name == outcome)]
                 for start, end in windows:
                     a = p[p.year == start].set_index("age_name").reindex(ages)
@@ -911,12 +1185,54 @@ def run_decomposition(df: pd.DataFrame, pop: pd.DataFrame, windows=((1990, 2023)
                     row = {"location_name": loc, "sex_name": sex, "measure_name": outcome,
                            "start_year": start, "end_year": end, "all_age_count_start_reconstructed": base_count,
                            "all_age_count_end_reconstructed": end_count, "population_source": pop.population_source.iloc[0],
-                           "age_partition": "fine_5_year" if ages == FINE_DECOMPOSITION_AGES else "provisional_broad_end_groups",
+                           "age_partition": (
+                               "fine_5_year" if ages == FINE_DECOMPOSITION_AGES
+                               else "supported_10_79" if ages == tuple(FINE_DECOMPOSITION_AGES[2:16])
+                               else "custom_or_provisional"
+                           ),
                            "age_group_count": len(ages), **result}
                     for component in COMPONENT_COLORS:
                         row[f"{component}_pct_of_total"] = 100.0 * row[component] / row["total_change"] if row["total_change"] else np.nan
                     rows.append(row)
     return pd.DataFrame(rows)
+
+
+def incidence_supported_age_decomposition(
+    df: pd.DataFrame, pop: pd.DataFrame, start_year: int = 1990, end_year: int = 2023
+) -> pd.DataFrame:
+    """Sensitivity restricted to incidence ages with positive source-export rates."""
+    ages = tuple(FINE_DECOMPOSITION_AGES[2:16])  # 10-14 through 75-79
+    burden_ages = set(df.loc[df.measure_name.eq("Incidence"), "age_name"].astype(str))
+    population_ages = set(pop.age_name.astype(str))
+    if not set(ages).issubset(burden_ages & population_ages):
+        return pd.DataFrame(columns=[
+            "location_name", "sex_name", "measure_name", "start_year", "end_year",
+            "supported_age_quantity_start_reconstructed",
+            "supported_age_quantity_end_reconstructed", "population_source",
+            "age_partition", "quantity_scope", "age_group_count",
+            "population_size_change", "age_structure_change",
+            "age_specific_rate_change", "total_change", "component_sum",
+            "closure_error", "population_size_change_pct_of_total",
+            "age_structure_change_pct_of_total", "age_specific_rate_change_pct_of_total",
+        ])
+    result = run_decomposition(
+        df,
+        pop,
+        windows=((start_year, end_year),),
+        ages=ages,
+        outcomes=("Incidence",),
+    ).rename(
+        columns={
+            "all_age_count_start_reconstructed": "supported_age_quantity_start_reconstructed",
+            "all_age_count_end_reconstructed": "supported_age_quantity_end_reconstructed",
+        }
+    )
+    result.insert(
+        result.columns.get_loc("age_partition") + 1,
+        "quantity_scope",
+        "incidence ages 10-79; sensitivity only; not all-age burden",
+    )
+    return result
 
 
 def _collapsed_age_group(age_name: str) -> str:
@@ -1044,6 +1360,39 @@ def chained_decomposition(df: pd.DataFrame, pop: pd.DataFrame, step: int) -> pd.
     return out
 
 
+def decomposition_path_sensitivity_summary(
+    endpoint: pd.DataFrame, annual: pd.DataFrame, fiveyear: pd.DataFrame
+) -> pd.DataFrame:
+    """Compare endpoint Shapley allocations with chained allocation paths."""
+    keys = ["location_name", "sex_name", "measure_name"]
+    components = tuple(COMPONENT_COLORS)
+    baseline = endpoint[endpoint.start_year.eq(1990) & endpoint.end_year.eq(2023)][
+        keys + ["total_change", *components]
+    ].copy()
+    out = baseline
+    for label, chained in (("annual", annual), ("fiveyear", fiveyear)):
+        last = chained.sort_values("end_year").groupby(keys, as_index=False).tail(1)
+        columns = {
+            f"cumulative_{component}": f"{label}_chained_{component}"
+            for component in components
+        }
+        selected = last[keys + list(columns)].rename(columns=columns)
+        out = out.merge(selected, on=keys, validate="one_to_one")
+        for component in components:
+            out[f"{label}_{component}_shift_pct_of_total_change"] = (
+                100.0
+                * (out[f"{label}_chained_{component}"] - out[component]).abs()
+                / out.total_change.abs().clip(lower=np.finfo(float).eps)
+            )
+    shift_columns = [column for column in out if column.endswith("shift_pct_of_total_change")]
+    out["maximum_path_shift_pct_of_total_change"] = out[shift_columns].max(axis=1)
+    out["interpretation"] = (
+        "Difference in accounting allocation under endpoint, annual-chain, and five-year-chain "
+        "replacement paths; not statistical uncertainty."
+    )
+    return out
+
+
 def apc_period(year: int) -> str | None:
     """Compatibility wrapper for the primary six-period APC window."""
     return apc.PRIMARY_WINDOW.period_for_year(year)
@@ -1053,10 +1402,111 @@ def run_secondary_apc(
     df: pd.DataFrame,
     pop: pd.DataFrame,
     include_last_period: bool = True,
+    weighting: str = "population",
 ) -> dict[str, pd.DataFrame]:
     """Run the primary 1994--2023 or sensitivity 1990--2019 APC model."""
     window = apc.PRIMARY_WINDOW if include_last_period else apc.SENSITIVITY_WINDOW
-    return apc.run_apc(df, pop, window, LOCATIONS, SEXES, measures=OUTCOMES)
+    return apc.run_apc(
+        df, pop, window, LOCATIONS, SEXES, measures=OUTCOMES, weighting=weighting
+    )
+
+
+def compare_apc_weighting(
+    weighted: dict[str, pd.DataFrame], unweighted: dict[str, pd.DataFrame]
+) -> pd.DataFrame:
+    """Summarize the sensitivity of APC point estimates to population weighting."""
+    keys = ["location_name", "sex_name", "measure_name"]
+    left = weighted["summary"][keys + ["net_drift"]].rename(
+        columns={"net_drift": "population_weighted_global_period_slope"}
+    )
+    right = unweighted["summary"][keys + ["net_drift"]].rename(
+        columns={"net_drift": "equal_weight_global_period_slope"}
+    )
+    out = left.merge(right, on=keys, validate="one_to_one")
+    out["equal_minus_population_weighted_global_period_slope"] = (
+        out.equal_weight_global_period_slope - out.population_weighted_global_period_slope
+    )
+    curve_specs = (
+        ("local_drift", "age_name", "local_drift", "maximum_absolute_age_specific_slope_difference"),
+        ("age_curve", "age_name", "longitudinal_age_rr", "maximum_absolute_log_age_rate_ratio_difference"),
+        ("period_rr", "period", "period_rr", "maximum_absolute_log_period_rate_ratio_difference"),
+        ("cohort_rr", "cohort_midpoint", "cohort_rr", "maximum_absolute_log_cohort_rate_ratio_difference"),
+    )
+    for table, coordinate, value, output_name in curve_specs:
+        joined = weighted[table][keys + [coordinate, value]].merge(
+            unweighted[table][keys + [coordinate, value]],
+            on=keys + [coordinate],
+            suffixes=("_population", "_equal"),
+            validate="one_to_one",
+        )
+        if value == "local_drift":
+            joined["difference"] = (
+                joined[f"{value}_equal"] - joined[f"{value}_population"]
+            ).abs()
+        else:
+            joined["difference"] = np.abs(
+                np.log(joined[f"{value}_equal"] / joined[f"{value}_population"])
+            )
+        maximum = joined.groupby(keys, as_index=False).difference.max().rename(
+            columns={"difference": output_name}
+        )
+        out = out.merge(maximum, on=keys, validate="one_to_one")
+    out["interpretation"] = (
+        "Descriptive weighting sensitivity; differences are point-estimate changes and "
+        "are not GBD posterior uncertainty."
+    )
+    return out
+
+
+def format_apc_tables(
+    results: dict[str, pd.DataFrame], prefix: str
+) -> dict[str, pd.DataFrame]:
+    """Relabel custom APC outputs so they are not confused with NCI estimable functions."""
+    method = (
+        "Custom descriptive weighted least-squares age-period-cohort summaries; "
+        "not asserted equivalent to conventional NCI APC estimable functions."
+    )
+    role = np.where(
+        results["summary"].measure_name.eq("Incidence"),
+        "principal secondary APC outcome",
+        "exploratory rate-surface extension",
+    )
+    summary = results["summary"].rename(
+        columns={
+            "net_drift": "global_period_slope_pct_per_year",
+            "weighted_log_rate_rss": "log_rate_objective_value",
+        }
+    ).copy()
+    summary["analysis_role"] = role
+    summary["method_label"] = method
+    local = results["local_drift"].rename(
+        columns={"local_drift": "age_specific_slope_pct_per_year"}
+    ).copy()
+    local["method_label"] = method
+    age = results["age_curve"].rename(
+        columns={"longitudinal_age_rr": "descriptive_age_rate_ratio"}
+    ).copy()
+    age["method_label"] = method
+    period = results["period_rr"].rename(
+        columns={"period_rr": "period_curvature_rate_ratio"}
+    ).copy()
+    period["method_label"] = method
+    cohort = results["cohort_rr"].rename(
+        columns={"cohort_rr": "cohort_curvature_rate_ratio"}
+    ).copy()
+    cohort["method_label"] = method
+    cells = results["cells"].rename(
+        columns={"rate": "observed_rate", "fitted_rate": "custom_fitted_rate"}
+    ).copy()
+    cells["method_label"] = method
+    return {
+        f"{prefix}_summary": summary,
+        f"{prefix}_age_specific_slopes": local,
+        f"{prefix}_age_curve": age,
+        f"{prefix}_period_curvature": period,
+        f"{prefix}_cohort_curvature": cohort,
+        f"{prefix}_cells": cells,
+    }
 
 
 def compare_primary_apc_directions(
@@ -1064,7 +1514,7 @@ def compare_primary_apc_directions(
     primary: pd.DataFrame,
     apc_summary: pd.DataFrame,
 ) -> pd.DataFrame:
-    """Report, rather than assume, agreement between primary and APC directions."""
+    """Compare incidence trends with the custom APC global period slope."""
     incidence = df[
         (df.measure_name == "Incidence")
         & (df.metric_name == "Rate")
@@ -1086,25 +1536,26 @@ def compare_primary_apc_directions(
     ].rename(columns={"aapc": "primary_segmented_aapc"})
     apc_incidence = apc_summary[apc_summary.measure_name == "Incidence"][
         ["location_name", "sex_name", "net_drift"]
-    ].rename(columns={"net_drift": "apc_net_drift"})
+    ].rename(columns={"net_drift": "apc_global_period_slope"})
     out = primary_incidence.merge(endpoint, on=["location_name", "sex_name"], validate="one_to_one")
     out = out.merge(apc_incidence, on=["location_name", "sex_name"], validate="one_to_one")
     out.insert(2, "measure_name", "Incidence")
     out["primary_segmented_direction"] = out.primary_segmented_aapc.map(trend_direction)
     out["primary_observed_direction"] = out.primary_observed_annualized_endpoint_change_pct.map(trend_direction)
-    out["apc_net_drift_direction"] = out.apc_net_drift.map(trend_direction)
+    out["apc_global_period_slope_label"] = out.apc_global_period_slope.map(trend_direction)
     out["apc_vs_segmented_direction_agreement"] = (
-        out.apc_net_drift_direction == out.primary_segmented_direction
+        out.apc_global_period_slope_label == out.primary_segmented_direction
     )
     out["apc_vs_observed_direction_agreement"] = (
-        out.apc_net_drift_direction == out.primary_observed_direction
+        out.apc_global_period_slope_label == out.primary_observed_direction
     )
-    out["apc_minus_segmented_aapc_pct_points"] = out.apc_net_drift - out.primary_segmented_aapc
+    out["apc_minus_segmented_aapc_pct_points"] = out.apc_global_period_slope - out.primary_segmented_aapc
     out["apc_minus_observed_annualized_endpoint_change_pct_points"] = (
-        out.apc_net_drift - out.primary_observed_annualized_endpoint_change_pct
+        out.apc_global_period_slope - out.primary_observed_annualized_endpoint_change_pct
     )
     out["comparison_note"] = (
-        "Direction is based on the sign of each descriptive point estimate; agreement is not a significance test."
+        "Labels apply the 0.05%/year practical-stability band to descriptive point estimates; "
+        "agreement is not a significance or equivalence test."
     )
     return out
 
@@ -1113,26 +1564,26 @@ def compare_apc_windows(
     primary_summary: pd.DataFrame,
     sensitivity_summary: pd.DataFrame,
 ) -> pd.DataFrame:
-    """Compare qualitative net-drift conclusions across the two complete windows."""
+    """Compare custom global period slopes across the two complete windows."""
     keys = ["location_name", "sex_name", "measure_name"]
     primary = primary_summary[keys + ["net_drift"]].rename(
-        columns={"net_drift": "primary_net_drift_1994_2023"}
+        columns={"net_drift": "primary_global_period_slope_1994_2023"}
     )
     sensitivity = sensitivity_summary[keys + ["net_drift"]].rename(
-        columns={"net_drift": "sensitivity_net_drift_1990_2019"}
+        columns={"net_drift": "sensitivity_global_period_slope_1990_2019"}
     )
     out = primary.merge(sensitivity, on=keys, validate="one_to_one")
-    out["primary_direction"] = out.primary_net_drift_1994_2023.map(trend_direction)
-    out["sensitivity_direction"] = out.sensitivity_net_drift_1990_2019.map(
+    out["primary_direction"] = out.primary_global_period_slope_1994_2023.map(trend_direction)
+    out["sensitivity_direction"] = out.sensitivity_global_period_slope_1990_2019.map(
         trend_direction
     )
     out["direction_agreement"] = out.primary_direction.eq(out.sensitivity_direction)
-    out["net_drift_difference_pct_points"] = (
-        out.primary_net_drift_1994_2023 - out.sensitivity_net_drift_1990_2019
+    out["global_period_slope_difference_pct_points"] = (
+        out.primary_global_period_slope_1994_2023 - out.sensitivity_global_period_slope_1990_2019
     )
     out["comparison_note"] = (
-        "Direction compares descriptive point estimates across two six-period windows; "
-        "it is not an inferential test."
+        "Labels compare descriptive point estimates using the practical-stability band across "
+        "two six-period windows; this is not an inferential or equivalence test."
     )
     return out
 
@@ -1205,12 +1656,12 @@ def build_cross_analysis_consistency(
                     "age_specific_rate_change": float(decomp.age_specific_rate_change),
                     "decomposition_total_change": float(decomp.total_change),
                     "decomposition_age_partition": decomp.age_partition,
-                    "apc_net_drift_1994_2023": np.nan,
-                    "apc_net_drift_direction": "not analyzed",
-                    "important_local_drifts": "not analyzed",
-                    "local_drifts_include_opposing_directions": False,
-                    "period_pattern": "not analyzed",
-                    "cohort_pattern": "not analyzed",
+                    "apc_global_period_slope_1994_2023": np.nan,
+                    "apc_global_period_slope_label": "not analyzed",
+                    "important_age_specific_slopes": "not analyzed",
+                    "age_specific_slopes_include_opposing_directions": False,
+                    "period_curvature_pattern": "not analyzed",
+                    "cohort_curvature_pattern": "not analyzed",
                     "methods_are_independent_replications": False,
                     "uncertainty_note": DESCRIPTIVE_INFERENCE_NOTE,
                 }
@@ -1240,16 +1691,16 @@ def build_cross_analysis_consistency(
                 ]
                 row.update(
                     {
-                        "apc_net_drift_1994_2023": float(apc_row.net_drift),
-                        "apc_net_drift_direction": trend_direction(float(apc_row.net_drift)),
-                        "important_local_drifts": _extreme_pattern(
+                        "apc_global_period_slope_1994_2023": float(apc_row.net_drift),
+                        "apc_global_period_slope_label": trend_direction(float(apc_row.net_drift)),
+                        "important_age_specific_slopes": _extreme_pattern(
                             local, "local_drift", "age_name"
                         ),
-                        "local_drifts_include_opposing_directions": bool(
+                        "age_specific_slopes_include_opposing_directions": bool(
                             local.local_drift.min() < 0 < local.local_drift.max()
                         ),
-                        "period_pattern": _extreme_pattern(period, "period_rr", "period"),
-                        "cohort_pattern": _extreme_pattern(
+                        "period_curvature_pattern": _extreme_pattern(period, "period_rr", "period"),
+                        "cohort_curvature_pattern": _extreme_pattern(
                             cohort, "cohort_rr", "cohort_midpoint"
                         ),
                     }
@@ -1307,10 +1758,10 @@ def investigate_cross_method_contradictions(
             "segmented_1990_2023": item.segmented_overall_direction,
             "asr_endpoint_1994_2023": trend_direction(asr_aligned),
             "selected_age_crude_1994_2023": trend_direction(crude_aligned),
-            "apc_net_drift_1994_2023": item.apc_net_drift_direction,
+            "apc_global_period_slope_1994_2023": item.apc_global_period_slope_label,
         }
         disagreement = len(set(directions.values())) > 1
-        local_opposition = bool(item.local_drifts_include_opposing_directions)
+        local_opposition = bool(item.age_specific_slopes_include_opposing_directions)
         if not disagreement and not local_opposition:
             continue
         likely_factors = []
@@ -1318,10 +1769,10 @@ def investigate_cross_method_contradictions(
             likely_factors.append("calendar window and piecewise-versus-endpoint estimand")
         if directions["asr_endpoint_1994_2023"] != directions["selected_age_crude_1994_2023"]:
             likely_factors.append("age coverage, age standardization, and population weighting")
-        if directions["selected_age_crude_1994_2023"] != directions["apc_net_drift_1994_2023"]:
-            likely_factors.append("APC global drift versus crude endpoint change and APC constraints")
+        if directions["selected_age_crude_1994_2023"] != directions["apc_global_period_slope_1994_2023"]:
+            likely_factors.append("custom APC global period slope versus crude endpoint change and model constraints")
         if local_opposition:
-            likely_factors.append("opposing age-specific local drifts hidden by aggregate summaries")
+            likely_factors.append("opposing age-specific slopes hidden by aggregate summaries")
         rows.append(
             {
                 "location_name": location,
@@ -1334,13 +1785,13 @@ def investigate_cross_method_contradictions(
                 "selected_age_crude_direction_1994_2023": directions[
                     "selected_age_crude_1994_2023"
                 ],
-                "apc_net_drift_direction_1994_2023": directions[
-                    "apc_net_drift_1994_2023"
+                "apc_global_period_slope_label_1994_2023": directions[
+                    "apc_global_period_slope_1994_2023"
                 ],
                 "asr_annualized_endpoint_change_1994_2023": asr_aligned,
                 "selected_age_crude_annualized_change_1994_2023": crude_aligned,
-                "apc_net_drift_1994_2023": item.apc_net_drift_1994_2023,
-                "opposing_local_drifts": local_opposition,
+                "apc_global_period_slope_1994_2023": item.apc_global_period_slope_1994_2023,
+                "opposing_age_specific_slopes": local_opposition,
                 "likely_explanatory_factors": "; ".join(likely_factors),
                 "implementation_failure_indicated": False,
                 "interpretation": (
@@ -1368,14 +1819,14 @@ def write_methodological_notes(
         "",
     ]
     if contradictions.empty:
-        lines.append("No directional disagreements or opposing local drifts were detected.")
+        lines.append("No practical-label disagreements or opposing age-specific slopes were detected.")
     else:
         for row in contradictions.itertuples(index=False):
             lines.extend(
                 [
                     f"### {row.location_name}, {row.sex_name}, {row.measure_name}",
                     "",
-                    f"- Directions: segmented 1990-2023 = {row.segmented_direction_1990_2023}; ASR endpoint 1994-2023 = {row.asr_endpoint_direction_1994_2023}; selected-age crude endpoint 1994-2023 = {row.selected_age_crude_direction_1994_2023}; APC net drift = {row.apc_net_drift_direction_1994_2023}.",
+                    f"- Practical labels: segmented 1990-2023 = {row.segmented_direction_1990_2023}; ASR endpoint 1994-2023 = {row.asr_endpoint_direction_1994_2023}; selected-age crude endpoint 1994-2023 = {row.selected_age_crude_direction_1994_2023}; custom APC global period slope = {row.apc_global_period_slope_label_1994_2023}.",
                     f"- Likely factors: {row.likely_explanatory_factors}.",
                     f"- Interpretation: {row.interpretation}",
                     "",
@@ -1384,11 +1835,11 @@ def write_methodological_notes(
     lines.extend(["## APC window sensitivity", ""])
     changed = apc_window_sensitivity[~apc_window_sensitivity.direction_agreement]
     if changed.empty:
-        lines.append("All APC net-drift directions were stable across the two windows.")
+        lines.append("All custom APC global-period-slope practical labels agreed across the two windows.")
     else:
         for row in changed.itertuples(index=False):
             lines.append(
-                f"- {row.location_name}, {row.sex_name}, {row.measure_name}: primary 1994-2023 net drift = {row.primary_net_drift_1994_2023:.6f}%/year ({row.primary_direction}); sensitivity 1990-2019 net drift = {row.sensitivity_net_drift_1990_2019:.6f}%/year ({row.sensitivity_direction}). Both magnitudes should be inspected before interpreting the sign change."
+                f"- {row.location_name}, {row.sex_name}, {row.measure_name}: primary 1994-2023 global period slope = {row.primary_global_period_slope_1994_2023:.6f}%/year ({row.primary_direction}); sensitivity 1990-2019 slope = {row.sensitivity_global_period_slope_1990_2019:.6f}%/year ({row.sensitivity_direction}). Labels use the practical-stability band and are not equivalence tests."
             )
     lines.extend(["", "## Decomposition age-bin sensitivity", ""])
     flagged = age_sensitivity[age_sensitivity.material_age_bin_sensitivity]
@@ -1576,7 +2027,7 @@ def plot_decomposition(decomp: pd.DataFrame, path: Path) -> None:
             ax.set_xticks(x)
             ax.set_xticklabels(["China","United States"])
             ax.set_title(f"{outcome}: {sex}")
-            ax.set_ylabel("Change in all-age count")
+            ax.set_ylabel("Change in all-age quantity")
             ax.grid(axis="y",alpha=.2)
     h,l = axes[0,0].get_legend_handles_labels()
     fig.legend(h,l,loc="lower center",ncol=3,frameon=False)
@@ -1600,10 +2051,10 @@ def plot_counts(df: pd.DataFrame, path: Path) -> None:
 
 def plot_apc(apc: dict[str,pd.DataFrame], path: Path) -> None:
     specifications = [
-        ("local_drift", "age_midpoint", "local_drift", "Local drift by age"),
-        ("age_curve", "age_midpoint", "longitudinal_age_rr", "Longitudinal age curve RR"),
-        ("period_rr", "period_midpoint", "period_rr", "Period RR (nonlinear deviation)"),
-        ("cohort_rr", "cohort_midpoint", "cohort_rr", "Cohort RR (nonlinear deviation)"),
+        ("local_drift", "age_midpoint", "local_drift", "Age-specific log-rate slope"),
+        ("age_curve", "age_midpoint", "longitudinal_age_rr", "Descriptive age rate ratio"),
+        ("period_rr", "period_midpoint", "period_rr", "Period-curvature rate ratio"),
+        ("cohort_rr", "cohort_midpoint", "cohort_rr", "Cohort-curvature rate ratio"),
     ]
     fig, axes = plt.subplots(len(OUTCOMES), len(specifications), figsize=(16, 11))
     for row_index, outcome in enumerate(OUTCOMES):
@@ -1627,11 +2078,11 @@ def plot_apc(apc: dict[str,pd.DataFrame], path: Path) -> None:
             if column_index == 0:
                 ax.set_ylabel(f"{outcome}\n%/year")
             else:
-                ax.set_ylabel(f"{outcome}\nrelative risk")
+                ax.set_ylabel(f"{outcome}\nrate ratio")
             ax.grid(alpha=.2)
     h, l = axes[0, 0].get_legend_handles_labels()
     fig.legend(h, l, loc="lower center", ncol=4, frameon=False)
-    fig.suptitle("Secondary age-period-cohort estimable summaries", fontweight="bold")
+    fig.suptitle("Custom descriptive age-period-cohort summaries", fontweight="bold")
     fig.tight_layout(rect=(0, .05, 1, .96))
     fig.savefig(path, dpi=300, bbox_inches="tight")
     plt.close(fig)
@@ -1666,17 +2117,17 @@ def write_tables(tables: dict[str, pd.DataFrame], out: Path) -> None:
         used.add(candidate.casefold())
         return candidate
 
-    workbook_path = out / "publication_tables.xlsx"
+    workbook_path = out / "analysis_tables.xlsx"
     used_names = {"readme", "key results"}
     sheet_map = {name: safe_sheet_name(name, used_names) for name in tables}
     with pd.ExcelWriter(workbook_path, engine="openpyxl") as writer:
         pd.DataFrame(
             [
-                ["Publication analysis tables"],
+                ["Analysis tables"],
                 ["Canonical data", "CSV files beside this workbook"],
                 ["Workbook purpose", "Review and navigation; no inferential formulas"],
                 ["Uncertainty", "Native GBD UIs only; derived analyses are point estimates"],
-                ["Production gate", "See build_metadata.json and qa/validation_summary.json"],
+                ["Validation", "See build_metadata.json and qa/validation_summary.json"],
                 [],
                 ["Table", "Worksheet", "Rows", "Columns"],
                 *[
@@ -1698,7 +2149,7 @@ def write_tables(tables: dict[str, pd.DataFrame], out: Path) -> None:
                     "population_size_change",
                     "age_structure_change",
                     "age_specific_rate_change",
-                    "apc_net_drift_1994_2023",
+                    "apc_global_period_slope_1994_2023",
                 ]
             ].rename(
                 columns={
@@ -1712,7 +2163,7 @@ def write_tables(tables: dict[str, pd.DataFrame], out: Path) -> None:
                     "population_size_change": "Population size",
                     "age_structure_change": "Age structure",
                     "age_specific_rate_change": "Age-specific rate",
-                    "apc_net_drift_1994_2023": "APC drift, %",
+                    "apc_global_period_slope_1994_2023": "APC global period slope, %",
                 }
             )
             key_results.to_excel(writer, sheet_name="Key Results", index=False)
@@ -2127,10 +2578,15 @@ def run(args) -> dict:
             "key_match_status","reconstruction_available","comparison_status",
         ])
     audit,duplicate,reconstruction=audit_burden(burden,pop)
+    source_zero_audit,source_zero_validation=audit_source_export_zeros(
+        burden,burden_metadata_path
+    )
     all_age_reconstruction=all_age_count_reconstruction(burden,reconstruction)
     yld_identity=verify_yld_daly_identity(burden)
     endpoints=endpoint_table(burden); country,sex=contrast_tables(burden)
     seg,segments,fitted=run_segmented(burden)
+    ar1_sensitivity,ar1_segments=segmented_ar1_sensitivity(burden,seg)
+    stability_sensitivity=practical_stability_sensitivity(seg)
     segmented_sensitivity=segmented_specification_sensitivity(burden)
     weighted=weighted_trend_sensitivity(burden,seg)
     excluding_2020_2023,_,_=run_segmented(burden,end_year=2019)
@@ -2145,8 +2601,15 @@ def run(args) -> dict:
                     "nci_validation_comparisons":official["pairwise"],"nci_validation_fitted":official_fitted}
         nci_version=str(official["software_version"]); nci_valid=True
     decomp=run_decomposition(burden,pop); annual=chained_decomposition(burden,pop,1); fiveyear=chained_decomposition(burden,pop,5)
+    decomp_path_sensitivity=decomposition_path_sensitivity_summary(
+        decomp,annual,fiveyear
+    )
+    supported_age_incidence_decomp=incidence_supported_age_decomposition(burden,pop)
     decomp_age_sensitivity=decomposition_age_bin_sensitivity(burden,pop)
-    apc=run_secondary_apc(burden,pop,True); apc_pre=run_secondary_apc(burden,pop,False)
+    apc=run_secondary_apc(burden,pop,True)
+    apc_unweighted=run_secondary_apc(burden,pop,True,weighting="equal")
+    apc_weighting_sensitivity=compare_apc_weighting(apc,apc_unweighted)
+    apc_pre=run_secondary_apc(burden,pop,False)
     apc_agreement=compare_primary_apc_directions(burden,seg,apc["summary"])
     apc_window_sensitivity=compare_apc_windows(apc["summary"],apc_pre["summary"])
     cross_analysis=build_cross_analysis_consistency(
@@ -2160,20 +2623,24 @@ def run(args) -> dict:
         population_hash,burden_metadata,population_metadata
     )
     tables={"data_audit":audit,"duplicate_audit":duplicate,"burden_age_granularity_audit":age_granularity,
+            "source_export_zero_audit":source_zero_audit,
             "population_reconstruction":reconstruction,"population_source_comparison":population_comparison,
             "all_age_count_reconstruction":all_age_reconstruction,"yld_daly_identity":yld_identity,
             "endpoint_summary":endpoints,"country_contrasts":country,"sex_contrasts":sex,"segmented_summary":seg,"segmented_segments":segments,
+            "segmented_ar1_sensitivity":ar1_sensitivity,
+            "segmented_ar1_segments":ar1_segments,
+            "trend_practical_stability_sensitivity":stability_sensitivity,
             "segmented_fitted":fitted,"segmented_specification_sensitivity":segmented_sensitivity,
             "trajectory_contrasts":pairwise,"ui_weighted_sensitivity":weighted,
             "trend_excluding_2020_2023":excluding_2020_2023,
             "decomposition":decomp,"decomposition_age_bin_sensitivity":decomp_age_sensitivity,
-            "annual_chained_decomposition":annual,"fiveyear_chained_decomposition":fiveyear,"apc_summary":apc["summary"],
-            "apc_local_drift":apc["local_drift"],"apc_age_curve":apc["age_curve"],"apc_period_rr":apc["period_rr"],
-            "apc_cohort_rr":apc["cohort_rr"],"apc_cells":apc["cells"],
-            "apc_sensitivity_summary_1990_2019":apc_pre["summary"],
-            "apc_sensitivity_local_drift_1990_2019":apc_pre["local_drift"],
-            "apc_sensitivity_period_rr_1990_2019":apc_pre["period_rr"],
-            "apc_sensitivity_cohort_rr_1990_2019":apc_pre["cohort_rr"],
+            "incidence_supported_age_decomposition":supported_age_incidence_decomp,
+            "annual_chained_decomposition":annual,"fiveyear_chained_decomposition":fiveyear,
+            "decomposition_path_sensitivity":decomp_path_sensitivity,
+            **format_apc_tables(apc,"apc_descriptive"),
+            **format_apc_tables(apc_unweighted,"apc_unweighted"),
+            "apc_weighting_sensitivity":apc_weighting_sensitivity,
+            **format_apc_tables(apc_pre,"apc_sensitivity_1990_2019"),
             "apc_window_sensitivity":apc_window_sensitivity,
             "apc_primary_direction_agreement":apc_agreement,
             "cross_analysis_consistency":cross_analysis,
@@ -2186,12 +2653,15 @@ def run(args) -> dict:
     )
     plot_asr(burden,main_fig/"figure_1_asr_trends.png"); plot_segmented(burden,fitted,main_fig/"figure_2_segmented_trends.png")
     plot_age_patterns(burden,main_fig/"figure_3_age_patterns.png"); plot_decomposition(decomp,main_fig/"figure_4_decomposition.png")
-    plot_counts(burden,supp_fig/"figure_s1_counts.png"); plot_apc(apc,supp_fig/"figure_s2_apc_estimable_functions.png")
+    plot_counts(burden,supp_fig/"figure_s1_counts.png"); plot_apc(apc,supp_fig/"figure_s2_custom_apc_summaries.png")
     all_age_reconstruction_valid=bool(len(all_age_reconstruction)==len(LOCATIONS)*len(SEXES)*len(OUTCOMES)*len(YEARS)
                                       and all_age_reconstruction.within_tolerance.all())
     internal_validation_passed=bool((audit.all_age_count_years.eq(34)&audit.asr_years.eq(34)).all()
                                     and int(duplicate.duplicate_dimensional_keys.iloc[0])==0
                                     and int(audit.invalid_ui_rows.sum())==0 and int(audit.negative_rows.sum())==0
+                                    and source_zero_validation["expected_age_outcome_pattern"]
+                                    and source_zero_validation["complete_location_sex_year_metric_pattern"]
+                                    and (source_zero_validation["source_export_provenance_verified"] or burden_metadata_path is None)
                                     and bool(yld_identity.audit_passed.iloc[0])
                                     and all_age_reconstruction_valid and float(decomp.closure_error.abs().max())<1e-8)
     trend_status="descriptive BIC-selected segmented curves; no formal trend inference"
@@ -2199,11 +2669,13 @@ def run(args) -> dict:
     fine_age_valid=bool(age_granularity.fine_age_panel_complete.all())
     source_metadata_complete=bool(burden_metadata and population_metadata)
     decomposition_ages=select_decomposition_ages(set(pop.age_name.dropna().astype(str)))
+    data_readiness_passed=bool(pop.population_source.iloc[0]=="official_GBD_2023" and fine_age_valid and source_metadata_complete and internal_validation_passed)
     metadata={"build_date":date.today().isoformat(),"population_status":pop.population_source.iloc[0],
               "fine_age_burden_validated":fine_age_valid,
               "decomposition_age_partition":"fine_5_year" if decomposition_ages==FINE_DECOMPOSITION_AGES else "provisional_broad_end_groups",
               "source_metadata_complete":source_metadata_complete,
-              "submission_ready":bool(pop.population_source.iloc[0]=="official_GBD_2023" and fine_age_valid and source_metadata_complete and internal_validation_passed),
+              "data_readiness_passed":data_readiness_passed,
+              "analysis_ready":data_readiness_passed,
               "trend_status":trend_status,"trend_selection_method":"deterministic BIC; zero to two breakpoints",
               "formal_trend_inference_performed":False,"official_nci_results_optional":True,
               "official_nci_software_version":nci_version,
@@ -2224,6 +2696,7 @@ def run(args) -> dict:
         "negative_rows":int(audit.negative_rows.sum()),
         "zero_rows":int(audit.zero_rows.sum()),
         "nonpositive_rows":int(audit.nonpositive_rows.sum()),
+        "source_export_zero_audit":source_zero_validation,
         "yld_daly_audit_status":str(yld_identity.audit_status.iloc[0]),
         "yld_daly_audit_passed":bool(yld_identity.audit_passed.iloc[0]),
         "yld_daly_numerically_identical":bool(yld_identity.numerically_identical.iloc[0]),
@@ -2240,23 +2713,33 @@ def run(args) -> dict:
         "source_metadata_complete":source_metadata_complete,
         "decomposition_age_group_count":len(decomposition_ages),
         "decomposition_age_bin_sensitivity_flags":int(decomp_age_sensitivity.material_age_bin_sensitivity.sum()),
+        "decomposition_path_maximum_shift_pct_of_total_change":float(decomp_path_sensitivity.maximum_path_shift_pct_of_total_change.max()),
+        "incidence_supported_age_decomposition_rows":int(len(supported_age_incidence_decomp)),
+        "incidence_supported_age_maximum_absolute_closure_error":float(supported_age_incidence_decomp.closure_error.abs().max()) if not supported_age_incidence_decomp.empty else None,
+        "segmented_ar1_sensitivity_rows":int(len(ar1_sensitivity)),
+        "segmented_ar1_all_iterations_converged":bool(ar1_sensitivity.iterations_converged.all()),
+        "segmented_ar1_practical_label_agreement_count":int(ar1_sensitivity.practical_label_agreement.sum()),
+        "segmented_ar1_maximum_absolute_aapc_difference_pct_points":float(ar1_sensitivity.ar1_minus_primary_aapc.abs().max()),
+        "primary_practical_stability_threshold_pct_per_year":PRACTICAL_STABILITY_THRESHOLD_PCT_PER_YEAR,
+        "apc_weighting_maximum_absolute_global_slope_difference_pct_points":float(apc_weighting_sensitivity.equal_minus_population_weighted_global_period_slope.abs().max()),
         "official_nci_results_imported":nci_valid,
         "internal_validation_passed":internal_validation_passed,
+        "data_readiness_passed":data_readiness_passed,
         "formal_trend_inference_performed":False,
         "segmented_sensitivity_direction_changes":int((~segmented_sensitivity.direction_stable_vs_primary).sum()),
-        "submission_ready":metadata["submission_ready"],
+        "analysis_ready":metadata["analysis_ready"],
     }
     (out/"qa"/"validation_summary.json").write_text(json.dumps(validation,indent=2),encoding="utf-8")
     return {"output":out,"tables":tables,"metadata":metadata}
 
 
 def parse_args():
-    p=argparse.ArgumentParser(description="Build the publication-strength China-US schizophrenia GBD 2023 study package.")
+    p=argparse.ArgumentParser(description="Build the China-US schizophrenia GBD 2023 analysis results.")
     p.add_argument("--burden-csv",default=DEFAULT_BURDEN,type=Path); p.add_argument("--population-csv",type=Path)
     p.add_argument("--burden-metadata-json",type=Path,help="Production provenance sidecar for the preserved raw burden export.")
     p.add_argument("--population-metadata-json",type=Path,help="Production provenance sidecar for the preserved raw population export.")
     p.add_argument("--population-release",default="GBD 2023"); p.add_argument("--output-dir",default=DEFAULT_OUTPUT,type=Path)
-    p.add_argument("--allow-proxy-population",action="store_true",help="Provisional build only; outputs are barred from submission.")
+    p.add_argument("--allow-proxy-population",action="store_true",help="Exploratory mode using reconstructed proxy population values.")
     p.add_argument("--nci-results-csv",type=Path,help="Optional normalized NCI output for descriptive curve validation.")
     return p.parse_args()
 
