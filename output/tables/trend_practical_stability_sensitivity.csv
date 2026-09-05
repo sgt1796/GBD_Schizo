@@ -1,0 +1,13 @@
+location_name,sex_name,measure_name,aapc_pct_per_year,label_at_0.02_pct_per_year,label_at_0.05_pct_per_year,label_at_0.10_pct_per_year,primary_threshold_pct_per_year,interpretation
+China,Female,DALYs,0.04781272935172609,increase,practically stable,practically stable,0.05,Practical-description sensitivity only; labels are not statistical equivalence tests.
+China,Female,Incidence,0.012491482494536577,practically stable,practically stable,practically stable,0.05,Practical-description sensitivity only; labels are not statistical equivalence tests.
+China,Female,Prevalence,0.023523613815101818,increase,practically stable,practically stable,0.05,Practical-description sensitivity only; labels are not statistical equivalence tests.
+China,Male,DALYs,0.036336135652170753,increase,practically stable,practically stable,0.05,Practical-description sensitivity only; labels are not statistical equivalence tests.
+China,Male,Incidence,-0.0014346525525010811,practically stable,practically stable,practically stable,0.05,Practical-description sensitivity only; labels are not statistical equivalence tests.
+China,Male,Prevalence,0.015143578277454495,practically stable,practically stable,practically stable,0.05,Practical-description sensitivity only; labels are not statistical equivalence tests.
+United States of America,Female,DALYs,-0.24909882956674068,decrease,decrease,decrease,0.05,Practical-description sensitivity only; labels are not statistical equivalence tests.
+United States of America,Female,Incidence,-0.209658563740156,decrease,decrease,decrease,0.05,Practical-description sensitivity only; labels are not statistical equivalence tests.
+United States of America,Female,Prevalence,-0.2301096494965016,decrease,decrease,decrease,0.05,Practical-description sensitivity only; labels are not statistical equivalence tests.
+United States of America,Male,DALYs,-0.10908787107943851,decrease,decrease,decrease,0.05,Practical-description sensitivity only; labels are not statistical equivalence tests.
+United States of America,Male,Incidence,-0.07561565297766748,decrease,decrease,practically stable,0.05,Practical-description sensitivity only; labels are not statistical equivalence tests.
+United States of America,Male,Prevalence,-0.07924543417238139,decrease,decrease,practically stable,0.05,Practical-description sensitivity only; labels are not statistical equivalence tests.
