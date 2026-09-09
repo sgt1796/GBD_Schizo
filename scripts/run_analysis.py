@@ -12,6 +12,8 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from matplotlib.colors import LinearSegmentedColormap
+from matplotlib.ticker import FuncFormatter
 
 import apc_analysis as apc
 
@@ -39,13 +41,27 @@ YEARS = tuple(range(1990, 2024))
 ENDPOINTS = (1990, 2023)
 PRACTICAL_STABILITY_THRESHOLD_PCT_PER_YEAR = 0.05
 PRACTICAL_STABILITY_SENSITIVITY_THRESHOLDS = (0.02, 0.05, 0.10)
-COLORS = {"China": "#0072B2", "United States of America": "#D55E00"}
+COLORS = {"China": "#C73E3A", "United States of America": "#276FBF"}
 SEX_LINE = {"Female": "-", "Male": "--"}
 COMPONENT_COLORS = {
-    "population_size_change": "#009E73",
-    "age_structure_change": "#E69F00",
-    "age_specific_rate_change": "#CC79A7",
+    "population_size_change": "#4C78A8",
+    "age_structure_change": "#72B7B2",
+    "age_specific_rate_change": "#F58518",
 }
+
+plt.rcParams.update({
+    "figure.facecolor": "white",
+    "axes.facecolor": "white",
+    "axes.edgecolor": "#D1D5DB",
+    "axes.spines.top": False,
+    "axes.spines.right": False,
+    "axes.grid": True,
+    "grid.color": "#E5E7EB",
+    "grid.linewidth": .8,
+    "axes.titleweight": "bold",
+    "axes.labelweight": "bold",
+    "legend.frameon": False,
+})
 
 DESCRIPTIVE_INFERENCE_NOTE = (
     "Descriptive analysis of annual GBD posterior means. Primary analyses report no "
@@ -239,6 +255,51 @@ def contrast_tables(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
                     "derived_uncertainty_note": "Point-estimate ratio/difference; no posterior-draw UI.",
                 })
     return pd.DataFrame(country_rows), pd.DataFrame(sex_rows)
+
+
+def prevalence_country_gap_by_age_year(df: pd.DataFrame) -> pd.DataFrame:
+    """Calculate the age-specific China-US prevalence gap for every year."""
+    ages = select_decomposition_ages(set(df.age_name.dropna().astype(str)))
+    rates = df[
+        df.measure_name.eq("Prevalence")
+        & df.metric_name.eq("Rate")
+        & df.age_name.isin(ages)
+    ][["location_name", "sex_name", "age_name", "year", "val"]]
+    wide = rates.pivot(
+        index=["sex_name", "age_name", "year"],
+        columns="location_name",
+        values="val",
+    ).reset_index()
+    wide.columns.name = None
+    wide = wide.rename(
+        columns={
+            "China": "china_rate",
+            "United States of America": "us_rate",
+        }
+    )
+    positive = wide.china_rate.gt(0) & wide.us_rate.gt(0)
+    wide["china_us_rate_ratio"] = np.where(
+        positive, wide.china_rate / wide.us_rate, np.nan
+    )
+    wide["log2_china_us_rate_ratio"] = np.where(
+        positive, np.log2(wide.china_rate / wide.us_rate), np.nan
+    )
+    wide["absolute_rate_difference"] = wide.china_rate - wide.us_rate
+    wide["comparison"] = np.select(
+        [wide.china_rate.lt(wide.us_rate), wide.china_rate.gt(wide.us_rate)],
+        ["China lower", "China higher"],
+        default="equal or undefined",
+    )
+    wide["formal_inference_performed"] = False
+    wide["method_note"] = (
+        "Age-specific prevalence-rate contrasts use GBD posterior means. "
+        "A positive log2 ratio means China is higher; zero means equal rates."
+    )
+    order = {age: index for index, age in enumerate(ages)}
+    wide["age_order"] = wide.age_name.map(order)
+    return wide.sort_values(["sex_name", "age_order", "year"]).drop(
+        columns="age_order"
+    )
 
 
 def segmented_design(years: np.ndarray, knots: tuple[int, ...]) -> np.ndarray:
@@ -1539,6 +1600,133 @@ def plot_apc(apc: dict[str,pd.DataFrame], path: Path) -> None:
     plt.close(fig)
 
 
+def plot_prevalence_country_gap_heatmap(gap: pd.DataFrame, path: Path) -> None:
+    ages = select_decomposition_ages(set(gap.age_name.dropna().astype(str)))
+    location_fields = (
+        ("China", "china_rate"),
+        ("United States", "us_rate"),
+    )
+    values = gap[[field for _, field in location_fields]].to_numpy(float)
+    color_scale = LinearSegmentedColormap.from_list(
+        "breast_reference_heatmap",
+        ["#083D77", "#EBEBD3", "#DA4167", "#F4D35E", "#F78764"],
+    )
+    fig, axes = plt.subplots(2, 2, figsize=(14, 9), sharex=True, sharey=True)
+    image = None
+    for row, sex in enumerate(SEXES):
+        for column, (location, field) in enumerate(location_fields):
+            ax = axes[row, column]
+            panel = gap[gap.sex_name.eq(sex)].pivot(
+                index="age_name", columns="year", values=field
+            ).reindex(index=ages, columns=YEARS)
+            image = ax.imshow(
+                panel.to_numpy(float), origin="lower", aspect="auto",
+                cmap=color_scale, vmin=0, vmax=np.nanmax(values),
+            )
+            ax.grid(False)
+            ax.set_xticks(np.arange(-.5, len(YEARS), 1), minor=True)
+            ax.set_yticks(np.arange(-.5, len(ages), 1), minor=True)
+            ax.grid(which="minor", color="white", linewidth=.55)
+            ax.tick_params(which="minor", bottom=False, left=False)
+            if row == 0:
+                ax.set_title(
+                    location, fontsize=10, pad=10,
+                    bbox={"facecolor": "#EEF2F7", "edgecolor": "none", "pad": 5},
+                )
+            if column == 0:
+                ax.set_ylabel(sex, fontweight="bold")
+            if row == 1:
+                tick_years = (1990, 1995, 2000, 2005, 2010, 2015, 2020, 2023)
+                ax.set_xticks([YEARS.index(year) for year in tick_years])
+                ax.set_xticklabels(tick_years, rotation=45, ha="right")
+                ax.set_xlabel("Year")
+    axes[0, 0].set_yticks(range(len(ages)))
+    axes[0, 0].set_yticklabels(ages)
+    axes[1, 0].set_yticks(range(len(ages)))
+    axes[1, 0].set_yticklabels(ages)
+    colorbar_axis = fig.add_axes([.925, .20, .018, .60])
+    colorbar = fig.colorbar(image, cax=colorbar_axis)
+    colorbar.set_label("Prevalence rate per 100,000", fontweight="bold")
+    fig.suptitle(
+        "Age-specific schizophrenia prevalence rates by year",
+        x=.08, ha="left", fontsize=16, fontweight="bold",
+    )
+    fig.subplots_adjust(left=.14, right=.90, top=.91, bottom=.11, hspace=.18, wspace=.04)
+    fig.savefig(path, dpi=300, bbox_inches="tight")
+    plt.close(fig)
+
+
+def plot_dynamic_prevalence_decomposition(
+    annual_decomposition: pd.DataFrame, path: Path
+) -> None:
+    panel_data = annual_decomposition[
+        annual_decomposition.measure_name.eq("Prevalence")
+    ]
+    fig, axes = plt.subplots(2, 2, figsize=(13, 8), sharex=True)
+    components = (
+        ("cumulative_population_size_change", "Population growth", "#4C78A8"),
+        ("cumulative_age_structure_change", "Population ageing", "#72B7B2"),
+        ("cumulative_age_specific_rate_change", "Rate change", "#F58518"),
+    )
+    for row, sex in enumerate(SEXES):
+        for column, location in enumerate(LOCATIONS):
+            ax = axes[row, column]
+            panel = panel_data[
+                panel_data.location_name.eq(location)
+                & panel_data.sex_name.eq(sex)
+            ].sort_values("end_year")
+            for component, label, color in components:
+                ax.plot(
+                    panel.end_year,
+                    panel[component],
+                    color=color,
+                    lw=1.9,
+                    marker="o",
+                    markersize=3.2,
+                    label=label,
+                )
+            ax.plot(
+                panel.end_year,
+                panel.cumulative_total_change,
+                color="#111827", ls=(0, (3, 3)), lw=1.7,
+            )
+            ax.axhline(0, color="#475569", lw=.7)
+            if row == 0:
+                ax.set_title(
+                    location.replace("United States of America", "United States"),
+                    fontsize=10, pad=10,
+                    bbox={"facecolor": "#EEF2F7", "edgecolor": "none", "pad": 5},
+                )
+            if column == 1:
+                ax.annotate(
+                    sex, xy=(1.035, .5), xycoords="axes fraction", rotation=-90,
+                    va="center", ha="center", fontweight="bold",
+                    bbox={"facecolor": "#EEF2F7", "edgecolor": "none", "pad": 6},
+                )
+            ax.yaxis.set_major_formatter(
+                FuncFormatter(lambda value, _: f"{value / 1_000_000:.1f}M" if abs(value) >= 1_000_000 else (f"{value / 1_000:.0f}K" if abs(value) >= 1_000 else f"{value:.0f}"))
+            )
+            ax.grid(True, which="major", color="#E5E7EB")
+            if row == 1:
+                ax.set_xlabel("Year")
+    handles, labels = axes[0, 0].get_legend_handles_labels()
+    fig.legend(
+        handles, labels, loc="lower center", bbox_to_anchor=(.5, .015),
+        ncol=3, frameon=False,
+    )
+    fig.suptitle(
+        "Cumulative annual decomposition of schizophrenia prevalence change",
+        x=.07, ha="left", fontsize=16, fontweight="bold",
+    )
+    fig.supylabel(
+        "Cumulative change in counts since 1990",
+        x=.012, fontsize=11, fontweight="bold",
+    )
+    fig.tight_layout(rect=(.025, .07, .96, .94))
+    fig.savefig(path, dpi=300, bbox_inches="tight")
+    plt.close(fig)
+
+
 def write_tables(tables: dict[str, pd.DataFrame], out: Path) -> None:
     out.mkdir(parents=True, exist_ok=True)
     for name, table in tables.items():
@@ -1566,6 +1754,7 @@ def run(args) -> dict[str, pd.DataFrame]:
     weighted_sensitivity = weighted_trend_sensitivity(burden, segmented)
     through_2019, _, _ = run_segmented(burden, end_year=2019)
     trajectory_contrasts = build_trajectory_contrasts(burden)
+    prevalence_gap = prevalence_country_gap_by_age_year(burden)
 
     decomposition = run_decomposition(burden, population)
     annual_decomposition = chained_decomposition(burden, population, 1)
@@ -1601,6 +1790,7 @@ def run(args) -> dict[str, pd.DataFrame]:
         "ui_weighted_sensitivity": weighted_sensitivity,
         "trend_excluding_2020_2023": through_2019,
         "trajectory_contrasts": trajectory_contrasts,
+        "prevalence_country_gap_age_year": prevalence_gap,
         "decomposition": decomposition,
         "decomposition_age_bin_sensitivity": age_bin_sensitivity,
         "incidence_supported_age_decomposition": supported_age_decomposition,
@@ -1621,6 +1811,13 @@ def run(args) -> dict[str, pd.DataFrame]:
     plot_segmented(burden, fitted, main_fig / "figure_2_segmented_trends.png")
     plot_age_patterns(burden, main_fig / "figure_3_age_patterns.png")
     plot_decomposition(decomposition, main_fig / "figure_4_decomposition.png")
+    plot_prevalence_country_gap_heatmap(
+        prevalence_gap, main_fig / "figure_5_prevalence_age_year_heatmap.png"
+    )
+    plot_dynamic_prevalence_decomposition(
+        annual_decomposition,
+        main_fig / "figure_6_annual_prevalence_decomposition.png",
+    )
     plot_counts(burden, supp_fig / "figure_s1_counts.png")
     plot_apc(apc_primary, supp_fig / "figure_s2_custom_apc_summaries.png")
     return tables

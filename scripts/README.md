@@ -1,7 +1,7 @@
 # Schizophrenia burden analysis
 
-This directory contains the analysis used for the journal manuscript comparing
-schizophrenia burden in China and the United States from 1990 to 2023.
+This directory contains the analysis comparing schizophrenia burden in China
+and the United States from 1990 to 2023.
 
 ## Run
 
@@ -15,8 +15,9 @@ python scripts/run_analysis.py
 
 The preparation scripts extract and combine the retained IHME GBD 2023 source
 archives in `GBD_data/`. The analysis script reads the two canonical CSV files
-in that directory and writes manuscript tables, figures, and documents under
-`output/` at the repository root.
+in that directory and writes tables and figures under `output/` at the
+repository root. The main figures include age-specific prevalence heatmaps and
+the cumulative annual decomposition of prevalent counts.
 
 ## Contents
 

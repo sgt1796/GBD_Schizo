@@ -11,7 +11,11 @@ and disability-adjusted life years (DALYs) in China and the United States from
 For each country, sex, outcome, and year, the analysis reports age-standardized
 rates and reconstructed counts. Endpoint summaries quantify absolute and
 relative change between 1990 and 2023. Country and sex contrasts are calculated
-on both absolute and relative scales.
+on both absolute and relative scales. Annual point-estimate rate ratios describe
+the evolution of the China-to-United States and male-to-female disparities.
+Age-specific endpoint changes describe the distribution of rate changes across
+five-year age groups; percent changes are left undefined when either endpoint
+rate is zero.
 
 ## Temporal trends
 
@@ -44,10 +48,20 @@ outcomes. Annual and five-year chained decompositions, alternative factor order,
 and broader age-bin definitions assess sensitivity. An incidence-only analysis
 restricted to ages with positive source rates is supplementary.
 
+## Prevalence heatmap and annual decomposition
+
+Age-by-year heatmaps display age-specific prevalence rates for China and the
+United States on the same color scale, with separate rows for females and
+males. The annual chained decomposition is plotted cumulatively to show when
+population growth, population ageing, and age-specific rate change contributed
+to the change in prevalent counts.
+
 ## Uncertainty and interpretation
 
 Uncertainty intervals supplied by GBD are propagated for reported endpoint
-estimates. Trend and decomposition results are treated as model-based
+estimates. Derived contrasts and decomposition components use posterior means
+because posterior draws were not
+available. Trend and decomposition results are treated as model-based
 descriptions of the GBD estimates. Country, sex, and outcome comparisons are
 correlated views of the same modeled data and are not treated as independent
 replications. Interpretation emphasizes direction, magnitude, consistency
