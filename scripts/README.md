@@ -16,8 +16,10 @@ python scripts/run_analysis.py
 The preparation scripts extract and combine the retained IHME GBD 2023 source
 archives in `GBD_data/`. The analysis script reads the two canonical CSV files
 in that directory and writes tables and figures under `output/` at the
-repository root. The main figures include age-specific prevalence heatmaps and
-the cumulative annual decomposition of prevalent counts.
+repository root. The main figures include the age-specific China-US prevalence
+gap, ageing of the prevalent population, and the endpoint demographic
+decomposition. Segmented trends and cumulative annual decomposition are
+supplementary figures.
 
 ## Contents
 

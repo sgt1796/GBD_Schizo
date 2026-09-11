@@ -48,13 +48,15 @@ outcomes. Annual and five-year chained decompositions, alternative factor order,
 and broader age-bin definitions assess sensitivity. An incidence-only analysis
 restricted to ages with positive source rates is supplementary.
 
-## Prevalence heatmap and annual decomposition
+## Prevalence country gap, population ageing, and annual decomposition
 
-Age-by-year heatmaps display age-specific prevalence rates for China and the
-United States on the same color scale, with separate rows for females and
-males. The annual chained decomposition is plotted cumulatively to show when
-population growth, population ageing, and age-specific rate change contributed
-to the change in prevalent counts.
+Age-by-year heatmaps display the log2 ratio of age-specific prevalence rates in
+China versus the United States, separately for females and males. The diverging
+scale is centered at equality, and age-year cells with undefined ratios are
+masked. The ageing analysis reports the percentage and number of prevalent
+cases aged 65 years or older over time. The annual chained decomposition is
+plotted cumulatively to show when population growth, population ageing, and
+age-specific rate change contributed to the change in prevalent counts.
 
 ## Uncertainty and interpretation
 
