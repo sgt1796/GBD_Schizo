@@ -1,0 +1,9 @@
+window,location_name,sex_name,measure_name,net_drift,reference_age,reference_period,reference_cohort
+1994_2023,China,Female,Incidence,0.005931035239759,37.5,2006.5,1969
+1994_2023,China,Male,Incidence,0.0011605627146194,37.5,2006.5,1969
+1994_2023,United States of America,Female,Incidence,-0.0777024978902863,37.5,2006.5,1969
+1994_2023,United States of America,Male,Incidence,0.0365350011563681,37.5,2006.5,1969
+1990_2019,China,Female,Incidence,0.00454412944213,37.5,2002.5,1965
+1990_2019,China,Male,Incidence,0.0050038456361312,37.5,2002.5,1965
+1990_2019,United States of America,Female,Incidence,-0.07584203340264,37.5,2002.5,1965
+1990_2019,United States of America,Male,Incidence,0.0415983946386644,37.5,2002.5,1965

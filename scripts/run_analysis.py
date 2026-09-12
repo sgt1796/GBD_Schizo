@@ -15,7 +15,7 @@ import pandas as pd
 from matplotlib.colors import TwoSlopeNorm
 from matplotlib.ticker import FuncFormatter
 
-import apc_analysis as apc
+import nci_apc_analysis as apc
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -34,7 +34,7 @@ FINE_DECOMPOSITION_AGES = (
     "65-69 years", "70-74 years", "75-79 years", "80-84 years",
     "85-89 years", "90-94 years", "95+ years",
 )
-APC_AGES = apc.BASE_APC_AGES
+APC_AGES = apc.AGE_LABELS
 ALL_AGES = "All ages"
 ASR = "Age-standardized"
 YEARS = tuple(range(1990, 2024))
@@ -1110,128 +1110,12 @@ def decomposition_path_sensitivity_summary(
     return out
 
 
-def apc_period(year: int) -> str | None:
-    """Compatibility wrapper for the primary six-period APC window."""
-    return apc.PRIMARY_WINDOW.period_for_year(year)
-
-
-def run_secondary_apc(
-    df: pd.DataFrame,
-    pop: pd.DataFrame,
-    include_last_period: bool = True,
-    weighting: str = "population",
-) -> dict[str, pd.DataFrame]:
-    """Run the primary 1994--2023 or sensitivity 1990--2019 APC model."""
-    window = apc.PRIMARY_WINDOW if include_last_period else apc.SENSITIVITY_WINDOW
-    return apc.run_apc(
-        df, pop, window, LOCATIONS, SEXES, measures=OUTCOMES, weighting=weighting
-    )
-
-
-def compare_apc_weighting(
-    weighted: dict[str, pd.DataFrame], unweighted: dict[str, pd.DataFrame]
-) -> pd.DataFrame:
-    """Summarize the sensitivity of APC point estimates to population weighting."""
-    keys = ["location_name", "sex_name", "measure_name"]
-    left = weighted["summary"][keys + ["net_drift"]].rename(
-        columns={"net_drift": "population_weighted_global_period_slope"}
-    )
-    right = unweighted["summary"][keys + ["net_drift"]].rename(
-        columns={"net_drift": "equal_weight_global_period_slope"}
-    )
-    out = left.merge(right, on=keys, validate="one_to_one")
-    out["equal_minus_population_weighted_global_period_slope"] = (
-        out.equal_weight_global_period_slope - out.population_weighted_global_period_slope
-    )
-    curve_specs = (
-        ("local_drift", "age_name", "local_drift", "maximum_absolute_age_specific_slope_difference"),
-        ("age_curve", "age_name", "longitudinal_age_rr", "maximum_absolute_log_age_rate_ratio_difference"),
-        ("period_rr", "period", "period_rr", "maximum_absolute_log_period_rate_ratio_difference"),
-        ("cohort_rr", "cohort_midpoint", "cohort_rr", "maximum_absolute_log_cohort_rate_ratio_difference"),
-    )
-    for table, coordinate, value, output_name in curve_specs:
-        joined = weighted[table][keys + [coordinate, value]].merge(
-            unweighted[table][keys + [coordinate, value]],
-            on=keys + [coordinate],
-            suffixes=("_population", "_equal"),
-            validate="one_to_one",
-        )
-        if value == "local_drift":
-            joined["difference"] = (
-                joined[f"{value}_equal"] - joined[f"{value}_population"]
-            ).abs()
-        else:
-            joined["difference"] = np.abs(
-                np.log(joined[f"{value}_equal"] / joined[f"{value}_population"])
-            )
-        maximum = joined.groupby(keys, as_index=False).difference.max().rename(
-            columns={"difference": output_name}
-        )
-        out = out.merge(maximum, on=keys, validate="one_to_one")
-    out["interpretation"] = (
-        "Descriptive weighting sensitivity; differences are point-estimate changes and "
-        "are not GBD posterior uncertainty."
-    )
-    return out
-
-
-def format_apc_tables(
-    results: dict[str, pd.DataFrame], prefix: str
-) -> dict[str, pd.DataFrame]:
-    """Relabel custom APC outputs so they are not confused with NCI estimable functions."""
-    method = (
-        "Custom descriptive weighted least-squares age-period-cohort summaries; "
-        "not asserted equivalent to conventional NCI APC estimable functions."
-    )
-    role = np.where(
-        results["summary"].measure_name.eq("Incidence"),
-        "principal secondary APC outcome",
-        "exploratory rate-surface extension",
-    )
-    summary = results["summary"].rename(
-        columns={
-            "net_drift": "global_period_slope_pct_per_year",
-            "weighted_log_rate_rss": "log_rate_objective_value",
-        }
-    ).copy()
-    summary["analysis_role"] = role
-    summary["method_label"] = method
-    local = results["local_drift"].rename(
-        columns={"local_drift": "age_specific_slope_pct_per_year"}
-    ).copy()
-    local["method_label"] = method
-    age = results["age_curve"].rename(
-        columns={"longitudinal_age_rr": "descriptive_age_rate_ratio"}
-    ).copy()
-    age["method_label"] = method
-    period = results["period_rr"].rename(
-        columns={"period_rr": "period_curvature_rate_ratio"}
-    ).copy()
-    period["method_label"] = method
-    cohort = results["cohort_rr"].rename(
-        columns={"cohort_rr": "cohort_curvature_rate_ratio"}
-    ).copy()
-    cohort["method_label"] = method
-    cells = results["cells"].rename(
-        columns={"rate": "observed_rate", "fitted_rate": "custom_fitted_rate"}
-    ).copy()
-    cells["method_label"] = method
-    return {
-        f"{prefix}_summary": summary,
-        f"{prefix}_age_specific_slopes": local,
-        f"{prefix}_age_curve": age,
-        f"{prefix}_period_curvature": period,
-        f"{prefix}_cohort_curvature": cohort,
-        f"{prefix}_cells": cells,
-    }
-
-
 def compare_primary_apc_directions(
     df: pd.DataFrame,
     primary: pd.DataFrame,
     apc_summary: pd.DataFrame,
 ) -> pd.DataFrame:
-    """Compare incidence trends with the custom APC global period slope."""
+    """Compare incidence trends with the APC net drift point estimate."""
     incidence = df[
         (df.measure_name == "Incidence")
         & (df.metric_name == "Rate")
@@ -1253,25 +1137,25 @@ def compare_primary_apc_directions(
     ].rename(columns={"aapc": "primary_segmented_aapc"})
     apc_incidence = apc_summary[apc_summary.measure_name == "Incidence"][
         ["location_name", "sex_name", "net_drift"]
-    ].rename(columns={"net_drift": "apc_global_period_slope"})
+    ].rename(columns={"net_drift": "apc_net_drift"})
     out = primary_incidence.merge(endpoint, on=["location_name", "sex_name"], validate="one_to_one")
     out = out.merge(apc_incidence, on=["location_name", "sex_name"], validate="one_to_one")
     out.insert(2, "measure_name", "Incidence")
     out["primary_segmented_direction"] = out.primary_segmented_aapc.map(trend_direction)
     out["primary_observed_direction"] = out.primary_observed_annualized_endpoint_change_pct.map(trend_direction)
-    out["apc_global_period_slope_label"] = out.apc_global_period_slope.map(trend_direction)
+    out["apc_net_drift_label"] = out.apc_net_drift.map(trend_direction)
     out["apc_vs_segmented_direction_agreement"] = (
-        out.apc_global_period_slope_label == out.primary_segmented_direction
+        out.apc_net_drift_label == out.primary_segmented_direction
     )
     out["apc_vs_observed_direction_agreement"] = (
-        out.apc_global_period_slope_label == out.primary_observed_direction
+        out.apc_net_drift_label == out.primary_observed_direction
     )
-    out["apc_minus_segmented_aapc_pct_points"] = out.apc_global_period_slope - out.primary_segmented_aapc
+    out["apc_minus_segmented_aapc_pct_points"] = out.apc_net_drift - out.primary_segmented_aapc
     out["apc_minus_observed_annualized_endpoint_change_pct_points"] = (
-        out.apc_global_period_slope - out.primary_observed_annualized_endpoint_change_pct
+        out.apc_net_drift - out.primary_observed_annualized_endpoint_change_pct
     )
     out["comparison_note"] = (
-        "Labels apply the 0.05%/year practical-stability band to descriptive point estimates; "
+        "Labels apply the 0.05%/year practical-stability band to APC point estimates; "
         "agreement is not a significance or equivalence test."
     )
     return out
@@ -1281,25 +1165,25 @@ def compare_apc_windows(
     primary_summary: pd.DataFrame,
     sensitivity_summary: pd.DataFrame,
 ) -> pd.DataFrame:
-    """Compare custom global period slopes across the two complete windows."""
+    """Compare APC net drift across the two complete windows."""
     keys = ["location_name", "sex_name", "measure_name"]
     primary = primary_summary[keys + ["net_drift"]].rename(
-        columns={"net_drift": "primary_global_period_slope_1994_2023"}
+        columns={"net_drift": "primary_net_drift_1994_2023"}
     )
     sensitivity = sensitivity_summary[keys + ["net_drift"]].rename(
-        columns={"net_drift": "sensitivity_global_period_slope_1990_2019"}
+        columns={"net_drift": "sensitivity_net_drift_1990_2019"}
     )
     out = primary.merge(sensitivity, on=keys, validate="one_to_one")
-    out["primary_direction"] = out.primary_global_period_slope_1994_2023.map(trend_direction)
-    out["sensitivity_direction"] = out.sensitivity_global_period_slope_1990_2019.map(
+    out["primary_direction"] = out.primary_net_drift_1994_2023.map(trend_direction)
+    out["sensitivity_direction"] = out.sensitivity_net_drift_1990_2019.map(
         trend_direction
     )
     out["direction_agreement"] = out.primary_direction.eq(out.sensitivity_direction)
-    out["global_period_slope_difference_pct_points"] = (
-        out.primary_global_period_slope_1994_2023 - out.sensitivity_global_period_slope_1990_2019
+    out["net_drift_difference_pct_points"] = (
+        out.primary_net_drift_1994_2023 - out.sensitivity_net_drift_1990_2019
     )
     out["comparison_note"] = (
-        "Labels compare descriptive point estimates using the practical-stability band across "
+        "Labels compare APC point estimates using the practical-stability band across "
         "two six-period windows; this is not an inferential or equivalence test."
     )
     return out
@@ -1373,15 +1257,18 @@ def build_cross_analysis_consistency(
                     "age_specific_rate_change": float(decomp.age_specific_rate_change),
                     "decomposition_total_change": float(decomp.total_change),
                     "decomposition_age_partition": decomp.age_partition,
-                    "apc_global_period_slope_1994_2023": np.nan,
-                    "apc_global_period_slope_label": "not analyzed",
+                    "apc_net_drift_1994_2023": np.nan,
+                    "apc_net_drift_label": "not analyzed",
                     "important_age_specific_slopes": "not analyzed",
                     "age_specific_slopes_include_opposing_directions": False,
-                    "period_curvature_pattern": "not analyzed",
-                    "cohort_curvature_pattern": "not analyzed",
+                    "period_rate_ratio_pattern": "not analyzed",
+                    "cohort_rate_ratio_pattern": "not analyzed",
                     "methods_are_independent_replications": False,
                     "uncertainty_note": DESCRIPTIVE_INFERENCE_NOTE,
                 }
+                if outcome != "Incidence":
+                    rows.append(row)
+                    continue
                 panel_filter = (
                     apc_results["summary"].location_name.eq(location)
                     & apc_results["summary"].sex_name.eq(sex)
@@ -1408,16 +1295,16 @@ def build_cross_analysis_consistency(
                 ]
                 row.update(
                     {
-                        "apc_global_period_slope_1994_2023": float(apc_row.net_drift),
-                        "apc_global_period_slope_label": trend_direction(float(apc_row.net_drift)),
+                        "apc_net_drift_1994_2023": float(apc_row.net_drift),
+                        "apc_net_drift_label": trend_direction(float(apc_row.net_drift)),
                         "important_age_specific_slopes": _extreme_pattern(
-                            local, "local_drift", "age_name"
+                            local, "local_drift", "age_midpoint"
                         ),
                         "age_specific_slopes_include_opposing_directions": bool(
                             local.local_drift.min() < 0 < local.local_drift.max()
                         ),
-                        "period_curvature_pattern": _extreme_pattern(period, "period_rr", "period"),
-                        "cohort_curvature_pattern": _extreme_pattern(
+                        "period_rate_ratio_pattern": _extreme_pattern(period, "period_rr", "period_midpoint"),
+                        "cohort_rate_ratio_pattern": _extreme_pattern(
                             cohort, "cohort_rr", "cohort_midpoint"
                         ),
                     }
@@ -1433,8 +1320,10 @@ def investigate_cross_method_contradictions(
 ) -> pd.DataFrame:
     """Diagnose apparent cross-method contradictions using aligned contrasts."""
     rows = []
-    ages = apc.select_apc_ages(set(burden.age_name.dropna().astype(str)))
+    ages = APC_AGES
     for _, item in consistency.iterrows():
+        if item.measure_name != "Incidence":
+            continue
         location, sex, outcome = item.location_name, item.sex_name, item.measure_name
         asr = burden[
             burden.location_name.eq(location)
@@ -1475,7 +1364,7 @@ def investigate_cross_method_contradictions(
             "segmented_1990_2023": item.segmented_overall_direction,
             "asr_endpoint_1994_2023": trend_direction(asr_aligned),
             "selected_age_crude_1994_2023": trend_direction(crude_aligned),
-            "apc_global_period_slope_1994_2023": item.apc_global_period_slope_label,
+            "apc_net_drift_1994_2023": item.apc_net_drift_label,
         }
         disagreement = len(set(directions.values())) > 1
         local_opposition = bool(item.age_specific_slopes_include_opposing_directions)
@@ -1486,8 +1375,8 @@ def investigate_cross_method_contradictions(
             likely_factors.append("calendar window and piecewise-versus-endpoint estimand")
         if directions["asr_endpoint_1994_2023"] != directions["selected_age_crude_1994_2023"]:
             likely_factors.append("age coverage, age standardization, and population weighting")
-        if directions["selected_age_crude_1994_2023"] != directions["apc_global_period_slope_1994_2023"]:
-            likely_factors.append("custom APC global period slope versus crude endpoint change and model constraints")
+        if directions["selected_age_crude_1994_2023"] != directions["apc_net_drift_1994_2023"]:
+            likely_factors.append("APC net drift versus crude endpoint change and model constraints")
         if local_opposition:
             likely_factors.append("opposing age-specific slopes hidden by aggregate summaries")
         rows.append(
@@ -1502,12 +1391,12 @@ def investigate_cross_method_contradictions(
                 "selected_age_crude_direction_1994_2023": directions[
                     "selected_age_crude_1994_2023"
                 ],
-                "apc_global_period_slope_label_1994_2023": directions[
-                    "apc_global_period_slope_1994_2023"
+                "apc_net_drift_label_1994_2023": directions[
+                    "apc_net_drift_1994_2023"
                 ],
                 "asr_annualized_endpoint_change_1994_2023": asr_aligned,
                 "selected_age_crude_annualized_change_1994_2023": crude_aligned,
-                "apc_global_period_slope_1994_2023": item.apc_global_period_slope_1994_2023,
+                "apc_net_drift_1994_2023": item.apc_net_drift_1994_2023,
                 "opposing_age_specific_slopes": local_opposition,
                 "likely_explanatory_factors": "; ".join(likely_factors),
                 "implementation_failure_indicated": False,
@@ -1609,39 +1498,33 @@ def plot_counts(df: pd.DataFrame, path: Path) -> None:
 
 def plot_apc(apc: dict[str,pd.DataFrame], path: Path) -> None:
     specifications = [
-        ("local_drift", "age_midpoint", "local_drift", "Age-specific log-rate slope"),
-        ("age_curve", "age_midpoint", "longitudinal_age_rr", "Descriptive age rate ratio"),
-        ("period_rr", "period_midpoint", "period_rr", "Period-curvature rate ratio"),
-        ("cohort_rr", "cohort_midpoint", "cohort_rr", "Cohort-curvature rate ratio"),
+        ("local_drift", "age_midpoint", "local_drift", "Local drift (%/year)"),
+        ("age_curve", "age_midpoint", "longitudinal_age_rate_per_100000", "Longitudinal age rate"),
+        ("period_rr", "period_midpoint", "period_rr", "Period rate ratio"),
+        ("cohort_rr", "cohort_midpoint", "cohort_rr", "Cohort rate ratio"),
     ]
-    fig, axes = plt.subplots(len(OUTCOMES), len(specifications), figsize=(16, 11))
-    for row_index, outcome in enumerate(OUTCOMES):
-        for column_index, (key, xcol, ycol, title) in enumerate(specifications):
-            ax = axes[row_index, column_index]
-            data = apc[key]
-            for loc in LOCATIONS:
-                for sex in SEXES:
-                    s = data[
-                        data.location_name.eq(loc)
-                        & data.sex_name.eq(sex)
-                        & data.measure_name.eq(outcome)
-                    ].sort_values(xcol)
-                    ax.plot(
-                        s[xcol], s[ycol], color=COLORS[loc], ls=SEX_LINE[sex], lw=1.8,
-                        label=f"{loc.replace('United States of America','United States')} {sex}",
-                    )
-            ax.axhline(0 if key == "local_drift" else 1, color="black", lw=.6)
-            if row_index == 0:
-                ax.set_title(title)
-            if column_index == 0:
-                ax.set_ylabel(f"{outcome}\n%/year")
-            else:
-                ax.set_ylabel(f"{outcome}\nrate ratio")
-            ax.grid(alpha=.2)
+    fig, axes = plt.subplots(2, 2, figsize=(10, 7.5))
+    for ax, (key, xcol, ycol, title) in zip(axes.flat, specifications):
+        data = apc[key]
+        for loc in LOCATIONS:
+            for sex in SEXES:
+                s = data[data.location_name.eq(loc) & data.sex_name.eq(sex)].sort_values(xcol)
+                ax.plot(s[xcol], s[ycol], color=COLORS[loc], ls=SEX_LINE[sex], lw=1.8,
+                        label=f"{loc.replace('United States of America','United States')} {sex}")
+        if key in ("period_rr", "cohort_rr"):
+            ax.axhline(1, color="black", lw=.6)
+        elif key == "local_drift":
+            ax.axhline(0, color="black", lw=.6)
+        ax.set_title(title)
+        ax.grid(alpha=.2)
+    axes[0, 0].set_ylabel("Percent per year")
+    axes[0, 1].set_ylabel("Incidence per 100,000")
+    for ax in axes[1]:
+        ax.set_ylabel("Rate ratio")
     h, l = axes[0, 0].get_legend_handles_labels()
     fig.legend(h, l, loc="lower center", ncol=4, frameon=False)
-    fig.suptitle("Custom descriptive age-period-cohort summaries", fontweight="bold")
-    fig.tight_layout(rect=(0, .05, 1, .96))
+    fig.suptitle("Age-period-cohort incidence estimable functions", fontweight="bold")
+    fig.tight_layout(rect=(0, .08, 1, .94))
     fig.savefig(path, dpi=300, bbox_inches="tight")
     plt.close(fig)
 
@@ -1860,10 +1743,9 @@ def run(args) -> dict[str, pd.DataFrame]:
     supported_age_decomposition = incidence_supported_age_decomposition(burden, population)
     age_bin_sensitivity = decomposition_age_bin_sensitivity(burden, population)
 
-    apc_primary = run_secondary_apc(burden, population, True)
-    apc_equal_weight = run_secondary_apc(burden, population, True, weighting="equal")
-    apc_earlier_window = run_secondary_apc(burden, population, False)
-    apc_weighting = compare_apc_weighting(apc_primary, apc_equal_weight)
+    apc_primary, apc_earlier_window, apc_tables = apc.run_nci_apc(
+        burden, population, tables_dir, LOCATIONS, SEXES
+    )
     apc_agreement = compare_primary_apc_directions(burden, segmented, apc_primary["summary"])
     apc_windows = compare_apc_windows(apc_primary["summary"], apc_earlier_window["summary"])
     cross_analysis = build_cross_analysis_consistency(
@@ -1893,10 +1775,7 @@ def run(args) -> dict[str, pd.DataFrame]:
         "annual_chained_decomposition": annual_decomposition,
         "fiveyear_chained_decomposition": fiveyear_decomposition,
         "decomposition_path_sensitivity": path_sensitivity,
-        **format_apc_tables(apc_primary, "apc_descriptive"),
-        **format_apc_tables(apc_equal_weight, "apc_unweighted"),
-        **format_apc_tables(apc_earlier_window, "apc_sensitivity_1990_2019"),
-        "apc_weighting_sensitivity": apc_weighting,
+        **{f"apc_{name}": frame for name, frame in apc_tables.items()},
         "apc_window_sensitivity": apc_windows,
         "apc_primary_direction_agreement": apc_agreement,
         "cross_analysis_consistency": cross_analysis,
@@ -1918,7 +1797,7 @@ def run(args) -> dict[str, pd.DataFrame]:
         annual_decomposition,
         supp_fig / "figure_s3_annual_prevalence_decomposition.png",
     )
-    plot_apc(apc_primary, supp_fig / "figure_s4_custom_apc_summaries.png")
+    plot_apc(apc_primary, supp_fig / "figure_s4_apc_incidence.png")
     return tables
 
 

@@ -13,6 +13,10 @@ python scripts/prepare_population.py
 python scripts/run_analysis.py
 ```
 
+The APC step requires R and `Rscript` on `PATH` (or `RSCRIPT_PATH` set to its
+executable). The age-period-cohort step uses pinned R code published by
+Rosenberg et al. and distributed by the National Cancer Institute.
+
 The preparation scripts extract and combine the retained IHME GBD 2023 source
 archives in `GBD_data/`. The analysis script reads the two canonical CSV files
 in that directory and writes tables and figures under `output/` at the
@@ -26,7 +30,9 @@ supplementary figures.
 - `prepare_burden.py`: prepares the age-, sex-, year-, and measure-specific
   burden dataset.
 - `prepare_population.py`: prepares the matching population dataset.
-- `apc_analysis.py`: age-period-cohort calculations used by the main analysis.
+- `nci_apc_analysis.py`: validates and groups incidence counts and population.
+- `nci_apc_runner.R`: runs the published APC estimable functions and exports point estimates.
+- `nci_apc_reference.R`: pinned source code from the National Cancer Institute.
 - `run_analysis.py`: produces the reported analyses, sensitivity analyses,
   tables, and figures.
 - `METHODS.md`: statistical analysis specification.

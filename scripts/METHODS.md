@@ -26,18 +26,29 @@ implemented in `run_analysis.py`. Sensitivity analyses examine autoregressive
 errors, alternative breakpoint specifications, practical-stability thresholds,
 and exclusion of 2020--2023.
 
-Incidence is the principal outcome for age-period-cohort analysis. Prevalence and
-DALYs are descriptive disease-burden measures and are not interpreted as
-incident-event risks.
+Incidence alone is used for age-period-cohort analysis. Prevalence and DALYs
+are disease-burden measures, not incident-event counts.
 
 ## Age-period-cohort analysis
 
-Five-year age and period groups define birth cohorts by period midpoint minus
-age midpoint. The constrained log-linear model reports descriptive age curves,
-age-specific temporal slopes, period curvature, cohort curvature, and a global
-period slope. Population-weighted estimates are primary; equal-weight estimates
-and a 1990--2019 time window assess sensitivity. These custom summaries are not
-presented as conventional NCI estimable functions.
+The age-period-cohort incidence analysis uses the published `apc2()` R code of
+Rosenberg et al. (*Cancer Epidemiol Biomarkers Prev*, 2014), distributed with
+the National Cancer Institute's APC Web Tool (source pinned at commit
+`9e86d92d3f95b76b610a37f6e3c539ee126b5efd`). The input is GBD modeled
+incident counts summed within ages 10--14 through 65--69 and six five-year
+periods from 1994--1998 through 2019--2023;
+the offset is the corresponding summed GBD population. The implementation
+fits its constrained age-period-cohort log-rate model and returns its standard
+estimable functions: net drift, local drifts, longitudinal age rates, period
+rate ratios, and cohort rate ratios. Reference categories are the
+implementation's defaults. The equal-width 1990--1994 through 2015--2019
+window is a sensitivity analysis.
+
+The GBD counts are modeled posterior means, often fractional, not observed
+independent Poisson event counts. Therefore only the APC point-estimate
+functions are retained. The implementation's confidence intervals and Wald
+tests are discarded; neither they nor GBD posterior uncertainty can be
+interpreted without posterior draws and cross-cell dependence information.
 
 ## Decomposition
 
