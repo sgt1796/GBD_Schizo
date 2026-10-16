@@ -1,0 +1,5 @@
+location_name,sex_name,measure_name,primary_net_drift_1994_2023,sensitivity_net_drift_1990_2019,net_drift_difference_pct_points
+China,Female,Incidence,0.005931035239759,0.00454412944213,0.001386905797629
+China,Male,Incidence,0.0011605627146194,0.0050038456361312,-0.0038432829215117995
+United States of America,Female,Incidence,-0.0777024978902863,-0.07584203340264,-0.0018604644876463045
+United States of America,Male,Incidence,0.0365350011563681,0.0415983946386644,-0.005063393482296306

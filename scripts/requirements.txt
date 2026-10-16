@@ -1,0 +1,5 @@
+# Direct runtime dependencies; used with CPython 3.12.
+numpy==1.26.4
+pandas==2.2.3
+scipy==1.14.1
+matplotlib==3.9.4

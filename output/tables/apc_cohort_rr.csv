@@ -1,0 +1,137 @@
+window,location_name,sex_name,measure_name,cohort_midpoint,cohort_rr
+1994_2023,China,Female,Incidence,1929,1.00969127889364
+1994_2023,China,Female,Incidence,1934,1.00351248877761
+1994_2023,China,Female,Incidence,1939,1.00124453639631
+1994_2023,China,Female,Incidence,1944,0.995360968878151
+1994_2023,China,Female,Incidence,1949,1.00079259980712
+1994_2023,China,Female,Incidence,1954,1.00031602781442
+1994_2023,China,Female,Incidence,1959,0.99873842151772
+1994_2023,China,Female,Incidence,1964,0.998392701430994
+1994_2023,China,Female,Incidence,1969,1.0
+1994_2023,China,Female,Incidence,1974,1.00629844773579
+1994_2023,China,Female,Incidence,1979,1.01320717761703
+1994_2023,China,Female,Incidence,1984,1.0163901042876
+1994_2023,China,Female,Incidence,1989,1.01142260728852
+1994_2023,China,Female,Incidence,1994,0.999454773121625
+1994_2023,China,Female,Incidence,1999,0.995401932420659
+1994_2023,China,Female,Incidence,2004,0.992283791471994
+1994_2023,China,Female,Incidence,2009,0.982219857423853
+1994_2023,China,Male,Incidence,1929,1.01568327424293
+1994_2023,China,Male,Incidence,1934,1.01163443247596
+1994_2023,China,Male,Incidence,1939,1.00796656058335
+1994_2023,China,Male,Incidence,1944,0.999276021269361
+1994_2023,China,Male,Incidence,1949,0.99771137151859
+1994_2023,China,Male,Incidence,1954,0.994585871674831
+1994_2023,China,Male,Incidence,1959,0.992153804196093
+1994_2023,China,Male,Incidence,1964,0.994651747400077
+1994_2023,China,Male,Incidence,1969,1.0
+1994_2023,China,Male,Incidence,1974,1.00606941417191
+1994_2023,China,Male,Incidence,1979,1.00752917747635
+1994_2023,China,Male,Incidence,1984,1.00886269886337
+1994_2023,China,Male,Incidence,1989,1.00388680748198
+1994_2023,China,Male,Incidence,1994,0.995715829759161
+1994_2023,China,Male,Incidence,1999,0.998360048051594
+1994_2023,China,Male,Incidence,2004,1.00087712276864
+1994_2023,China,Male,Incidence,2009,0.993386318512902
+1994_2023,United States of America,Female,Incidence,1929,0.98002149886807
+1994_2023,United States of America,Female,Incidence,1934,0.979111737771897
+1994_2023,United States of America,Female,Incidence,1939,0.977467334184061
+1994_2023,United States of America,Female,Incidence,1944,0.97576493187546
+1994_2023,United States of America,Female,Incidence,1949,0.978195711723583
+1994_2023,United States of America,Female,Incidence,1954,0.981301759370589
+1994_2023,United States of America,Female,Incidence,1959,0.98675778240054
+1994_2023,United States of America,Female,Incidence,1964,0.992728466726759
+1994_2023,United States of America,Female,Incidence,1969,1.0
+1994_2023,United States of America,Female,Incidence,1974,1.00340969309227
+1994_2023,United States of America,Female,Incidence,1979,1.00395036766349
+1994_2023,United States of America,Female,Incidence,1984,1.00010861141946
+1994_2023,United States of America,Female,Incidence,1989,0.979970938270801
+1994_2023,United States of America,Female,Incidence,1994,0.93447221975907
+1994_2023,United States of America,Female,Incidence,1999,0.890971002123396
+1994_2023,United States of America,Female,Incidence,2004,0.874694066423078
+1994_2023,United States of America,Female,Incidence,2009,0.899145419427758
+1994_2023,United States of America,Male,Incidence,1929,0.958698760598928
+1994_2023,United States of America,Male,Incidence,1934,0.965151085461421
+1994_2023,United States of America,Male,Incidence,1939,0.963470831149203
+1994_2023,United States of America,Male,Incidence,1944,0.960637899468453
+1994_2023,United States of America,Male,Incidence,1949,0.96170925074519
+1994_2023,United States of America,Male,Incidence,1954,0.964205542268606
+1994_2023,United States of America,Male,Incidence,1959,0.972512120914037
+1994_2023,United States of America,Male,Incidence,1964,0.985475212488601
+1994_2023,United States of America,Male,Incidence,1969,1.0
+1994_2023,United States of America,Male,Incidence,1974,1.00995753902353
+1994_2023,United States of America,Male,Incidence,1979,1.01299527313804
+1994_2023,United States of America,Male,Incidence,1984,1.01566416526413
+1994_2023,United States of America,Male,Incidence,1989,1.00298822620547
+1994_2023,United States of America,Male,Incidence,1994,0.975139649286244
+1994_2023,United States of America,Male,Incidence,1999,0.946210249937248
+1994_2023,United States of America,Male,Incidence,2004,0.933667910527596
+1994_2023,United States of America,Male,Incidence,2009,0.962007967562325
+1990_2019,China,Female,Incidence,1925,1.00956897213431
+1990_2019,China,Female,Incidence,1930,1.01054208717179
+1990_2019,China,Female,Incidence,1935,1.00655386253082
+1990_2019,China,Female,Incidence,1940,1.004518330817
+1990_2019,China,Female,Incidence,1945,0.998967854985748
+1990_2019,China,Female,Incidence,1950,1.00431652481254
+1990_2019,China,Female,Incidence,1955,1.0018735302807
+1990_2019,China,Female,Incidence,1960,0.999008128916863
+1990_2019,China,Female,Incidence,1965,1.0
+1990_2019,China,Female,Incidence,1970,1.00353925602074
+1990_2019,China,Female,Incidence,1975,1.01132389229544
+1990_2019,China,Female,Incidence,1980,1.01864676142106
+1990_2019,China,Female,Incidence,1985,1.02086476164521
+1990_2019,China,Female,Incidence,1990,1.0130739758128
+1990_2019,China,Female,Incidence,1995,0.99741779050848
+1990_2019,China,Female,Incidence,2000,0.986699078656727
+1990_2019,China,Female,Incidence,2005,0.977645034466762
+1990_2019,China,Male,Incidence,1925,1.02415484623392
+1990_2019,China,Male,Incidence,1930,1.0199552685186
+1990_2019,China,Male,Incidence,1935,1.01371087556565
+1990_2019,China,Male,Incidence,1940,1.00870649464543
+1990_2019,China,Male,Incidence,1945,0.999457100462902
+1990_2019,China,Male,Incidence,1950,0.998742927338029
+1990_2019,China,Male,Incidence,1955,0.995142407556952
+1990_2019,China,Male,Incidence,1960,0.994216939404134
+1990_2019,China,Male,Incidence,1965,1.0
+1990_2019,China,Male,Incidence,1970,1.00813015090699
+1990_2019,China,Male,Incidence,1975,1.01422706930762
+1990_2019,China,Male,Incidence,1980,1.01548576721347
+1990_2019,China,Male,Incidence,1985,1.01595964919683
+1990_2019,China,Male,Incidence,1990,1.00708065971775
+1990_2019,China,Male,Incidence,1995,1.0020997722168
+1990_2019,China,Male,Incidence,2000,1.00625140293395
+1990_2019,China,Male,Incidence,2005,0.993647847082144
+1990_2019,United States of America,Female,Incidence,1925,0.992784432750789
+1990_2019,United States of America,Female,Incidence,1930,0.992606898607253
+1990_2019,United States of America,Female,Incidence,1935,0.989178158703391
+1990_2019,United States of America,Female,Incidence,1940,0.984482614044046
+1990_2019,United States of America,Female,Incidence,1945,0.981188109041926
+1990_2019,United States of America,Female,Incidence,1950,0.981307415990233
+1990_2019,United States of America,Female,Incidence,1955,0.985006068836387
+1990_2019,United States of America,Female,Incidence,1960,0.992279632187357
+1990_2019,United States of America,Female,Incidence,1965,1.0
+1990_2019,United States of America,Female,Incidence,1970,0.997298682527742
+1990_2019,United States of America,Female,Incidence,1975,0.990017529781724
+1990_2019,United States of America,Female,Incidence,1980,0.991126615211489
+1990_2019,United States of America,Female,Incidence,1985,0.984150586855209
+1990_2019,United States of America,Female,Incidence,1990,0.954148223568496
+1990_2019,United States of America,Female,Incidence,1995,0.904230621146303
+1990_2019,United States of America,Female,Incidence,2000,0.874407070427038
+1990_2019,United States of America,Female,Incidence,2005,0.948509136956016
+1990_2019,United States of America,Male,Incidence,1925,0.958257613373787
+1990_2019,United States of America,Male,Incidence,1930,0.965545784658613
+1990_2019,United States of America,Male,Incidence,1935,0.969998978262138
+1990_2019,United States of America,Male,Incidence,1940,0.969549870985895
+1990_2019,United States of America,Male,Incidence,1945,0.968720054741375
+1990_2019,United States of America,Male,Incidence,1950,0.970502572788152
+1990_2019,United States of America,Male,Incidence,1955,0.975621783161509
+1990_2019,United States of America,Male,Incidence,1960,0.985711819880919
+1990_2019,United States of America,Male,Incidence,1965,1.0
+1990_2019,United States of America,Male,Incidence,1970,1.00765832195448
+1990_2019,United States of America,Male,Incidence,1975,1.01027725000769
+1990_2019,United States of America,Male,Incidence,1980,1.01397519419665
+1990_2019,United States of America,Male,Incidence,1985,1.01250023099753
+1990_2019,United States of America,Male,Incidence,1990,0.990318701537184
+1990_2019,United States of America,Male,Incidence,1995,0.955032984048064
+1990_2019,United States of America,Male,Incidence,2000,0.936846414077508
+1990_2019,United States of America,Male,Incidence,2005,0.991836469118805

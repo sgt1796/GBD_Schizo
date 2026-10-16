@@ -1,0 +1,97 @@
+window,location_name,sex_name,measure_name,age_midpoint,longitudinal_age_rate_per_100000
+1994_2023,China,Female,Incidence,12.5,6.24769232101819
+1994_2023,China,Female,Incidence,17.5,26.5472355015893
+1994_2023,China,Female,Incidence,22.5,41.9065454269532
+1994_2023,China,Female,Incidence,27.5,33.8494274174986
+1994_2023,China,Female,Incidence,32.5,26.6467734883277
+1994_2023,China,Female,Incidence,37.5,23.0227170115515
+1994_2023,China,Female,Incidence,42.5,21.6312794303843
+1994_2023,China,Female,Incidence,47.5,22.4338992002172
+1994_2023,China,Female,Incidence,52.5,23.2313744239604
+1994_2023,China,Female,Incidence,57.5,24.0097211370776
+1994_2023,China,Female,Incidence,62.5,21.3019182542655
+1994_2023,China,Female,Incidence,67.5,15.2036370540086
+1994_2023,China,Male,Incidence,12.5,7.07277966285937
+1994_2023,China,Male,Incidence,17.5,32.1473631741808
+1994_2023,China,Male,Incidence,22.5,53.1816321988578
+1994_2023,China,Male,Incidence,27.5,43.4812630754071
+1994_2023,China,Male,Incidence,32.5,33.4085263177305
+1994_2023,China,Male,Incidence,37.5,27.397761879601
+1994_2023,China,Male,Incidence,42.5,25.3619542841172
+1994_2023,China,Male,Incidence,47.5,27.2308278100375
+1994_2023,China,Male,Incidence,52.5,29.0703542770917
+1994_2023,China,Male,Incidence,57.5,30.866783069587
+1994_2023,China,Male,Incidence,62.5,27.6901010054591
+1994_2023,China,Male,Incidence,67.5,19.7240539952801
+1994_2023,United States of America,Female,Incidence,12.5,7.77752367003332
+1994_2023,United States of America,Female,Incidence,17.5,57.8643801111152
+1994_2023,United States of America,Female,Incidence,22.5,92.1851032893898
+1994_2023,United States of America,Female,Incidence,27.5,50.2330049426876
+1994_2023,United States of America,Female,Incidence,32.5,28.5363430190684
+1994_2023,United States of America,Female,Incidence,37.5,21.4512753828335
+1994_2023,United States of America,Female,Incidence,42.5,17.6388012448481
+1994_2023,United States of America,Female,Incidence,47.5,17.0550397062046
+1994_2023,United States of America,Female,Incidence,52.5,16.4734434965898
+1994_2023,United States of America,Female,Incidence,57.5,15.8763394380923
+1994_2023,United States of America,Female,Incidence,62.5,13.646851986295
+1994_2023,United States of America,Female,Incidence,67.5,9.77898220785896
+1994_2023,United States of America,Male,Incidence,12.5,9.37018043417518
+1994_2023,United States of America,Male,Incidence,17.5,54.832392222649
+1994_2023,United States of America,Male,Incidence,22.5,91.0603080551176
+1994_2023,United States of America,Male,Incidence,27.5,60.3145400807218
+1994_2023,United States of America,Male,Incidence,32.5,37.5494224946907
+1994_2023,United States of America,Male,Incidence,37.5,28.4129498960414
+1994_2023,United States of America,Male,Incidence,42.5,23.1248578678207
+1994_2023,United States of America,Male,Incidence,47.5,21.6678044299196
+1994_2023,United States of America,Male,Incidence,52.5,20.1716049857666
+1994_2023,United States of America,Male,Incidence,57.5,18.5926274746856
+1994_2023,United States of America,Male,Incidence,62.5,15.5823831808864
+1994_2023,United States of America,Male,Incidence,67.5,11.1772895100261
+1990_2019,China,Female,Incidence,12.5,6.26440492496575
+1990_2019,China,Female,Incidence,17.5,26.5002762941533
+1990_2019,China,Female,Incidence,22.5,41.7302373143947
+1990_2019,China,Female,Incidence,27.5,33.7073036003735
+1990_2019,China,Female,Incidence,32.5,26.5940056105188
+1990_2019,China,Female,Incidence,37.5,22.9933217855109
+1990_2019,China,Female,Incidence,42.5,21.6020226604559
+1990_2019,China,Female,Incidence,47.5,22.394178986485
+1990_2019,China,Female,Incidence,52.5,23.1546060974381
+1990_2019,China,Female,Incidence,57.5,23.8912594098966
+1990_2019,China,Female,Incidence,62.5,21.1800665797242
+1990_2019,China,Female,Incidence,67.5,15.1027712115762
+1990_2019,China,Male,Incidence,12.5,7.04252917977889
+1990_2019,China,Male,Incidence,17.5,31.9562242547507
+1990_2019,China,Male,Incidence,22.5,52.8496193244816
+1990_2019,China,Male,Incidence,27.5,43.1940868129243
+1990_2019,China,Male,Incidence,32.5,33.1771742257776
+1990_2019,China,Male,Incidence,37.5,27.250229420463
+1990_2019,China,Male,Incidence,42.5,25.2621910315393
+1990_2019,China,Male,Incidence,47.5,27.1636993154528
+1990_2019,China,Male,Incidence,52.5,29.0076413694463
+1990_2019,China,Male,Incidence,57.5,30.7710406471943
+1990_2019,China,Male,Incidence,62.5,27.5879042723668
+1990_2019,China,Male,Incidence,67.5,19.6140131900454
+1990_2019,United States of America,Female,Incidence,12.5,7.68701780995378
+1990_2019,United States of America,Female,Incidence,17.5,58.6511161236016
+1990_2019,United States of America,Female,Incidence,22.5,93.6079642743816
+1990_2019,United States of America,Female,Incidence,27.5,50.8112378687412
+1990_2019,United States of America,Female,Incidence,32.5,28.7217833620902
+1990_2019,United States of America,Female,Incidence,37.5,21.5267790362731
+1990_2019,United States of America,Female,Incidence,42.5,17.6270550767931
+1990_2019,United States of America,Female,Incidence,47.5,17.0082902196448
+1990_2019,United States of America,Female,Incidence,52.5,16.3989187147893
+1990_2019,United States of America,Female,Incidence,57.5,15.7871046311065
+1990_2019,United States of America,Female,Incidence,62.5,13.5454025242684
+1990_2019,United States of America,Female,Incidence,67.5,9.68089027968795
+1990_2019,United States of America,Male,Incidence,12.5,9.29827654149321
+1990_2019,United States of America,Male,Incidence,17.5,55.1082616671945
+1990_2019,United States of America,Male,Incidence,22.5,91.4696453461864
+1990_2019,United States of America,Male,Incidence,27.5,60.2460934440482
+1990_2019,United States of America,Male,Incidence,32.5,37.3866927626043
+1990_2019,United States of America,Male,Incidence,37.5,28.3102980021537
+1990_2019,United States of America,Male,Incidence,42.5,23.007872656545
+1990_2019,United States of America,Male,Incidence,47.5,21.5381036206514
+1990_2019,United States of America,Male,Incidence,52.5,20.042237224048
+1990_2019,United States of America,Male,Incidence,57.5,18.4833971471732
+1990_2019,United States of America,Male,Incidence,62.5,15.5009085395636
+1990_2019,United States of America,Male,Incidence,67.5,11.1235454915575
